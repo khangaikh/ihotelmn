@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="gap"></div>
+        <div class="container">
+            <div class="row" data-gutter="60">
+                <div class="col-md-4">
+                    <h3>Нэврэх</h3>
+                    <form>
+                        <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                            <label>Хэрэглэгчийн нэр</label>
+                            <input class="form-control" placeholder="John_Kennedy" type="text" id="email"/>
+                        </div>
+                        <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
+                            <label>Нууц үг</label>
+                            <input class="form-control" type="password" placeholder="my secret password" id="password"/>
+                        </div>
+                        <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <h3>Бүртгүүлэх үү?</h3>
+                    <form>
+                        <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                            <label>Хэрэглэгчийн нэр</label>
+                            <input class="form-control" placeholder="Овог нэр" type="text" id="rusername" />
+                        </div>
+                        <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show" ></i>
+                            <label>Цахим шуудан</label>
+                            <input class="form-control" placeholder="Имэйл хаягаа оруулна уу." type="text" id="remail" />
+                        </div>
+                        <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
+                            <label>Нууц үг</label>
+                            <input class="form-control" type="password" placeholder="Нууц үг" id="rpassword" />
+                        </div>
+                        <input id="add" class="btn btn-primary" type="button" value="Бүртгүүлэх" />
+                    </form>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+{% block scripting %}
+    {{parent()}}
+    <script type="text/javascript">
+        $('#login').click(function(){
+           $.post("login.php", {
+                email: $('#email').val(),
+                password: $('#password').val()
+                }, function (result) {
+                    if(result==1){
+                        window.location.replace("index.php");  
+                    }
+                    else{
+                        alert(result);
+                    }
+            });
+        });
+        $('#add').click(function(){
+           $.post("user.php", {
+                email: $('#remail').val(),
+                username: $('#rusername').val(),
+                password: $('#rpassword').val()
+                }, function (result) {
+                    if(result==1){
+                        alert("Амжилттай бүртгүүллээ. Та бүртгүүлсэн мэдээллээ ашиглан нэвтэрнэ үү");
+                        window.location.replace("index.php");  
+                    }
+                    else{
+                        alert(result);
+                    }
+            });
+        });
+
+    </script>
+{% endblock %}
+
+
+

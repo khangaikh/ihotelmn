@@ -1,0 +1,22 @@
+{% extends "user.html" %}
+
+{% block user_content %}
+	<div class="col-md-8">
+        <h3>Нууц үгээ солих уу?</h3>
+        <form>
+            <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
+                <label>Хуучин нууц үг</label>
+                <input class="form-control" placeholder="" type="password" id="oldPass" data-parsley-required/>
+            </div>
+            <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
+                <label>Шинэ нууц үг</label>
+                <input class="form-control" placeholder="" type="password" id="newPass" data-parsley-required data-parsley-minlength="5" />
+            </div>
+            <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
+                <label>Давтан оруулна уу</label>
+                <input class="form-control" type="password" placeholder="" id="newPassConfirm" data-parsley-required data-parsley-minlength="5" />
+            </div>
+            <input id="new_pass" class="btn btn-primary" type="button" value="Илгээх" />
+        </form>
+    </div>
+{% endblock %}

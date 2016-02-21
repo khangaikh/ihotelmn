@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}Төлбөр{% endblock %}
+{% block content %}
+<input type="hidden" value="{{start}}" id="start_4" />
+<input type="hidden" value="{{end}}" id="end_4"/>
+<input type="hidden" value="{{location}}" id="location_4"/>
+<input type="hidden" value="{{hotel.objectId}}" id="hotel_4"/>
+<input type="hidden" value="{{room.objectId}}" id="room_4"/>
+<input type="hidden" value="{{days}}" id="days_4"/>
+<input type="hidden" value="{{total}}" id="total_4"/>
+<input type="hidden" value="{{user.objectId}}" id="user_4"/>
+<div style="height:20px"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% if user %}
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="pp-img" src="img/stripe-secure.png" alt="Image Alternative text" title="Image Title" style="width:200px" />
+                    <p>Pay in front and get booked securely. Your book will be discharged after 2 days of unpayment</p>
+                    <form action="" method="POST">
+                        <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_p9Uwv6NR7OVgbD5djJu4CRPk"
+                            data-amount="{{total}}"
+                            data-name="iHotel.mn"
+                            data-description="{{days}} days stay ({{total}}.00)"
+                            data-image="img/logo_small.png"
+                            data-locale="auto">
+                        </script>
+                    </form>  
+                </div>
+                <div class="col-md-8">
+                    <!--{% if cards %}
+                             <h4>Pay with card</h4>
+                            <ul class="card-select">
+                                {% for card in cards %}
+                                    <li>
+                                        <img class="card-select-img" src="img/payment/{%if card.type == 'amex'%}amex-express-curved{%elseif card.type == 'visa'%}visa-curved{%elseif card.type == 'master' %}master-curved{%elseif card.type == 'maestro' %}maestro-curved{% endif %}-64px.png" alt="Image Alternative text" title="Image Title" />
+                                        <div class="card-select-data">
+                                            <p class="card-select-number">{{card.card}}</p>
+                                            <input class="form-control card-select-cvc"  type="text" placeholder="CVC" name="cvc1" id="{{card.objectId}}" />
+                                        </div>
+
+                                    </li>   
+                                {% endfor %}
+                            </ul>
+                            {% endif%}
+                            {% if cards %}
+                            <h4>Use new card  </h4>
+                            {% else %}
+                            <h4>Pay with card</h4>
+                            {% endif %}
+
+                                <div class="clearfix">
+                                    <div class="form-group form-group-cc-number">
+                                        <label>Card number</label>
+                                        <input id="card" class="form-control" placeholder="xxxx xxxx xxxx xxxx" type="text" /><span class="cc-card-icon"></span>
+                                    </div>
+                                    <div class="form-group form-group-cc-cvc">
+                                        <label>CVC</label>
+                                        <input id="{{card.objectId}}" class="form-control" placeholder="xxxx" type="text"  />
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="form-group form-group-cc-name">
+                                        <label>Card holder name</label>
+                                        <input id="card_name" class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group form-group-cc-date">
+                                        <label>Valid </label>
+                                        <input id="valid" class="form-control" placeholder="mm/yy" type="text" />
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning" style="display:none" id="alert_3">
+                                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <p class="text-small" id="alert_text_2">Please fill in all fields.</p>
+                                </div>
+                                <div class="checkbox checkbox-small">
+                                    <label>
+                                        <input class="i-check" type="checkbox" checked/>Save to my account</label>
+                                </div>-->
+                    <img src="img/golomtvisa.png" alt="Image Alternative text" title="Image Title"  />
+                    <p>Pay with Golomt Bank. Secure transaction with fast operation.</p>
+                    <form id="golomt_pay">
+                        <input style="margin-left: 27%;" type="submit" value="Pay with Golomt bank" class="btn btn-primary" />
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <h3>New to iHotel.mn?</h3>
+            <div class="col-md-6">
+                <h3>Нэврэх</h3>
+                <form>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                        <label>Хэрэглэгчийн нэр</label>
+                        <input class="form-control" placeholder="John_Kennedy" type="text" id="email"/>
+                    </div>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
+                        <label>Нууц үг</label>
+                        <input class="form-control" type="password" placeholder="my secret password" id="password"/>
+                    </div>
+                    <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h3>Бүртгүүлэх үү?</h3>
+                <form>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                        <label>Хэрэглэгчийн нэр</label>
+                        <input class="form-control" placeholder="Овог нэр" type="text" id="rusername" />
+                    </div>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show" ></i>
+                        <label>Цахим шуудан</label>
+                        <input class="form-control" placeholder="Имэйл хаягаа оруулна уу." type="text" id="remail" />
+                    </div>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
+                        <label>Нууц үг</label>
+                        <input class="form-control" type="password" placeholder="Нууц үг" id="rpassword" />
+                    </div>
+                    <input id="add" class="btn btn-primary" type="button" value="Бүртгүүлэх" />
+                </form>
+            </div>
+            <hr>
+            {% endif %}
+
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="booking-item-payment">
+                <header class="clearfix">
+                    <a class="booking-item-payment-img" href="#">
+                        <img src="{{hotel.cover_image}}" style="width:100%" alt="Image Alternative text" title="hotel 1" />
+                    </a>
+                    <h5 class="booking-item-payment-title"><a href="#">{{hotel.name}}</a></h5>
+                    <ul class="icon-group booking-item-rating-stars">
+                        {% for i in range(1, hotel.stars) %}
+                        <li><i class="fa fa-star"></i></li>   
+                        {% endfor %}
+                    </ul>
+                </header>
+                <ul class="booking-item-payment-details">
+                    <li>
+                        <h5>Total days of stay: {{days}}</h5>
+                        <div class="booking-item-payment-date">
+                            <p class="booking-item-payment-date-day">{{start}}</p>
+                            <p class="booking-item-payment-date-weekday">{{day_start}}</p>
+                        </div><i class="fa fa-arrow-right booking-item-payment-date-separator"></i>
+                        <div class="booking-item-payment-date">
+                            <p class="booking-item-payment-date-day">{{end}}</p>
+                            <p class="booking-item-payment-date-weekday">{{day_end}}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h5>Room</h5>
+                        <p class="booking-item-payment-item-title">{{room.name}}</p>
+                        <ul class="booking-item-payment-price">
+                            <li>
+                                <p class="booking-item-payment-price-title">7 Nights</p>
+                                <p class="booking-item-payment-price-amount">${{room.night_price}}<small>/per day</small>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="booking-item-payment-price-title">Taxes</p>
+                                <p class="booking-item-payment-price-amount">(incluled)<small>/per day</small>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p class="booking-item-payment-total">Total amount: <span>US$ {{total}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="gap"></div>
+</div>
+{% endblock %}
+{% block scripting %}
+{{parent()}}
+<script src="js/jquery.creditCardValidator.js"></script>
+<script>
+$("#golomt_pay").submit(function( event ) {
+    {% if user %}
+    event.preventDefault();
+    $.post("https://ihotel.mn/order.php", {
+        location: $('#location_4').val(),
+        total: $('#total_4').val(),
+        days: $('#days_4').val(),
+        start: $('#start_4').val(),
+        hotel: $('#hotel_4').val(),
+        room: $('#room_4').val(),
+        end: $('#end_4').val(),
+    }, function (result) {
+        if(result!=0){
+            var orderID = result;  
+            post('https://m.egolomt.mn/billingnew/cardinfo.aspx', {key_number: '254251235225252244203251255231202171168165162162182164175',
+                trans_number: orderID, 
+                trans_amount: $('#total_4').val(), lang_ind: '1',
+                customer_id: '',
+                subID: '1'
+            });
+        }
+        else{
+            alert(result);
+        }
+    });
+
+    {% else %}
+    $.post("https://ihotel.mn/order.php", {
+        name: $('#full_name').val(), 
+        email: $('#email').val(), 
+        phone: $('#phone').val(),
+        location: $('#location_4').val(),
+        total: $('#total_4').val(),
+        days: $('#days_4').val(),
+        start: $('#start_4').val(),
+        hotel: $('#hotel_4').val(),
+        room: $('#room_4').val(),
+        end: $('#end_4').val(),
+    }, function (result) {
+        if(result!=0){
+            var orderID = result;  
+            post('https://m.egolomt.mn/billingnew/cardinfo.aspx', {key_number: '254251235225252244203251255231202171168165162162182164175',
+                trans_number: orderID, 
+                trans_amount: $('#total_4').val(), lang_ind: '1',
+                customer_id: '',
+                subID: '1'
+            });
+        }
+        else{
+            alert(result);
+        }
+    });
+    event.preventDefault();
+    {% endif %}
+});
+$('#login').click(function(){
+ $.post("login.php", {
+    email: $('#email').val(),
+    password: $('#password').val()
+}, function (result) {
+    if(result==1){
+        window.location.replace(window.location.href);  
+    }
+    else{
+        alert(result);
+    }
+});
+});
+$('#add').click(function(){
+ $.post("user.php", {
+    email: $('#remail').val(),
+    username: $('#rusername').val(),
+    password: $('#rpassword').val()
+}, function (result) {
+    if(result==1){
+        alert("Амжилттай бүртгүүллээ. Та бүртгүүлсэн мэдээллээ ашиглан нэвтэрнэ үү");
+        window.location.replace("index.php");  
+    }
+    else{
+        alert(result);
+    }
+});
+});
+function post(path, params, method) {
+    method = method || "post"; 
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
+        }
+    }
+    document.body.appendChild(form);
+    form.submit();
+}
+</script> 
+{% endblock %}

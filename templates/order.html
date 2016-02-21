@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Хэрэглэгчийн булан{% endblock %}
+{% block content %}
+    <div style="height:20px"></div>
+     <div class="container">
+        <div class="row">
+            <h3>Амжилттай!</h3>
+            <div class="col-md-12">
+                <div class="checkbox">
+                    <label>
+                        Таны захиалга бүртгэгдлээ. Захиалгын дэлгэрэнгүй таны цахим шуудангаар явуулсан болно. Цуцлахыг хүсвэл та танд ирсэн майл дээрх линк эсвэл <a href="#">энд</a> дарна уу.
+                    </label>
+                </div>
+                <table class="table table-bordered table-striped table-booking-history">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Буудал</th>
+                            <th>Хаана</th>
+                            <th>Захиалгын огноо</th>
+                            <th>Огноо</th>
+                            <th>Үнэ</th>
+                            <th>Идэвхтэй эсэх</th>
+                            <th>Цуцлах</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="booking-history-type"><i class="fa fa-building"></i><small>Буудал</small>
+                            </td>
+                            <td class="booking-history-title">{{hotel.name}}</td>
+                            <td>{{order.location}}</td>
+                            <td>{{order.start}}</td>
+                            <td>{{order.end}}</td>
+                            <td>{{order.total}}</td>
+                            <td class="text-center"><i class="fa fa-check"></i>
+                            </td>
+                            <td class="text-center"><a class="btn btn-default btn-sm" href="#">Нэвтрэх | Цуцлая</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripting %}
+    {{parent()}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        }); 
+    </script>
+{% endblock %}
+
+
+

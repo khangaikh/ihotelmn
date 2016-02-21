@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}Хэрэглэгчийн булан{% endblock %}
+{% block content %}
+    <input type="hidden" id="user" value="{{user.objectId}}">
+    <div style="height:20px"></div>
+     <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <aside class="user-profile-sidebar">
+                    <div class="user-profile-avatar text-center">
+                        <h5>{{user.username}}</h5>
+                        <p>{{user.email}}</p>
+                        <p>Бүргүүлсэн {{user.createdAt |date("Y-m-d")}}</p>
+                    </div>
+                    <ul class="list user-profile-nav">
+                        <li {% if nav == 2 %} class="active" {% endif %}><a href="index.php"><i class="fa fa-check"></i>Захиалга</a>
+                        </li>
+                        <li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
+                        </li>
+                        {% if user.role == 2 %}
+                        <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудалууд</a>
+                        </li>
+                        {% endif %}
+                        <li {% if nav == 5 %} class="active" {% endif %}><a href="index.php?settings"><i class="fa fa-cog"></i>Нууц үг солих</a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-9">
+                {% block user_content %}
+                {% endblock %}
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripting %}
+    {{parent()}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("input").on('ifChecked', function(event){
+              $.ajax({
+                   type: "POST",
+                   url: "show.php",
+                   data: {data:1},
+                   success: function(data, textStatus, jqXHR)
+                   {
+                      $("#orders").empty();
+                        $.each(data, function(idx, obj) {
+                            $("#orders").append('<tr><td class="text-center"><i class="fa fa-check" name="'+ obj.id +'"></i></td><td class="booking-history-title">'+obj.name+'</td><td>'+obj.location+'</td><td>'+obj.orderDate +'</td><td>'+ obj.start+'<i class="fa fa-long-arrow-right"></i>'+obj.end +'</td><td>'+obj.total+'</td><td class="text-center"><a name="'+ obj.id +'" class="btn btn-default btn-sm" href="#" onclick="cancel('+obj.id+')">Цуцлах</a></td></tr>');     
+                        });
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                       alert(textStatus);
+                    }
+                });
+            });
+            $("input").on('ifUnchecked', function(event){
+              $.ajax({
+                   type: "POST",
+                   url: "show.php",
+                   data: {data:2},
+                   success: function(data, textStatus, jqXHR)
+                   {
+                        $.each(data, function(idx, obj) {
+                            $("#orders").append('<tr><td class="text-center"><i class="fa fa-times-circle" name="'+ obj.id +'"></i></td><td class="booking-history-title">'+obj.name+'</td><td>'+obj.location+'</td><td>'+obj.orderDate +'</td><td>'+ obj.start+'<i class="fa fa-long-arrow-right"></i>'+obj.end +'</td><td>'+obj.total+'</td><td class="text-center"><a name="'+ obj.id +'" class="btn btn-default btn-sm" href="#" onclick="cancel('+obj.id+')">Цуцлах</a></td></tr>');     
+                        });
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                       alert(textStatus);
+                    }
+                });
+            });
+            $("#new_pass").click(function(){
+                
+                $('#oldPass').parsley().validate();
+                if($('#oldPass').parsley().isValid() == false){
+                    $('#oldPass').css('border-color','red');
+                } else{
+                    $('#oldPass').css('border-color','green');
+                }
+                $('#newPass').parsley().validate();
+                if($('#newPass').parsley().isValid() == false){
+                    $('#newPass').css('border-color','red');
+                } else{
+                    $('#newPass').css('border-color','green');
+                }
+                 $('#newPassConfirm').parsley().validate();
+                if($('#newPassConfirm').parsley().isValid() == false){
+                    $('#newPassConfirm').css('border-color','red');
+                } else{
+                    $('#newPassConfirm').css('border-color','green');
+                }
+                if($('#newPassConfirm').parsley().isValid() && $('#oldPass').parsley().isValid() && $('#newPass').parsley().isValid()){
+                  var old = $('#oldPass').val();
+                  var yeni = $('#newPass').val();
+                  var confirm = $('#newPassConfirm').val();
+
+                  if(confirm == yeni){
+                    $.ajax({
+                        type: "POST",
+                        url: "settings.php",
+                        data: {old:old, newPass:yeni},
+                        success: function(data, textStatus, jqXHR)
+                        {
+                            $('#oldPass').val('');
+                            $('#newPass').val('');
+                            $('#newPassConfirm').val('');
+                            alert("Нууц үг амжилтатй солигдлоо.");
+                        },
+                        error: function(xhr, textStatus, errorThrown){
+                           alert(textStatus);
+                        }
+                        });
+                  }else{
+                      alert("2 нууц үг хоорондоо таарахгүй байна.");
+                  }
+                  
+                }                
+            });
+        });
+        function cancel(i){
+            if (confirm('Та итгэлтэй байна уу? Цуцлах үйлдэлийг буцаах боломжгүй')) {
+               $.ajax({
+                   type: "POST",
+                   url: "cancel.php",
+                   data: {data:i},
+                   success: function(data, textStatus, jqXHR)
+                   {
+                        $('i[name='+i+']').removeClass('fa-check-circle');  
+                        $('i[name='+i+']').removeClass('fa-check'); 
+                        $('i[name='+i+']').addClass('fa-times-circle'); 
+                        $('a[name='+i+']').hide(); 
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                       alert(textStatus);
+                    }
+                });
+            }
+        }
+        function edit_hotel(i){
+            $.ajax({
+               type: "POST",
+               url: "update.php",
+               data: {data:i},
+               success: function(data, textStatus, jqXHR)
+               {
+                //alert(data);
+                  var url = "index.php?hotel_add";  
+                  window.location.replace(url);        
+                },
+                error: function(xhr, textStatus, errorThrown){
+                   alert(textStatus);
+                }
+            }); 
+        }
+        function delete1(j){
+            if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
+               $.ajax({
+                   type: "POST",
+                   url: "delete.php",
+                   data: {data:j,action:1},
+                   success: function(data, textStatus, jqXHR)
+                   {
+                        $('#'+j).hide(); 
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                       alert(textStatus);
+                    }
+                });
+            }
+        } 
+        function disable_hotel(j){
+            if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
+               $.ajax({
+                   type: "POST",
+                   url: "delete.php",
+                   data: {data:j,action:2},
+                   success: function(data, textStatus, jqXHR)
+                   {  
+                        $('i[name='+j+']').removeClass('fa-check-circle');  
+                        $('i[name='+j+']').removeClass('fa-check'); 
+                        $('i[name='+j+']').addClass('fa-times-circle'); 
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                       alert(textStatus);
+                    }
+                });
+            }
+        }
+        function set_hotel(j){
+            if (confirm('Та итгэлтэй байна уу?')) {
+               $.ajax({
+                   type: "POST",
+                   url: "delete.php",
+                   data: {data:j,action:3},
+                   success: function(data, textStatus, jqXHR)
+                   {  
+                       $('a[name='+j+']').hide();
+                       $("#operations").append('<a name="'+j+'" set="1" class="btn btn-primary" href="#" onclick="unset_hotel('+j+')">Unset</a>');
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                       alert(textStatus);
+                    }
+                });
+            }
+        }
+        function unset_hotel(j){
+            if (confirm('Та итгэлтэй байна уу?')) {
+               $.ajax({
+                   type: "POST",
+                   url: "delete.php",
+                   data: {data:j,action:4},
+                   success: function(data, textStatus, jqXHR)
+                   {    
+                       $('a[name='+j+']').hide();
+                       $("#operations").append('<a name="'+j+'" set="1" class="btn btn-primary" href="#" onclick="set_hotel('+j+')">Set</a>');
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                       alert(textStatus);
+                    }
+                });
+            }
+        }
+    </script>
+{% endblock %}
+
+
+

@@ -1,0 +1,56 @@
+{% extends "user.html" %}
+
+{% block user_content %}
+{% if hotels %}
+	
+    <a href="index.php?add_general" class="btn btn-primary" value="">Шинэ буудал оруулах</a>
+    <div class="gap-small"></div>
+	<table class="table table-bordered table-striped table-booking-history">
+	    <thead>
+	        <tr>
+	            <th></th>
+	            <th>Нэр</th>
+	            <th>Байршил</th>
+	            <th>Өрөөний тоо</th>
+	            <th>Бүртэгсэн</th>
+	            <th></th>
+	            <th></th>
+	        </tr>
+	    </thead>
+	    <tbody id="orders">
+	    	{% for hotel in hotels %}
+	        <tr>
+	            <td class="text-center">
+	            	{{loop.index}}
+	            </td>
+	            <td class="booking-history-title">{{hotel.name}}</td>
+	            <td>{{hotel.city}}</td>
+	            <td>{{hotel.num_rooms}}</td>
+	            <td>{{hotel.createdAt | date("Y-m-d")}}</td>
+	            <td>{% if hotel.status==1 %}
+	            	<i class="fa fa-check" name="{{hotel.objectId}}"></i>
+	            	{%elseif hotel.status == 2%}
+	            	<i class="fa fa-check-circle" name="{{hotel.objectId}}"></i>
+	            	{%else%}
+	            	<i class="fa fa-times-circle"></i>
+	            	{%endif%}
+	            </td>
+	            <td id="operations">
+	            	<a name="{{hotel.objectId}}" class="btn btn-primary" href="#" onclick="edit_hotel('{{hotel.objectId}}')">Засах</a>
+	            	{% if hotel.homepage ==0 %}
+	            	<a name="{{hotel.objectId}}" set="1" class="btn btn-primary" href="#" onclick="set_hotel('{{hotel.objectId}}')">Set</a>
+	            	{%else%}
+	            	<a name="{{hotel.objectId}}" set="0" class="btn btn-primary" href="#" onclick="unset_hotel('{{hotel.objectId}}')">Unset</a>
+	            	{%endif%}
+	            	<a name="{{hotel.objectId}}"  class="btn btn-default" href="#" onclick="disable_hotel('{{hotel.objectId}}')">Цуцлах</a>
+	            </td>
+	        </tr>
+	        {% endfor %}
+	    </tbody>
+	</table>
+{% else %}
+	<h4>Сайн байна уу</h4>
+	<p>Одоогоор та буудал нэмээгүй байна <a href="index.php?add_general">Энд</a> дарж анхны буудалаа үүсгэнэ үү.</p>
+{% endif %}
+
+{% endblock %}
