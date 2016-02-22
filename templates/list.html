@@ -1,308 +1,241 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-  <ul class="breadcrumb">
-    <li><a href="index.html">Home</a></li>
-    <li class="active">{{location}}</li>
-  </ul>
-  <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="search-dialog">
-    <h3>Search for Hotel</h3>
-    <form>
-      <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-highlight"></i>
-        <label>Where are you going?</label>
-        <input class="typeahead form-control" value="Ulaanbaatar, UB, Mongolia" name='location' type="text" />
-      </div>
-      <div class="input-daterange">
+    <ul class="breadcrumb">
+        <li><a href="index.html">Нүүр</a></li>
+        <li class="active">{{location}}</li>
+    </ul>
+    <div style="height:20px"></div>
+    <input type="hidden" id="location_1" value="{{location}}"/>
+    <input type="hidden" id="country" value="{{country}}"/>
+    <input type="hidden" id="start_1" value="{{start}}"/>
+    <input type="hidden" id="end_1" value="{{end}}"/>
+    <input type="hidden" id="num_person_1" value="{{num_person}}"/>
+    <form class="booking-item-dates-change mb40">
         <div class="row">
-          <div class="col-md-3">
-            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-              <label>Check-in</label>
-              <input class="form-control" name="start" type="text" />
+            <div class="col-md-4">
+                <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                    <label>Зорьчих газар</label>
+                    <input class="typeahead form-control" name='location' value="Ulaanbaatar, UB, Mongolia" type="text" />
+                </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-              <label>Check-out</label>
-              <input class="form-control" name="end" type="text" />
+            <div class="col-md-4">
+                <div class="input-daterange">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                <label>Ирэх</label>
+                                <input class="form-control" name="start" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                <label> Гарах</label>
+                                <input class="form-control" name="end" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-lg form-group-select-plus">
-              <label>Rooms</label>
-              <select class="form-control">
-                <option selected="selected">1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group form-group-lg form-group-select-plus">
-              <label>Gutests</label>
-              <select class="form-control">
-                <option>1</option>
-                <option selected="selected">2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="btn btn-primary btn-lg" type="submit">Search for Hotels</button>
-    </form>
-  </div>
-  <h3 class="booking-title">{{count}} hotels in {{location}} on {{start}} - {{end}}</h3>
-            <input type="hidden" id="location_1" value="{{location}}"/>
-            <input type="hidden" id="country" value="{{country}}"/>
-            <input type="hidden" id="start_1" value="{{start}}"/>
-            <input type="hidden" id="end_1" value="{{end}}"/>
-            <input type="hidden" id="num_person_1" value="{{num_person}}"/>
-              <form class="booking-item-dates-change mb40">
+            <div class="col-md-4">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
-                            <label>Where</label>
-                            <input class="typeahead form-control" name='location' value="Ulaanbaatar, UB, Mongolia" type="text" />
+                    <div class="col-md-3">
+                        <div class="form-group form-group- form-group-select-plus">
+                            <label>Зочид</label>
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option selected="selected">5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="input-daterange">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                        <label>Check in</label>
-                                        <input class="form-control" name="start" type="text" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                        <label>Check out</label>
-                                        <input class="form-control" name="end" type="text" />
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-group-select-plus">
+                            <label>Өрөө</label>
+                            <select class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option selected="selected">5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-group- form-group-select-plus">
-                                    <label>Guests</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option selected="selected">5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                        <option>11</option>
-                                        <option>12</option>
-                                        <option>13</option>
-                                        <option>14</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-group-select-plus">
-                                    <label>Rooms</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option selected="selected">5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                        <option>11</option>
-                                        <option>12</option>
-                                        <option>13</option>
-                                        <option>14</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class='col-md-6'>
-                              <div class="form-group">
-                                <label>&nbsp;</label>
-                            <button class="btn btn-primary" type="submit">Search</button>
-                          </div>
-                          </div>
-                        </div>
-                    </div>
+                    <div class='col-md-6'>
+                      <div class="form-group">
+                        <label>&nbsp;</label>
+                    <button class="btn btn-primary" type="submit">Хайх</button>
+                  </div>
+                  </div>
                 </div>
-            </form>
-  <div class="row">
-    <div class="col-md-3">
-        <aside class="booking-filters booking-filters-white">
-                        <h3>Давуу талууд</h3>
-                        <ul class="list booking-filters-list">  
-                            <li>
-                                <h5 class="booking-filters-title">Од</h5>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="stars" value="5" checked/>5 stars
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="stars" value="4" checked />4 stars 
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox"name="stars" value="3" checked/>3 stars
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="stars" value="2" checked/>2 stars
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="stars" value="1" checked/>1 stars
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox"  name="stars" value="0" checked/>Starless
-                                </div>
-                            </li>
-                            <li>
-                                <h5 class="booking-filters-title">Extra</h5>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="wifi" />Wi-Fi
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="parking" />Parking
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox"  name="others" value="fitness" />Fitness
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="pool" />Indoor pool
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="saun" />Sauna
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox"  name="others" value="famroom"/>Family room
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="rest" />Bar
-                                </div>
-                            </li>
-                            <li>
-                                <h5 class="booking-filters-title">Room</h5>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="air" />Air condition
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="bath" />Bathtub
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="tv" />Flat TV
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="kitchen" />Kitchen
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="noise" />Noise
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="jakuz" />Jacuzzi
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="floor" />Floor
-                                </div>
-                                <div class="checkbox">
-                                    <input class="i-check" type="checkbox" name="others" value="washing"/>Washing machhine
-                                </div>
-                            </li>
-                        </ul>
-                    </aside>
-    </div>
-    <div class="col-md-9">
-      <div class="nav-drop booking-sort">
-        <h5 class="booking-sort-title"><a href="#">Sort: Aviability<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
-        <ul id="sorting" class="nav-drop-menu">
-                            <li id="pricedown"><a href="#" name="sort" sort="pricedown">Price (Low to High)</a>
-                            </li>
-                            <li id="priceup"><a href="#" name="sort" sort="priceup">Price (High to low)</a>
-                            </li>
-                            <li id="starup"><a href="#" name="sort" sort="starup">Stars (Low to High )</a>
-                            </li>
-                            <li id="stardown"><a href="#" name="sort" sort="stardown">Stars (High to Low)</a>
-                            </li>
-                        </ul>
-      </div>
-      <ul class="booking-list" id="hotels">
-        {% for res in results %}
-        <li>
-          <a class="booking-item" id="{{res.objectId}}" href="#">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="booking-item-img-wrap">
-                  <img src="{{res.cover_image}}" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" />
-                  <div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="booking-item-rating">
-                  <ul class="icon-group booking-item-rating-stars">
-                    {% for i in range(1, res.stars) %}
-                    <li><i class="fa fa-star"></i></li>
-                    {% endfor %}
-                  </ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 reviews)</small>
-                </div>
-                <h5 class="booking-item-title">{{res.name}}</h5>
-                <p class="booking-item-address"><i class="fa fa-map-marker"></i>{{res.address}}</p><small class="booking-item-last-booked">{{res.short_desc}}</small>
-              </div>
-              <div class="col-md-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">${{res.average_rate}}</span><span>/night</span><span class="btn btn-primary" name="detail" id="{{res.objectId}}">Book Now</span>
-              </div>
             </div>
-          </a>
-        </li>
-        {% endfor %}
-      </ul>
-      <div class="row">
-        <div class="col-md-6">
-          <p><small>{{count}} hotels in {{location}}. &nbsp;&nbsp;Showing 1 – 15</small>
-          </p>
-            <ul class="pagination">
-                {% for i in range(0, pages) %}
-                {% if i == 0 %}
-                {% set j=i+1 %}
-                    <li class="active"><a href="#">{{j}}</a></li>
-                {% else %}
-                    <li><a href="#">{{i}}</a></li>
-                {% endif %}
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-3">
+            <aside class="booking-filters booking-filters-white">
+                            <h3>Шүүлт</h3>
+                            <ul class="list booking-filters-list">  
+                                <li>
+                                    <h5 class="booking-filters-title"></h5>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="stars" value="5" checked/>ASEM MONGOLIA 2016 
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5 class="booking-filters-title">Од</h5>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="stars" value="5" checked/>5 одтой
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="stars" value="4" checked />4 одтой 
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox"name="stars" value="3" checked/>3 одтой
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="stars" value="2" checked/>2 одтой
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="stars" value="1" checked/>1 одтой
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox"  name="stars" value="0" checked/>Одгүй
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5 class="booking-filters-title">Нэмэлт</h5>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="wifi" />Wi-Fi
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="parking" />Зогсоол
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox"  name="others" value="fitness" />Фитнесс
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="pool" />Усан сан
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="saun" />Саун
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox"  name="others" value="famroom"/>Гэр бүлийн өрөө
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="rest" />Бар
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5 class="booking-filters-title">Өрөө</h5>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="air" />Агаар тэнцвэржүүлэгч
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="bath" />Халуун байн
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="tv" /> Телевиз
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="kitchen" />Гал тогоо
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="noise" />Дууны хамгаалалт
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="jakuz" />Жакуз
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="floor" />Липт
+                                    </div>
+                                    <div class="checkbox">
+                                        <input class="i-check" type="checkbox" name="others" value="washing"/>Угаалагын машин
+                                    </div>
+                                </li>
+                            </ul>
+            </aside>
+        </div>
+        <div class="col-md-9">
+            <div class="nav-drop booking-sort">
+                <h5 class="booking-sort-title"><a href="#">Эрэмблэх:<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
+                <ul id="sorting" class="nav-drop-menu">
+                    <li id="pricedown"><a href="#" name="sort" sort="pricedown">Үнэ (ихээс багаруу)</a>
+                    </li>
+                    <li id="priceup"><a href="#" name="sort" sort="priceup">Үнэ (багаас ихрүү)</a>
+                    </li>
+                    <li id="starup"><a href="#" name="sort" sort="starup">Одоор (ихээс багаруу )</a>
+                    </li>
+                    <li id="stardown"><a href="#" name="sort" sort="stardown">Одоор (багаас ихрүү)</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="booking-list" id="hotels">
+                {% for res in results %}
+                <li>
+                  <a class="booking-item" id="{{res.objectId}}" href="#">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="booking-item-img-wrap">
+                          <img src="{{res.cover_image}}" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" />
+                          <div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="booking-item-rating">
+                          <ul class="icon-group booking-item-rating-stars">
+                            {% for i in range(1, res.stars) %}
+                            <li><i class="fa fa-star"></i></li>
+                            {% endfor %}
+                          </ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 сэтгэгдэлтэй)</small>
+                        </div>
+                        <h5 class="booking-item-title">{{res.name}}</h5>
+                        <p class="booking-item-address"><i class="fa fa-map-marker"></i>{{res.address}}</p><small class="booking-item-last-booked">{{res.short_desc}}</small>
+                      </div>
+                      <div class="col-md-3"><span class="booking-item-price-from">дундажаар</span><span class="booking-item-price">${{res.average_rate}}</span><span>/өдөр</span><span class="btn btn-primary" name="detail" id="{{res.objectId}}">Өрөө сонгох</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
                 {% endfor %}
             </ul>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><small> {{location}}-т {{count}} буудал олдлоо.</small></p>
+                    <ul class="pagination">
+                        {% for i in range(0, pages) %}
+                        {% if i == 0 %}
+                        {% set j=i+1 %}
+                            <li class="active"><a href="#">{{j}}</a></li>
+                        {% else %}
+                            <li><a href="#">{{i}}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 text-right">
-          <p>Not what you're looking for? <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Try your search again</a>
-          </p>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 {% endblock %} 

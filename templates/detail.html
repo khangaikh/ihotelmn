@@ -8,7 +8,7 @@
     <input type="hidden" value="{{hotel.objectId}}" id="hotel_3"/>
     <div class="container">
             <ul class="breadcrumb">
-                <li><a href="index.php">Home</a>
+                <li><a href="index.php">Нүүр</a>
                 </li>
                 <li><a href="index.php?city={{location}}">{{location}}</a>
                 </li>
@@ -29,7 +29,7 @@
                             </ul>
                         </div>
                         <div class="col-md-3">
-                            <p class="booking-item-header-price"><small></small>  <span class="text-lg">US$ {{hotel.average_rate}}</span>/night</p>
+                            <p class="booking-item-header-price"><small></small>  <span class="text-lg">US$ {{hotel.average_rate}}</span>/өдөр</p>
                         </div>
                     </div>
                 </header>
@@ -63,8 +63,8 @@
                                     {% for room in rooms %}
                                         <li><i class="fa fa-star"></i></li>   
                                     {% endfor %}
-                                </ul><span class="booking-item-rating-number"><b >4.7</b> of 5 <small class="text-smaller">customer reviews</small></span>
-                                <p><a class="text-default" href="#"> 1535 customers have booked </a>
+                                </ul><span class="booking-item-rating-number"><b >4.7</b> of 5 <small class="text-smaller">сэтгэгдэлтэй</small></span>
+                                <p><a class="text-default" href="#"> 1535 захиалга бүртгэгдсэн байна. </a>
                                 </p>
                             </div>
                         </div>
@@ -204,8 +204,8 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="col-md-3"><span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
-                                            <span name="order" class="btn btn-primary" id="{{room.objectId}}">Book now</span>
+                                        <div class="col-md-3"><span class="booking-item-price">${{room.night_price}}</span><span>/өдөр</span>
+                                            <span name="order" class="btn btn-primary" id="{{room.objectId}}">Захиалах</span>
                                         </div>
                                     </div>
                                 </a>
@@ -214,26 +214,26 @@
                         </ul>
                     </div>
                     <div class="col-md-3">
-                        <h4>Hotel features</h4>
+                        <h4>Буудалын давуу талууд</h4>
                         <ul class="booking-item-features booking-item-features-expand mb30 clearfix">
-                            <li><i class="im im-wi-fi"></i><span class="booking-item-feature-title">Wi-Fi Internet</span>
+                            <li><i class="im im-wi-fi"></i><span class="booking-item-feature-title">Wi-Fi Интернет</span>
                             </li>
-                            <li><i class="im im-parking"></i><span class="booking-item-feature-title">Parking</span>
+                            <li><i class="im im-parking"></i><span class="booking-item-feature-title">Зогсоол</span>
                             </li>
-                            <li><i class="im im-bus"></i><span class="booking-item-feature-title">Airport pickup</span>
+                            <li><i class="im im-bus"></i><span class="booking-item-feature-title">Тосох үйлчилгээ</span>
                             </li>
-                            <li><i class="im im-fitness"></i><span class="booking-item-feature-title">Fitness</span>
+                            <li><i class="im im-fitness"></i><span class="booking-item-feature-title">Финтнес</span>
                             </li>
-                            <li><i class="im im-pool"></i><span class="booking-item-feature-title">Pool</span>
+                            <li><i class="im im-pool"></i><span class="booking-item-feature-title">Усан сан</span>
                             </li>
-                            <li><i class="im im-spa"></i><span class="booking-item-feature-title">Sauna</span>
+                            <li><i class="im im-spa"></i><span class="booking-item-feature-title">Саун</span>
                             </li>
-                            <li><i class="im im-restaurant"></i><span class="booking-item-feature-title">Restaurant</span>
+                            <li><i class="im im-restaurant"></i><span class="booking-item-feature-title">Зоогийн газар</span>
                             </li>
 
-                            <li><i class="im im-business-person"></i><span class="booking-item-feature-title">Business center</span>
+                            <li><i class="im im-business-person"></i><span class="booking-item-feature-title">Бизнес төв</span>
                             </li>
-                            <li><i class="im im-children"></i><span class="booking-item-feature-title">Kids room</span>
+                            <li><i class="im im-children"></i><span class="booking-item-feature-title">Хүүхдийн өрөө</span>
                             </li>
                         </ul>
                     </div>
