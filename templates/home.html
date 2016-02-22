@@ -13,20 +13,20 @@
                                 <div class="tab-pane fade in active" id="tab-1">
                                     <form>
                                         <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
-                                            <label>Where are you going?</label>
+                                            <label>Зорьчих газар</label>
                                             <input class="typeahead form-control" name="location" value="Ulaanbaatar, UB, Mongolia" type="text" />
                                         </div>
                                         <div class="input-daterange">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-                                                        <label>Check-in</label>
+                                                        <label>Ирэх</label>
                                                         <input class="form-control" name="start" type="text" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-                                                        <label>Check-out</label>
+                                                        <label>Гарах</label>
                                                         <input class="form-control" name="end" type="text" />
                                                     </div>
                                                 </div>
@@ -34,7 +34,7 @@
                                             <div class='row'>
                                                 <div class="col-md-6">
                                                     <div class="form-group form-group-lg form-group-select-plus">
-                                                        <label>Rooms</label>
+                                                        <label>Өрөө</label>
                                                         <select class="form-control">
                                                             <option selected="selected">1</option>
                                                             <option>2</option>
@@ -55,7 +55,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group form-group-lg form-group-select-plus">
-                                                        <label>Guests</label>
+                                                        <label>Зочид</label>
                                                         <select class="form-control">
                                                             <option>1</option>
                                                             <option selected="selected">2</option>
@@ -76,7 +76,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary btn-lg" type="submit" id='search'>Search for Hotels</button>
+                                        <button class="btn btn-primary btn-lg" type="submit" id='search'>Хайх</button>
                                     </form>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
 </div>
 <div class="container">
     <div class="gap gap-small"></div>
-    <h2>Top Destinations</h2>
+    <h3>ИХ ЗОРЬЧСОН ГАЗАР</h3>
     <div class="gap">
         <div class="row row-wrap">
             <div class="col-md-4">
@@ -184,7 +184,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <h3>Ulaanbaatar <small ><a href="#">view all</a></small></h3>
+            <h4>Улаанбаатар <small ><a href="#">бүгдийг харах</a></small></h4>
             <ul class="booking-list">
                 {% for hotel in hotels %}
                 <li>
@@ -213,86 +213,32 @@
             </ul>
         </div>
         <div class="col-md-6">
-            <h3>Erdenet <small ><a href="#">view all</a></small></h3>
+            <h4>Эрдэнэт <small ><a href="#">бүгдийг харах</a></small></h4>
             <ul class="booking-list">
+                {% for hotel in hotels %}
                 <li>
                 <div class="booking-item booking-item-small">
                     <div class="row">
                         <div class="col-xs-2">
-                            <img src="img/800x600.png" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO luxury suite" />
+                            <img src="{{hotel.images[0]}}" alt="Image Alternative text" title="hotel PORTO BAY LIBERDADE" />
                         </div>
                         <div class="col-xs-7">
-                            <h5 class="booking-item-title">Wyndham Garden Chinatown</h5>
+                            <h5 class="booking-item-title">{{hotel.name}}</h5>
                             <ul class="icon-group booking-item-rating-stars">
+                                {% for s in 0..hotel.stars %}
                                 <li><i class="fa fa-star"></i>
                                 </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star-o"></i>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
-                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$170</span>
+                        <div class="col-xs-3"><span
+                                class="booking-item-price-from">from</span><span
+                                class="booking-item-price">${{hotel.average_rate}}</span>
                         </div>
                     </div>
                 </div>
                 </li>
-                <li>
-                <div class="booking-item booking-item-small">
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF suite" />
-                        </div>
-                        <div class="col-xs-7">
-                            <h5 class="booking-item-title">The Kimberly Hotel</h5>
-                            <ul class="icon-group booking-item-rating-stars">
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star-o"></i>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$190</span>
-                        </div>
-                    </div>
-                </div>
-                </li>
-                <li>
-                <div class="booking-item booking-item-small">
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <img src="img/800x600.png" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" />
-                        </div>
-                        <div class="col-xs-7">
-                            <h5 class="booking-item-title">Bryant Park Hotel</h5>
-                            <ul class="icon-group booking-item-rating-stars">
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star-half-empty"></i>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$458</span>
-                        </div>
-                    </div>
-                </div>
-                </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
