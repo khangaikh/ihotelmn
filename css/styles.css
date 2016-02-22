@@ -2079,7 +2079,6 @@ body {
   -o-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  margin-right:10%;
 }
 .loc-info .loc-info-title {
   color: #fff;

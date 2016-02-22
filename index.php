@@ -321,6 +321,10 @@
             $template = $twig->loadTemplate('news.html');
             echo $template->render(array('title' => 'Мэдээ'));
         }
+        else if(isset($_GET['rent'])){
+             $template = $twig->loadTemplate('rent.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
         else if(isset($_GET['payment'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['hotel']);
