@@ -66,6 +66,7 @@
                 </div>
             </div>
         </div>
+        <div id="nav-container">
         <div class="container">
             <div class="nav">
                 <ul class="slimmenu" id="slimmenu">
@@ -73,9 +74,10 @@
                     <li><a href="#">Машин түрээс</a></li>
                     <li><a href="#">Мэдээ мэдээлэл</a></li>
                     <li><a href="#">Аялал</a></li>
-                    <li><a href="index.php?asem">FOR ASEM GUESTS</a></li>
+                    <li class='active'><a href="index.php?asem">FOR ASEM GUESTS</a></li>
                 </ul>
             </div>
+        </div>
         </div>
     </header>
     {% block content %}
@@ -84,13 +86,29 @@
     <div class="gap"></div>
     <footer id="main-footer">
         <div class="container">
-            <div class="row row-wrap">
-                <div class="col-md-3">
-                    <a class="logo" href="index.html">
+            <div class="flex between middle">
+                <div>
+                    <a class="logo" href="index.php">
                         <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
                     </a>
-                    <p class="mb20">Монгол Улс, Улаанбаатар хот, Чингэлтэй дүүрэг, 8-р хороо, Мэдээлэл технологийн үндэсний парк, 206 тоот
-+976-9906635</p>
+                </div>
+                <div>
+                    <ul class="list list-horizontal list-space" id="footer-link">
+                        <li><a href='#'>Бидний тухай</a></li>
+                        <li><a href='#'>Блог</a></li>
+                        <li><a href='#'>Тусламж</a></li>
+                        <li><a href='#'>Үйлчилгээний нөхцөл</a></li>
+                        <li><a href='#'>Асуулт хариулт</a></li>
+                        <li><a href='#'>Холбогдох</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class='flex between middle'>
+                <div>
+                    <p>Мэдээлэл Технологийн Үндэсний Парк 206 тоот, Улаанбаатар, 88021087, info@ihotel.mn</p>
+                    <p>&copy 2015 iHotel.mn</p>
+                </div>
+                <div>
                     <ul class="list list-horizontal list-space">
                         <li>
                         <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
@@ -109,41 +127,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <h4>Мэдээлэл хүлээн авах</h4>
-                    <form>
-                        <label>Цахим шуудангаа оруулна уу</label>
-                        <input type="text" class="form-control">
-                        <p class="mt5"><small>*We Never Send Spam</small>
-                        </p>
-                        <input type="submit" class="btn btn-primary" value="Илгээх">
-                    </form>
-                </div>
-                <div class="col-md-2">
-                    <ul class="list list-footer">
-                        <li><a href="#">Бидний тухай</a>
-                        </li>
-                        <li><a href="#">ASEM 2016</a>
-                        </li>
-                        <li><a href="#">Мэдээ мэдээлэл</a>
-                        </li>
-                        <li><a href="#">Ажлын байр</a>
-                        </li>
-                        <li><a href="#">Нууцлалын мэдээлэл</a>
-                        </li>
-                        <li><a href="#">Хэрэглээний нөхцөл</a>
-                        </li>
-                        <li><a href="#">Санал хүсэлт</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4>Биднээс лавах зүйл байна уу?</h4>
-                    <h4 class="text-color">+976-9906635</h4>
-                    <h4><a href="#" class="text-color">info@ihotel.mn</a></h4>
-                    <p>24/7 Дуудлагын төв ажиллаж байна</p>
-                </div>
-
             </div>
         </div>
     </footer>
