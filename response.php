@@ -212,7 +212,7 @@
             </div>
         ';
 
-        require 'lib/PHPMailer/PHPMailerAutoload.php';
+        require 'lib/Mailer/PHPMailerAutoload.php';
         $body = $content;
         date_default_timezone_set('Etc/UTC');
         $mail = new PHPMailer;
