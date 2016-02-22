@@ -285,6 +285,34 @@
             //render a template
             echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
+        else if(isset($_GET['asemdetail'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("objectId",$_GET['asemdetail']);
+            $hotel = $query->first();
+
+            $query = new ParseQuery("rooms");
+            $query->equalTo("hotel",$hotel);
+            $rooms = $query->find();
+
+            $query = new ParseQuery("hotel_images");
+            $query->equalTo("hotel",$hotel);
+            $query->equalTo("main",1);
+            $main = $query->first();
+
+            $query = new ParseQuery("hotel_images");
+            $query->equalTo("hotel",$hotel);
+            $query->equalTo("main",0);
+            $images = $query->find();
+
+            $start = $_GET['depart'];
+            $end = $_GET['end'];
+            $location = $_GET['location'];
+            $country = $_GET['country'];
+
+            $template = $twig->loadTemplate('asem_detail.html');
+            //render a template
+            echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
+        }
         else if(isset($_GET['payment'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['hotel']);
@@ -350,6 +378,19 @@
             $template = $twig->loadTemplate('list.html');
             //render a template
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel'));
+        }
+        else if(isset($_GET['asem'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->descending("stars");
+            
+            $query->equalTo("city",'Ulaanbaatar');
+            $results = $query->find();
+            $count = $query->count();
+
+            $template = $twig->loadTemplate('asem_list.html');
+            //render a template
+            echo $template->render(array('title' => 'Search', 'nav' => 1, 'results' =>$results));
         }
         else{
             $template = $twig->loadTemplate('home.html');
