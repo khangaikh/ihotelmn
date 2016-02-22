@@ -313,6 +313,14 @@
             //render a template
             echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
+        else if(isset($_GET['tour'])){
+            $template = $twig->loadTemplate('tour.html');
+            echo $template->render(array('title' => 'Аялал'));
+        }
+        else if(isset($_GET['news'])){
+            $template = $twig->loadTemplate('news.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
         else if(isset($_GET['payment'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['hotel']);
