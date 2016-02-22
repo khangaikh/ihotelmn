@@ -64,12 +64,16 @@
         {
             $order->set('status', 1);
             $order->save();
+
+            sendmail($user, $orders);
+
             $template = $twig->loadTemplate('success-payment.html');
             $query = new ParseQuery("orders");
             $query->descending("createdAt");
             $query->equalTo("user",$user);
             $query->includeKey('hotel');
             $orders = $query->find();
+
             echo $template->render(array('title' => 'iHotel', 'user' => $user,
                 'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
        }
@@ -130,8 +134,106 @@
             $orders = $query->find();
             echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
                 'result'=>1, 'message'=> $log_msg, 'mtype'=> 0)); 
-    //        redirect
         }
+    }
 
+    function sendmail($user, $orders){
+        $query = new ParseQuery("orders");
+        $query->equalTo("objectId",$_GET['trans_number']);
+        $order = $query->first();
+
+        $query = new ParseQuery("hotel");
+        $query->equalTo("objectId",$order->get('hotel')->getObjectId());
+        $hotel = $query->first();
+ 
+        $query = new ParseQuery("rooms");
+        $query->equalTo("hotel",$hotel);
+        $room = $query->first();
+
+        $content = '
+            <div style="box-shadow: 0 2px 1px rgba(0,0,0,0.1);border: 1px solid rgba(0,0,0,0.15); width: 50%;">
+                <header style="padding: 10px 15px;background: #f7f7f7;">
+                    <h5 style="font-size: 14px; margin-bottom: 0; float: right; margin-right: 50%;">
+                        <a style="color: #03629a;text-decoration: none;"href="#">'.$hotel->get('name').'</a></h5>
+                    <a style="booking-item-payment-img" href="#">
+                        <img src="'.$hotel->get('cover_image').'" style="width:28%" alt="Image Alternative text" title="hotel 1" />
+                    </a>
+                </header>
+                <ul style="list-style: none;margin: 0; padding: 15px; border-top: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9;">
+
+                    <h5 style="margin: 0 0 12px; margin-bottom: 8px; font-size: 18.2px; font-weight: 300;line-height: 1em;
+                        color: #565656;">Order number: '.$order->getObjectId().'</h5>
+                    <li style="margin-bottom: 20px;
+                            overflow: hidden;
+                            display: list-item;
+                            list-style: none;
+                            margin: 0;
+                            padding: 15px;">
+                        <h5 style="margin: 0 0 12px; margin-bottom: 8px;
+                                font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Total days of stay: '.$order->get('days').'</h5>
+                        <div style="float: left;">
+                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.$order->get('start').'</p>
+                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order->get('start'))).'</p>
+                        </div>
+                        <div style="float: left; font-size: 50px;">&rarr;</div>
+                        <div style="float: left;">
+                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.$order->get('end').'</p>
+                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order->get('end'))).'</p>
+                        </div>
+                    </li>
+                    <li style="margin-bottom: 20px;
+                            overflow: hidden;
+                            display: list-item;
+                            list-style: none;
+                            margin: 0;
+                            padding: 15px;">
+
+                        <h5 style="margin: 0 0 12px; font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Room</h5>
+                        <ul style="margin: 0; padding: 0; list-style: none;">
+                            <li style="width: 78%; overflow: hidden;
+                            font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;">
+                                <p style="float: left; margin: 5px;">'.$order->get('days').' Nights</p>
+                                <p style="float: right; line-height: 0;">$'.$room->get('night_price').'<small>/per day</small>
+                                </p>
+                            </li>
+                            <li style="width: 78%; overflow: hidden;
+                            font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;">
+                                <p style="float: left; margin: 5px;">Taxes</p>
+                                <p style="float: right; line-height: 0;">(incluled)<small>/per day</small>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p style="margin: 0 0 0; padding: 8px 30px 8px 15px;
+                            font-size: 12px;">Total amount: <span style="font-size: 24px; color: #686868; font-weight: 400;
+                            letter-spacing: -2px;">US$ '.$order->get('total').'</span>
+                </p>
+            </div>
+        ';
+
+        require 'lib/PHPMailer/PHPMailerAutoload.php';
+        $body = $content;
+        date_default_timezone_set('Etc/UTC');
+        $mail = new PHPMailer;
+        $mail->isSMTP();
+        //$mail->SMTPDebug = 2;
+        $mail->Debugoutput = 'html';
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 587;
+        $mail->SMTPSecure = 'tsl';
+        $mail->SMTPAuth = true;
+        $mail->Username = "ihotelmn@gmail.com";
+        $mail->Password = "99095102";
+        $mail->setFrom('ihotelmn@gmail.com', 'iHotel.mn');
+        $mail->addAddress($user->getEmail(), 'Customer');
+        $mail->Subject = 'iHotel order email!';
+        $mail->msgHTML($body);
+        $mail->AltBody = '';
+        if (!$mail->send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+        } else {
+            echo "Message sent!";
+        }
     }
 ?>
