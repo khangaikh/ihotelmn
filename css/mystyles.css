@@ -80,3 +80,19 @@ dd{
 .booking-item-rating{
 	border-bottom: none;
 }
+@media (max-width:992px){
+	.small-left{
+		margin-left:50px;
+	}
+	.small-top{
+		margin-top:50px;
+	}
+	.small-hidden{
+		display:none;
+	}
+	#slimmenu .container{
+		width: 100%;
+		padding:0;
+		margin:0;
+	}
+}
