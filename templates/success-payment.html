@@ -4,7 +4,7 @@
 {% if result %}
 <script src="js/jquery-2.2.0.min.js"></script>
 <script type="text/javascript" charset="utf-8">
-post('http://ihotel.mn/result.php', {message: '{{message}}', mtype: '{{mtype}}'});
+post('https://ihotel.mn/result.php', {message: '{{message}}', mtype: '{{mtype}}'});
 function post(path, params, method) {
     method = method || "post"; 
     var form = document.createElement("form");
