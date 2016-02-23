@@ -1153,7 +1153,6 @@ ul.slimmenu.slimmenu-collapsed li .slimmenu-sub-collapser > i {
 .search-tabs-abs {
   position: absolute;
   top: 0;
-  left: 10%;
   width: 35%;
 }
 @media (max-width:992px) {
