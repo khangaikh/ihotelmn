@@ -15,6 +15,11 @@
                             <label>Нууц үг</label>
                             <input class="form-control" type="password" placeholder="Нууц үг" id="password"/>
                         </div>
+                        <div class="alert alert-danger hidden" id='login-alert'>
+                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                            </button>
+                            <p class="text-small"></p>
+                        </div>
                         <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
                     </form>
                 </div>
@@ -51,7 +56,8 @@
                         window.location.replace("index.php");  
                     }
                     else{
-                        alert(result);
+                        $('#login-alert').removeClass('hidden');
+                        $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
                     }
             });
         });

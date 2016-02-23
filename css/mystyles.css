@@ -61,3 +61,16 @@ footer#main-footer .logo{
 #asem a{
 	background: #ed8323;
 }
+dl .fa{
+    margin-right:10px;
+}
+dt, dd{
+    padding:10px 0;
+}
+dt{
+    border-bottom:1px solid #e0e0e0;
+    cursor: pointer;
+}
+dd{
+    display: none;
+}

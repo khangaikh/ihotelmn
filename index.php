@@ -336,6 +336,14 @@
              $template = $twig->loadTemplate('faq.html');
             echo $template->render(array('title' => 'Мэдээ'));
         }
+        else if(isset($_GET['help'])){
+            $template = $twig->loadTemplate('help.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['terms'])){
+            $template = $twig->loadTemplate('terms.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
         else if(isset($_GET['payment'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['hotel']);
