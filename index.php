@@ -22,7 +22,48 @@
         $user = $_SESSION['user'];
         $username = $user->get("username");
 
-        if(isset($_GET['logout'])){
+        if(isset($_GET['tour'])){
+            $template = $twig->loadTemplate('tour.html');
+            echo $template->render(array('title' => 'Аялал'));
+        }
+        else if(isset($_GET['news'])){
+            $template = $twig->loadTemplate('news.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['contact'])){
+             $template = $twig->loadTemplate('contact-us.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['about'])){
+             $template = $twig->loadTemplate('about.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['faq'])){
+             $template = $twig->loadTemplate('faq.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['help'])){
+            $template = $twig->loadTemplate('help.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['terms'])){
+            $template = $twig->loadTemplate('terms.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['asem'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->descending("stars");
+
+            $query->equalTo("city",'Ulaanbaatar');
+            $results = $query->find();
+            $count = $query->count();
+
+            $template = $twig->loadTemplate('asem_list.html');
+            //render a template
+            echo $template->render(array('title' => 'Search', 'nav' => 1, 'results' =>$results));
+        }
+        else if(isset($_GET['logout'])){
             session_unset();
             session_destroy();
             $template = $twig->loadTemplate('home.html');
