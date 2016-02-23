@@ -231,7 +231,7 @@
             //render a template
             echo $template->render(array('title' => 'Бүртгүүлэх'));
         }
-        else if(isset($_GET['start'])){
+        else if(isset($_GET['start']) || isset($_GET['start_1'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->descending("stars");
@@ -239,6 +239,9 @@
             
             $start = $_GET['start'];
             $end = $_GET['end'];
+            $persons = $_GET['persons'];
+            $guests = $_GET['guests'];
+
 
             $date = new DateTime($start);
             $checkin = $date->format('Y-m-d');
@@ -255,7 +258,7 @@
 
             $template = $twig->loadTemplate('list.html');
             //render a template
-            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $pieces[0], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[2], 'pages' => $pages));
+            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $location, 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[2], 'pages' => $pages, 'guests'=>$guests, 'persons'=>$persons));
         }
         else if(isset($_GET['detail'])){
             $query = new ParseQuery("hotel");
@@ -410,12 +413,21 @@
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
             $query->equalTo("city","Ulaanbaatar");
-            $query->descending("stars");
-            $query->limit(25);
+            $query->descending("name");
+            $query->limit(2);
             $hotels = $query->find();
-            $ub = $query->count();
+
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("homepage",1);
+            $query->equalTo("city","Ulaanbaatar");
+            $query->ascending("name");
+            $query->limit(2);
+            $hotels2 = $query->find();
+
+
             //render a template
-            echo $template->render(array('title' => 'Search', 'nav' => 1,'ub'=>$ub, 'hotels'=>$hotels));
+            echo $template->render(array('title' => 'Search', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
         } 
     }
 ?>

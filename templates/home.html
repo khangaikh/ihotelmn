@@ -12,7 +12,7 @@
                                 <div class="tab-pane fade in active" id="tab-1">
                                     <form>
                                         <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
-                                            <label>Зорьчих газар</label>
+                                            <label>Буудлах газар</label>
                                             <input class="typeahead form-control" name="location" value="Ulaanbaatar, UB, Mongolia" type="text" />
                                         </div>
                                         <div class="input-daterange">
@@ -20,13 +20,13 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                                         <label>Ирэх</label>
-                                                        <input class="form-control" name="start" type="text" />
+                                                        <input class="form-control" name="start" type="text" data-date-format="yyyy-mm-dd" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                                         <label>Гарах</label>
-                                                        <input class="form-control" name="end" type="text" />
+                                                        <input class="form-control" name="end" type="text" data-date-format="yyyy-mm-dd" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -34,8 +34,8 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group form-group-lg form-group-select-plus">
                                                         <label>Өрөө</label>
-                                                        <select class="form-control">
-                                                            <option selected="selected">1</option>
+                                                        <select class="form-control" name="persons">
+                                                            <option selected="selected" >1</option>
                                                             <option>2</option>
                                                             <option>3</option>
                                                             <option>4</option>
@@ -55,7 +55,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group form-group-lg form-group-select-plus">
                                                         <label>Зочид</label>
-                                                        <select class="form-control">
+                                                        <select class="form-control" name="guests">
                                                             <option>1</option>
                                                             <option selected="selected">2</option>
                                                             <option>3</option>
@@ -239,9 +239,11 @@
             </div>
         </div>
     </div>
+    <h3>ОНЦЛОГ БУУДАЛУУД</h3>
+    <div class="gap gap-small"></div>
     <div class="row">
         <div class="col-md-6">
-            <h4>Улаанбаатар <small ><a href="#">бүгдийг харах</a></small></h4>
+            
             <ul class="booking-list">
                 {% for hotel in hotels %}
                 <li>
@@ -270,9 +272,8 @@
             </ul>
         </div>
         <div class="col-md-6">
-            <h4>Эрдэнэт <small ><a href="#">бүгдийг харах</a></small></h4>
             <ul class="booking-list">
-                {% for hotel in hotels %}
+                {% for hotel2 in hotels2 %}
                 <li>
                 <div class="booking-item booking-item-small">
                     <div class="row">
@@ -280,9 +281,9 @@
                             <img src="{{hotel.images[0]}}" alt="Image Alternative text" title="hotel PORTO BAY LIBERDADE" />
                         </div>
                         <div class="col-xs-7">
-                            <h5 class="booking-item-title">{{hotel.name}}</h5>
+                            <h5 class="booking-item-title">{{hotel2.name}}</h5>
                             <ul class="icon-group booking-item-rating-stars">
-                                {% for s in 0..hotel.stars %}
+                                {% for s in 0..hotel2.stars %}
                                 <li><i class="fa fa-star"></i>
                                 </li>
                                 {% endfor %}
@@ -290,7 +291,7 @@
                         </div>
                         <div class="col-xs-3"><span
                                 class="booking-item-price-from">from</span><span
-                                class="booking-item-price">${{hotel.average_rate}}</span>
+                                class="booking-item-price">${{hotel2.average_rate}}</span>
                         </div>
                     </div>
                 </div>
@@ -301,7 +302,27 @@
     </div>
 </div>
 {% endblock %} 
-{% block scripting %} 
-{{parent()}}
+{% block scripting %}
+    {{parent()}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
+                todayHighlight: true
+            });
 
+
+
+            $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
+            $('.input-daterange input[name="end"]').datepicker('setDate', '+5d');
+
+            $('input.time-pick').timepicker({
+                minuteStep: 15,
+                showInpunts: false
+            })
+
+            $('input.date-pick-years').datepicker({
+                startView: 2
+            });
+                    }); 
+    </script>
 {% endblock %}

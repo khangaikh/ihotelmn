@@ -16,7 +16,7 @@
             <div class="col-md-4">
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                     <label>Зорьчих газар</label>
-                    <input class="typeahead form-control" name='location' value="Ulaanbaatar, UB, Mongolia" type="text" />
+                    <input class="typeahead form-control" name='location' value="{{location}}" type="text" />
                 </div>
             </div>
             <div class="col-md-4">
@@ -25,13 +25,13 @@
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                 <label>Ирэх</label>
-                                <input class="form-control" name="start" type="text" />
+                                <input class="form-control" id="start_1" name="start" type="text" data-date-format="yyyy-mm-dd" value="{{start}}" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                 <label> Гарах</label>
-                                <input class="form-control" name="end" type="text" />
+                                <input class="form-control" id="end_1" name="end" type="text" data-date-format="yyyy-mm-dd" value="{{end}}"/>
                             </div>
                         </div>
                     </div>
@@ -42,12 +42,13 @@
                     <div class="col-md-3">
                         <div class="form-group form-group- form-group-select-plus">
                             <label>Зочид</label>
-                            <select class="form-control">
+                            <select id="persons" class="form-control" name="persons">
+                                <option  selected="selected" >{{persons}}</option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option selected="selected">5</option>
+                                <option>5</option>
                                 <option>6</option>
                                 <option>7</option>
                                 <option>8</option>
@@ -63,12 +64,13 @@
                     <div class="col-md-3">
                         <div class="form-group form-group-select-plus">
                             <label>Өрөө</label>
-                            <select class="form-control">
+                            <select id="guests" class="form-control" name="guests">
+                                <option selected="selected" >{{guests}}</option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option selected="selected">5</option>
+                                <option >5</option>
                                 <option>6</option>
                                 <option>7</option>
                                 <option>8</option>
@@ -99,7 +101,7 @@
                                 <li>
                                     <h5 class="booking-filters-title"></h5>
                                     <div class="checkbox">
-                                        <input class="i-check" type="checkbox" name="stars" value="5" checked/>ASEM MONGOLIA 2016 
+                                        <input class="i-check" type="checkbox" name="stars" value="5"/>ASEM MONGOLIA 2016 
                                     </div>
                                 </li>
                                 <li>
@@ -242,6 +244,7 @@
 {% block scripting %}
     {{parent()}}
     <script type="text/javascript">
+        
         function details(i){
             event.preventDefault();
             var curId = $(i).attr('id');
@@ -253,6 +256,15 @@
             window.location.replace(url);
         }
         $(document).ready(function() {
+           
+
+            $('.input-daterange input[name="start"]').datepicker();
+            $('.input-daterange input[name="end"]').datepicker();
+
+           
+
+            
+
             $("input").on('ifChanged', function(event){
 
                 var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
@@ -278,10 +290,6 @@
                                 $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.objectId+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="TITLE" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>12</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars" id="stars">'+string+'</ul><span class="booking-item-rating-number"><small>(406 reviews)</small>  </span></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i> '+ obj.address +'</p><small class="booking-itemast-booked"></small><p class="booking-item-address"><ilass="fa fa-book"></i>'+obj.short_desc+'</p><small class="booking-item-last-booked"></small></div><div class="col-md-3"><span class="booking-item-price-from"></span><span class="booking-item-price">US$ '+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.rate+'" >Select room</span></div></div></a></li>');
 
                             });
-                        
-                        
-                        //alert(data);
-                        
                     }
                 });
             });
@@ -290,13 +298,14 @@
                 var start = $("#start").val();
                 var end = $("#end").val();
                 var location = $("#location").val();
-                var persons = $("#num_people").val();
+                var guests = $("#guests").val();
+                var persons = $("#persons").val();
 
                 if(location == ""){
                     check =false;
                 }
                 if(check){
-                    var url = "index.php?start=" + start + "&end=" + end + "&location=" +location+"&persons="+persons;  
+                    var url = "index.php?start=" + start + "&end=" + end + "&location=" +location+"&persons="+persons+"&guests="+guests;  
                     window.location.replace(url);    
                 }else{
                     $("#alert_1").toggle();
@@ -331,10 +340,6 @@
                                 }
                                 $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.id+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars">'+string+'</ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 reviews)</small></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</p><small class="booking-item-last-booked">'+obj.short_desc+'</small></div><div class="csol-md-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.id+'" onclick="details(this);">Book Now</span></div></div></a></li>');
                             });
-                        
-                        
-                        //alert(data);
-                        
                     }
                 });
             });

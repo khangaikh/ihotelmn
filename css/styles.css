@@ -6636,10 +6636,11 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   line-height: 1em;
 }
 .booking-item-price {
-  font-size: 48px;
+  font-size: 30px;
   color: #626262;
   line-height: 1em;
   display: inline-block;
+  margin-top: 12px;
   margin-bottom: 12px;
 }
 .booking-item-number {
