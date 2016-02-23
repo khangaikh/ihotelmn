@@ -1,5 +1,5 @@
 "use strict";
-
+$('footer-year').append('2016');
 $('ul.slimmenu').slimmenu({
     resizeWidth: '992',
     collapserTitle: 'Main Menu',
