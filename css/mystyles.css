@@ -96,3 +96,11 @@ dd{
 		margin:0;
 	}
 }
+.search-tabs-abs{
+	max-width:400px;
+}
+.bg-mask{
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+	-webkit-background-size: cover !important;
+}
