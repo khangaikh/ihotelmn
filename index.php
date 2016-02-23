@@ -5,7 +5,7 @@
     use Parse\ParseClient;
     use Parse\ParseQuery;
     use Parse\ParseUser;
-    
+
     session_start();
     //register autoloader
     Twig_Autoloader::register();
@@ -19,9 +19,9 @@
     $twig->setCache(false);
 
     if(isset($_SESSION['user'])){
-        $user = $_SESSION['user']; 
+        $user = $_SESSION['user'];
         $username = $user->get("username");
-        
+
         if(isset($_GET['logout'])){
             session_unset();
             session_destroy();
@@ -71,7 +71,7 @@
             $query->equalTo("status",1);
             $query->descending("stars");
             $location = $_GET['location'];
-            
+
             $start = $_GET['start'];
             $end = $_GET['end'];
 
@@ -137,7 +137,7 @@
             $query->includeKey('hotel');
             $order = $query->first();
             $hotel = $order->get("hotel");
-  
+
             $template = $twig->loadTemplate('order.html');
             //render a template
             echo $template->render(array('title' => 'Захиалга', 'order' => $order, 'hotel' =>$hotel,'user' => $user ));
@@ -191,7 +191,7 @@
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'user' =>$user));
         }
         else if(isset($_GET['card'])){
-           
+
             $query = new ParseQuery("user_cards");
             $query->equalTo("status",1);
             $query->equalTo("user",$user);
@@ -209,11 +209,11 @@
             $query->includeKey('hotel');
             $orders = $query->find();
             if(isset($_POST['message'])){
-                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
-                    'message'=> $_POST['message'], 'mtype'=>$_POST['mtype'])); 
+                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders,
+                    'message'=> $_POST['message'], 'mtype'=>$_POST['mtype']));
             }
             else{
-                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders)); 
+                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders));
             }
         }
         else{
@@ -223,7 +223,7 @@
             $query->equalTo("user",$user);
             $query->includeKey('hotel');
             $orders = $query->find();
-            echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders)); 
+            echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders));
         }
     }else{
        if(isset($_GET['register'])){
@@ -236,7 +236,7 @@
             $query->equalTo("status",1);
             $query->descending("stars");
             $location = $_GET['location'];
-            
+
             $start = $_GET['start'];
             $end = $_GET['end'];
 
@@ -321,8 +321,16 @@
             $template = $twig->loadTemplate('news.html');
             echo $template->render(array('title' => 'Мэдээ'));
         }
-        else if(isset($_GET['rent'])){
-             $template = $twig->loadTemplate('rent.html');
+        else if(isset($_GET['contact'])){
+             $template = $twig->loadTemplate('contact-us.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['about'])){
+             $template = $twig->loadTemplate('about.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['faq'])){
+             $template = $twig->loadTemplate('faq.html');
             echo $template->render(array('title' => 'Мэдээ'));
         }
         else if(isset($_GET['payment'])){
@@ -395,7 +403,7 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->descending("stars");
-            
+
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
             $count = $query->count();
@@ -416,7 +424,6 @@
             $ub = $query->count();
             //render a template
             echo $template->render(array('title' => 'Search', 'nav' => 1,'ub'=>$ub, 'hotels'=>$hotels));
-        } 
+        }
     }
 ?>
-
