@@ -74,3 +74,9 @@ dt{
 dd{
     display: none;
 }
+.mrg-left{
+	margin-left:20px;
+}
+.booking-item-rating{
+	border-bottom: none;
+}

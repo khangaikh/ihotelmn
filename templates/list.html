@@ -205,15 +205,22 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="booking-item-rating">
+                        <div class='flex'>
+                            <div>
+                                <h5 class="booking-item-title">{{res.name}}</h5>
+                            </div>
+                            <div>
+                        <div class="booking-item-rating mrg-left">
                           <ul class="icon-group booking-item-rating-stars">
                             {% for i in range(1, res.stars) %}
                             <li><i class="fa fa-star"></i></li>
                             {% endfor %}
-                          </ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 сэтгэгдэлтэй)</small>
+                          </ul>
                         </div>
-                        <h5 class="booking-item-title">{{res.name}}</h5>
-                        <small class="booking-item-address"><i class="fa fa-map-marker"></i> {{res.address}}</small></br><small class="booking-item-address">{{res.short_desc}}</small>
+                    </div>
+                        </div>
+
+                        <small class="booking-item-address"><i class="fa fa-map-marker"></i>{{res.address}}</small><br><br><small class="booking-item-address">{{res.short_desc}}</small>
                       </div>
                       <div class="col-md-3"><span class="booking-item-price-from">дунджаар</span><span class="booking-item-price">${{res.average_rate}}</span><span>/өдөр</span><span class="btn btn-primary" name="detail" id="{{res.objectId}}">Өрөө сонгох</span>
                       </div>

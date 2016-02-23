@@ -50,6 +50,18 @@
             $template = $twig->loadTemplate('terms.html');
             echo $template->render(array('title' => 'Мэдээ'));
         }
+        else if(isset($_GET['asem-news'])){
+            $template = $twig->loadTemplate('asem_news.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['asem-tours'])){
+             $template = $twig->loadTemplate('asem-tours.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['asem-faq'])){
+             $template = $twig->loadTemplate('asem-faq.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
         else if(isset($_GET['asem'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
@@ -383,6 +395,18 @@
         }
         else if(isset($_GET['terms'])){
             $template = $twig->loadTemplate('terms.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+         else if(isset($_GET['asem-news'])){
+            $template = $twig->loadTemplate('asem_news.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['asem-tours'])){
+             $template = $twig->loadTemplate('asem-tours.html');
+            echo $template->render(array('title' => 'Мэдээ'));
+        }
+        else if(isset($_GET['asem-faq'])){
+             $template = $twig->loadTemplate('asem-faq.html');
             echo $template->render(array('title' => 'Мэдээ'));
         }
         else if(isset($_GET['payment'])){
