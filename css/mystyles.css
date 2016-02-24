@@ -96,6 +96,13 @@ dd{
 		margin:0;
 	}
 }
+.loc-info .loc-info-weather-num{
+	top:5px;
+	right:10px;
+}
+#img{
+	width:initial;
+}
 @media (min-width:1000px){
 .search-tabs-abs{
 	max-width:400px;

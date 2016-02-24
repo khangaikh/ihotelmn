@@ -90,10 +90,10 @@
                         <div class="bg-mask"></div>
                         <div class="bg-mask" style="background-image:url(img/slide1.png);"></div>
                         <div class="bg-content">
-                            <div class="container">
+                            <div class="container" id='mn'>
                                 <div class="loc-info text-right hidden-xs hidden-sm">
-                                    <h3 class="loc-info-title"><img src="img/flags/32/mn.png" alt="Image Alternative text" title="Image Title" />Paris</h3>
-                                    <p class="loc-info-weather"><span class="loc-info-weather-num">+25</span><i class="im im-cloudy loc-info-weather-icon"></i>
+                                    <h3 class="loc-info-title"><img src="img/flags/32/mn.png" alt="Image Alternative text" title="Image Title" /><span></span></h3>
+                                    <p class="loc-info-weather"><span class="loc-info-weather-num"></span><img id='img'>
                                     </p>
                                 </div>
                             </div>
@@ -243,6 +243,9 @@
         </div>
     </div>
 </div>
+<?php $a = http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=44db6a862fba0b067b1930da0d769e98;
+echo $a; ?>
+
 {% endblock %} 
 {% block scripting %}
     {{parent()}}
@@ -266,5 +269,42 @@
                 startView: 2
             });
                     }); 
+
+$.ajax({
+    url:"http://api.openweathermap.org/data/2.5/weather?q=ulaanbaatar&appid=44db6a862fba0b067b1930da0d769e98&units=metric", 
+    dataType:"jsonp",
+    success: function(data){
+        if(data.main.temp > 0){
+            var temp = '+'+data.main.temp;
+        }else{
+            var temp = data.main.temp
+        }
+        $('#mn h3 span').text(data.name);
+        $('#mn .loc-info-weather-num').text(temp);
+        var img = '';
+        console.log(data.weather[0].id);
+        //alert(data['weather'].id);
+        if(data.weather[0].id > 199 && data.weather[0].id <233){
+            img = 'img/weather/11d.png';
+        }else if(data.weather[0].id > 299 && data.weather[0].id <322){
+            img = 'img/weather/09d.png';
+        }else if(data.weather[0].id > 499 && data.weather[0].id <532){
+            img = 'img/weather/10d.png';
+        }else if(data.weather[0].id > 599 && data.weather[0].id <623){
+            img = 'img/weather/13d.png';
+        }else if(data.weather[0].id > 699 && data.weather[0].id <782){
+            img = 'img/weather/50d.png';
+        }else if(data.weather[0].id >799 && data.weather[0].id <805){
+            img = 'img/weather/02d.png';
+        }else if(data.weather[0].id >899 && data.weather[0].id <907){
+            img = 'img/weather/50d.png';
+        }else if(data.weather[0].id >950 && data.weather[0].id <963){
+            img = 'img/weather/50d.png';
+        }else{
+            img = 'img/weather/01d.png';
+        }
+        $('#img').load().attr('src', img);
+    }
+});
     </script>
 {% endblock %}
