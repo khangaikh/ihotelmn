@@ -282,10 +282,9 @@ $('.form-group-cc-cvc input').payment('formatCardCVC');
 if ($('#map-canvas').length) {
     var map,
         service;
-
     jQuery(function($) {
         $(document).ready(function() {
-            var latlng = new google.maps.LatLng(40.7564971, -73.9743277);
+            var latlng = new google.maps.LatLng(47.921634, 106.922474);
             var myOptions = {
                 zoom: 16,
                 center: latlng,
