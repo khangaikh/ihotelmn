@@ -107,7 +107,7 @@
             $query->equalTo("user",$user);
             $news = $query->find();
             //render a template
-            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'user' => $user, 'nav' => 6));
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'user' => $user, 'nav' => 8));
         }
         else if(isset($_GET['hotel_add'])){
             $template = $twig->loadTemplate('add_hotel.html');
