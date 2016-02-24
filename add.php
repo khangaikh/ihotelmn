@@ -8,6 +8,7 @@
     $hotel = new ParseObject("hotel");
     $hotel->set("name", $_POST['name']);
     $hotel->set("type", $_POST['type']);
+    $hotel->set("asem", (int)$_POST['asem']);
     $hotel->set("user", $_SESSION['user']);
     $hotel->set("status",0);
     $hotel->set("homepage",0);

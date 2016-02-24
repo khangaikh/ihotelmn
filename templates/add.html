@@ -42,9 +42,20 @@
                                 <option>Economy hotel</option>
                             </select>
                         </div>
+
                         <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
                             <label>Буудлын нэр</label>
                             <input class="form-control" type="text" id="name" />
+                        </div>
+                        <div class="form-group-md">
+                            <ul class="col-sm-6 list-unstyled" id="amenities_room_amenities_column1">
+                                 <li id="container_139" class="room_items row">
+                                       <div class="checkbox col-sm-12">
+                                          <input type="checkbox" id="asem" class="i-check"  name="asem" value="1"/>
+                                          ASEM HOTEL?
+                                       </div>
+                                 </li>
+                            </ul> 
                         </div>
                         <input class="btn btn-primary" type="button" value="Бүртгүүлэх" id="add" />
                     </form>
@@ -58,6 +69,10 @@
     <script type="text/javascript">
         $(document).ready(function() { 
            $("#add").click(function(){
+                var a = $('input[name="asem"]:checkbox:checked').map(function() {return this.value;}).get();
+                if(a==""){
+                    a=0;
+                }
                 var n = $("#name").val();
                 var t= $("#type").val();
                 if(n==""){
@@ -65,7 +80,8 @@
                 }else{
                     $.post("add.php", {
                         type: t,
-                        name: n
+                        name: n,
+                        asem: a
                         }, function (result) {
                             if(result!=0){
                                 var url = "index.php?hotel_add";  
