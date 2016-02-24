@@ -96,8 +96,10 @@ dd{
 		margin:0;
 	}
 }
+@media (min-width:1000px){
 .search-tabs-abs{
 	max-width:400px;
+}
 }
 .bg-mask{
 	background-repeat: no-repeat !important;
