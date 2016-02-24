@@ -18,8 +18,11 @@
                         </li>
                         <li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
                         </li>
-                        {% if user.role == 2 %}
+                        {% if user.role == 3 %}
                         <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудалууд</a>
+                        </li>
+                        <li {% if nav == 6 %} class="active" {% endif %}><a
+                            href="index.php?news_admin"><i class="fa fa-book"></i>Мэдээ мэдээлэл</a>
                         </li>
                         {% endif %}
                         {% if user.role == 3 %}
@@ -145,6 +148,29 @@
                 });
             }
         }
+        function edit_news(i){
+            $.ajax({
+               type: "POST",
+               url: "news.php",
+               data: {news_update_form:i},
+               success: function(data, textStatus, jqXHR)
+               {
+
+               var news = $.parseJSON( data );
+               $("#update_news_id").val(news['id']);
+               $("#update_news_subject").val(news['subject']);
+               $("#update_news_catogry").val(news['category']);
+               $("#update_news_short_desc").val(news['short_desc']);
+               $("#update_news_desc").val(news['content']);
+               $("#update_news_pic").attr('src',news['header_image']);
+
+               $('#show-news-edit').trigger('click');
+               },
+                error: function(xhr, textStatus, errorThrown){
+                   alert(textStatus);
+                }
+            }); 
+        }
         function edit_hotel(i){
             $.ajax({
                type: "POST",
@@ -177,6 +203,22 @@
                 });
             }
         } 
+        function delete_news(j){
+            if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
+               $.ajax({
+                   type: "POST",
+                   url: "news.php",
+                   data: {delete_news:j},
+                   success: function(data, textStatus, jqXHR)
+                   {  
+                   window.location.replace('index.php?news_admin');
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                       alert(textStatus);
+                    }
+                });
+            }
+        }
         function disable_hotel(j){
             if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
                $.ajax({
@@ -231,6 +273,3 @@
         }
     </script>
 {% endblock %}
-
-
-

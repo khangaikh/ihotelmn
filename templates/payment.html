@@ -170,7 +170,7 @@
 $("#golomt_pay").submit(function( event ) {
     {% if user %}
     event.preventDefault();
-    $.post("https://ihotel.mn/order.php", {
+    $.post("order.php", {
         location: $('#location_4').val(),
         total: $('#total_4').val(),
         days: $('#days_4').val(),
@@ -194,7 +194,7 @@ $("#golomt_pay").submit(function( event ) {
     });
 
     {% else %}
-    $.post("https://ihotel.mn/order.php", {
+    $.post("order.php", {
         name: $('#full_name').val(), 
         email: $('#email').val(), 
         phone: $('#phone').val(),

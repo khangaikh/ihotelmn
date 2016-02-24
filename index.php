@@ -100,6 +100,15 @@
             //render a template
             echo $template->render(array('title' => 'Буудалууд', 'hotels'=>$hotels, 'user' => $user, 'nav' => 4));
         }
+
+        else if(isset($_GET['news_admin'])){
+            $template = $twig->loadTemplate('user_news.html');
+            $query = new ParseQuery("news");
+            $query->equalTo("user",$user);
+            $news = $query->find();
+            //render a template
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'user' => $user, 'nav' => 6));
+        }
         else if(isset($_GET['hotel_add'])){
             $template = $twig->loadTemplate('add_hotel.html');
             $section = $_SESSION['section'];
@@ -313,6 +322,14 @@
             //render a template
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $location, 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[2], 'pages' => $pages, 'guests'=>$guests, 'persons'=>$persons));
         }
+        else if(isset($_POST['news'])){
+            $template = $twig->loadTemplate('user_news.html');
+            $query = new ParseQuery("news");
+            $query->descending("createdAt");
+            $query->equalTo("user",$user);
+            $news = $query->find();
+            echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'news'=>$news)); 
+        }
         else if(isset($_GET['detail'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['detail']);
@@ -375,7 +392,34 @@
         }
         else if(isset($_GET['news'])){
             $template = $twig->loadTemplate('news.html');
-            echo $template->render(array('title' => 'Мэдээ'));
+            $query = new ParseQuery("news");
+            $query->includeKey("user");
+            $news = $query->find();
+            $query->equalTo('category', 'Photos');
+            $photos = $query->find();
+            $data['photos'] = count($photos);
+            $query->equalTo('category', 'Vacation');
+            $vacation = $query->find();
+            $data['vacation']=count($vacation);
+            $query->equalTo('category', 'Flights');
+            $flights = $query->find();
+            $data['flights']=count($flights);
+            $query->equalTo('category', 'Travel Advices');
+            $travel_advice = $query->find();
+            $data['travel_advice']=count($travel_advice);
+            $query->equalTo('category', 'Trending Now');
+            $trending_now = $query->find();
+            $data['trending_now']=count($trending_now);
+            $query->equalTo('category', 'Hotels');
+            $hotels = $query->find();
+            $data['hotels']=count($hotels);
+            $query->equalTo('category', 'Places to Go');
+            $place_to_go = $query->find();
+            $data['place_to_go']=count($place_to_go);
+            $query->equalTo('category', 'Travel Stories');
+            $travel_stories = $query->find();
+            $data['travel_stories']=count($travel_stories);
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
         }
         else if(isset($_GET['contact'])){
              $template = $twig->loadTemplate('contact-us.html');

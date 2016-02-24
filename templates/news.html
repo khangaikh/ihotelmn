@@ -1,116 +1,91 @@
-       {% extends "base.html" %} 
+{% extends "base.html" %} 
 {% block title %}Мэдээ{% endblock %} 
 {% block content %}          
 <div class='gap'></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <!-- START BLOG POST -->
-                    <div class="article post">
-                        <header class="post-header">
-                            <a class="hover-img" href="#">
-                                <img src="img/1200x500.png" alt="Image Alternative text" title="196_365" /><i class="fa fa-link box-icon-# hover-icon round"></i>
-                            </a>
-                        </header>
-                        <div class="post-inner">
-                            <h4 class="post-title"><a class="text-darken" href="#">Image Post Type</a></h4>
-                            <ul class="post-meta">
-                                <li><i class="fa fa-calendar"></i><a href="#">14 October, 2014</a>
-                                </li>
-                                <li><i class="fa fa-user"></i><a href="#">Blake Abraham</a>
-                                </li>
-                                <li><i class="fa fa-tags"></i><a href="#">Travel</a>
-                                </li>
-                            </ul>
-                            <p class="post-desciption">Porttitor feugiat mus cras quisque pharetra sagittis non laoreet augue nulla lectus auctor accumsan cubilia sollicitudin mattis leo vel morbi class sollicitudin cubilia quisque penatibus dictumst faucibus dui natoque ultricies montes congue pellentesque aliquet lectus dictum est volutpat class odio elementum quis commodo dolor ultrices scelerisque montes class curabitur class...</p><a class="btn btn-small btn-primary" href="#">Дэлгэрэнгүй унших</a>
-                        </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            {% if news %}
+            {% for new in news %}
+            <!-- START BLOG POST -->
+            <div class="article post">
+                <header class="post-header">
+                    <a class="hover-img" href="#">
+                        <img src="{{new.header_image}}" alt="Image Alternative text" title="{{new.subject}}" />
+                        <i class="fa fa-link box-icon-# hover-icon round"></i>
+                    </a>
+                </header>
+                <div class="post-inner">
+                    <h4 class="post-title"><a class="text-darken" href="#">{{new.subject}}</a></h4>
+                    <ul class="post-meta">
+                        <li><i class="fa fa-calendar"></i><a>{{new.createdAt | date("F j, Y")}}</a>
+                        </li>
+                        <li><i class="fa fa-user"></i><a href="#">{{new.user.username}}</a>
+                        </li>
+                        <li><i class="fa fa-tags"></i><a href="#">{{new.category}}</a>
+                        </li>
+                    </ul>
+                    <p class="post-desciption">{{new.short_desc}}...</p><a class="btn btn-small btn-primary" href="#">Дэлгэрэнгүй унших</a>
+                </div>
+            </div>
+            <!-- END BLOG POST -->
+            {% endfor %}
+            {% endif %}
+            <ul class="pagination">
+                <li class="active"><a href="#">1</a>
+                </li>
+                <li><a href="#">2</a>
+                </li>
+                <li><a href="#">3</a>
+                </li>
+                <li><a href="#">4</a>
+                </li>
+                <li><a href="#">5</a>
+                </li>
+                <li><a href="#">6</a>
+                </li>
+                <li><a href="#">7</a>
+                </li>
+                <li class="dots">...</li>
+                <li><a href="#">43</a>
+                </li>
+                <li class="next"><a href="#">Next Page</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <aside class="sidebar-right">
+                <div class="sidebar-widget">
+                    <div class="Form">
+                        <input class="form-control" placeholder="Search..." type="text" />
                     </div>
-                    <!-- END BLOG POST -->
-                    <ul class="pagination">
-                        <li class="active"><a href="#">1</a>
+                </div>
+                <div class="sidebar-widget">
+                    <h4>Categories</h4>
+                    <ul class="icon-list list-category">
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Photos <small>({{category.photos}})</small></a>
                         </li>
-                        <li><a href="#">2</a>
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Vacation <small>({{category.vacation}})</small></a>
                         </li>
-                        <li><a href="#">3</a>
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Flights <small>({{category.flights}})</small></a>
                         </li>
-                        <li><a href="#">4</a>
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Travel Advices <small>({{category.travel_advice}})</small></a>
                         </li>
-                        <li><a href="#">5</a>
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Trending Now <small>({{category.trending_now}})</small></a>
                         </li>
-                        <li><a href="#">6</a>
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Hotels <small>({{category.hotels}})</small></a>
                         </li>
-                        <li><a href="#">7</a>
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Places to Go <small >({{category.place_to_go}})</small></a>
                         </li>
-                        <li class="dots">...</li>
-                        <li><a href="#">43</a>
-                        </li>
-                        <li class="next"><a href="#">Next Page</a>
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Travel Stories <small>({{category.travel_stories}})</small></a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <aside class="sidebar-right">
-                        <div class="sidebar-widget">
-                            <div class="Form">
-                                <input class="form-control" placeholder="Search..." type="text" />
-                            </div>
-                        </div>
-                        <div class="sidebar-widget">
-                            <h4>Categories</h4>
-                            <ul class="icon-list list-category">
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Photos <small >(63)</small></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Vacation <small >(81)</small></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Flights <small >(83)</small></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Travel Advices <small >(95)</small></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Trending Now <small >(57)</small></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Hotels <small >(94)</small></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Places to Go <small >(81)</small></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Travel Stories <small >(91)</small></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="sidebar-widget">
-                            <h4>Twitter Feed</h4>
-                            <div class="twitter" id="twitter"></div>
-                        </div>
-                        <div class="sidebar-widget">
-                            <h4>Archive</h4>
-                            <ul class="icon-list list-category">
-                                <li><a href="#"><i class="fa fa-angle-right"></i>July 2014</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>June 2014</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>May 2014</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>April 2014</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>March 2014</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>February 2014</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>January 2014</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>December 2014</a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="sidebar-widget">
-                            <h4>Facebook</h4>
-                            <div class="fb-like-box" data-href="https://www.facebook.com/FacebookDevelopers" data-colorscheme="light" data-show-faces="1" data-header="1" data-show-border="1" data-width="233"></div>
-                        </div>
-                    </aside>
-                </div>
-            </div>
+            </aside>
         </div>
-                        {% endblock %} 
+    </div>
+</div>
+{% endblock %} 
 {% block scripting %} 
 {{parent()}}
 

@@ -1,0 +1,263 @@
+{% extends "user.html" %}
+{% block user_content %}
+<a id="show-news-edit" class="popup-text" href="#update-dialog" data-effect="mfp-zoom-out" style="display: none;"/>
+{% if result == 1 %}
+<script type="text/javascript" charset="utf-8">
+window.location.replace("index.php?news_admin");
+</script>
+{% endif %}
+<div class="gap-small"></div>
+<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="search-dialog">
+    <form id="news_form" class="" action="news.php" name="news_form" data-parsley-validate method="POST">
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="news_name_label">Мэдээ нэмэх</span>
+            </legend>
+            <div class="row">
+                <div class="is-block">
+                    <div class="form-group col-sm-4 ">
+                        <label for="news_subject">News Subject</label>
+                        <input type="text" id="news_subject" name="news_subject" value="" class="form-control" required placeholder="subject">
+                        <span class="help-block"></span> 
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-4">
+                        <label for="news_catogry">News category</label>
+                        <select class="form-control" name="news_catogry" id="news_catogry" required="">
+                            <option value="Photos">Photos</option>
+                            <option value="Vacation">Vacation</option>
+                            <option value="Flights">Flights</option>
+                            <option value="Travel Advices">Travek Advices</option>
+                            <option value="Trending Now">Trending Now</option>
+                            <option value="Hotels">Hotels</option>
+                            <option value="Places to Go">Places to Go</option>
+                            <option value="Travel Stories">Travel Stories</option>
+                        </select>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group col-sm-4 ">
+                        <label for="news_image">News Image</label>
+                        <input id="news_image" type="file" name="file" accept="image/jpeg" class="file" multiple="" data-parsley-validate required="">
+                        <input id="news_image1" name="news_image1" value="" alt="" style="display: none;"/>
+                        <span class="help-block"></span> 
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="room_name_label">Мэдээний дэлгэрэнгүй</span>
+            </legend>
+            <div class="row">
+                <div class="is-block">
+                    <div class="form-group col-sm-12 col-xs-12">
+                        <label for="news_desc">News description</label>
+                        <textarea id="news_desc" name="news_desc" class="col-sm-12" rows="4" maxlength="" required=""></textarea>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="room_name_label">Мэдээний дэлгэрэнгүй</span>
+            </legend>
+            <div class="row">
+                <div class="is-block">
+                    <div class="form-group col-sm-6 col-xs-6">
+                        <label for="news_short_desc">News short description( 500 char MAX)</label>
+                        <textarea id="news_short_desc" name="news_short_desc" class="col-sm-12" rows="4" maxlength="500" required=""></textarea>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div id="imagePreview" class="col-sm-6">
+                </div>
+
+            </div>
+        </fieldset>
+        <div class="row no-return" id="room-cta">
+            <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Нэмэх" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="update-dialog">
+    <form id="news_form" class="" action="news.php" name="update_news_form" data-parsley-validate method="POST">
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="news_name_label">Мэдээ засах</span>
+                <input type="hidden" id="update_news_id" name="update_news_id" value="" class="form-control" required>
+            </legend>
+            <div class="row">
+                <div class="is-block">
+                    <div class="form-group col-sm-4 ">
+                        <label for="news_subject">News Subject</label>
+                        <input type="text" id="update_news_subject" name="update_news_subject" value="" class="form-control" required placeholder="subject">
+                        <span class="help-block"></span> 
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-4">
+                        <label for="news_catogry">News category</label>
+                        <select class="form-control" name="update_news_catogry" id="update_news_catogry" required="">
+                            <option value="Photos">Photos</option>
+                            <option value="Vacation">Vacation</option>
+                            <option value="Flights">Flights</option>
+                            <option value="Travel Advices">Travek Advices</option>
+                            <option value="Trending Now">Trending Now</option>
+                            <option value="Hotels">Hotels</option>
+                            <option value="Places to Go">Places to Go</option>
+                            <option value="Travel Stories">Travel Stories</option>
+                        </select>
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group col-sm-4 ">
+                        <label for="update_news_image">News Image</label>
+                        <input id="update_news_image" type="file" name="file" accept="image/jpeg" class="file" multiple="" data-parsley-validate>
+                        <input id="update_news_image1" name="update_news_image1" value="" alt="" style="display: none;"/>
+                        <span class="help-block"></span> 
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="room_name_label">Мэдээний дэлгэрэнгүй</span>
+            </legend>
+            <div class="row">
+                <div class="is-block">
+                    <div class="form-group col-sm-12 col-xs-12">
+                        <label for="update_news_desc">News description</label>
+                        <textarea id="update_news_desc" name="update_news_desc" class="col-sm-12" rows="4" maxlength="" required=""></textarea>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="room_name_label">Мэдээний дэлгэрэнгүй</span>
+            </legend>
+            <div class="row">
+                <div class="is-block">
+                    <div class="form-group col-sm-6 col-xs-6">
+                        <label for="update_news_short_desc">News short description( 500 char MAX)</label>
+                       <textarea id="update_news_short_desc" name="update_news_short_desc" class="col-sm-12" rows="4" maxlength="500" required=""></textarea>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div id="update_imagePreview" class="col-sm-6">
+                    <div class="col-md-6" id="rempic">
+                    <img id="update_news_pic" src="" alt="" name="room-images" class="img-thumbnail"/>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+        <div class="row no-return" id="room-cta">
+            <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Нэмэх" />
+            </div>
+        </div>
+    </form>
+</div>
+{% if news %}
+<a class="popup-text btn btn-primary" href="#search-dialog" data-effect="mfp-zoom-out">Шинэ мэдээ оруулах</a>
+<div class="gap-small"></div>
+<table class="table table-bordered table-striped table-booking-history">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Subject</th>
+            <th>Category</th>
+            <th>Short description</th>
+            <th>Нийтлэгдсэн</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="orders">
+    {% for new in news %}
+    <tr>
+        <td class="text-center">
+            {{loop.index}}
+        </td>
+        <td class="booking-history-title">{{new.subject}}</td>
+        <td>{{new.category}}</td>
+        <td>{{new.short_desc}}</td>
+        <td>{{new.createdAt | date("Y-m-d")}}</td>
+        <td id="operations">
+            <a name="{{new.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_news('{{new.objectId}}')" >Засах</a>
+            <a name="{{new.objectId}}"  class="btn btn-default" href="#" onclick="delete_news('{{new.objectId}}')">Устгах</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h4>Сайн байна уу</h4>
+<p>Одоогоор та мэдээ нэмээгүй байна <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Энд</a> дарж анхны мэдээгээ үүсгэнэ үү.</p>
+{% endif %}
+{% endblock %}
+{% block scripting %}
+{{parent()}}
+<script type="text/javascript" charset="utf-8">
+$("#update_news_image").on("change", function(){
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+        $.each( files, function( key, value ) {
+            if (/^image/.test( files[key].type)){ // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[key]); // read the local file
+            reader.onloadend = function(){ 
+            // set image data as background of div
+            var div = $('<div id="'+key+'" class="col-md-6">');
+            var add = $('<a name="remove" class="btn btn-lg" style="margin-left:40px" onClick="removeDiv(this);"><i class="fa fa-times-circle"></a>');
+            var img = $('#update_news_pic'); //Equivalent: $(document.createElement('img'))
+            img.attr('src', this.result);
+            $('#update_news_image1').attr('value',this.result);
+            img.attr('name', 'room-images');
+            img.attr('class', "img-thumbnail");
+            img.appendTo(div);
+            add.appendTo(div);
+            div.appendTo('#update_imagePreview');
+            $("#rempic").hide();
+            }
+            }else{
+            alert("Зураг биш байна. Тохиромжтой зураг оруулна уу");
+            }
+            });
+});
+$("#news_image").on("change", function(){
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+        $.each( files, function( key, value ) {
+            if (/^image/.test( files[key].type)){ // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[key]); // read the local file
+            reader.onloadend = function(){ 
+            // set image data as background of div
+            var div = $('<div id="'+key+'" class="col-md-6">');
+            var add = $('<a name="remove" class="btn btn-lg" style="margin-left:40px" onClick="removeDiv(this);"><i class="fa fa-times-circle"></a>');
+            var img = $('<img>'); //Equivalent: $(document.createElement('img'))
+            img.attr('src', this.result);
+            $('#news_image1').attr('value',this.result);
+            img.attr('name', 'room-images');
+            img.attr('class', "img-thumbnail");
+            img.appendTo(div);
+            add.appendTo(div);
+            div.appendTo('#imagePreview');
+            }
+            }else{
+            alert("Зураг биш байна. Тохиромжтой зураг оруулна уу");
+            }
+            });
+});
+</script>
+{% endblock %}
