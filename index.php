@@ -328,6 +328,11 @@
             //render a template
             echo $template->render(array('title' => 'Бүртгүүлэх'));
         }
+        else if(isset($_GET['asem_login'])){
+            $template = $twig->loadTemplate('asem_register.html');
+            //render a template
+            echo $template->render(array('title' => 'Asem Login'));
+        }
         else if(isset($_GET['start'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
