@@ -62,8 +62,6 @@
             </div>
 
             <div class="col-md-9">
-                {% block user_content %}
-                {% endblock %}
                 <br />
                 <div class="alert alert-success hidden" id="register-success2">
                     <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
@@ -76,6 +74,8 @@
                     <p class="text-small"></p>
                 </div>
             </div>
+                {% block user_content %}
+                {% endblock %}
         </div>
     </div>
 {% endblock %}
