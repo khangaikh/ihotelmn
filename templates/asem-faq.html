@@ -1,33 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-        <div class="container">
-            <h1 class="page-title">Асуулт, хариулт</h1>
-        </div>
-
-       <div class="container">
-            <dl>
-                <dt><i class='fa fa-plus-square'></i>What's the difference between 32-bit and 64-bit versions of Windows</dt>
-                <dd>The terms 32-bit and 64-bit refer to the way a computer's processor (also called a CPU) handles information. The 64-bit version of Windows handles large amounts of random access memory (RAM) more effectively than a 32-bit system. Not all devices can run the 64-bit versions of Windows.</dd>
-                 <dt><i class='fa fa-plus-square'></i>What's the difference between 32-bit and 64-bit versions of Windows</dt>
-                <dd>The terms 32-bit and 64-bit refer to the way a computer's processor (also called a CPU) handles information. The 64-bit version of Windows handles large amounts of random access memory (RAM) more effectively than a 32-bit system. Not all devices can run the 64-bit versions of Windows.</dd>
-                 <dt><i class='fa fa-plus-square'></i>What's the difference between 32-bit and 64-bit versions of Windows</dt>
-                <dd>The terms 32-bit and 64-bit refer to the way a computer's processor (also called a CPU) handles information. The 64-bit version of Windows handles large amounts of random access memory (RAM) more effectively than a 32-bit system. Not all devices can run the 64-bit versions of Windows.</dd>
-                 <dt><i class='fa fa-plus-square'></i>What's the difference between 32-bit and 64-bit versions of Windows</dt>
-                <dd>The terms 32-bit and 64-bit refer to the way a computer's processor (also called a CPU) handles information. The 64-bit version of Windows handles large amounts of random access memory (RAM) more effectively than a 32-bit system. Not all devices can run the 64-bit versions of Windows.</dd>
-                 <dt><i class='fa fa-plus-square'></i>What's the difference between 32-bit and 64-bit versions of Windows</dt>
-                <dd>The terms 32-bit and 64-bit refer to the way a computer's processor (also called a CPU) handles information. The 64-bit version of Windows handles large amounts of random access memory (RAM) more effectively than a 32-bit system. Not all devices can run the 64-bit versions of Windows.</dd>
-            </dl>
-        </div>
-        {% endblock %}
+    <div class="container">
+        <h1 class="page-title">FAQ</h1>
+    </div>
+    <div class="container">
+        <dl>
+            {% for faq in faqs %}
+            <dt><i class='fa fa-plus-square'></i>{{faq.header_en}}</dt>
+            <dd>{{faq.content_en}}</dd>
+            {% endfor %}
+        </dl>
+    </div>
+{% endblock %}
 {% block scripting %}
 {{parent()}}
 <script>
-$(function(){
-$('dt').click(function(){
-
-    $(this).next().slideToggle();
-    
-});
-});
+    $(function(){
+            $('dt').click(function(){
+                $(this).next().slideToggle();
+                });
+            });
 </script>
 {% endblock %}

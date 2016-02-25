@@ -25,7 +25,7 @@
                         </li>
                         <li {% if nav == 8 %} class="active" {% endif %}><a href="index.php?news_admin"><i class="fa fa-book"></i>Мэдээ мэдээлэл</a>
                         </li>
-                        <li {% if nav == 7 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-cog"></i>Асуулт, хариулт</a>
+                        <li {% if nav == 9 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-cog"></i>Асуулт, хариулт</a>
                         </li>
                         {% endif %}
                         <li {% if nav == 5 %} class="active" {% endif %}><a href="index.php?settings"><i class="fa fa-cog"></i>Нууц үг солих</a>
@@ -60,7 +60,33 @@
 {% block scripting %}
     {{parent()}}
     <script type="text/javascript">
+      function delete_faq(j){
+        alert('a1a1a1a1a1');
+          if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
+
+             $.ajax({
+                 type: "POST",
+                 url: "faq.php",
+                 data: {delete_faq:j},
+                 success: function(data, textStatus, jqXHR)
+                 {  
+                  alert('aaaaaaaaaa');
+                 window.location.replace('index.php?faq_admin');
+                  },
+                  error: function(xhr, textStatus, errorThrown){
+                    alert('bbbbbbbbbbbbbbb');
+                     alert(textStatus);
+                  }
+              });
+          }
+      }
         $(document).ready(function() {
+            
+            $("a[name=delete_faq]").click(function(){
+
+              alert(1);
+            });
+
             $("input").on('ifChecked', function(event){
               $.ajax({
                    type: "POST",
@@ -184,6 +210,27 @@
                 }
             }); 
         }
+        function edit_faq(i){
+            $.ajax({
+               type: "POST",
+               url: "faq.php",
+               data: {edit_faq_form:i},
+               success: function(data, textStatus, jqXHR)
+               {
+               var faq = $.parseJSON( data );
+               $('#edit_id').val(faq['id']);
+               $("#edit_answer_mn").val(faq['edit_answer_mn']);
+               $("#edit_question_mn").val(faq['edit_question_mn']);
+               $("#edit_answer_en").val(faq['edit_answer_en']);
+               $("#edit_question_en").val(faq['edit_question_en']);
+
+               $('#show-faq-edit').trigger('click');
+               },
+                error: function(xhr, textStatus, errorThrown){
+                   alert(textStatus);
+                }
+            }); 
+        }
         function edit_hotel(i){
             $.ajax({
                type: "POST",
@@ -232,6 +279,26 @@
                 });
             }
         }
+      function delete_faq(j){
+        alert('a1a1a1a1a1');
+          if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
+
+             $.ajax({
+                 type: "POST",
+                 url: "faq.php",
+                 data: {delete_faq:j},
+                 success: function(data, textStatus, jqXHR)
+                 {  
+                  alert('aaaaaaaaaa');
+                 window.location.replace('index.php?faq_admin');
+                  },
+                  error: function(xhr, textStatus, errorThrown){
+                    alert('bbbbbbbbbbbbbbb');
+                     alert(textStatus);
+                  }
+              });
+          }
+      }
         function disable_hotel(j){
             if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
                $.ajax({

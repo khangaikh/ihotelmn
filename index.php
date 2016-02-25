@@ -57,8 +57,10 @@
             echo $template->render(array('title' => 'Tours'));
         }
         else if(isset($_GET['asem-faq'])){
-             $template = $twig->loadTemplate('asem-faq.html');
-            echo $template->render(array('title' => 'FAQ'));
+            $query = new ParseQuery("faq");
+            $faqs = $query->find();
+            $template = $twig->loadTemplate('faq.html');
+            echo $template->render(array('title' => 'FAQ', 'faqs'=>$faqs));
         }
         else if(isset($_GET['asem'])){
             $query = new ParseQuery("hotel");
@@ -115,7 +117,7 @@
             $query->equalTo("user",$user);
             $faqs = $query->find();
             //render a template
-            echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs, 'user' => $user, 'nav' => 8));
+            echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs, 'user' => $user, 'nav' => 9));
         }
         else if(isset($_GET['hotel_add'])){
             $template = $twig->loadTemplate('add_hotel.html');
@@ -546,8 +548,10 @@
             echo $template->render(array('title' => ''));
         }
         else if(isset($_GET['asem-faq'])){
-             $template = $twig->loadTemplate('asem-faq.html');
-            echo $template->render(array('title' => ''));
+            $query = new ParseQuery("faq");
+            $faqs = $query->find();
+            $template = $twig->loadTemplate('faq.html');
+            echo $template->render(array('title' => 'FAQ', 'faqs'=>$faqs));
         }
         else if(isset($_GET['payment'])){
             $query = new ParseQuery("hotel");

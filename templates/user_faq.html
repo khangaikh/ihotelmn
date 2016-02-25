@@ -1,5 +1,6 @@
 {% extends "user.html" %}
 {% block user_content %}
+<a id="show-faq-edit" class="popup-text" href="#edit-faq" data-effect="mfp-zoom-out" style="display: none;"/>
    {% if result == 1 %}
     <script type="text/javascript" charset="utf-8">
         window.location.replace("index.php?faq_admin");
@@ -27,8 +28,8 @@
             <td class="booking-history-title">{{faq.header_mn}}</td>
             <td>{{faq.content_mn}}</td>
             <td id="operations">
-                <a name="{{fa.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq('{{fa.objectId}}')" >Засах</a>
-                <a name="{{fa.objectId}}"  class="btn btn-default" href="#" onclick="delete_faq('{{fa.objectId}}')">Устгах</a>
+                <a name="{{faq.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq('{{faq.objectId}}')" >Засах</a>
+                <a name="delete_faq"  class="btn btn-default" onclick="delete_faq('{{faq.objectId}}');">Устгах</a>
             </td>
         </tr>
         {% endfor %}
@@ -61,7 +62,7 @@
         <fieldset id="main-room-form" class="active">
             <div id="error_header" class="alert alert-danger hidden"></div>
             <legend>
-                <span id="news_name_label">Мэдээ нэмэх</span>
+                <span id="news_name_label">Нэмэх</span>
             </legend>
             <div class="row">
                 <div class='is-block'>
@@ -91,6 +92,46 @@
         <div class="row no-return" id="room-cta">
             <div class="col-md-12 col-sm-12 col-xs-12 continue">
                 <input type="submit" class="btn btn-block btn-primary btn-lg" value="Нэмэх" name='submit'/>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="edit-faq">
+    <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="news_name_label">Засах</span>
+                <input type="hidden" id="edit_id" name="edit_faq_id" value="" class="form-control" required>
+            </legend>
+            <div class="row">
+                <div class='is-block'>
+                    <div class='form-group col-md-12'>
+                        <label for="edit_anwser_mn">Асуулт</label>
+                        <input id="edit_answer_mn" class='form-control' type="text" name="edit_answer_mn" required="" placeholder='Асуулт'>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for="edit_question_mn">Хариулт</label>
+                        <textarea id='edit_question_mn' class='form-control' name='edit_question_mn' rows="4" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class='is-block'>
+                    <div class='form-group col-md-12'>
+                        <label for="edit_anwser_en">Answer</label>
+                        <input id="edit_answer_en" class='form-control' type="text" name="edit_answer_en" required="" placeholder='Асуулт'>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for="edit_question_en">Question</label>
+                        <textarea id='edit_question_en' class='form-control' name='edit_question_en' rows="4" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="row no-return" id="room-cta">
+            <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Засах" name='submit'/>
             </div>
         </div>
     </form>
