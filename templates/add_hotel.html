@@ -4570,6 +4570,104 @@
 {% block scripting %}
       {{parent()}}
       <script type="text/javascript">
+              var validateFront = function () {
+                    if ($('#create_basic_info_form')){
+                          if (true === $('#create_basic_info_form').parsley().isValid()) {
+                                $('.bs-callout-info').removeClass('hidden');
+                                $('.bs-callout-warning').addClass('hidden');
+                          }
+                          else {
+                                $('.bs-callout-info').addClass('hidden');
+                                $('.bs-callout-warning').removeClass('hidden');
+                          }
+                    }
+                    if ($('#create_property_details_form')){
+
+                       if (true === $('#create_property_details_form').parsley().isValid()) {
+                          $('.bs-callout-info').removeClass('hidden');
+                          $('.bs-callout-warning').addClass('hidden');
+                       }
+                        else {
+                          $('.bs-callout-info').addClass('hidden');
+                          $('.bs-callout-warning').removeClass('hidden');
+                       }
+                    }
+                    if ($('#create_room_details_form')){
+
+                       if (true === $('#create_room_details_form').parsley().isValid()) {
+                          $('.bs-callout-info').removeClass('hidden');
+                          $('.bs-callout-warning').addClass('hidden');
+                       }
+                        else {
+                          $('.bs-callout-info').addClass('hidden');
+                          $('.bs-callout-warning').removeClass('hidden');
+                       }
+                    }
+                    if ($('#create_photo_upload_form')){
+
+                       if (true === $('#create_photo_upload_form').parsley().isValid()) {
+                          $('.bs-callout-info').removeClass('hidden');
+                          $('.bs-callout-warning').addClass('hidden');
+                       }
+                        else {
+                          $('.bs-callout-info').addClass('hidden');
+                          $('.bs-callout-warning').removeClass('hidden');
+                       }
+                    }
+                    if ($('#create_agreement_form')){
+
+                       if (true === $('#create_agreement_form').parsley().isValid()) {
+                          $('.bs-callout-info').removeClass('hidden');
+                          $('.bs-callout-warning').addClass('hidden');
+                       }
+                        else {
+                          $('.bs-callout-info').addClass('hidden');
+                          $('.bs-callout-warning').removeClass('hidden');
+                       }
+                    }
+                    if ($('#create_payment_form')){
+
+                       if (true === $('#create_payment_form').parsley().isValid()) {
+                          $('.bs-callout-info').removeClass('hidden');
+                          $('.bs-callout-warning').addClass('hidden');
+                       }
+                        else {
+                          $('.bs-callout-info').addClass('hidden');
+                          $('.bs-callout-warning').removeClass('hidden');
+                       }
+                    }
+                    if ($('#create_preview_form')){
+
+                       if (true === $('#create_preview_form').parsley().isValid()) {
+                          $('.bs-callout-info').removeClass('hidden');
+                          $('.bs-callout-warning').addClass('hidden');
+                       }
+                        else {
+                          $('.bs-callout-info').addClass('hidden');
+                          $('.bs-callout-warning').removeClass('hidden');
+                       }
+                    }
+              };
+          $("#room_edit_detail_edit_continue_btn").click(function(){
+                $("#edit_room_details_form").parsley().validate();
+                validateFront();
+                if($("#edit_room_details_form").parsley().isValid() ){
+                      var roomId = $("#edit_room_id").val();
+                      var values = $("#edit_room_details_form").serializeObject();
+                      var room_images = $('img[name="room-edit-images"]').map(function() {return $(this).attr('src');}).get();
+                      var facilities = $('input[name="amenities_room_edit"]:checkbox:checked').map(function() {return this.value;}).get();
+                      $.ajax({
+                            type: "POST",
+                            url: "room.php",
+                            data: {data:roomId, values:values, action:3, images:room_images, facilities:facilities},
+                            success: function(data, textStatus, jqXHR){
+                                  if(data == 1 ){
+                                       window.location.reload();
+                                  } 
+                            }
+                      });
+                }  
+          });
             $.fn.serializeObject = function(){
                   var o = {};
                   var a = this.serializeArray();
@@ -4608,7 +4706,6 @@
                   
             }
             function edit_room(j){
-               //console.log(j);
                $.ajax({
                      type: "POST",
                      url: "room.php",
@@ -4669,7 +4766,6 @@
                
             $(document).ready(function(){ 
                 
-                  /*disable non active tabs*/
                   $('.nav li').not('.active').addClass('disabled');
                   $('.nav li').not('.active').find('a').removeAttr("data-toggle");
 
@@ -4742,84 +4838,6 @@
                         validateFront();
                         validateFront4();
                   });
-                  var validateFront = function () {
-                        if ($('#create_basic_info_form')){
-                              if (true === $('#create_basic_info_form').parsley().isValid()) {
-                                    $('.bs-callout-info').removeClass('hidden');
-                                    $('.bs-callout-warning').addClass('hidden');
-                              }
-                              else {
-                                    $('.bs-callout-info').addClass('hidden');
-                                    $('.bs-callout-warning').removeClass('hidden');
-                              }
-                        }
-                        if ($('#create_property_details_form')){
-
-                           if (true === $('#create_property_details_form').parsley().isValid()) {
-                              $('.bs-callout-info').removeClass('hidden');
-                              $('.bs-callout-warning').addClass('hidden');
-                           }
-                            else {
-                              $('.bs-callout-info').addClass('hidden');
-                              $('.bs-callout-warning').removeClass('hidden');
-                           }
-                        }
-                        if ($('#create_room_details_form')){
-
-                           if (true === $('#create_room_details_form').parsley().isValid()) {
-                              $('.bs-callout-info').removeClass('hidden');
-                              $('.bs-callout-warning').addClass('hidden');
-                           }
-                            else {
-                              $('.bs-callout-info').addClass('hidden');
-                              $('.bs-callout-warning').removeClass('hidden');
-                           }
-                        }
-                        if ($('#create_photo_upload_form')){
-
-                           if (true === $('#create_photo_upload_form').parsley().isValid()) {
-                              $('.bs-callout-info').removeClass('hidden');
-                              $('.bs-callout-warning').addClass('hidden');
-                           }
-                            else {
-                              $('.bs-callout-info').addClass('hidden');
-                              $('.bs-callout-warning').removeClass('hidden');
-                           }
-                        }
-                        if ($('#create_agreement_form')){
-
-                           if (true === $('#create_agreement_form').parsley().isValid()) {
-                              $('.bs-callout-info').removeClass('hidden');
-                              $('.bs-callout-warning').addClass('hidden');
-                           }
-                            else {
-                              $('.bs-callout-info').addClass('hidden');
-                              $('.bs-callout-warning').removeClass('hidden');
-                           }
-                        }
-                        if ($('#create_payment_form')){
-
-                           if (true === $('#create_payment_form').parsley().isValid()) {
-                              $('.bs-callout-info').removeClass('hidden');
-                              $('.bs-callout-warning').addClass('hidden');
-                           }
-                            else {
-                              $('.bs-callout-info').addClass('hidden');
-                              $('.bs-callout-warning').removeClass('hidden');
-                           }
-                        }
-                        if ($('#create_preview_form')){
-
-                           if (true === $('#create_preview_form').parsley().isValid()) {
-                              $('.bs-callout-info').removeClass('hidden');
-                              $('.bs-callout-warning').addClass('hidden');
-                           }
-                            else {
-                              $('.bs-callout-info').addClass('hidden');
-                              $('.bs-callout-warning').removeClass('hidden');
-                           }
-                        }
-                  };
                   var validateFront4 = function () {
                         if (true === $('#create_amenities_form').parsley().isValid()) {
                               $('.bs-callout-info').removeClass('hidden');
@@ -4932,7 +4950,6 @@
                         });
                   });
                   var hotelId = $("#hotelId").val();
-                  /*Click form #1 */
                   $("#basic_info_continue_btn").click(function(){
                         $("#create_basic_info_form").parsley().validate();
                         validateFront();
@@ -4954,13 +4971,11 @@
                               });
                         }
                   });
-                  /*Click form #2 */
                   $("#property_details_continue_btn").click(function(){
 
                         $("#create_property_details_form").parsley().validate();
                         validateFront();
                         if($("#create_property_details_form").parsley().isValid() ){
-                              /*enable next tab*/
                               var values = $("#create_property_details_form").serializeObject();
                               var activities = $('input[name="activities"]:checkbox:checked').map(function() {return this.value;}).get();
                               var food_drink = $('input[name="food_drink"]:checkbox:checked').map(function() {return this.value;}).get();
@@ -4990,7 +5005,6 @@
                               });
                         }   
                   });
-                  /*Click form #3 */
                   $("#room_details_continue_btn").click(function(){
 
                         $("#create_room_details_form").parsley().validate();
@@ -5014,27 +5028,6 @@
                               });
                         }  
                   });
-                  $("#room_edit_detail_edit_continue_btn").click(function(){
-
-                        $("#edit_room_details_form").parsley().validate();
-                        validateFront();
-                        if($("#edit_room_details_form").parsley().isValid() ){
-                              var roomId = $("#edit_room_id").val();
-                              var values = $("#edit_room_details_form").serializeObject();
-                              var room_images = $('img[name="room-edit-images"]').map(function() {return $(this).attr('src');}).get();
-                              var facilities = $('input[name="amenities_room_edit"]:checkbox:checked').map(function() {return this.value;}).get();
-                              $.ajax({
-                                    type: "POST",
-                                    url: "room.php",
-                                    data: {data:roomId, values:values, action:3, images:room_images, facilities:facilities},
-                                    success: function(data, textStatus, jqXHR){
-                                          if(data == 1 ){
-                                               window.location.reload();
-                                          } 
-                                    }
-                              });
-                        }  
-                  });
                   $("#room_continue_btn").click(function(){
                      $.ajax({
                            type: "POST",
@@ -5050,7 +5043,6 @@
                            }
                      });      
                   });
-                  /*Click form #4 */
                   $("#photo_continue_btn").click(function(){
                         $("#create_photo_upload_form").parsley().validate();
                         $("#cover_photo_upload_form").parsley().validate();
@@ -5073,7 +5065,6 @@
                               }); 
                         }
                   });
-                  /*Click form #5 */
                   $("#payment_continue_btn").click(function(){
                         $.ajax({
                            type: "POST",
