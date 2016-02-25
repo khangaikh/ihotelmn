@@ -180,7 +180,6 @@ $(document).ready(
             navigation: true,
             navigationText: ['', ''],
             transitionStyle: 'fade',
-            autoPlay: 4500
         });
 
 
