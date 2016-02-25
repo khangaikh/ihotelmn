@@ -91,14 +91,11 @@
                 echo 0;
             }
         }elseif(isset($_POST['delete_faq'])){
-          echo 'aaaaaaaaaaaaaaaaaaaa';
-
-          die();
+          
             $query = new ParseQuery("faq");
             $query->equalTo("objectId",$_POST['delete_faq']);
             $faq = $query->first();
             $faq->destroy();
-            echo 'delete';
 
         }
     }

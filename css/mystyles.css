@@ -12,17 +12,17 @@ header#main-header{
 	border-bottom: initial;
 }
 #nav-container{
-	border-top:2px solid #0EBCF2;
+	border-top:2px solid #03629a;
 }
 .header-top{
 	background: none;
 }
 .top-user-area .top-user-area-list > li > a{
-	color:#0EBCF2;
+	color:#03629a;
 	text-transform: uppercase;
 }
 footer#main-footer{
-	background:#e0e0e0;
+	background:#d6ecfa;
 	color:#000;
 	font-size:0.875em;
 	padding: 0 0 30px 0;
@@ -66,7 +66,7 @@ footer#main-footer .logo{
 	-webkit-justify-content:flex-end;	
 }
 #asem a{
-	background: #ed8323;
+	background: #FFBC42;
 }
 dl .fa{
     margin-right:10px;

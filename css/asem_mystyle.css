@@ -1,7 +1,7 @@
 #nav-container{
-	border-top:2px solid #ed8323;
+	border-top:2px solid #FFBC42;
 }
 .top-user-area .top-user-area-list > li > a{
-	color:#ed8323;
+	color:#FFBC42;
 	text-transform: uppercase;
 }

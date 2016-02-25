@@ -29,7 +29,7 @@
             <td>{{faq.content_mn}}</td>
             <td id="operations">
                 <a name="{{faq.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq('{{faq.objectId}}')" >Засах</a>
-                <a name="delete_faq"  class="btn btn-default" onclick="delete_faq('{{faq.objectId}}');">Устгах</a>
+                <a name="{{faq.objectId}}" class="btn btn-default" onclick="delete_faq('{{faq.objectId}}');">Устгах</a>
             </td>
         </tr>
         {% endfor %}
