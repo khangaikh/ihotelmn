@@ -9,7 +9,8 @@
     $username = $_POST['username'];
 
     $user = new ParseUser();
-    $user->set("username", $username);
+    $user->set("username", $email);
+    $user->set("name", $username);
     $user->set("email", $email);
     $user->set("password", $pass);
     $user->set("status", 1);

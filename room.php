@@ -85,15 +85,14 @@
             $rooms = $query->find();
             $count = $query->count();
 
-            $total = 0;
+            $min_array = [];
 
             foreach ($rooms as $value) {
-                $total = $total + $value->get('night_price');
+                array_push($min_array, (int)$value->get('night_price'));
             }
 
-            $average = (int)($total/$count);
+            $hotel->set('min_rate', (int)min($min_array));
 
-            $hotel->set('average_rate', (string)$average);
             try {
                 $hotel->save();
                 echo 1;

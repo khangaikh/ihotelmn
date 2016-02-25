@@ -1,4 +1,4 @@
-<?php
+    <?php
     require_once 'includes/Twig/Autoloader.php';
     require_once "config.php";
     use Parse\ParseQuery;

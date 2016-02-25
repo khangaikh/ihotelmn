@@ -10,6 +10,7 @@
     $hotel->set("type", $_POST['type']);
     $hotel->set("asem", (int)$_POST['asem']);
     $hotel->set("user", $_SESSION['user']);
+    $hotel->set("min_rate", 1000000);
     $hotel->set("status",0);
     $hotel->set("homepage",0);
     $average = rand(5, 15);

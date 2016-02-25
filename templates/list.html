@@ -25,13 +25,13 @@
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                 <label>Ирэх</label>
-                                <input class="form-control" id="start_1" name="start" type="text" data-date-format="yyyy-mm-dd" value="{{start}}" />
+                                <input class="form-control" id="start" name="start" type="text" data-date-format="yyyy-mm-dd"  {%if start %} value="{{start}}" {%else %} value="2016-06-01" {%endif%}  />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                 <label> Гарах</label>
-                                <input class="form-control" id="end_1" name="end" type="text" data-date-format="yyyy-mm-dd" value="{{end}}"/>
+                                <input class="form-control" id="end" name="end" type="text" data-date-format="yyyy-mm-dd" {%if end %} value="{{end}}" {%else %} value="2016-07-01" {%endif%} />
                             </div>
                         </div>
                     </div>
@@ -268,9 +268,6 @@
             $('.input-daterange input[name="start"]').datepicker();
             $('.input-daterange input[name="end"]').datepicker();
 
-           
-
-            
 
             $("input").on('ifChanged', function(event){
 

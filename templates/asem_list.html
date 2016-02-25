@@ -6,11 +6,8 @@
         <li class="active">Ulaanbaatar</li>
     </ul>
     <div style="height:20px"></div>
-    <input type="hidden" id="location_1" value="{{location}}"/>
-    <input type="hidden" id="country" value="{{country}}"/>
-    <input type="hidden" id="start_1" value="{{start}}"/>
-    <input type="hidden" id="end_1" value="{{end}}"/>
-    <input type="hidden" id="num_person_1" value="{{num_person}}"/>
+    <input type="hidden" id="location_1" value="Ulaanbaatar"/>
+    <input type="hidden" id="country" value="Mongolia"/>
     <form class="booking-item-dates-change mb40">
         <div class="row">
             <div class="col-md-4">
@@ -25,13 +22,13 @@
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                 <label>Check-in</label>
-                                <input class="form-control" name="start" type="text" />
+                                <input class="form-control" name="start_1" type="text" data-date-format="yyyy-mm-dd" {%if start %} value="{{start}}" {%else %} value="2016-06-01" {%endif%}/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                 <label>Check-out</label>
-                                <input class="form-control" name="end" type="text" />
+                                <input class="form-control" name="end_1" type="text" data-date-format="yyyy-mm-dd" {%if end %} value="{{end}}" {%else %} value="2016-07-01" {%endif%}/>
                             </div>
                         </div>
                     </div>
@@ -42,12 +39,15 @@
                     <div class="col-md-3">
                         <div class="form-group form-group- form-group-select-plus">
                             <label>Guests</label>
-                            <select class="form-control">
+                            <select class="form-control" name="guests">
+                                {% if guests %}
+                                <option selected="selected">{{guests}}</option>
+                                {%endif%}
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option selected="selected">5</option>
+                                <option>5</option>
                                 <option>6</option>
                                 <option>7</option>
                                 <option>8</option>
@@ -63,12 +63,15 @@
                     <div class="col-md-3">
                         <div class="form-group form-group-select-plus">
                             <label>Rooms</label>
-                            <select class="form-control">
+                            <select class="form-control" name="rooms">
+                                {% if rooms %}
+                                <option selected="selected">{{rooms}}</option>
+                                {%endif%}
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option selected="selected">5</option>
+                                <option>5</option>
                                 <option>6</option>
                                 <option>7</option>
                                 <option>8</option>
@@ -221,11 +224,6 @@
                 </li>
                 {% endfor %}
             </ul>
-            <div class="row">
-                <div class="col-md-6">
-                    <p><small> 47 hotels found.</small></p>
-                </div>
-            </div>
         </div>
   </div>
 </div>
@@ -248,10 +246,8 @@
                 todayHighlight: true
             });
 
-
-
-            $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
-            $('.input-daterange input[name="end"]').datepicker('setDate', '+5d');
+            $('input.date-pick, .input-daterange input[name="start_1"]').datepicker();
+            $('.input-daterange input[name="end_1"]').datepicker();
 
             $('input.time-pick').timepicker({
                 minuteStep: 15,
@@ -268,6 +264,7 @@
                 var values1 = checkedValues1.toString();
                 var values2 = checkedValues2.toString();
                 var location = $("#location_1").val();
+
                 $.ajax({
                    type: "POST",
                    url: "search.php",
@@ -283,13 +280,9 @@
                                 for ($i=0; $i<obj.stars; $i++){
                                     string += '<i class="fa fa-star"></i></li>';
                                 }
-                                $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.objectId+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="TITLE" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>12</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars" id="stars">'+string+'</ul><span class="booking-item-rating-number"><small>(406 reviews)</small>  </span></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i> '+ obj.address +'</p><small class="booking-itemast-booked"></small><p class="booking-item-address"><ilass="fa fa-book"></i>'+obj.short_desc+'</p><small class="booking-item-last-booked"></small></div><div class="col-md-3"><span class="booking-item-price-from"></span><span class="booking-item-price">US$ '+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.rate+'" >Select room</span></div></div></a></li>');
+                                $("#hotels").append('<li><a class="booking-item" id="'+obj.objectId+'" href="#"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.objectId+'">Choose room</span></div></div></a></li>');
 
                             });
-                        
-                        
-                        //alert(data);
-                        
                     }
                 });
             });
@@ -337,7 +330,7 @@
                                 for ($i=0; $i<obj.stars; $i++){
                                     string += '<i class="fa fa-star"></i></li>';
                                 }
-                                $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.id+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars">'+string+'</ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 reviews)</small></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</p><small class="booking-item-last-booked">'+obj.short_desc+'</small></div><div class="csol-md-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.id+'" onclick="details(this);">Book Now</span></div></div></a></li>');
+                                $("#hotels").append('<li><a class="booking-item" id="'+obj.objectId+'" href="#"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.objectId+'">Choose room</span></div></div></a></li>');
                             });
                         
                         

@@ -35,10 +35,10 @@
     $query->equalTo("status",1);
 
     if($sort=='starup'){
-        $query->ascending("stars");
+        $query->descending("stars");
     }
     if($sort=='stardown'){
-        $query->descending("stars");
+        $query->ascending("stars");
     }
     if($sort=='priceup'){
         $query->descending("average_rate");

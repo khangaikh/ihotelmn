@@ -63,6 +63,8 @@
         else if(isset($_GET['asem'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
+            $query->equalTo("asem",1);
+
             $query->descending("stars");
 
             $query->equalTo("city",'Ulaanbaatar');
@@ -137,6 +139,7 @@
         else if(isset($_GET['start'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
+            $query->equalTo("asem",0);
             $query->descending("stars");
             $location = $_GET['location'];
 
@@ -247,6 +250,7 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("city",$_GET['city']);
+            $query->equalTo("asem",0);
             $query->descending("stars");
             $results = $query->find();
             $date = new DateTime();
@@ -299,9 +303,10 @@
             //render a template
             echo $template->render(array('title' => 'Бүртгүүлэх'));
         }
-        else if(isset($_GET['start']) || isset($_GET['start_1'])){
+        else if(isset($_GET['start'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
+            $query->equalTo("asem",0);
             $query->descending("stars");
             $location = $_GET['location'];
 
@@ -327,6 +332,30 @@
             $template = $twig->loadTemplate('list.html');
             //render a template
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $location, 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[2], 'pages' => $pages, 'guests'=>$guests, 'persons'=>$persons));
+        }
+        else if(isset($_GET['start_1'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("asem",1);
+            $query->descending("stars");
+
+            $start = $_GET['start_1'];
+            $end = $_GET['end_1'];
+            $guests = $_GET['guests'];
+            $rooms = $_GET['rooms'];
+
+            $date = new DateTime($start);
+            $checkin = $date->format('Y-m-d');
+
+            $date = new DateTime($end);
+            $checkout = $date->format('Y-m-d');
+
+            $query->equalTo("city",'Ulaanbaatar');
+            $results = $query->find();
+  
+            $template = $twig->loadTemplate('asem_list.html');
+            //render a template
+            echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms));
         }
         else if(isset($_POST['news'])){
             $template = $twig->loadTemplate('user_news.html');
@@ -567,6 +596,7 @@
         else if(isset($_GET['asem'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
+            $query->equalTo("asem",1);
             $query->descending("stars");
 
             $query->equalTo("city",'Ulaanbaatar');
@@ -575,13 +605,14 @@
 
             $template = $twig->loadTemplate('asem_list.html');
             //render a template
-            echo $template->render(array('title' => 'Search', 'nav' => 1, 'results' =>$results));
+            echo $template->render(array('title' => 'Asem 2016 Hotels', 'nav' => 1, 'results' =>$results));
         }
         else{
             $template = $twig->loadTemplate('home.html');
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
+            $query->equalTo("asem",0);
             $query->equalTo("city","Ulaanbaatar");
             $query->descending("name");
             $query->limit(2);
@@ -590,11 +621,13 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
+            $query->equalTo("asem",0);
             $query->equalTo("city","Ulaanbaatar");
             $query->ascending("name");
             $query->limit(2);
             $hotels2 = $query->find();
-            echo $template->render(array('title' => 'Нүүр', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
+            echo $template->render(array('title' => '', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
+
         } 
     }
 ?>
