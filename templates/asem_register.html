@@ -1,17 +1,20 @@
-{% extends "base.html" %}
+{% extends "asem.html" %}
 {% block content %}
 <div class="gap"></div>
 <div class="container">
     <div class="row" data-gutter="60">
+        <div class='col-md-4 small-hidden'>
+            
+        </div>
         <div class="col-md-4">
-            <h3>Нэвтрэх</h3>
+            <h3>ASEM 11 Login</h3>
             <form>
                 <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                    <label>Цахим шуудан</label>
+                    <label>Email</label>
                     <input class="form-control" placeholder="@" type="text" id="email"/>
                 </div>
                 <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
-                    <label>Нууц үг</label>
+                    <label>Password</label>
                     <input class="form-control" type="password" placeholder="*****" id="password"/>
                 </div>
                 <div class="alert alert-danger hidden" id='login-alert'>
@@ -19,8 +22,8 @@
                     </button>
                     <p class="text-small"></p>
                 </div>
-                <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
-                <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Нууц үг мартсан</a>
+                <input class="btn btn-primary" type="button" value="Login" id="login"/>
+                <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Forgot password?</a>
             </form>
             <br />
             <div class="alert alert-success hidden" id="register-success1">
@@ -36,44 +39,15 @@
             <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
                 <form>
                     <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                        <label>Цахим шуудан</label>
+                        <label>Email</label>
                         <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
                     </div>
                     <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
                 </form>
             </div>
         </div>
-        <div class="col-md-4 small-top">
-            <h3>Бүртгүүлэх үү?</h3>
-            <form>
-                <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                    <label>Нэр</label>
-                    <input class="form-control" placeholder="Х.Бат-Итгэл" type="text" id="rusername" />
-                </div>
-                <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show" ></i>
-                    <label>Цахим шуудан</label>
-                    <input class="form-control" placeholder="@" type="email" id="remail" />
-                </div>
-                <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
-                    <label>Нууц үг</label>
-                    <input class="form-control" type="password" placeholder="****" id="rpassword" />
-                </div>
-                <div class="alert alert-success hidden" id='register-success'>
-                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                    </button>
-                    <p class="text-small"></p>
-                </div>
-                <div class="alert alert-danger hidden" id='register-alert'>
-                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                    </button>
-                    <p class="text-small"></p>
-                </div>
-                <input id="add" class="btn btn-primary" type="button" value="Бүртгүүлэх" />
-            </form>
-        </div>
         <div class='col-md-4 small-hidden'>
-            <a href="index.php?asem"><img src='img/asem.png' style="width:120%; margin-top:46px"></a>
-            
+           
         </div>
     </div>
 </div>

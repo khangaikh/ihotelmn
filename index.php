@@ -643,7 +643,6 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
-            $query->equalTo("asem",0);
             $query->equalTo("city","Ulaanbaatar");
             $query->descending("name");
             $query->limit(2);
@@ -652,7 +651,6 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
-            $query->equalTo("asem",0);
             $query->equalTo("city","Ulaanbaatar");
             $query->ascending("name");
             $query->limit(2);
