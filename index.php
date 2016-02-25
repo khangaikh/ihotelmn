@@ -28,15 +28,15 @@
         }
         else if(isset($_GET['news'])){
             $template = $twig->loadTemplate('news.html');
-            echo $template->render(array('title' => 'Мэдээ'));
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл'));
         }
         else if(isset($_GET['contact'])){
              $template = $twig->loadTemplate('contact-us.html');
-            echo $template->render(array('title' => 'Мэдээ'));
+            echo $template->render(array('title' => 'Холбоо барих'));
         }
         else if(isset($_GET['about'])){
              $template = $twig->loadTemplate('about.html');
-            echo $template->render(array('title' => ''));
+            echo $template->render(array('title' => 'Бидний тухай'));
         }
         else if(isset($_GET['faq'])){
             $query = new ParseQuery("faq");
@@ -44,25 +44,21 @@
             $template = $twig->loadTemplate('faq.html');
             echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs));
         }
-        else if(isset($_GET['help'])){
-            $template = $twig->loadTemplate('help.html');
-            echo $template->render(array('title' => ''));
-        }
         else if(isset($_GET['terms'])){
             $template = $twig->loadTemplate('terms.html');
-            echo $template->render(array('title' => ''));
+            echo $template->render(array('title' => 'Үйлчилгээний нөхцөл'));
         }
         else if(isset($_GET['asem-news'])){
             $template = $twig->loadTemplate('asem_news.html');
-            echo $template->render(array('title' => ''));
+            echo $template->render(array('title' => 'News'));
         }
         else if(isset($_GET['asem-tours'])){
              $template = $twig->loadTemplate('asem-tours.html');
-            echo $template->render(array('title' => ''));
+            echo $template->render(array('title' => 'Tours'));
         }
         else if(isset($_GET['asem-faq'])){
              $template = $twig->loadTemplate('asem-faq.html');
-            echo $template->render(array('title' => ''));
+            echo $template->render(array('title' => 'FAQ'));
         }
         else if(isset($_GET['asem'])){
             $query = new ParseQuery("hotel");
@@ -100,7 +96,7 @@
             $query->equalTo("user",$user);
             $hotels = $query->find();
             //render a template
-            echo $template->render(array('title' => 'Буудалууд', 'hotels'=>$hotels, 'user' => $user, 'nav' => 4));
+            echo $template->render(array('title' => 'Буудлууд', 'hotels'=>$hotels, 'user' => $user, 'nav' => 4));
         }
 
         else if(isset($_GET['news_admin'])){
@@ -117,7 +113,7 @@
             $query->equalTo("user",$user);
             $faqs = $query->find();
             //render a template
-            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'faqs'=>$faqs, 'user' => $user, 'nav' => 8));
+            echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs, 'user' => $user, 'nav' => 8));
         }
         else if(isset($_GET['hotel_add'])){
             $template = $twig->loadTemplate('add_hotel.html');
@@ -173,7 +169,7 @@
             $hotels = $query->find();
             $ub = $query->count();
             //render a template
-            echo $template->render(array('title' => 'Search', 'user'=> $user, 'nav' => 1,'ub'=>$ub, 'hotels'=>$hotels));
+            echo $template->render(array('title' => 'Нүүр', 'user'=> $user, 'nav' => 1,'ub'=>$ub, 'hotels'=>$hotels));
         }
         else if(isset($_GET['detail'])){
             $query = new ParseQuery("hotel");
@@ -551,7 +547,7 @@
             $hotels = $query->find();
             $ub = $query->count();
             //render a template
-            echo $template->render(array('title' => 'Search', 'nav' => 1,'ub'=>$ub, 'hotels'=>$hotels));
+            echo $template->render(array('title' => 'Нүүр', 'nav' => 1,'ub'=>$ub, 'hotels'=>$hotels));
         }
         else if(isset($_GET['city'])){
             $query = new ParseQuery("hotel");
@@ -598,7 +594,7 @@
             $query->ascending("name");
             $query->limit(2);
             $hotels2 = $query->find();
-            echo $template->render(array('title' => 'Search', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
+            echo $template->render(array('title' => 'Нүүр', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
         } 
     }
 ?>
