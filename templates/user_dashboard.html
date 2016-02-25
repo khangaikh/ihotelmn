@@ -1,47 +1,49 @@
 {% extends "user.html" %}
+
 {% block user_content %}
 {% if orders %}
-	<div class="checkbox">
-        <label><input class="i-check" type="checkbox" />Зөвхөн идэвхтэй байгааг харая</label>
-    </div>
-	<table class="table table-bordered table-striped table-booking-history">
-	    <thead>
-	        <tr>
-	           	<th></th>
-	            <th>Буудал</th>
-	            <th>Байршил</th>
-	            <th>Захиалсан</th>
-	            <th>Огноо</th>
-	            <th>Төлбөр ₮</th>
-	            <th></th>
-	        </tr>
-	    </thead>
-	    <tbody id="orders">
-	    	{% for order in orders %}
-	        <tr>
-	            <td class="text-center">
-	            	{% if order.status==1 %}
-	            	<i class="fa fa-check" name="{{order.objectId}}"></i>
-	            	{%elseif order.status == 2%}
-	            	<i class="fa fa-check-circle" name="{{order.objectId}}"></i>
-	            	{%else%}
-	            	<i class="fa fa-times-circle"></i>
-	            	{%endif%}
-	            </td>
-	            <td class="booking-history-title">{{order.hotel.name}}</td>
-	            <td>{{order.location}}</td>
-	            <td>{{order.createdAt | date("Y-m-d")}}</td>
-	            <td>{{order.start}}<i class="fa fa-long-arrow-right"></i>{{order.end}}</td>
-	            <td>{{order.total}}</td>
-	            
-	            <td class="text-center">{%if order.status!=0%}<a name="{{order.objectId}}" class="btn btn-default btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Цуцлах</a>{%endif%}
-	            </td>
-	        </tr>
-	        {% endfor %}
-	    </tbody>
-	</table>
+<div class="checkbox">
+    <label><input class="i-check" type="checkbox" />Зөвхөн идэвхтэй байгааг харая</label>
+</div>
+<table class="table table-bordered table-striped table-booking-history">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Буудал</th>
+            <th>Байршил</th>
+            <th>Захиалсан</th>
+            <th>Огноо</th>
+            <th>Төлбөр ₮</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="orders">
+    {% for order in orders %}
+    <tr>
+        <td class="text-center">
+            {% if order.status==1 %}
+            <i class="fa fa-check" name="{{order.objectId}}"></i>
+            {%elseif order.status == 2%}
+            <i class="fa fa-check-circle" name="{{order.objectId}}"></i>
+            {%else%}
+            <i class="fa fa-times-circle"></i>
+            {%endif%}
+        </td>
+        <td class="booking-history-title">{{order.hotel.name}}</td>
+        <td>{{order.location}}</td>
+        <td>{{order.createdAt | date("Y-m-d")}}</td>
+        <td>{{order.start}}<i class="fa fa-long-arrow-right"></i>{{order.end}}</td>
+        <td>{{order.total}}</td>
+
+        <td class="text-center">{%if order.status!=0%}<a name="{{order.objectId}}" class="btn btn-default btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Цуцлах</a>{%endif%}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% else %}
 <h4>Сайн байна уу</h4>
-	<p>Одоогоор та захиалга хийгээгүй байна. <a href="index.php?search">Энд</a> дарж анхны захиалгаа хийнэ үү. Анхны захиалгаа 10% хөнгөлөлттэй үнээр хийгээрэй.</p>
+<p>Одоогоор та захиалга хийгээгүй байна. <a href="index.php?search">Энд</a> дарж анхны захиалгаа хийнэ үү. Анхны захиалгаа 10% хөнгөлөлттэй үнээр хийгээрэй.</p>
 {% endif %}
+
 {% endblock %}

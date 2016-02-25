@@ -1,61 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <div class="gap"></div>
-        <div class="container">
-            <div class="row" data-gutter="60">
-                <div class="col-md-4">
-                    <h3>Нэврэх</h3>
-                    <form>
-                        <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                            <label>Хэрэглэгчийн цахим шуудан</label>
-                            <input class="form-control" placeholder="Цахим шуудан" type="text" id="email"/>
-                        </div>
-                        <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
-                            <label>Нууц үг</label>
-                            <input class="form-control" type="password" placeholder="Нууц үг" id="password"/>
-                        </div>
-                        <div class="alert alert-danger hidden" id='login-alert'>
-                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                            </button>
-                            <p class="text-small"></p>
-                        </div>
-                        <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
-                    </form>
+<div class="gap"></div>
+<div class="container">
+    <div class="row" data-gutter="60">
+        <div class="col-md-4">
+            <h3>Нэврэх</h3>
+            <form>
+                <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                    <label>Хэрэглэгчийн цахим шуудан</label>
+                    <input class="form-control" placeholder="Цахим шуудан" type="text" id="email"/>
                 </div>
-                <div class="col-md-4 small-top">
-                    <h3>Бүртгүүлэх үү?</h3>
-                    <form>
-                        <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                            <label>Хэрэглэгчийн нэр</label>
-                            <input class="form-control" placeholder="Овог нэр" type="text" id="rusername" />
-                        </div>
-                        <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show" ></i>
-                            <label>Цахим шуудан</label>
-                            <input class="form-control" placeholder="Имэйл хаягаа оруулна уу." type="email" id="remail" />
-                        </div>
-                        <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
-                            <label>Нууц үг</label>
-                            <input class="form-control" type="password" placeholder="Нууц үг" id="rpassword" />
-                        </div>
-                         <div class="alert alert-success hidden" id='register-success'>
-                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                            </button>
-                            <p class="text-small"></p>
-                        </div>
-                        <div class="alert alert-danger hidden" id='register-alert'>
-                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                            </button>
-                            <p class="text-small"></p>
-                        </div>
-                        <input id="add" class="btn btn-primary" type="button" value="Бүртгүүлэх" />
-                    </form>
+                <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
+                    <label>Нууц үг</label>
+                    <input class="form-control" type="password" placeholder="Нууц үг" id="password"/>
                 </div>
-                <div class='col-md-4 small-hidden'>
-                    <img src='img/slide1.jpg'>
+                <div class="alert alert-danger hidden" id='login-alert'>
+                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                    </button>
+                    <p class="text-small"></p>
                 </div>
-            </div>
+                <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
+            </form>
         </div>
+        <div class="col-md-4 small-top">
+            <h3>Бүртгүүлэх үү?</h3>
+            <form>
+                <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                    <label>Хэрэглэгчийн нэр</label>
+                    <input class="form-control" placeholder="Овог нэр" type="text" id="rusername" />
+                </div>
+                <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show" ></i>
+                    <label>Цахим шуудан</label>
+                    <input class="form-control" placeholder="Имэйл хаягаа оруулна уу." type="email" id="remail" />
+                </div>
+                <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
+                    <label>Нууц үг</label>
+                    <input class="form-control" type="password" placeholder="Нууц үг" id="rpassword" />
+                </div>
+                <div class="alert alert-success hidden" id='register-success'>
+                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                    </button>
+                    <p class="text-small"></p>
+                </div>
+                <div class="alert alert-danger hidden" id='register-alert'>
+                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                    </button>
+                    <p class="text-small"></p>
+                </div>
+                <input id="add" class="btn btn-primary" type="button" value="Бүртгүүлэх" />
+            </form>
+        </div>
+        <div class='col-md-4 small-hidden'>
+            <img src='img/slide1.jpg'>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block scripting %}
     {{parent()}}

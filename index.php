@@ -420,7 +420,44 @@
             $travel_stories = $query->find();
             $data['travel_stories']=count($travel_stories);
             echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
+       
+        }else if(isset($_GET['news_search'])){
+
+            $template = $twig->loadTemplate('news.html');
+            $query = new ParseQuery("news");
+            $query->equalTo("category",$_GET['news_search']);
+            $query->includeKey("user");
+            $news = $query->find();
+            $query = new ParseQuery("news");
+            $query->includeKey("user");
+            $query->equalTo('category', 'Photos');
+            $photos = $query->find();
+            $data['photos'] = count($photos);
+            $query->equalTo('category', 'Vacation');
+            $vacation = $query->find();
+            $data['vacation']=count($vacation);
+            $query->equalTo('category', 'Flights');
+            $flights = $query->find();
+            $data['flights']=count($flights);
+            $query->equalTo('category', 'Travel Advices');
+            $travel_advice = $query->find();
+            $data['travel_advice']=count($travel_advice);
+            $query->equalTo('category', 'Trending Now');
+            $trending_now = $query->find();
+            $data['trending_now']=count($trending_now);
+            $query->equalTo('category', 'Hotels');
+            $hotels = $query->find();
+            $data['hotels']=count($hotels);
+            $query->equalTo('category', 'Places to Go');
+            $place_to_go = $query->find();
+            $data['place_to_go']=count($place_to_go);
+            $query->equalTo('category', 'Travel Stories');
+            $travel_stories = $query->find();
+            $data['travel_stories']=count($travel_stories);
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
+
         }
+ 
         else if(isset($_GET['contact'])){
              $template = $twig->loadTemplate('contact-us.html');
             echo $template->render(array('title' => 'Холбоо барих'));

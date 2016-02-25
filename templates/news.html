@@ -1,92 +1,99 @@
 {% extends "base.html" %} 
 {% block title %}Мэдээ{% endblock %} 
 {% block content %}          
-<div class='gap'></div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            {% if news %}
-            {% for new in news %}
-            <!-- START BLOG POST -->
-            <div class="article post">
-                <header class="post-header">
-                    <a class="hover-img" href="#">
-                        <img src="{{new.header_image}}" alt="Image Alternative text" title="{{new.subject}}" />
-                        <i class="fa fa-link box-icon-# hover-icon round"></i>
-                    </a>
-                </header>
-                <div class="post-inner">
-                    <h4 class="post-title"><a class="text-darken" href="#">{{new.subject}}</a></h4>
-                    <ul class="post-meta">
-                        <li><i class="fa fa-calendar"></i><a>{{new.createdAt | date("F j, Y")}}</a>
-                        </li>
-                        <li><i class="fa fa-user"></i><a href="#">{{new.user.username}}</a>
-                        </li>
-                        <li><i class="fa fa-tags"></i><a href="#">{{new.category}}</a>
-                        </li>
-                    </ul>
-                    <p class="post-desciption">{{new.short_desc}}...</p><a class="btn btn-small btn-primary" href="#">Дэлгэрэнгүй унших</a>
-                </div>
-            </div>
-            <!-- END BLOG POST -->
-            {% endfor %}
-            {% endif %}
-            <ul class="pagination">
-                <li class="active"><a href="#">1</a>
-                </li>
-                <li><a href="#">2</a>
-                </li>
-                <li><a href="#">3</a>
-                </li>
-                <li><a href="#">4</a>
-                </li>
-                <li><a href="#">5</a>
-                </li>
-                <li><a href="#">6</a>
-                </li>
-                <li><a href="#">7</a>
-                </li>
-                <li class="dots">...</li>
-                <li><a href="#">43</a>
-                </li>
-                <li class="next"><a href="#">Next Page</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <aside class="sidebar-right">
-                <div class="sidebar-widget">
-                    <div class="Form">
-                        <input class="form-control" placeholder="Search..." type="text" />
+    <div class='gap'></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                {% if news %}
+                {% for new in news %}
+                <!-- START BLOG POST -->
+                <div class="article post">
+                    <header class="post-header">
+                        <a class="hover-img" href="#">
+                            <img src="{{new.header_image}}" alt="Image Alternative text" title="{{new.subject}}" />
+                            <i class="fa fa-link box-icon-# hover-icon round"></i>
+                        </a>
+                    </header>
+                    <div class="post-inner">
+                        <h4 class="post-title"><a class="text-darken" href="#">{{new.subject}}</a></h4>
+                        <ul class="post-meta">
+                            <li><i class="fa fa-calendar"></i><a>{{new.createdAt | date("F j, Y")}}</a>
+                            </li>
+                            <li><i class="fa fa-user"></i><a href="#">{{new.user.username}}</a>
+                            </li>
+                            <li><i class="fa fa-tags"></i><a href="#">{{new.category}}</a>
+                            </li>
+                        </ul>
+                        <p class="post-desciption">{{new.short_desc}}...</p><a class="btn btn-small btn-primary" href="#">Дэлгэрэнгүй унших</a>
                     </div>
                 </div>
-                <div class="sidebar-widget">
-                    <h4>Categories</h4>
-                    <ul class="icon-list list-category">
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Photos <small>({{category.photos}})</small></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Vacation <small>({{category.vacation}})</small></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Flights <small>({{category.flights}})</small></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Travel Advices <small>({{category.travel_advice}})</small></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Trending Now <small>({{category.trending_now}})</small></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Hotels <small>({{category.hotels}})</small></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Places to Go <small >({{category.place_to_go}})</small></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Travel Stories <small>({{category.travel_stories}})</small></a>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
+                <!-- END BLOG POST -->
+                {% endfor %}
+                <ul class="pagination">
+                    <li class="active"><a href="#">1</a>
+                    </li>
+                    <li><a href="#">2</a>
+                    </li>
+                    <li><a href="#">3</a>
+                    </li>
+                    <li><a href="#">4</a>
+                    </li>
+                    <li><a href="#">5</a>
+                    </li>
+                    <li><a href="#">6</a>
+                    </li>
+                    <li><a href="#">7</a>
+                    </li>
+                    <li class="dots">...</li>
+                    <li><a href="#">43</a>
+                    </li>
+                    <li class="next"><a href="#">Next Page</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+            <div class="col-md-3">
+                <aside class="sidebar-right">
+                    <div class="sidebar-widget">
+                        <div class="Form">
+                            <input class="form-control" placeholder="Search..." type="text" />
+                        </div>
+                    </div>
+                    <div class="sidebar-widget">
+                        <h4>Categories</h4>
+                        <ul class="icon-list list-category">
+                            <li><a href="index.php?news_search=Photos">
+                                <i class="fa fa-angle-right"></i>Photos <small>({{category.photos}})</small></a>
+                            </li>
+                            <li><a href="index.php?news_search=Vacation">
+                                <i class="fa fa-angle-right"></i>Vacation <small>({{category.vacation}})</small></a>
+                            </li>
+                            <li><a href="index.php?news_search=Flights">
+                                <i class="fa fa-angle-right"></i>Flights <small>({{category.flights}})</small></a>
+                            </li>
+                            <li><a href="index.php?news_search=Travel Advices">
+                                <i class="fa fa-angle-right"></i>Travel Advices <small>({{category.travel_advice}})</small></a>
+                            </li>
+                            <li><a href="index.php?news_search=Trending Now">
+                                <i class="fa fa-angle-right"></i>Trending Now <small>({{category.trending_now}})</small></a>
+                            </li>
+                            <li><a href="index.php?news_search=Photos">
+                                <i class="fa fa-angle-right"></i>Hotels <small>({{category.hotels}})</small></a>
+                            </li>
+                            <li><a href="index.php?news_search=Places to Go">
+                                <i class="fa fa-angle-right"></i>Places to Go <small >({{category.place_to_go}})</small></a>
+                            </li>
+                            <li><a href="index.php?news_search=Travel Stories">
+                                <i class="fa fa-angle-right"></i>Travel Stories <small>({{category.travel_stories}})</small></a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %} 
 {% block scripting %} 
 {{parent()}}
-
 {% endblock %}
