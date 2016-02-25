@@ -129,3 +129,25 @@ button:hover{
 button:after{
     outline: none;
 }
+#loading{
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	top:0;
+	left:0;
+	display: flex;
+	display: -webkit-flex;
+	align-items:center;
+	-webkit-align-items:center;
+	justify-content:center;
+	-webkit-justify-content:center;
+}
+#loading span{
+	width:30px;
+	height:30px;
+	background-image:url('../img/spiffygif_30x30.png');
+	background-repeat: no-repeat;
+}
+
+
