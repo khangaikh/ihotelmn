@@ -14,7 +14,7 @@
                     <label>Нууц үг</label>
                     <input class="form-control" type="password" placeholder="*****" id="password"/>
                 </div>
-                <div class="alert alert-danger hidden" id='login-alert'>
+                <div class="alert alert-danger" id='login-alert'>
                     <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                     </button>
                     <p class="text-small"></p>
@@ -23,12 +23,12 @@
                 <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Нууц үг мартсан</a>
             </form>
             <br />
-            <div class="alert alert-success hidden" id="register-success1">
+            <div class="alert alert-success" id="register-success1">
                 <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                 </button>
                 <p class="text-small"></p>
             </div>
-            <div class="alert alert-danger hidden" id='login-alert1'>
+            <div class="alert alert-danger" id='login-alert1'>
                 <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                 </button>
                 <p class="text-small"></p>
@@ -58,12 +58,12 @@
                     <label>Нууц үг</label>
                     <input class="form-control" type="password" placeholder="****" id="rpassword" />
                 </div>
-                <div class="alert alert-success hidden" id='register-success'>
+                <div class="alert alert-success" id='register-success'>
                     <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                     </button>
                     <p class="text-small"></p>
                 </div>
-                <div class="alert alert-danger hidden" id='register-alert'>
+                <div class="alert alert-danger" id='register-alert'>
                     <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                     </button>
                     <p class="text-small"></p>
@@ -94,7 +94,7 @@
                     }
                     else{
                         $('#loading').remove();
-                        $('#login-alert').fadeIn('500');
+                        $('#login-alert').fadeIn(500);
                         $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
                     }
             });
@@ -111,34 +111,36 @@
                 }, function (result) {
                     if(result==1){
                          $('#loading').remove();
-                        $('#register-success').fadeIn('500');
+                        $('#register-success').fadeIn(500);
                         $('#register-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
                     }
                     else{
                          $('#loading').remove();
-                        $('#register-alert').fadeIn('500');
+                        $('#register-alert').fadeIn(500);
                         $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээлэл буруу байна!');
                     }
             });
         });
-        $('.alert').hide();
+        $('.alert').hide(0);
         $('.alert .close').click(function(e){
             e.stopPropagation();
-            $(this).parent('.alert').fadeOut('300')
+            $(this).parent('.alert').fadeOut(300)
       
         });
                 $('#forgot_password').click(function(){
+                    $('#register-success1').hide();
+                     $('#login-alert1').hide();
            $.post("user.php", {
                 forgot_password: $('#forgot_email').val(),
                 }, function (result) {
                     if(result==1){
                         $(".mfp-close").trigger('click');
-                        $('#register-success1').removeClass('hidden');
+                        $('#register-success1').fadeIn(500);
                         $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
                     }
                     else{
                         $(".mfp-close").trigger('click');
-                        $('#login-alert1').removeClass('hidden');
+                        $('#login-alert1').fadeIn(500);
                         $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
                     }
             });
@@ -150,6 +152,8 @@
         var offset=counter * -frameWidth;
         $("#loading span").css('background-position', 0 + "px" + " " + offset + "px");
         counter++; if (counter>=frames) counter =0; }, 100);
+
+        $('#loading').height($(document).height());
     </script>
 {% endblock %}
 
