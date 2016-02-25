@@ -20,7 +20,28 @@
                     <p class="text-small"></p>
                 </div>
                 <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
+                <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Нууц үг мартсан</a>
             </form>
+            <br />
+            <div class="alert alert-success hidden" id="register-success1">
+                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                </button>
+                <p class="text-small"></p>
+            </div>
+            <div class="alert alert-danger hidden" id='login-alert1'>
+                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                </button>
+                <p class="text-small"></p>
+            </div>
+            <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
+                <form>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                        <label>Цахим шуудан</label>
+                        <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
+                    </div>
+                    <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
+                </form>
+            </div>
         </div>
         <div class="col-md-4 small-top">
             <h3>Бүртгүүлэх үү?</h3>
@@ -73,6 +94,22 @@
                     }
             });
         });
+        $('#forgot_password').click(function(){
+           $.post("user.php", {
+                forgot_password: $('#forgot_email').val(),
+                }, function (result) {
+                    if(result==1){
+                        $(".mfp-close").trigger('click');
+                        $('#register-success1').removeClass('hidden');
+                        $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээх болно.');
+                    }
+                    else{
+                        $(".mfp-close").trigger('click');
+                        $('#login-alert1').removeClass('hidden');
+                        $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
+                    }
+            });
+        });
         $('#add').click(function(){
            $.post("user.php", {
                 email: $('#remail').val(),
@@ -81,11 +118,11 @@
                 }, function (result) {
                     if(result==1){
                         $('#register-success').removeClass('hidden');
-                        $('#register-success p').text('Бүртгэл амжилттай боллоо. Та бүртгэлийн мэдээллээрээ нэвтэрч орно уу!');
+                        $('#register-success p').text('Бүртгэл амжилттай. Та и-мэйл рүүгээ орж бүртгэлийг идэвхижүүлнэ үү.');
                     }
                     else{
                         $('#register-alert').removeClass('hidden');
-                        $('#register-alert p').text('Та бүртгэгдсэн эсвэл бүртгэлийн мэдээлэл буруу байна!');
+                        $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээлэл буруу байна!');
                     }
             });
         });

@@ -7,7 +7,7 @@
             <div class="col-md-3">
                 <aside class="user-profile-sidebar">
                     <div class="user-profile-avatar text-center">
-                        <h5>{{user.username}}</h5>
+                        <h5>{{user.name}}</h5>
                         <p>{{user.email}}</p>
                         <p>  {%if user.asem==0%} Бүргүүлсэн {%else%} Registered date {%endif%}{{user.createdAt |date("Y-m-d")}}</p>
                         {%if user.asem==1%}
@@ -43,16 +43,41 @@
                         <li {% if nav == 7 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-cog"></i>Асуулт, хариулт</a>
                         </li>
                         {% endif %}
+<<<<<<< Updated upstream
                         <li {% if nav == 5 %} class="active" {% endif %}><a href="index.php?settings"><i class="fa fa-cog"></i>Change password</a>
+=======
+                        <li {% if nav == 5 %} class="active" {% endif %}>
+                            <a class="popup-text" data-effect="mfp-zoom-out" href="#forgot-dialog"><i class="fa fa-cog"></i>Нууц үг солих</a>
+>>>>>>> Stashed changes
                         </li>
                         {%endif%}
                     </ul>
                 </aside>
             </div>
+            <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
+                <form>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                        <label>Цахим шуудан</label>
+                        <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
+                    </div>
+                    <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
+                </form>
+            </div>
+
             <div class="col-md-9">
                 {% block user_content %}
                 {% endblock %}
-                
+                <br />
+                <div class="alert alert-success hidden" id="register-success2">
+                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                    </button>
+                    <p class="text-small"></p>
+                </div>
+                <div class="alert alert-danger hidden" id='login-alert2'>
+                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                    </button>
+                    <p class="text-small"></p>
+                </div>
             </div>
         </div>
     </div>
@@ -60,6 +85,7 @@
 {% block scripting %}
     {{parent()}}
     <script type="text/javascript">
+<<<<<<< Updated upstream
       function delete_faq(j){
         alert('a1a1a1a1a1');
           if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
@@ -80,6 +106,24 @@
               });
           }
       }
+=======
+        $('#forgot_password').click(function(){
+           $.post("user.php", {
+                forgot_password: $('#forgot_email').val(),
+                }, function (result) {
+                    if(result==1){
+                        $(".mfp-close").trigger('click');
+                        $('#register-success2').removeClass('hidden');
+                        $('#register-success2 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээх болно.');
+                    }
+                    else{
+                        $(".mfp-close").trigger('click');
+                        $('#login-alert2').removeClass('hidden');
+                        $('#login-alert2 p').text('Таны и-мэйл хаяг буруу байна!');
+                    }
+            });
+        });
+>>>>>>> Stashed changes
         $(document).ready(function() {
             
             $("a[name=delete_faq]").click(function(){

@@ -17,17 +17,21 @@
     $result =false;
 
     try {
-        $user = ParseUser::logIn($_POST['email'], $_POST['password']);
-        $user->save();
-        $result = true;
+        $query = ParseUser::query();
+        $query->equalTo("username", $_POST['email']); 
+        $query->equalTo("emailVerified", true); 
+        $results = $query->find();
+        if ($results) {
+            $user = ParseUser::logIn($_POST['email'], $_POST['password']);
+            $user->save();
+            $result = true;
+        }
     } catch (ParseException $error) {
         echo $error;
     }
-    
-    $user = ParseUser::getCurrentUser();
-    $_SESSION['user'] = $user;
-
     if($result){
+        $user = ParseUser::getCurrentUser();
+        $_SESSION['user'] = $user;
         echo 1;
     }else{
         echo 0;

@@ -1,3 +1,11 @@
+#forgot_text{
+    float: right;
+    padding-top: 9px;
+    color: #565656;
+}
+#forgot-dialog{
+    width: 30%;
+}
 .logo img{
 	width:150px;
 }
@@ -112,4 +120,13 @@ dd{
 	background-repeat: no-repeat !important;
 	background-size: cover !important;
 	-webkit-background-size: cover !important;
+}
+button{
+    outline: none;
+}
+button:hover{
+    outline: none;
+}
+button:after{
+    outline: none;
 }
