@@ -269,7 +269,7 @@
             });
                     }); 
     $.ajax({
-        url:"http://api.openweathermap.org/data/2.5/weather?q=ulaanbaatar&appid=44db6a862fba0b067b1930da0d769e98&units=metric", 
+        url:"https://api.openweathermap.org/data/2.5/weather?q=ulaanbaatar&appid=44db6a862fba0b067b1930da0d769e98&units=metric", 
         dataType:"jsonp",
         success: function(data){
             if(data.main.temp > 0){
