@@ -28,7 +28,8 @@
                         <li {% if nav == 9 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-cog"></i>Асуулт, хариулт</a>
                         </li>
                         {% endif %}
-                        <li {% if nav == 5 %} class="active" {% endif %}><a href="index.php?settings"><i class="fa fa-cog"></i>Нууц үг солих</a>
+                        <li {% if nav == 5 %} class="active" {% endif %}>
+                            <a class="popup-text" data-effect="mfp-zoom-out" href="#forgot-dialog"><i class="fa fa-cog"></i>Нууц үг солих</a>
                         </li>
                         {%else%}
                         <li {% if nav == 2 %} class="active" {% endif %}><a href="index.php"><i class="fa fa-check"></i>My orders</a>
