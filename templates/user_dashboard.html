@@ -41,8 +41,14 @@
     </tbody>
 </table>
 {% else %}
-<h4>Сайн байна уу</h4>
-<p>Одоогоор та захиалга хийгээгүй байна. <a href="index.php?search">Энд</a> дарж анхны захиалгаа хийнэ үү. Анхны захиалгаа 10% хөнгөлөлттэй үнээр хийгээрэй.</p>
+    {%if user.asem==0%} 
+        <h4>Сайн байна уу</h4>
+        <p>Одоогоор та захиалга хийгээгүй байна. <a href="index.php?search">Энд</a> дарж анхны захиалгаа хийнэ үү. Анхны захиалгаа 10% хөнгөлөлттэй үнээр хийгээрэй.</p>
+    {%else%} 
+        <h4>Greeting ASEM 2016 guest</h4>
+        <p>You haven't done any hotel booking currently. Please book you hotel as soon as possible. <a href="index.php?search">Click here</a> to order your first booking.</p> 
+    {%endif%}
+
 {% endif %}
 
 {% endblock %}

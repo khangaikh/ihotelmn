@@ -9,26 +9,43 @@
                     <div class="user-profile-avatar text-center">
                         <h5>{{user.username}}</h5>
                         <p>{{user.email}}</p>
-                        <p>Бүргүүлсэн {{user.createdAt |date("Y-m-d")}}</p>
+                        <p>  {%if user.asem==0%} Бүргүүлсэн {%else%} Registered date {%endif%}{{user.createdAt |date("Y-m-d")}}</p>
+                        {%if user.asem==1%}
+                        <p>  ASEM 2016 Official guest from {{user.country}}</p>
+                        {%endif%}
                     </div>
                     <ul class="list user-profile-nav">
+                        {%if user.asem==0%}
                         <li {% if nav == 2 %} class="active" {% endif %}><a href="index.php"><i class="fa fa-check"></i>Захиалга</a>
                         </li>
-                        <li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
-                        </li>
+                       <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
+                        </li>-->
                         {% if user.role == 3 %}
                         <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудалууд</a>
                         </li>
                         <li {% if nav == 8 %} class="active" {% endif %}><a href="index.php?news_admin"><i class="fa fa-book"></i>Мэдээ мэдээлэл</a>
-                        </li>
-                        <li {% if nav == 6 %} class="active" {% endif %}><a href="index.php?admin"><i class="fa fa-cog"></i>Ерөнхий тохиргоо</a>
                         </li>
                         <li {% if nav == 7 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-cog"></i>Асуулт, хариулт</a>
                         </li>
                         {% endif %}
                         <li {% if nav == 5 %} class="active" {% endif %}><a href="index.php?settings"><i class="fa fa-cog"></i>Нууц үг солих</a>
                         </li>
-
+                        {%else%}
+                        <li {% if nav == 2 %} class="active" {% endif %}><a href="index.php"><i class="fa fa-check"></i>My orders</a>
+                        </li>
+                       <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
+                        </li>-->
+                        {% if user.role == 3 %}
+                        <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудалууд</a>
+                        </li>
+                        <li {% if nav == 8 %} class="active" {% endif %}><a href="index.php?news_admin"><i class="fa fa-book"></i>Мэдээ мэдээлэл</a>
+                        </li>
+                        <li {% if nav == 7 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-cog"></i>Асуулт, хариулт</a>
+                        </li>
+                        {% endif %}
+                        <li {% if nav == 5 %} class="active" {% endif %}><a href="index.php?settings"><i class="fa fa-cog"></i>Change password</a>
+                        </li>
+                        {%endif%}
                     </ul>
                 </aside>
             </div>

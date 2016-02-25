@@ -222,11 +222,6 @@
             $query->equalTo("objectId",$_GET['payment']);
             $room = $query->first();
 
-            $query = new ParseQuery("user_cards");
-            $query->equalTo("user",$user);
-            $query->equalTo("status",1);
-            $cards = $query->find();
-
             $start = $_GET['depart'];
             $end = $_GET['end'];
             $dStart = new DateTime($start);
@@ -244,7 +239,7 @@
 
             $template = $twig->loadTemplate('payment.html');
             //render a template
-            echo $template->render(array('title' => 'Төлбөр', 'hotel' =>$hotel, 'location' => $location, 'start' => $start, 'end' => $end, 'room' => $room, 'days' => $dDiff->days, 'total' =>$total, 'totalnum' => $totalnum, 'day_start' => $day_start, 'day_end' => $day_end, 'user' => $user, 'cards' => $cards));
+            echo $template->render(array('title' => '', 'hotel' =>$hotel, 'location' => $location, 'start' => $start, 'end' => $end, 'room' => $room, 'days' => $dDiff->days, 'total' =>$total, 'totalnum' =>$totalnum ,'day_start' => $day_start, 'day_end' => $day_end));
         }
         else if(isset($_GET['city'])){
             $query = new ParseQuery("hotel");
@@ -287,6 +282,34 @@
             else{
                 echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders));
             }
+        }
+        else if(isset($_GET['asemdetail'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("objectId",$_GET['asemdetail']);
+            $hotel = $query->first();
+
+            $query = new ParseQuery("rooms");
+            $query->equalTo("hotel",$hotel);
+            $rooms = $query->find();
+
+            $query = new ParseQuery("hotel_images");
+            $query->equalTo("hotel",$hotel);
+            $query->equalTo("main",1);
+            $main = $query->first();
+
+            $query = new ParseQuery("hotel_images");
+            $query->equalTo("hotel",$hotel);
+            $query->equalTo("main",0);
+            $images = $query->find();
+
+            $start = $_GET['depart'];
+            $end = $_GET['end'];
+            $location = $_GET['location'];
+            $country = $_GET['country'];
+
+            $template = $twig->loadTemplate('asem_detail.html');
+            //render a template
+            echo $template->render(array('title' => 'Choose room', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
         else{
             $template = $twig->loadTemplate('user_dashboard.html');
@@ -414,12 +437,12 @@
 
             $start = $_GET['depart'];
             $end = $_GET['end'];
-            $location = $_GET['location'];
-            $country = $_GET['country'];
+            $guests = $_GET['guests'];
+            $rooms_1 = $_GET['rooms'];
 
             $template = $twig->loadTemplate('asem_detail.html');
             //render a template
-            echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
+            echo $template->render(array('title' => 'Choose room', 'nav' => 1,  'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
         else if(isset($_GET['tour'])){
             $template = $twig->loadTemplate('tour.html');
@@ -492,7 +515,6 @@
             echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
 
         }
- 
         else if(isset($_GET['contact'])){
              $template = $twig->loadTemplate('contact-us.html');
             echo $template->render(array('title' => 'Холбоо барих'));

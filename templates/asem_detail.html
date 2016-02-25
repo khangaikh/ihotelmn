@@ -2,8 +2,8 @@
 {% block content %}
     <input type="hidden" value="{{start}}" id="start_3" />
     <input type="hidden" value="{{end}}" id="end_3"/>
-    <input type="hidden" value="{{num_person}}" id="persons_3"/>
-    <input type="hidden" value="{{location}}" id="location_3"/>
+    <input type="hidden" value="{{guests}}" id="guests"/>
+    <input type="hidden" value="{{rooms_1}}" id="rooms_1"/>
     <input type="hidden" value="{{hotel.objectId}}" id="hotel_3"/>
     <div class="container">
             <ul class="breadcrumb">
@@ -109,7 +109,8 @@
                                         <div class="form-group form-group-select-plus">
                                             <label>Adult</label>
                                             <select class="form-control " id="num_people">
-                                                <option selected="selected">1</option>
+                                                <option selected="selected">{{guests}}</option>
+                                                <option >1</option>
                                                 <option>2</option>
                                                 <option>3</option>
                                                 <option>4</option>
@@ -199,11 +200,29 @@
                                                 </li>
                                                 <li rel="tooltip" data-placement="top" title="Washing Machine"><i class="im im-washing-machine"></i>
                                                 </li>
-                                                <li rel="tooltip" data-placement="top" title="Pool"><i class="im im-pool"></i>
-                                                </li>
                                             </ul>
                                         </div>
-                                        <div class="col-md-3"><span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
+                                        <div class="col-md-3">
+                                            <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
+                                            <div class="form-group form-group-select-plus">
+                                                <label>Order quantity</label>
+                                                <select class="form-control form-group-select-plus" id="qty">
+                                                    <option selected="selected">1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                    <option>11</option>
+                                                    <option>12</option>
+                                                    <option>13</option>
+                                                    <option>14</option>
+                                                </select>
+                                            </div>
                                             <span name="order" class="btn btn-primary" id="{{room.objectId}}">Order now</span>
                                         </div>
                                     </div>
@@ -255,7 +274,7 @@
             }).datepicker('setDate', formattedDate);
             $("#start").datepicker({ dateFormat: 'dd-mm-yy' });
             $("#end").datepicker({"autoclose": true}).on("change", function() {
-                $("#num_people").focus();
+            $("#num_people").focus();
             }).datepicker('setDate', formattedDate1).datepicker({ dateFormat: 'dd-mm-yy' });
             
             $("span[name=order]").click(function( event ) {

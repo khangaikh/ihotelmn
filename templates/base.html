@@ -43,15 +43,21 @@
                                 <li class="top-user-area-avatar">
                                 <a href="index.php?settings">{{user.username}}</a>
                                 </li>
-                                <li><a href="index.php?logout">Гарах</a>
+                                <li><a href="index.php?logout">{%if user.asem==0%}Гарах{%else%}Logout{%endif%}</a>
                                 </li>
                                 {% else %}
                                 <li><a href='index.php?register'>Бүртгүүлэх | Нэвтрэх</a></li>
                                 {% endif %}
                                 <li class="top-user-area-lang">
-                                    <a href="index.php?asem">
-                                        <img src="img/flags/32/uk.png" alt="Image Alternative text" title="Image Title" />ENG</i>
-                                    </a>
+                                    {%if user.asem==0%}
+                                        <a href="index.php?asem">
+                                            <img src="img/flags/32/uk.png" alt="Image Alternative text" title="Image Title" />ENG</i>
+                                        </a>
+                                    {%else%}
+                                        <a href="index.php?index.php">
+                                            <img src="img/flags/32/mn.png" alt="Image Alternative text" title="Image Title" />MNG</i>
+                                        </a>
+                                    {%endif%}
                                 </li>
                             </ul>
                         </div>
@@ -63,13 +69,37 @@
 
             <div class="nav">
                 <ul class="slimmenu" id="slimmenu">
+                    {%if user%} 
+                        {%if user.asem==0%} 
                             <div class="container">
-                    <li class="active"><a href="index.php?search">Зочид буудал</a></li>
-                    <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">Машин түрээс</a></li>
-                    <li><a href="index.php?news">Мэдээ мэдээлэл</a></li>
-                   <!-- <li><a href="index.php?tour">Аялал</a></li>-->
-                    <li class='active' id='asem'><a href="index.php?asem">FOR ASEM GUESTS</a></li>
+                                <li class="active"><a href="index.php?search">Зочид буудал</a></li>
+                                <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">Машин түрээс</a></li>
+                                <li><a href="index.php?news">Мэдээ мэдээлэл</a></li>
+                               <!-- <li><a href="index.php?tour">Аялал</a></li>-->
+                                <li class='active' id='asem'><a href="index.php?asem">FOR ASEM GUESTS</a></li>
                             </div>
+                        {%else%} 
+                            <div class="container">
+                                <li class="active">
+                                    <a href="index.php?asem">ASEM ULAANBAATAR HOTELS</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">CAR RENT</a>
+                                </li>
+                                <li><a href="http://www.asem11.mn/">ASEM 2016 NEWS</a></li>
+                                <!--<li><a href="index.php?asem-tours">TOURS</a></li>-->
+                                <li><a href="index.php?asem-faq">FAQ</a></li>
+                            </div>
+                        {%endif%}
+                    {%else%} 
+                        <div class="container">
+                            <li class="active"><a href="index.php?search">Зочид буудал</a></li>
+                            <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">Машин түрээс</a></li>
+                            <li><a href="index.php?news">Мэдээ мэдээлэл</a></li>
+                           <!-- <li><a href="index.php?tour">Аялал</a></li>-->
+                            <li class='active' id='asem'><a href="index.php?asem">FOR ASEM GUESTS</a></li>
+                        </div>
+                    {%endif%}
                 </ul>
             </div>
         </div>

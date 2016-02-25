@@ -22,13 +22,13 @@
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                 <label>Check-in</label>
-                                <input class="form-control" name="start_1" type="text" data-date-format="yyyy-mm-dd" {%if start %} value="{{start}}" {%else %} value="2016-06-01" {%endif%}/>
+                                <input class="form-control" id="start_1" name="start_1" type="text" data-date-format="yyyy-mm-dd" {%if start %} value="{{start}}" {%else %} value="2016-06-01" {%endif%}/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                                 <label>Check-out</label>
-                                <input class="form-control" name="end_1" type="text" data-date-format="yyyy-mm-dd" {%if end %} value="{{end}}" {%else %} value="2016-07-01" {%endif%}/>
+                                <input class="form-control" id="end_1" name="end_1" type="text" data-date-format="yyyy-mm-dd" {%if end %} value="{{end}}" {%else %} value="2016-07-01" {%endif%}/>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="col-md-3">
                         <div class="form-group form-group- form-group-select-plus">
                             <label>Guests</label>
-                            <select class="form-control" name="guests">
+                            <select class="form-control" name="guests" id="guests">
                                 {% if guests %}
                                 <option selected="selected">{{guests}}</option>
                                 {%endif%}
@@ -63,7 +63,7 @@
                     <div class="col-md-3">
                         <div class="form-group form-group-select-plus">
                             <label>Rooms</label>
-                            <select class="form-control" name="rooms">
+                            <select class="form-control" id="rooms" name="rooms">
                                 {% if rooms %}
                                 <option selected="selected">{{rooms}}</option>
                                 {%endif%}
@@ -237,8 +237,9 @@
             var start = $("#start_1").val();
             var end = $("#end_1").val();
             var location = $("#location_1").val();
-            var country = $("#country").val();
-            var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
             window.location.replace(url);
         }
         $(document).ready(function() {
@@ -345,8 +346,9 @@
                 var start = $("#start_1").val();
                 var end = $("#end_1").val();
                 var location = $("#location_1").val();
-                var country = $("#country").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
+                var guests = $("#guests").val();
+                var rooms = $("#rooms").val();
+                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
                 window.location.replace(url);
             });
             $("a[name=detail]").click(function( event ) {
@@ -355,8 +357,9 @@
                 var start = $("#start_1").val();
                 var end = $("#end_1").val();
                 var location = $("#location_1").val();
-                var country = $("#country").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
+                var guests = $("#guests").val();
+                var rooms = $("#rooms").val();
+                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms;  
                 window.location.replace(url);
             });
         }); 
