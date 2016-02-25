@@ -15,6 +15,7 @@
         $user->set("email", $email);
         $user->set("password", $pass);
         $user->set("status", 0);
+        $user->set("asem", 0);
         $user->set("role", 1);
         $result = false;
 

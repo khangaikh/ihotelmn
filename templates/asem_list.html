@@ -102,22 +102,22 @@
                                 <li>
                                     <h5 class="booking-filters-title">Stars</h5>
                                     <div class="checkbox">
-                                        <input class="i-check" type="checkbox" name="stars" value="5" checked/>5 starts
+                                        <input class="i-check" type="checkbox" name="stars" value="5" />5 stars
                                     </div>
                                     <div class="checkbox">
-                                        <input class="i-check" type="checkbox" name="stars" value="4" checked />4 starts 
+                                        <input class="i-check" type="checkbox" name="stars" value="4"  />4 stars 
                                     </div>
                                     <div class="checkbox">
-                                        <input class="i-check" type="checkbox"name="stars" value="3" checked/>3 starts
+                                        <input class="i-check" type="checkbox"name="stars" value="3" />3 stars
                                     </div>
                                     <div class="checkbox">
-                                        <input class="i-check" type="checkbox" name="stars" value="2" checked/>2 starts
+                                        <input class="i-check" type="checkbox" name="stars" value="2" />2 stars
                                     </div>
                                     <div class="checkbox">
-                                        <input class="i-check" type="checkbox" name="stars" value="1" checked/>1 starts
+                                        <input class="i-check" type="checkbox" name="stars" value="1" />1 stars
                                     </div>
                                     <div class="checkbox">
-                                        <input class="i-check" type="checkbox"  name="stars" value="0" checked/>Starless
+                                        <input class="i-check" type="checkbox"  name="stars" value="0" />No star
                                     </div>
                                 </li>
                                 <li>
@@ -191,7 +191,7 @@
             <ul class="booking-list" id="hotels">
                 {% for res in results %}
                 <li>
-                  <a class="booking-item" id="{{res.objectId}}" href="#">
+                  <a class="booking-item" id="{{res.objectId}}" href="#" name="detail">
                     <div class="row">
                       <div class="col-md-3">
                         <div class="booking-item-img-wrap">
@@ -255,6 +255,40 @@
                 showInpunts: false
             })
 
+            $("span[name=detail]").click(function( event ) {
+                event.preventDefault();
+                var curId = $(this).attr('id');
+                var start = $("#start_1").val();
+                var end = $("#end_1").val();
+                var location = $("#location_1").val();
+                var guests = $("#guests").val();
+                var rooms = $("#rooms").val();
+                var url = "index.php?asemdetail=" + curId +"&start=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+                window.location.replace(url);
+            });
+            $('#hotels').on('click', 'span[name=detail]',function(event) {
+                event.preventDefault();
+                var curId = $(this).attr('id');
+                var start = $("#start_1").val();
+                var end = $("#end_1").val();
+                var location = $("#location_1").val();
+                var guests = $("#guests").val();
+                var rooms = $("#rooms").val();
+                var url = "index.php?asemdetail=" + curId +"&start=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+                window.location.replace(url);
+            });
+            $("a[name=detail]").click(function( event ) {
+                event.preventDefault();
+                var curId = $(this).attr('id');
+                var start = $("#start_1").val();
+                var end = $("#end_1").val();
+                var location = $("#location_1").val();
+                var guests = $("#guests").val();
+                var rooms = $("#rooms").val();
+                var url = "index.php?asemdetail=" + curId +"&start=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms;  
+                window.location.replace(url);
+            });
+
             $('input.date-pick-years').datepicker({
                 startView: 2
             });
@@ -264,8 +298,9 @@
                 var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                 var values1 = checkedValues1.toString();
                 var values2 = checkedValues2.toString();
-                var location = $("#location_1").val();
-
+                var location = 'Ulaanbaatar';
+                console.log(values1);
+                console.log(values2);
                 $.ajax({
                    type: "POST",
                    url: "search.php",
@@ -281,7 +316,7 @@
                                 for ($i=0; $i<obj.stars; $i++){
                                     string += '<i class="fa fa-star"></i></li>';
                                 }
-                                $("#hotels").append('<li><a class="booking-item" id="'+obj.objectId+'" href="#"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.objectId+'">Choose room</span></div></div></a></li>');
+                                $("#hotels").append('<li><a class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Choose room</span></div></div></a></li>');
 
                             });
                     }
@@ -340,28 +375,7 @@
                     }
                 });
             });
-            $("span[name=detail]").click(function( event ) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var guests = $("#guests").val();
-                var rooms = $("#rooms").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
-                window.location.replace(url);
-            });
-            $("a[name=detail]").click(function( event ) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var guests = $("#guests").val();
-                var rooms = $("#rooms").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms;  
-                window.location.replace(url);
-            });
+            
         }); 
     </script>
 {% endblock %}

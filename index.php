@@ -306,12 +306,12 @@
 
             $start = $_GET['depart'];
             $end = $_GET['end'];
-            $location = $_GET['location'];
-            $country = $_GET['country'];
+            $guests = $_GET['guests'];
+            $rooms_1 = $_GET['rooms'];
 
             $template = $twig->loadTemplate('asem_detail.html');
             //render a template
-            echo $template->render(array('title' => 'Choose room', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
+            echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
         else{
             $template = $twig->loadTemplate('user_dashboard.html');

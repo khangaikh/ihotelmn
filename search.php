@@ -1,4 +1,5 @@
     <?php
+
     require_once 'includes/Twig/Autoloader.php';
     require_once "config.php";
     use Parse\ParseQuery;
@@ -7,29 +8,10 @@
     $query = new ParseQuery("hotel");
     
     $datas = $_POST['data'];
-    $pieces = explode(",", $datas);
-
-    if (in_array('0',$pieces) == false) {
-        $query->notEqualTo("stars",0); 
-    }
-    if (in_array('1',$pieces) == false) {
-        $query->notEqualTo("stars",1); 
-    }
-    if (in_array('2',$pieces) == false) {
-        $query->notEqualTo("stars",2); 
-    }
-    if (in_array('3',$pieces) == false) {
-        $query->notEqualTo("stars",3); 
-    }
-    if (in_array('5',$pieces) == false) {
-        $query->notEqualTo("stars",5); 
-    }
-    if (in_array('4',$pieces) == false) {
-        $query->notEqualTo("stars",4); 
-    }
-    
-    
+    $pieces = array_map('intval', explode(',', $datas));
+       
     //$pieces = explode(",", $location);
+    $query->containedIn("stars",$pieces);
     $query->equalTo("city",$_POST['city']);
     $query->equalTo("status",1);
     $query->limit(25);

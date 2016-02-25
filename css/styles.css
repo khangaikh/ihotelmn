@@ -7397,7 +7397,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   list-style: none;
 }
 .booking-item-payment .booking-item-payment-details > li .booking-item-payment-price > li {
-  width: 70%;
+  width: 100%;
   overflow: hidden;
   font-size: 12px;
   border-bottom: 1px dashed #d9d9d9;
