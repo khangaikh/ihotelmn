@@ -81,7 +81,6 @@
 {% block scripting %}
     {{parent()}}
     <script type="text/javascript">
-<<<<<<< Updated upstream
       function delete_faq(j){
         alert('a1a1a1a1a1');
           if (confirm('Та итгэлтэй байна уу? Устгах үйлдэлийг буцаах боломжгүй')) {
@@ -102,7 +101,6 @@
               });
           }
       }
-=======
         $('#forgot_password').click(function(){
            $.post("user.php", {
                 forgot_password: $('#forgot_email').val(),
@@ -119,7 +117,6 @@
                     }
             });
         });
->>>>>>> Stashed changes
         $(document).ready(function() {
             
             $("a[name=delete_faq]").click(function(){
