@@ -39,8 +39,10 @@
             echo $template->render(array('title' => ''));
         }
         else if(isset($_GET['faq'])){
-             $template = $twig->loadTemplate('faq.html');
-            echo $template->render(array('title' => ''));
+            $query = new ParseQuery("faq");
+            $faqs = $query->find();
+            $template = $twig->loadTemplate('faq.html');
+            echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs));
         }
         else if(isset($_GET['help'])){
             $template = $twig->loadTemplate('help.html');
@@ -475,8 +477,10 @@
             echo $template->render(array('title' => 'Бидний тухай'));
         }
         else if(isset($_GET['faq'])){
-             $template = $twig->loadTemplate('faq.html');
-            echo $template->render(array('title' => 'Асуулт хариулт'));
+            $query = new ParseQuery("faq");
+            $faqs = $query->find();
+            $template = $twig->loadTemplate('faq.html');
+            echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs));
         }
         else if(isset($_GET['help'])){
             $template = $twig->loadTemplate('help.html');

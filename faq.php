@@ -21,7 +21,7 @@
     if (isset($_SESSION['user'])){
         $user = $_SESSION['user'];
 
-        if (isset($_POST['answer_mn']) && isset($_POST['question_mn']) && isset($_POST['submit']) {
+        if (isset($_POST['answer_mn']) && isset($_POST['question_mn']) && isset($_POST['submit'])) {
            $answer_mn = $_POST['answer_mn'];
            $question_mn = $_POST['question_mn'];
 
