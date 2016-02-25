@@ -1,0 +1,109 @@
+{% extends "asem.html" %}
+{% block content %}
+<div class="gap"></div>
+<div class="container">
+    <div class="row" data-gutter="60">
+        <div class='col-md-4 small-hidden'>
+            
+        </div>
+        <div class="col-md-4">
+            <h3>ASEM 11 Login</h3>
+            <form>
+                <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                    <label>Email</label>
+                    <input class="form-control" placeholder="@" type="text" id="email"/>
+                </div>
+                <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
+                    <label>Password</label>
+                    <input class="form-control" type="password" placeholder="*****" id="password"/>
+                </div>
+                <div class="alert alert-danger hidden" id='login-alert'>
+                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                    </button>
+                    <p class="text-small"></p>
+                </div>
+                <input class="btn btn-primary" type="button" value="Login" id="login"/>
+                <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Forgot password?</a>
+            </form>
+            <br />
+            <div class="alert alert-success hidden" id="register-success1">
+                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                </button>
+                <p class="text-small"></p>
+            </div>
+            <div class="alert alert-danger hidden" id='login-alert1'>
+                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                </button>
+                <p class="text-small"></p>
+            </div>
+            <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
+                <form>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                        <label>Email</label>
+                        <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
+                    </div>
+                    <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
+                </form>
+            </div>
+        </div>
+        <div class='col-md-4 small-hidden'>
+           
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripting %}
+    {{parent()}}
+    <script type="text/javascript">
+        $('#login').click(function(){
+           $.post("login.php", {
+                email: $('#email').val(),
+                password: $('#password').val()
+                }, function (result) {
+                    if(result==1){
+                        window.location.replace("index.php");  
+                    }
+                    else{
+                        $('#login-alert').removeClass('hidden');
+                        $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
+                    }
+            });
+        });
+        $('#forgot_password').click(function(){
+           $.post("user.php", {
+                forgot_password: $('#forgot_email').val(),
+                }, function (result) {
+                    if(result==1){
+                        $(".mfp-close").trigger('click');
+                        $('#register-success1').removeClass('hidden');
+                        $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээх болно.');
+                    }
+                    else{
+                        $(".mfp-close").trigger('click');
+                        $('#login-alert1').removeClass('hidden');
+                        $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
+                    }
+            });
+        });
+        $('#add').click(function(){
+           $.post("user.php", {
+                email: $('#remail').val(),
+                username: $('#rusername').val(),
+                password: $('#rpassword').val()
+                }, function (result) {
+                    if(result==1){
+                        $('#register-success').removeClass('hidden');
+                        $('#register-success p').text('Бүртгэл амжилттай. Та и-мэйл рүүгээ орж бүртгэлийг идэвхижүүлнэ үү.');
+                    }
+                    else{
+                        $('#register-alert').removeClass('hidden');
+                        $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээлэл буруу байна!');
+                    }
+            });
+        });
+
+    </script>
+{% endblock %}
+
+
+
