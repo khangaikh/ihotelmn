@@ -109,6 +109,14 @@
             //render a template
             echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'user' => $user, 'nav' => 8));
         }
+        else if(isset($_GET['faq_admin'])){
+            $template = $twig->loadTemplate('user_faq.html');
+            $query = new ParseQuery("faq");
+            $query->equalTo("user",$user);
+            $faqs = $query->find();
+            //render a template
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'faqs'=>$faqs, 'user' => $user, 'nav' => 8));
+        }
         else if(isset($_GET['hotel_add'])){
             $template = $twig->loadTemplate('add_hotel.html');
             $section = $_SESSION['section'];

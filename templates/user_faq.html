@@ -1,0 +1,99 @@
+{% extends "user.html" %}
+
+{% block user_content %}
+   {% if result == 1 %}
+    <script type="text/javascript" charset="utf-8">
+        window.location.replace("index.php?faq_admin");
+    </script>
+    {% endif %}
+<a class="popup-text btn btn-primary" href="#add-faq" data-effect="mfp-zoom-out">Асуулт оруулах</a>
+<div class="gap-small"></div>
+
+{% if faqs %}
+<table class="table table-bordered table-striped table-booking-history">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Асуулт</th>
+            <th>Хариулт</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="orders">
+        {% for faq in faqs %}
+        <tr>
+            <td class="text-center">
+                {{loop.index}}
+            </td>
+            <td class="booking-history-title">{{faq.header_mn}}</td>
+            <td>{{faq.content_mn}}</td>
+            <td id="operations">
+                <a name="{{fa.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq('{{fa.objectId}}')" >Засах</a>
+                <a name="{{fa.objectId}}"  class="btn btn-default" href="#" onclick="delete_faq('{{fa.objectId}}')">Устгах</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="add-faq">
+    <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="news_name_label">Мэдээ нэмэх</span>
+            </legend>
+            <div class="row">
+                <div class='is-block'>
+                    <div class='form-group col-sm-12'>
+                        <label for="anwser_mn">Асуулт</label>
+                        <input id="answer_mn" class='form-control' type="text" name="answer_mn" required="" placeholder='Асуулт'>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for="question_mn">Хариулт</label>
+                        <textarea id='question_mn' class='form-control' name='question_mn' rows="4" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class='is-block'>
+                    <div class='form-group col-sm-12'>
+                        <label for="anwser_en">Answer</label>
+                        <input id="answer_en" class='form-control' type="text" name="answer_en" required="" placeholder='Асуулт'>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for="question_en">Question</label>
+                        <textarea id='question_en' class='form-control' name='question_en' rows="4" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="row no-return" id="room-cta">
+            <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Нэмэх" name='submit'/>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
