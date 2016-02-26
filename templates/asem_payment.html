@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "asem.html" %}
 {% block content %}
     <input type="hidden" value="{{start}}" id="start_4" />
     <input type="hidden" value="{{end}}" id="end_4"/>
@@ -15,56 +15,6 @@
                 {% if user %}
                 <div class="row">
                     <div class="col-md-12">
-                        <!--{% if cards %}
-                                 <h4>Pay with card</h4>
-                                <ul class="card-select">
-                                    {% for card in cards %}
-                                        <li>
-                                            <img class="card-select-img" src="img/payment/{%if card.type == 'amex'%}amex-express-curved{%elseif card.type == 'visa'%}visa-curved{%elseif card.type == 'master' %}master-curved{%elseif card.type == 'maestro' %}maestro-curved{% endif %}-64px.png" alt="Image Alternative text" title="Image Title" />
-                                            <div class="card-select-data">
-                                                <p class="card-select-number">{{card.card}}</p>
-                                                <input class="form-control card-select-cvc"  type="text" placeholder="CVC" name="cvc1" id="{{card.objectId}}" />
-                                            </div>
-
-                                        </li>   
-                                    {% endfor %}
-                                </ul>
-                                {% endif%}
-                                {% if cards %}
-                                <h4>Use new card  </h4>
-                                {% else %}
-                                <h4>Pay with card</h4>
-                                {% endif %}
-
-                                    <div class="clearfix">
-                                        <div class="form-group form-group-cc-number">
-                                            <label>Card number</label>
-                                            <input id="card" class="form-control" placeholder="xxxx xxxx xxxx xxxx" type="text" /><span class="cc-card-icon"></span>
-                                        </div>
-                                        <div class="form-group form-group-cc-cvc">
-                                            <label>CVC</label>
-                                            <input id="{{card.objectId}}" class="form-control" placeholder="xxxx" type="text"  />
-                                        </div>
-                                    </div>
-                                    <div class="clearfix">
-                                        <div class="form-group form-group-cc-name">
-                                            <label>Card holder name</label>
-                                            <input id="card_name" class="form-control" type="text" />
-                                        </div>
-                                        <div class="form-group form-group-cc-date">
-                                            <label>Valid </label>
-                                            <input id="valid" class="form-control" placeholder="mm/yy" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="alert alert-warning" style="display:none" id="alert_3">
-                                        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                                        </button>
-                                        <p class="text-small" id="alert_text_2">Please fill in all fields.</p>
-                                    </div>
-                                    <div class="checkbox checkbox-small">
-                                        <label>
-                                            <input class="i-check" type="checkbox" checked/>Save to my account</label>
-                                    </div>-->
                         <img src="img/golomtvisa.png" alt="Image Alternative text" title="Image Title"  />
                         <p>Pay with Golomt Bank. Secure transaction with fast operation.</p>
                         <form id="golomt_pay">
@@ -73,45 +23,49 @@
                     </div>
                 </div>
                 {% else %}
-
                 <div class="col-md-4">
-                    <h3>Нэврэх</h3>
+                    <h3>ASEM 11 Login</h3>
                     <form>
                         <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                            <label>Хэрэглэгчийн нэр</label>
-                            <input class="form-control" placeholder="John_Kennedy" type="text" id="email"/>
+                            <label>Email</label>
+                            <input class="form-control" placeholder="@" type="text" id="email"/>
                         </div>
                         <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
-                            <label>Нууц үг</label>
-                            <input class="form-control" type="password" placeholder="my secret password" id="password"/>
+                            <label>Password</label>
+                            <input class="form-control" type="password" placeholder="*****" id="password"/>
                         </div>
-                        <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
+                        <div class="alert alert-danger hidden" id='login-alert'>
+                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                            </button>
+                            <p class="text-small"></p>
+                        </div>
+                        <input class="btn btn-primary" type="button" value="Login" id="login"/>
+                        <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Forgot password?</a>
                     </form>
-                </div>
-                <div class="col-md-4">
-                    <h3>Бүртгүүлэх үү?</h3>
-                    <form>
-                        <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                            <label>Хэрэглэгчийн нэр</label>
-                            <input class="form-control" placeholder="Овог нэр" type="text" id="rusername" />
-                        </div>
-                        <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show" ></i>
-                            <label>Цахим шуудан</label>
-                            <input class="form-control" placeholder="Имэйл хаягаа оруулна уу." type="text" id="remail" />
-                        </div>
-                        <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
-                            <label>Нууц үг</label>
-                            <input class="form-control" type="password" placeholder="Нууц үг" id="rpassword" />
-                        </div>
-                        <input id="add" class="btn btn-primary" type="button" value="Бүртгүүлэх" />
-                    </form>
+                    <br />
+                    <div class="alert alert-success hidden" id="register-success1">
+                        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                        </button>
+                        <p class="text-small"></p>
+                    </div>
+                    <div class="alert alert-danger hidden" id='login-alert1'>
+                        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                        </button>
+                        <p class="text-small"></p>
+                    </div>
+                    <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
+                        <form>
+                            <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                                <label>Email</label>
+                                <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
+                            </div>
+                            <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
+                        </form>
+                    </div>
                 </div>
                 <hr>
                 {% endif %}
-
-
             </div>
-
             <div class="col-md-4">
                 <div class="booking-item-payment">
                     <header class="clearfix">
@@ -138,9 +92,7 @@
                             </div>
                         </li>
                         <li>
-                            
-                            <h5>Room</h5>
-                                
+                            <h5>Room</h5>    
                             <ul class="booking-item-payment-price">
                                 {%for room in rooms%}
                                     <li>

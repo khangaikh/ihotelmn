@@ -338,8 +338,9 @@
             
             $("span[name=order]").click(function( event ) {
 
-                var room_ids = [];
-                var room_qtys = [];
+                var room_ids = ['1'];
+                var room_qtys = ['1'];
+                var room_subs = ['1'];
                 $('ul[name=order_room]').each(function(){
                     var roomid = $(this).attr('roomid');
                     room_ids.push(roomid);
@@ -348,13 +349,43 @@
                     var qty = parseInt($(this).text());
                     room_qtys.push(qty);
                 });
-                console.log(room_ids);
-                console.log(room_qtys);
+
+                $('span[name=subtotal]').each(function(){
+                    var sub = $(this).text();
+                    room_subs.push(sub);
+                });
                 var start = $("#start").val();
                 var end = $("#end").val();
+                var starta = new Date(start);
+                var enda   = new Date(end);
+                var diff = new Date(enda - starta);
+                    // get days
+                var days = diff/1000/60/60/24;
+
                 var hotel = $("#hotel_3").val();
-
-
+                var room_str = room_ids.toString();
+                var qty_str = room_qtys.toString();
+                var sub_str = room_subs.toString();
+                console.log(room_str);
+                console.log(qty_str);
+                console.log(sub_str);
+                $.post("payment.php", {
+                    start: start,
+                    end: end,
+                    hotel: hotel,
+                    rooms : room_str,
+                    qtys: qty_str,
+                    subs:sub_str,
+                    days:days
+                    },
+                    function (result) {
+                        if(result==1){
+                            window.location.replace("index.php?asem_payment");  
+                        }
+                        else{
+                            alert("Please check your connection");
+                        }
+                });
 
                 /*var curId = $(this).attr('id');
                 var start = $("#start_3").val();
@@ -389,7 +420,7 @@
                         var price = $(this).attr('price');
                         var subtotal = $(this).val()* price;
 
-                        $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$ <span><span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
+                        $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
                         );
                         set_total(days);
                     }else{
