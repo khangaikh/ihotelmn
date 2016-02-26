@@ -328,7 +328,6 @@
             var formattedDate = new Date(start);
             var formattedDate1 = new Date(end);
             
-
             $("#start").datepicker({"autoclose": true}).on("change", function() {
                 $("#end").focus();
             }).datepicker('setDate', formattedDate);
@@ -338,14 +337,33 @@
             }).datepicker('setDate', formattedDate1).datepicker({ dateFormat: 'dd-mm-yy' });
             
             $("span[name=order]").click(function( event ) {
-                var curId = $(this).attr('id');
+
+                var room_ids = [];
+                var room_qtys = [];
+                $('ul[name=order_room]').each(function(){
+                    var roomid = $(this).attr('roomid');
+                    room_ids.push(roomid);
+                });
+                $('span[name=qtys]').each(function(){
+                    var qty = parseInt($(this).text());
+                    room_qtys.push(qty);
+                });
+                console.log(room_ids);
+                console.log(room_qtys);
+                var start = $("#start").val();
+                var end = $("#end").val();
+                var hotel = $("#hotel_3").val();
+
+
+
+                /*var curId = $(this).attr('id');
                 var start = $("#start_3").val();
                 var end = $("#end_3").val();
                 var location = $("#location_3").val();
-                var hotel = $("#hotel_3").val();
+                
                 var country = $("#country").val();
                 var url = "index.php?payment=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&hotel="+hotel; 
-                window.location.replace(url);
+                window.location.replace(url);*/
             });
             $('select[name=qty]').each(function(){
                 $(this).change(function(){
@@ -356,9 +374,10 @@
                     var diff = new Date(enda - starta);
                     // get days
                     var days = diff/1000/60/60/24;
+
                     if($(this).val()>0){
                         var roomid = $(this).attr('roomid');
-                        $('ul[name='+roomid+']').remove();
+                        $('ul[roomid='+roomid+']').remove();
                         $("#payment_info").show();
                         
 
@@ -370,7 +389,7 @@
                         var price = $(this).attr('price');
                         var subtotal = $(this).val()* price;
 
-                        $("#payment_rooms").append('<ul name ="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px">'+$(this).val()+'<small>/rooms</small></p><p class="booking-item-payment-price-amount">$ <span><span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
+                        $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$ <span><span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
                         );
                         set_total(days);
                     }else{

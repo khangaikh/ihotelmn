@@ -59,8 +59,8 @@
         else if(isset($_GET['asem-faq'])){
             $query = new ParseQuery("faq");
             $faqs = $query->find();
-            $template = $twig->loadTemplate('faq.html');
-            echo $template->render(array('title' => 'FAQ', 'faqs'=>$faqs));
+            $template = $twig->loadTemplate('asem-faq.html');
+            echo $template->render(array('title' => 'FAQ','nav' => 3,'user' => $user, 'faqs'=>$faqs));
         }
         else if(isset($_GET['asem'])){
             $query = new ParseQuery("hotel");
@@ -75,7 +75,7 @@
 
             $template = $twig->loadTemplate('asem_list.html');
             //render a template
-            echo $template->render(array('title' => 'Search', 'nav' => 1, 'results' =>$results));
+            echo $template->render(array('title' => 'Search', 'nav' => 1, 'user' => $user, 'results' =>$results));
         }
         else if(isset($_GET['logout'])){
             session_unset();
@@ -555,8 +555,8 @@
         else if(isset($_GET['asem-faq'])){
             $query = new ParseQuery("faq");
             $faqs = $query->find();
-            $template = $twig->loadTemplate('faq.html');
-            echo $template->render(array('title' => 'FAQ', 'faqs'=>$faqs));
+            $template = $twig->loadTemplate('asem-faq.html');
+            echo $template->render(array('title' => 'FAQ', 'nav' => 3, 'faqs'=>$faqs));
         }
         else if(isset($_GET['payment'])){
             $query = new ParseQuery("hotel");

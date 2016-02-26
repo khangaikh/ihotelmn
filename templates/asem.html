@@ -65,10 +65,10 @@
         <div class="container">
             <div class="nav">
                 <ul class="slimmenu" id="slimmenu">
-                    <li class="active"><a href="index.php?asem">ASEM ULAANBAATAR HOTELS</a></li>
+                    <li {% if nav==1 %}  class="active" {%endif%}><a href="index.php?asem">ASEM ULAANBAATAR HOTELS</a></li>
                     <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">CAR RENT</a></li>
-                    <li><a href="http://www.asem11.mn/">ASEM 2016 NEWS</a></li>
-                    <li><a href="index.php?asem-faq">FAQ</a></li>
+                    <li ><a href="http://www.asem11.mn/">ASEM 2016 NEWS</a></li>
+                    <li {% if nav==3 %}  class="active" {%endif%}><a href="index.php?asem-faq">FAQ</a></li>
                 </ul>
             </div>
         </div>

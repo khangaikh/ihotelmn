@@ -277,6 +277,20 @@
                 var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
                 window.location.replace(url);
             });
+
+            $('#hotels').on('click', 'a[name=detail]',function(event) {
+                event.preventDefault();
+                var curId = $(this).attr('id');
+                var start = $("#start_1").val();
+                var end = $("#end_1").val();
+                var location = $("#location_1").val();
+                var guests = $("#guests").val();
+                var rooms = $("#rooms").val();
+                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+                window.location.replace(url);
+            });
+
+
             $("a[name=detail]").click(function( event ) {
                 event.preventDefault();
                 var curId = $(this).attr('id');
