@@ -490,14 +490,17 @@ $(document).ready(function(){
   var frames=12;
   var frameWidth = 30;
   var offset=counter * -frameWidth;
-  $("#loading span").css('background-position', 0 + "px" + " " + offset + "px");
+  $("#loading").css('background-position', 0 + "px" + " " + offset + "px");
   counter++; if (counter>=frames) counter =0; }, 100);
-
-  $('#loading').height($(document).height());
-})
+});
 
 $('.alert .close').click(function(e){
     e.stopPropagation();
     $(this).parent('.alert').fadeOut(300);
 
+});
+$(document).ready(function(){
+  $('.disabled').click(function(){
+    return false;
+  });
 });

@@ -82,8 +82,10 @@
     {{parent()}}
     <script type="text/javascript">
        $('#login').click(function(){
-        $('body').append('<div id="loading"><span></span></div>');
         $('.alert').hide(0);
+        var $this = $(this);
+        $this.after('<div id="loading"></div>');
+        $this.addClass('disabled');
            $.post("login.php", {
                 email: $('#email').val(),
                 password: $('#password').val()
@@ -94,6 +96,7 @@
                     }
                     else{
                         $('#loading').remove();
+                        $this.removeClass('disabled');
                         $('#login-alert').fadeIn(500);
                         $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
                     }
@@ -102,8 +105,9 @@
         $('#add').click(function(){
              $('#register-success').hide();
              $('#register-alert').hide();
-            $('body').append('<div id="loading"><span></span></div>');
-
+             var $this = $(this);
+             $this.after('<div id="loading"></div>');
+             $this.addClass('disabled');
            $.post("user.php", {
                 email: $('#remail').val(),
                 username: $('#rusername').val(),
@@ -115,7 +119,8 @@
                         $('#register-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
                     }
                     else{
-                         $('#loading').remove();
+                      $('#loading').remove();
+                      $this.removeClass('disabled');
                         $('#register-alert').fadeIn(500);
                         $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
                     }
