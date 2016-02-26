@@ -81,7 +81,7 @@ footer#main-footer .logo{
 }
 .flex.between{
 	justify-content:space-between;
-	-webkit-justify-content:space-between;	
+	-webkit-justify-content:space-between;
 }
 .flex.middle{
 	align-items:center;
@@ -89,7 +89,7 @@ footer#main-footer .logo{
 }
 .flex.end{
 	justify-content:flex-end;
-	-webkit-justify-content:flex-end;	
+	-webkit-justify-content:flex-end;
 }
 #asem a{
 	background: #FFBC42;
@@ -175,5 +175,6 @@ button:after{
 	background-image:url('../img/spiffygif_30x30.png');
 	background-repeat: no-repeat;
 }
-
-
+.alert{
+  display: none;
+}

@@ -187,7 +187,7 @@ $(document).ready(
     var docHeight = $(window).height();
    var footerHeight = $('#main-footer').height();
    var footerTop = $('#main-footer').position().top + footerHeight;
-   
+
    if (footerTop < docHeight) {
     $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
    }
@@ -483,3 +483,21 @@ function tagline_vertical_slide() {
 function abortTimer() { // to be called when you want to stop the timer
     clearInterval(tid);
 }
+//Loader
+$(document).ready(function(){
+  var counter = 0;
+  setInterval(function() {
+  var frames=12;
+  var frameWidth = 30;
+  var offset=counter * -frameWidth;
+  $("#loading span").css('background-position', 0 + "px" + " " + offset + "px");
+  counter++; if (counter>=frames) counter =0; }, 100);
+
+  $('#loading').height($(document).height());
+})
+
+$('.alert .close').click(function(e){
+    e.stopPropagation();
+    $(this).parent('.alert').fadeOut(300);
+
+});

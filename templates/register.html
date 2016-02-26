@@ -73,7 +73,7 @@
         </div>
         <div class='col-md-4 small-hidden'>
             <a href="index.php?asem"><img src='img/asem.png' style="width:120%; margin-top:46px"></a>
-            
+
         </div>
     </div>
 </div>
@@ -90,7 +90,7 @@
                 },
                 function (result) {
                     if(result==1){
-                        window.location.replace("index.php");  
+                        window.location.replace("index.php");
                     }
                     else{
                         $('#loading').remove();
@@ -121,12 +121,6 @@
                     }
             });
         });
-        $('.alert').hide(0);
-        $('.alert .close').click(function(e){
-            e.stopPropagation();
-            $(this).parent('.alert').fadeOut(300)
-      
-        });
                 $('#forgot_password').click(function(){
                     $('#register-success1').hide();
                      $('#login-alert1').hide();
@@ -145,17 +139,5 @@
                     }
             });
         });
-        var counter = 0;
-        setInterval(function() {
-        var frames=12; 
-        var frameWidth = 30;
-        var offset=counter * -frameWidth;
-        $("#loading span").css('background-position', 0 + "px" + " " + offset + "px");
-        counter++; if (counter>=frames) counter =0; }, 100);
-
-        $('#loading').height($(document).height());
     </script>
 {% endblock %}
-
-
-
