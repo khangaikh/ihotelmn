@@ -193,6 +193,13 @@
                     </li>
                 </ul>
             </div>
+            <div class="nav-drop booking-sort small-top" style="float:right;">
+                <h5 id="hotel_list"><a href="#" title="List"><i class="fa fa-list"></i>List</a></h5>
+                <h5 id="hotel_map"><a href="#" title="Map"><i class="fa fa-map-marker"></i>Map</a></h5>
+            </div>
+            <div id="maps_hotel" style="display: none;">
+               hello 
+            </div>
             <ul class="booking-list" id="hotels">
                 {% for res in results %}
                 <li>
@@ -251,101 +258,191 @@
 {% block scripting %}
     {{parent()}}
     <script type="text/javascript">
-        
-        function details(i){
-            event.preventDefault();
-            var curId = $(i).attr('id');
-            var start = $("#start_1").val();
-            var end = $("#end_1").val();
-            var location = $("#location_1").val();
-            var country = $("#country").val();
-            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
-            window.location.replace(url);
+    var script = '<script type="text/javascript" src="http://google-maps-' +
+    'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
+    if (document.location.search.indexOf('compiled') !== -1) {
+        script += '-compiled';
+    }
+    script += '.js"><' + '/script>';
+    document.write(script);
+    </script>
+    <script type="text/javascript">
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('maps_hotel'), {
+            zoom: 13,
+            center: new google.maps.LatLng(47.918830, 106.917632),
+            mapTypeId: google.maps.MapTypeId.TERRAIN,
+        });
+        var infoBubble;
+        var marker;
+        {% for res in results %}
+        {% if res.geolocation %}
+        marker = new google.maps.Marker({
+            position: {lat: {{res.geolocation.latitude}}, lng: {{res.geolocation.longitude}}},
+        });
+        infoBubble = new InfoBubble({
+            map: map,
+                   content: '<h5 id="{{res.objectId}}" onclick="help(this.id);"style="cursor: pointer; margin-bottom: 0px; color: #FFF;font-weight: bold;">${{res.average_rate}}</h5>',
+                   arrowSize: 8,
+                   maxWidth: 100,
+                   minHeight: 35,
+                   backgroundColor: '#FF0C0C',
+                   hideCloseButton: true,
+                   arrowPosition: 50,
+                   padding: 4,
+                   borderRadius: 8,
+                   arrowStyle: 0,
+                   shadowStyle: 1
+        });
+        infoBubble.open(map, marker);
+        {% endif %}
+        {% endfor %}
+
+    }
+    function help(tid){
+        $.ajax({
+            type: "POST",
+        url: "index.php",
+        data: {mapGeoId:tid},
+        success: function(data, textStatus, jqXHR)
+        {
+            var hotel = $.parseJSON(data);
+            var map = new google.maps.Map(document.getElementById('maps_hotel'), {
+                zoom: 13,
+                center: {lat: hotel['latitude'], lng: hotel['longitude']},
+                mapTypeId: google.maps.MapTypeId.TERRAIN
+            });
+            var infoBubble;
+            var marker;
+            marker = new google.maps.Marker({
+                position: {lat: hotel['latitude'], lng: hotel['longitude']},
+            });
+            infoBubble = new InfoBubble({
+                map: map,
+                       maxWidth: 190,
+                       content: "<div><img src='"+hotel['cover_image']+"'><h5>"+hotel['name']
+                +"<span style='float: right; font-size: 12px; padding-top: 4px; font-weight: bold;padding-right: 7px;'>$"
+                +hotel['average_rate']+"<span></h5></div>",
+                       arrowSize: 8,
+                       hideCloseButton: true,
+                       arrowPosition: 50,
+                       padding: 0,
+                       borderRadius: 8,
+                       arrowStyle: 0,
+                       shadowStyle: 1
+            });
+            //                    renderMap(hotel['id']);
+            infoBubble.open(map, marker);
+            google.maps.event.addDomListener(map,'click', function() {
+                infoBubble.close();
+                initMap();
+            });
         }
-        $(document).ready(function() {
-           
+        });
 
-            $('.input-daterange input[name="start"]').datepicker();
-            $('.input-daterange input[name="end"]').datepicker();
+    }
+    function details(i){
+        event.preventDefault();
+        var curId = $(i).attr('id');
+        var start = $("#start_1").val();
+        var end = $("#end_1").val();
+        var location = $("#location_1").val();
+        var country = $("#country").val();
+        var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
+        window.location.replace(url);
+    }
+
+    $("#hotel_map").click(function( event ) {
+        $("#hotels").hide();
+        $("#maps_hotel").show();
+    });
+
+    $("#hotel_list").click(function( event ) {
+        $("#maps_hotel").hide();
+        $("#hotels").show();
+    });
+    $(document).ready(function() {
+        initMap();
+        $('.input-daterange input[name="start"]').datepicker();
+        $('.input-daterange input[name="end"]').datepicker();
 
 
-            $("input").on('ifChanged', function(event){
+        $("input").on('ifChanged', function(event){
 
-                var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
-                var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
-                var values1 = checkedValues1.toString();
-                var values2 = checkedValues2.toString();
-                var location = $("#location_1").val();
-                $.ajax({
-                   type: "POST",
-                   url: "search.php",
-                   data: {data:values1, filter:values2, city:location},
-                   success: function(data, textStatus, jqXHR)
-                   {
-                        $("#hotels").empty();
-                        var events = data['events'];
-                        var pages = data['pages'];
-                            $.each(events, function(idx, obj) {
-                                var index = idx+1;
-                                var string = "";
-                                for ($i=0; $i<obj.stars; $i++){
-                                    string += '<i class="fa fa-star"></i></li>';
-                                }
-                                $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.objectId+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="TITLE" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>12</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars" id="stars">'+string+'</ul><span class="booking-item-rating-number"><small>(406 reviews)</small>  </span></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i> '+ obj.address +'</p><small class="booking-itemast-booked"></small><p class="booking-item-address"><ilass="fa fa-book"></i>'+obj.short_desc+'</p><small class="booking-item-last-booked"></small></div><div class="col-md-3"><span class="booking-item-price-from"></span><span class="booking-item-price">US$ '+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.rate+'" >Select room</span></div></div></a></li>');
-
-                            });
+            var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+            var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+            var values1 = checkedValues1.toString();
+            var values2 = checkedValues2.toString();
+            var location = $("#location_1").val();
+            $.ajax({
+                type: "POST",
+                url: "search.php",
+                data: {data:values1, filter:values2, city:location},
+                success: function(data, textStatus, jqXHR)
+            {
+                $("#hotels").empty();
+                var events = data['events'];
+                var pages = data['pages'];
+                $.each(events, function(idx, obj) {
+                    var index = idx+1;
+                    var string = "";
+                    for ($i=0; $i<obj.stars; $i++){
+                        string += '<i class="fa fa-star"></i></li>';
                     }
+                    $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.objectId+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="TITLE" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>12</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars" id="stars">'+string+'</ul><span class="booking-item-rating-number"><small>(406 reviews)</small>  </span></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i> '+ obj.address +'</p><small class="booking-itemast-booked"></small><p class="booking-item-address"><ilass="fa fa-book"></i>'+obj.short_desc+'</p><small class="booking-item-last-booked"></small></div><div class="col-md-3"><span class="booking-item-price-from"></span><span class="booking-item-price">US$ '+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.rate+'" >Select room</span></div></div></a></li>');
+
                 });
+            }
             });
-            $("#search_a").click(function( event ) {
-                var check = true;
-                var start = $("#start").val();
-                var end = $("#end").val();
-                var location = $("#location").val();
-                var guests = $("#guests").val();
-                var persons = $("#persons").val();
+        });
+        $("#search_a").click(function( event ) {
+            var check = true;
+            var start = $("#start").val();
+            var end = $("#end").val();
+            var location = $("#location").val();
+            var guests = $("#guests").val();
+            var persons = $("#persons").val();
 
-                if(location == ""){
-                    check =false;
-                }
-                if(check){
-                    var url = "index.php?start=" + start + "&end=" + end + "&location=" +location+"&persons="+persons+"&guests="+guests;  
-                    window.location.replace(url);    
-                }else{
-                    $("#alert_1").toggle();
-                    $("#location").css("border-color", "red");
-                }   
-            });
+            if(location == ""){
+                check =false;
+            }
+            if(check){
+                var url = "index.php?start=" + start + "&end=" + end + "&location=" +location+"&persons="+persons+"&guests="+guests;  
+                window.location.replace(url);    
+            }else{
+                $("#alert_1").toggle();
+                $("#location").css("border-color", "red");
+            }   
+        });
 
-            $("#sorting a").click(function( event ) {
-                var sort = $(this).attr('sort');
-                var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
-                var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
-                var values1 = checkedValues1.toString();
-                var values2 = checkedValues2.toString();
-                var location = $("#location_1").val();
-                console.log(location)
-                $.ajax({
-                   type: "POST",
-                   url: "sort.php",
-                   data: {data:sort, filter1:values1, filter2:values2, city:location},
-                   success: function(data, textStatus, jqXHR)
-                   {
-                        $("#hotels").empty();
-                        var events = data['events'];
-                        var pages = data['pages'];
-                        var sort = data['sort'];
-                        $("#sorting").val(sort)
-                            $.each(events, function(idx, obj) {
-                                var index = idx+1;
-                                var string = "";
-                                for ($i=0; $i<obj.stars; $i++){
-                                    string += '<i class="fa fa-star"></i></li>';
-                                }
-                                $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.id+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars">'+string+'</ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 reviews)</small></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</p><small class="booking-item-last-booked">'+obj.short_desc+'</small></div><div class="csol-md-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.id+'" onclick="details(this);">Book Now</span></div></div></a></li>');
-                            });
+        $("#sorting a").click(function( event ) {
+            var sort = $(this).attr('sort');
+            var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+            var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+            var values1 = checkedValues1.toString();
+            var values2 = checkedValues2.toString();
+            var location = $("#location_1").val();
+            console.log(location)
+            $.ajax({
+                type: "POST",
+                url: "sort.php",
+                data: {data:sort, filter1:values1, filter2:values2, city:location},
+                success: function(data, textStatus, jqXHR)
+            {
+                $("#hotels").empty();
+                var events = data['events'];
+                var pages = data['pages'];
+                var sort = data['sort'];
+                $("#sorting").val(sort)
+                $.each(events, function(idx, obj) {
+                    var index = idx+1;
+                    var string = "";
+                    for ($i=0; $i<obj.stars; $i++){
+                        string += '<i class="fa fa-star"></i></li>';
                     }
+                    $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.id+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars">'+string+'</ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 reviews)</small></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</p><small class="booking-item-last-booked">'+obj.short_desc+'</small></div><div class="csol-md-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.id+'" onclick="details(this);">Book Now</span></div></div></a></li>');
                 });
+            }
             });
             $("span[name=detail]").click(function( event ) {
                 event.preventDefault();

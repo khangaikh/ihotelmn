@@ -1,3 +1,29 @@
+#maps_hotel{
+    height: 600px;
+    width: 800px;
+}
+#maps_hotel .gm-style{
+    height: 600px;
+    width: 800px;
+}
+
+#hotel_list{
+    float: left;
+    margin-right: 10px; 
+    font-size: 14px;
+}
+#hotel_map{
+    float: right;
+    font-size: 14px;
+}
+#hotel_list i{
+    font-size: 13px;
+    padding: 5px;
+}
+#hotel_map i{
+    font-size: 15px;
+    padding: 2px;
+}
 #forgot_text{
     float: right;
     padding-top: 9px;

@@ -285,6 +285,20 @@
                 echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders));
             }
         }
+        else if(isset($_POST['mapGeoId'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("objectId",$_POST['mapGeoId']);
+            $hotel = $query->first();
+            $e['cover_image'] = $hotel->get('cover_image');
+            $e['average_rate'] = $hotel->get('average_rate');
+            $e['address'] = $hotel->get('address');
+            $e['stars'] = $hotel->get('stars');
+            $e['name'] = $hotel->get('name');
+            $e['id'] = $hotel->getObjectId();
+            $e['latitude'] = $hotel->get('geolocation')->getLatitude();
+            $e['longitude'] = $hotel->get('geolocation')->getLongitude();
+            echo json_encode($e);
+        }
         else if(isset($_GET['asemdetail'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['asemdetail']);
@@ -386,6 +400,20 @@
             $template = $twig->loadTemplate('asem_list.html');
             //render a template
             echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms));
+        }
+        else if(isset($_POST['mapGeoId'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("objectId",$_POST['mapGeoId']);
+            $hotel = $query->first();
+            $e['cover_image'] = $hotel->get('cover_image');
+            $e['average_rate'] = $hotel->get('average_rate');
+            $e['address'] = $hotel->get('address');
+            $e['stars'] = $hotel->get('stars');
+            $e['name'] = $hotel->get('name');
+            $e['id'] = $hotel->getObjectId();
+            $e['latitude'] = $hotel->get('geolocation')->getLatitude();
+            $e['longitude'] = $hotel->get('geolocation')->getLongitude();
+            echo json_encode($e);
         }
         else if(isset($_POST['news'])){
             $template = $twig->loadTemplate('user_news.html');
