@@ -622,7 +622,7 @@
                 $day_end = date('l', strtotime( $end));
                 $orders = $_SESSION['orders'];
                 class Event {}
-                $events = array();
+                $events = [];
                 $total = 0;
                 for ($i = 0; $i < count($orders); ++$i){
                     $e = new Event();
@@ -647,7 +647,7 @@
             }
             
         }
-        else if(isset($_GET['asem_ayment'])){
+        else if(isset($_GET['asem_payment'])){
             
             if(isset($_SESSION['orders'])){
                 $start = $_SESSION['start'];
@@ -657,18 +657,24 @@
                 $day_start = date('l', strtotime( $start));
                 $day_end = date('l', strtotime( $end));
                 $orders = $_SESSION['orders'];
+                class Event {}
                 $rooms = array();
                 $total = 0;
                 for ($i = 0; $i < count($orders); ++$i){
+                    $e = new Event();
                     $order_id = $orders[$i];
                     $query = new ParseQuery("orders");
                     $query->equalTo("objectId",$order_id);
                     $query->includeKey("room");
                     $order = $query->first();
                     $room = $order->get('room');
-                    $total =$total+(int)$order->get('total');
-                    $events[] = $room; 
+                    $e->name = $room->get('room_type');
+                    $e->qty = $order->get('qty');
+                    $e->sub = $order->get('total');
+                    $total = $total + (int)$order->get('total');
+                    array_push($rooms,$e);
                 }
+                $total= $total * $days;
                 $template = $twig->loadTemplate('asem_payment.html');
                 //render a template
                 echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end));
