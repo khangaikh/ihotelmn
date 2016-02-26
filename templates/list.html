@@ -267,14 +267,19 @@
     document.write(script);
     </script>
     <script type="text/javascript">
+    var map = new google.maps.Map(document.getElementById('maps_hotel'), {
+        zoom: 13,
+        center: new google.maps.LatLng(47.912318, 106.913816),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    var infoBubble;
+    var marker;
     function initMap() {
-        var map = new google.maps.Map(document.getElementById('maps_hotel'), {
+        map = new google.maps.Map(document.getElementById('maps_hotel'), {
             zoom: 13,
             center: new google.maps.LatLng(47.918830, 106.917632),
             mapTypeId: google.maps.MapTypeId.TERRAIN,
         });
-        var infoBubble;
-        var marker;
         {% for res in results %}
         {% if res.geolocation %}
         marker = new google.maps.Marker({
@@ -301,26 +306,19 @@
     }
     function help(tid){
         $.ajax({
-            type: "POST",
+        type: "POST",
         url: "index.php",
         data: {mapGeoId:tid},
         success: function(data, textStatus, jqXHR)
         {
             var hotel = $.parseJSON(data);
-            var map = new google.maps.Map(document.getElementById('maps_hotel'), {
-                zoom: 13,
-                center: {lat: hotel['latitude'], lng: hotel['longitude']},
-                mapTypeId: google.maps.MapTypeId.TERRAIN
-            });
-            var infoBubble;
-            var marker;
             marker = new google.maps.Marker({
                 position: {lat: hotel['latitude'], lng: hotel['longitude']},
             });
             infoBubble = new InfoBubble({
                 map: map,
-                       maxWidth: 190,
-                       content: "<div><img src='"+hotel['cover_image']+"'><h5>"+hotel['name']
+                       maxWidth: 250,
+                       content: "<div><img src='img/news/5c927f8.png'><h5>"+hotel['name']
                 +"<span style='float: right; font-size: 12px; padding-top: 4px; font-weight: bold;padding-right: 7px;'>$"
                 +hotel['average_rate']+"<span></h5></div>",
                        arrowSize: 8,
@@ -331,11 +329,9 @@
                        arrowStyle: 0,
                        shadowStyle: 1
             });
-            //                    renderMap(hotel['id']);
             infoBubble.open(map, marker);
             google.maps.event.addDomListener(map,'click', function() {
                 infoBubble.close();
-                initMap();
             });
         }
         });
@@ -355,6 +351,7 @@
     $("#hotel_map").click(function( event ) {
         $("#hotels").hide();
         $("#maps_hotel").show();
+        initMap();
     });
 
     $("#hotel_list").click(function( event ) {
@@ -362,7 +359,6 @@
         $("#hotels").show();
     });
     $(document).ready(function() {
-        initMap();
         $('.input-daterange input[name="start"]').datepicker();
         $('.input-daterange input[name="end"]').datepicker();
 
