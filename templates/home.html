@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block content %}
     <!-- TOP AREA -->
     <div class="top-area show-onload">
@@ -244,7 +244,7 @@
     </div>
     <?php $a = http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=44db6a862fba0b067b1930da0d769e98;
     echo $a; ?>
-{% endblock %} 
+{% endblock %}
 {% block scripting %}
     {{parent()}}
     <script type="text/javascript">
@@ -266,9 +266,9 @@
             $('input.date-pick-years').datepicker({
                 startView: 2
             });
-                    }); 
+                    });
     $.ajax({
-        url:"http://api.openweathermap.org/data/2.5/weather?q=ulaanbaatar&appid=44db6a862fba0b067b1930da0d769e98&units=metric", 
+        url:"https://api.openweathermap.org/data/2.5/weather?q=ulaanbaatar&appid=44db6a862fba0b067b1930da0d769e98&units=metric", 
         dataType:"jsonp",
         success: function(data){
             if(data.main.temp > 0){

@@ -9,7 +9,7 @@
 
 #hotel_list{
     float: left;
-    margin-right: 10px; 
+    margin-right: 10px;
     font-size: 14px;
 }
 #hotel_map{
@@ -38,13 +38,13 @@ header#main-header{
 	border-bottom: initial;
 }
 #nav-container{
-	border-top:2px solid #03629a;
+	border-top:2px solid #0EBCF2;
 }
 .header-top{
 	background: none;
 }
 .top-user-area .top-user-area-list > li > a{
-	color:#03629a;
+	color:#0EBCF2;
 	text-transform: uppercase;
 }
 footer#main-footer{
