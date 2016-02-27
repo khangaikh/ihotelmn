@@ -205,6 +205,8 @@ button:after{
 .header-top{
 	margin:10px 0;
 }
-.logo-text .phone{
-	font-size: 1.1em;
+.header-top .phone{
+	line-height: 40px;
+	font-size:0.75em;
+	color:#bbb;
 }
