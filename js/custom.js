@@ -507,7 +507,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $('.ajax').click(function(){
-        $(this).append('<div id="loading"></div>');
+        $(this).after('<div id="loading"></div>');
         $(this).addClass('disabled');
     });
 });
