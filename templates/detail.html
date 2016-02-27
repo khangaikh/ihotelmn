@@ -204,7 +204,26 @@
                                             </ul>
                                         </div>
                                         <div class="col-md-3"><span class="booking-item-price">${{room.night_price}}</span><span>/өдөр</span>
-                                            <span name="order" class="btn btn-primary" id="{{room.objectId}}">Захиалах</span>
+                                            <div class="form-group form-group-select-plus">
+                                                <label>Өрөөний тоо</label>
+                                                <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" > 
+                                                    <option selected="selected">0</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                    <option>11</option>
+                                                    <option>12</option>
+                                                    <option>13</option>
+                                                    <option>14</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </a>
@@ -213,6 +232,52 @@
                         </ul>
                     </div>
                     <div class="col-md-3">
+                        <div id="payment_info" class="booking-item-payment" style="display:none">
+                                <ul class="booking-item-payment-details" style="width:100%">
+                                    <li>
+                                        <h5>Буудлах нийт хоног: <span id="days"><span></h5>
+                                        <div class="booking-item-payment-date">
+                                            <p class="booking-item-payment-date-day" id="checkin">2016-07-11</p>
+                                        </div><i class="fa fa-arrow-right booking-item-payment-date-separator"></i>
+                                        <div class="booking-item-payment-date">
+                                            <p class="booking-item-payment-date-day" id="checkout">2016-07-11</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <h5>Өрөө</h5>
+                                        
+                                        <span id="payment_rooms">
+
+                                           <!-- <ul class="booking-item-payment-price">
+                                                <li>
+                                                    <p class="booking-item-payment-price-title">Twin</p>
+                                                    <p class="booking-item-payment-price-title" style="margin-left:10px">2<small>/rooms</small></p>
+                                                    <p class="booking-item-payment-price-amount">$453<small>/per day</small></p>
+                                                </li>
+                                            </ul>
+                                            <ul class="booking-item-payment-price">
+                                                <li>
+                                                    <p class="booking-item-payment-price-title">Twin</p>
+                                                    <p class="booking-item-payment-price-title" style="margin-left:10px">2<small>/rooms</small></p>
+                                                    <p class="booking-item-payment-price-amount">$453<small>/per day</small></p>
+                                                </li>
+                                            </ul>-->
+                                        
+                                        </span>
+                                        
+                                        <ul class="booking-item-payment-price">
+                                            <li>
+                                                <p class="booking-item-payment-price-title">НӨАТ</p>
+                                                <p class="booking-item-payment-price-amount">(incluled)<small>/өдөр</small>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <p class="booking-item-payment-total">Нийт дүн: <span id="total"> 4232</span>
+                                </p>
+                                <span name="order" class="btn btn-primary" id="{{room.objectId}}" style="width:100%">Төлбөр төлөх</span>
+                            </div>
                         <h4>Буудалын давуу талууд</h4>
                         <ul class="booking-item-features booking-item-features-expand mb30 clearfix">
                             <li><i class="im im-wi-fi"></i><span class="booking-item-feature-title">Wi-Fi Интернет</span>
@@ -243,8 +308,16 @@
 {% endblock %}
 {% block scripting %}
     {{parent()}}
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script type="text/javascript">
+        function set_total(d){
+             var total=0;
+             $('span[name=subtotal]').each(function(){
+                var sub = $(this).text();
+                total = total + parseInt(sub);
+             });
+             total = parseInt(d) * total;
+             $("#total").text("US$ "+total);
+        }
         $(document).ready(function() {
             var start =$("#start_3").val();
             var end =$("#end_3").val();
@@ -269,7 +342,50 @@
                 var url = "index.php?payment=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&hotel="+hotel; 
                 window.location.replace(url);
             });
-            $("a[name=order]").click(function( event ) {
+            $('select[name=qty]').each(function(){
+                $(this).change(function(){
+                    var start =$("#start").val();
+                    var end =$("#end").val();
+                    var starta = new Date(start);
+                    var enda   = new Date(end);
+                    var diff = new Date(enda - starta);
+                    // get days
+                    var days = diff/1000/60/60/24;
+                    if($(this).val()>0){
+                        var roomid = $(this).attr('roomid');
+                        $('ul[name='+roomid+']').remove();
+                        $("#payment_info").show();
+                        
+
+                        $("#checkin").text(start);
+                        $("#checkout").text(end);
+                        $("#days").text(days);
+
+                        var room_name = $(this).attr('room');
+                        var price = $(this).attr('price');
+                        var subtotal = $(this).val()* price;
+
+                        $("#payment_rooms").append('<ul name ="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px">'+$(this).val()+'<small>/rooms</small></p><p class="booking-item-payment-price-amount">$ <span><span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
+                        );
+                        set_total(days);
+                    }else{
+                        var roomid = $(this).attr('roomid');
+                        $('ul[name='+roomid+']').each(function(){
+                            $(this).remove();
+                        });
+                        set_total(days);
+                    }
+                });
+            });
+
+            $("#search_a").click(function( event ) {
+                $('select[name=qty]').each(function(){
+                    $(this).val("0");
+                });
+                $("#payment_info").hide();
+               //ajax lisr available rooms  
+            });
+            /*$("a[name=order]").click(function( event ) {
                 var curId = $(this).attr('id');
                 var start = $("#start_3").val();
                 var end = $("#end_3").val();
@@ -278,7 +394,7 @@
                 var country = $("#country").val();
                 var url = "index.php?payment=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&hotel="+hotel; 
                 window.location.replace(url);
-            });
+            });*/
         }); 
     </script>
 {% endblock %}
