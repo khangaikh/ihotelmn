@@ -185,13 +185,14 @@ button:after{
 	display: inline-block;
 }
 .logo-text{
-	padding-left:15px;
+	padding-left:10px;
 	color:#bbb;
-	font-size:0.75em;
+	font-size:0.7em;
 	text-transform: uppercase;
 	line-height: -5px;
 	position: relative;
-	margin-left: 15px;
+	margin-left: 10px;
+	font-weight: bold;
 }
 .logo-text::before{
 	content:'';
@@ -207,6 +208,10 @@ button:after{
 }
 .header-top .phone{
 	line-height: 40px;
-	font-size:0.75em;
-	color:#bbb;
+	font-size:1em;
+	color:#000;
+	font-weight: bold;
+}
+.header-top .phone span{
+	margin-left:5px;
 }
