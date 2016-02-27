@@ -273,12 +273,14 @@
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     var infoBubble;
+    var infoBubble2; 
+    var countinfo = 0; 
     var marker;
     function initMap() {
         map = new google.maps.Map(document.getElementById('maps_hotel'), {
             zoom: 13,
-            center: new google.maps.LatLng(47.918830, 106.917632),
-            mapTypeId: google.maps.MapTypeId.TERRAIN,
+            center: new google.maps.LatLng(47.912318, 106.913816),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         {% for res in results %}
         {% if res.geolocation %}
@@ -286,8 +288,7 @@
             position: {lat: {{res.geolocation.latitude}}, lng: {{res.geolocation.longitude}}},
         });
         infoBubble = new InfoBubble({
-            map: map,
-                   content: '<h5 id="{{res.objectId}}" onclick="help(this.id);"style="cursor: pointer; margin-bottom: 0px; color: #FFF;font-weight: bold;">${{res.average_rate}}</h5>',
+            content: '<h5 id="{{res.objectId}}" onclick="help(this.id);"style="cursor: pointer; margin-bottom: 0px; color: #FFF;font-weight: bold;">${{res.average_rate}}</h5>',
                    arrowSize: 8,
                    maxWidth: 100,
                    minHeight: 35,
@@ -297,6 +298,7 @@
                    padding: 4,
                    borderRadius: 8,
                    arrowStyle: 0,
+                   map: map,
                    shadowStyle: 1
         });
         infoBubble.open(map, marker);
@@ -305,37 +307,51 @@
 
     }
     function help(tid){
+        var contentString;
         $.ajax({
-        type: "POST",
-        url: "index.php",
-        data: {mapGeoId:tid},
-        success: function(data, textStatus, jqXHR)
+            type: "POST",
+            url: "index.php",
+            data: {mapGeoId:tid},
+            success: function(data, textStatus, jqXHR)
         {
+            if (countinfo >= 1) {
+                if (infoBubble2.isOpen()) {
+                    infoBubble2.close();
+                }
+            }
+            countinfo++;
             var hotel = $.parseJSON(data);
             marker = new google.maps.Marker({
                 position: {lat: hotel['latitude'], lng: hotel['longitude']},
             });
-            infoBubble = new InfoBubble({
-                map: map,
-                       maxWidth: 250,
-                       content: "<div><img src='img/news/5c927f8.png'><h5>"+hotel['name']
-                +"<span style='float: right; font-size: 12px; padding-top: 4px; font-weight: bold;padding-right: 7px;'>$"
-                +hotel['average_rate']+"<span></h5></div>",
-                       arrowSize: 8,
-                       hideCloseButton: true,
-                       arrowPosition: 50,
-                       padding: 0,
-                       borderRadius: 8,
-                       arrowStyle: 0,
-                       shadowStyle: 1
-            });
-            infoBubble.open(map, marker);
-            google.maps.event.addDomListener(map,'click', function() {
-                infoBubble.close();
-            });
+
+
+            var stars ='<div style="font-size: 11px;margin:0;line-height: 20px;"'+
+            'class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'; 
+        for(var i = 0; i<hotel['stars']; i++){ 
+            stars+='<li><i class="fa fa-star"></i></li>';
+        }
+        stars+='</ul></div>';
+        contentString='<a href="?detail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
+            '&location='+$("#location_1").val()+'&country='+$("#country").val()+'"><div id="content">'+
+            '<img style="width: 276px; overflow: hidden;"src="img/news/5c927f8.png"><h1></h1>'+
+            '<h4 style="margin: 0;">'+hotel['name']+stars+'<span style="margin: 0;"class="booking-item-price">$92</span>'+
+            '<span style="font-size:15px;">/night</span></h4></div></a>';
+
+        infoBubble2 = new InfoBubble({
+            maxWidth: 300,
+                    minWidth: 300,
+                    minHeight: 290,
+                   hideCloseButton: true,
+                    overflow: 'hidden',
+                    content: contentString
+        });
+        infoBubble2.open(map, marker);
+        google.maps.event.addListener(map,'click', function() {
+            infoBubble2.close();
+        });
         }
         });
-
     }
     function details(i){
         event.preventDefault();
