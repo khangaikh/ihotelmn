@@ -504,3 +504,10 @@ $(document).ready(function(){
     return false;
   });
 });
+
+$(document).ready(function(){
+    $('.ajax').click(function(){
+        $(this).append('<div id="loading"></div>');
+        $(this).addClass('disabled');
+    });
+});

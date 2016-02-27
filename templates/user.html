@@ -21,11 +21,11 @@
                        <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
                         </li>-->
                         {% if user.role == 3 %}
-                        <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудалууд</a>
+                        <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудлууд</a>
                         </li>
                         <li {% if nav == 8 %} class="active" {% endif %}><a href="index.php?news_admin"><i class="fa fa-book"></i>Мэдээ мэдээлэл</a>
                         </li>
-                        <li {% if nav == 9 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-cog"></i>Асуулт, хариулт</a>
+                        <li {% if nav == 9 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-question"></i>Асуулт, хариулт</a>
                         </li>
                         {% endif %}
                         <li {% if nav == 5 %} class="active" {% endif %}>
@@ -37,7 +37,7 @@
                        <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
                         </li>-->
                         {% if user.role == 3 %}
-                        <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудалууд</a>
+                        <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудлууд</a>
                         </li>
                         <li {% if nav == 8 %} class="active" {% endif %}><a href="index.php?news_admin"><i class="fa fa-book"></i>Мэдээ мэдээлэл</a>
                         </li>
@@ -83,6 +83,23 @@
 {% block scripting %}
     {{parent()}}
     <script type="text/javascript">
+        function delete_faq(j){
+          if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
+
+             $.ajax({
+                 type: "POST",
+                 url: "faq.php",
+                 data: {delete_faq:j},
+                 success: function(data, textStatus, jqXHR)
+                 {  
+                 window.location.replace('index.php?faq_admin');
+                  },
+                  error: function(xhr, textStatus, errorThrown){
+                     alert(textStatus);
+                  }
+              });
+          }
+      }
         $('#forgot_password').click(function(){
            $.post("user.php", {
                 forgot_password: $('#forgot_email').val(),
@@ -293,23 +310,7 @@
                 });
             }
         }
-      function delete_faq(j){
-          if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
 
-             $.ajax({
-                 type: "POST",
-                 url: "faq.php",
-                 data: {delete_faq:j},
-                 success: function(data, textStatus, jqXHR)
-                 {  
-                 window.location.replace('index.php?faq_admin');
-                  },
-                  error: function(xhr, textStatus, errorThrown){
-                     alert(textStatus);
-                  }
-              });
-          }
-      }
         function disable_hotel(j){
             if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
                $.ajax({

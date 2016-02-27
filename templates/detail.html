@@ -14,10 +14,21 @@
                 <li class="active">{{hotel.name}}</li>
             </ul>
             <div class="booking-item-details">
-                <header class="booking-item-header">
+              <header class="booking-item-header">
                     <div class="row" style="padding:10px">
                         <div class="col-md-9" >
-                            <h2 class="lh1em">{{hotel.name}}</h2>
+                            <div class='flex middle'>
+                                <h2 class="lh1em">{{hotel.name}}</h2>
+                                <div class="booking-item-meta">
+                                <div class="booking-item-rating">
+                                <ul class="icon-list icon-group booking-item-rating-stars">
+                                    {% for room in rooms %}
+                                        <li><i class="fa fa-star"></i></li>   
+                                    {% endfor %}
+                                </ul>
+                                </div>
+                                </div>
+                            </div>
                             <p class="lh1em text-small"><i class="fa fa-map-marker"></i>  {{hotel.address}}</p>
                             <ul class="list list-inline text-small">
                                 <li><a href="#"><i class="fa fa-envelope"></i> {{hotel.email}}</a>
@@ -55,24 +66,13 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="booking-item-meta">
-                            <h2 class="lh1em mt40"></h2>
-                            <div class="booking-item-rating">
-                                <ul class="icon-list icon-group booking-item-rating-stars">
-                                    {% for room in rooms %}
-                                        <li><i class="fa fa-star"></i></li>   
-                                    {% endfor %}
-                                </ul><span class="booking-item-rating-number"><b >4.7</b> of 5 <small class="text-smaller">сэтгэгдэлтэй</small></span>
-                                <p><a class="text-default" href="#"> 1535 захиалга бүртгэгдсэн байна. </a>
-                                </p>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <p style="text-align: justify;">{{hotel.long_desc}}
                                 </p>
                             </div>
                             <div class="gap gap-small"></div>
+                            <div id="map-canvas" style="height:200px; margin-left:10px"></div>
                            <!-- <div class="col-md-12 active" id="google-map-tab">
                                 <div id="map-canvas" style="width:100%; height:140px;"></div>
                             </div>-->
