@@ -16,24 +16,17 @@
         <div class="booking-item-details">
             <header class="booking-item-header">
                 <div class="row" style="padding:10px">
-                    <div class="col-md-9" >
-                        <div class='flex middle'>
-                            <h2 id="hotelname" class="lh1em">{{hotel.name}}</h2>
-                            <div class="booking-item-meta">
+                        <div class="col-md-9" >
+                            <div class='flex middle'>
+                                <h2 class="lh1em">{{hotel.name}}</h2>
+                                <div class="booking-item-meta">
                                 <div class="booking-item-rating">
-                                    <ul class="icon-list icon-group booking-item-rating-stars">
-                                        {% for i in range(1, hotel.stars) %}
-                                        <li><i class="fa fa-star"></i></li>   
-                                        {% endfor %}
-                                    </ul>
+                                <ul class="icon-list icon-group booking-item-rating-stars">
+                                    {% for i in range(1, hotel.stars) %}
+                                        <li><i class="fa fa-star"></i></li>
+                                    {% endfor %}
+                                </ul>
                                 </div>
-                            </div>
-                            <div id="tripadvisor">
-                                <div id="tripadvisor_info">
-                                    <div style="margin: 10px 0;"> 
-                                        <span></span>
-                                        <a class="tr_reviews" href="#REVIEWS" property="reviewCount" content="142"></a>
-                                    </div>
                                 </div>
                             </div>
                             <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel.address}}</p>
@@ -46,19 +39,7 @@
                         <div class="col-md-3">
                             <p class="booking-item-header-price"><small></small>  <span class="text-lg">US$ {{hotel.average_rate}}</span>/night</p>
                         </div>
-                        <p class="lh1em text-small"><i class="fa fa-map-marker"></i>  {{hotel.address}}</p>
-                        <ul class="list list-inline text-small">
-                            <li><a href="#"><i class="fa fa-envelope"></i> {{hotel.email}}</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-home"></i> {{hotel.website}}</a>
-                            </li>
-                            <li><i class="fa fa-phone"></i> {{hotel.phone}}</li>
-                        </ul>
                     </div>
-                    <div class="col-md-3">
-                        <p class="booking-item-header-price"><small></small>  <span class="text-lg">US$ {{hotel.average_rate}}</span>/night</p>
-                    </div>
-                </div>
             </header>
             <div class="row">
                 <div class="col-md-6">
