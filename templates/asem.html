@@ -43,8 +43,9 @@
                             <ul class="top-user-area-list list list-horizontal list-border">
                                 {% if user %}
                                 <li class="top-user-area-avatar">
-                                <a href="index.php?settings">{{user.name}}</a>
+                                <a href="index.php">{{user.name}}</a>
                                 </li>
+
                                 <li><a href="index.php?logout">Logout</a>
                                 </li>
                                 {% else %}
@@ -66,7 +67,7 @@
             <div class="nav">
                 <ul class="slimmenu" id="slimmenu">
                     <li {% if nav==1 %}  class="active" {%endif%}><a href="index.php?asem">ASEM ULAANBAATAR HOTELS</a></li>
-                    <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">CAR RENT</a></li>
+                    <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">CAR RENTAL</a></li>
                     <li ><a href="http://www.asem11.mn/">ASEM 2016 NEWS</a></li>
                     <li {% if nav==3 %}  class="active" {%endif%}><a href="index.php?asem-faq">FAQ</a></li>
                 </ul>

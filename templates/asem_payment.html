@@ -14,11 +14,14 @@
             <div class="col-md-8">
                 {% if user %}
                 <div class="row">
-                    <div class="col-md-12">
-                        <img src="img/golomtvisa.png" alt="Image Alternative text" title="Image Title"  />
-                        <p>Pay with Golomt Bank. Secure transaction with fast operation.</p>
+                    <div class="col-md-6">
+                         <a href="http://asem11.mn/"><img src='img/asem.png' style="width:100%;"></a>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="img/golomt-header.jpg" alt="Image Alternative text" title="Image Title" />
+                        <img src="img/mastervisa.jpg" alt="Image Alternative text" title="Image Title" />
                         <form id="golomt_pay">
-                            <input style="margin-left: 27%;" type="submit" value="Pay with Golomt bank" class="btn btn-primary" />
+                            <input style="width:100%" type="submit" value="Pay now" class="btn btn-primary" />
                         </form>
                     </div>
                 </div>
@@ -37,11 +40,11 @@
                             <label>Password</label>
                             <input class="form-control" type="password" placeholder="*****" id="password"/>
                         </div>
-                        <div class="alert alert-danger hidden" id='login-alert'>
-                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                            </button>
-                            <p class="text-small"></p>
-                        </div>
+                    <div class="alert alert-danger" id='login-alert'>
+                        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                        </button>
+                        <p class="text-small"></p>
+                    </div>
                         <input class="btn btn-primary" type="button" value="Login" id="login"/>
                         <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Forgot password?</a>
                     </form>
@@ -59,7 +62,7 @@
                     <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
                         <form>
                             <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                                <label>Email</label>
+                                <label>Please write your registered email address</label>
                                 <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
                             </div>
                             <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
@@ -119,8 +122,44 @@
 {% block scripting %}
 {{parent()}}
 <script src="js/jquery.creditCardValidator.js"></script>
-<script>
-    $("#golomt_pay").submit(function( event ) {
+<script type="text/javascript">
+    $('#login').click(function(){
+             $('.alert').hide(0);
+        var $this = $(this);
+        $this.after('<div id="loading"></div>');
+        $this.addClass('disabled');
+           $.post("login.php", {
+                email: $('#email').val(),
+                password: $('#password').val()
+                }, function (result) {
+                    if(result==1){
+                        window.location.replace(window.location.href);   
+                    }
+                    else{
+                        $('#loading').remove();
+                        $this.removeClass('disabled');
+                        $('#login-alert').fadeIn(500);
+                        $('#login-alert p').text('Username or password incorrect!');
+                    }
+            });
+        });
+        $('#forgot_password').click(function(){
+           $.post("user.php", {
+                forgot_password: $('#forgot_email').val(),
+                }, function (result) {
+                    if(result==1){
+                        $(".mfp-close").trigger('click');
+                        $('#register-success1').removeClass('hidden');
+                        $('#register-success1 p').text('Please check your email');
+                    }
+                    else{
+                        $(".mfp-close").trigger('click');
+                        $('#login-alert1').removeClass('hidden');
+                        $('#login-alert1 p').text('Your email is wrong!');
+                    }
+            });
+        });
+        $("#golomt_pay").submit(function( event ) {
         {% if user %}
         event.preventDefault();
         $.post("order.php", {
@@ -175,19 +214,7 @@
         event.preventDefault();
         {% endif %}
     });
-    $('#login').click(function(){
-     $.post("login.php", {
-        email: $('#email').val(),
-        password: $('#password').val()
-    }, function (result) {
-        if(result==1){
-            window.location.replace(window.location.href);  
-        }
-        else{
-            alert(result);
-        }
-    });
-    });
+
     $('#add').click(function(){
      $.post("user.php", {
         email: $('#remail').val(),

@@ -9,7 +9,7 @@
                     <div class="user-profile-avatar text-center">
                         <h5>{{user.name}}</h5>
                         <p>{{user.email}}</p>
-                        <p>  {%if user.asem==0%} Бүргүүлсэн {%else%} Registered date {%endif%}{{user.createdAt |date("Y-m-d")}}</p>
+                        <p>  {%if user.asem==0%} Бүртгүүлсэн : {%else%} Registered date : {%endif%}{{user.createdAt |date("Y-m-d")}}</p>
                         {%if user.asem==1%}
                         <p>  ASEM 2016 Official guest from {{user.country}}</p>
                         {%endif%}
@@ -34,6 +34,9 @@
                         {%else%}
                         <li {% if nav == 2 %} class="active" {% endif %}><a href="index.php"><i class="fa fa-check"></i>My orders</a>
                         </li>
+                        <li {% if nav == 5 %} class="active" {% endif %}>
+                            <a class="popup-text" data-effect="mfp-zoom-out" href="#forgot-dialog"><i class="fa fa-cog"></i>Change password</a>
+                        </li>
                        <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
                         </li>-->
                         {% if user.role == 3 %}
@@ -44,9 +47,7 @@
                         <li {% if nav == 7 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-question"></i>Асуулт, хариулт</a>
                         </li>
                         {% endif %}
-                        <li {% if nav == 5 %} class="active" {% endif %}>
-                            <a class="popup-text" data-effect="mfp-zoom-out" href="#forgot-dialog"><i class="fa fa-cog"></i>Нууц үг солих</a>
-                        </li>
+                        
                         {%endif%}
                     </ul>
                 </aside>
@@ -54,10 +55,10 @@
             <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
                 <form>
                     <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                        <label>Цахим шуудан</label>
+                        <label>{%if user.asem==0%}Цахим шуудан{%else%} Email{% endif %}</label>
                         <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
                     </div>
-                    <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
+                    <input class="btn btn-primary" type="button" value="{%if user.asem==0%}Илгээх{%else%} Send{% endif %}" id="forgot_password"/>
                 </form>
             </div>
 
