@@ -391,7 +391,7 @@
             $.ajax({
                 type: "get",
                 url:
-                "http://api.tripadvisor.com/api/partner/2.0/map/47.9167,106.9167?key=4cc4b5b4bf074bce87fecc651006190e&q="+$('#hotelname').text(),
+                "https://api.tripadvisor.com/api/partner/2.0/map/47.9167,106.9167?key=4cc4b5b4bf074bce87fecc651006190e&q="+{{hotel.name}},
                 dataType: "json",
                 success: function(data){ 
                     if(data.data.length != 0){
