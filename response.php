@@ -74,6 +74,9 @@
             $query->includeKey('hotel');
             $orders = $query->find();
 
+            ///
+
+
             echo $template->render(array('title' => 'iHotel', 'user' => $user,
                 'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
        }
