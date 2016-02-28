@@ -395,9 +395,12 @@
                 dataType: "json",
                 success: function(data){ 
                     if(data.data.length != 0){
+                        var str = "https://"
+                        var arr = data.data[0].api_detail_url.split('//');
+                        var new_url = str+arr[1];
                         $.ajax({
                             type: "get",
-                            url: data.data[0].api_detail_url,
+                            url: new_url,
                             dataType: "json",
                             success: function(data){ 
                                 $(".rating_image").attr('src', data.rating_image_url);
