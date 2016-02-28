@@ -116,8 +116,11 @@
             $query = new ParseQuery("faq");
             $query->equalTo("user",$user);
             $faqs = $query->find();
+
+            $query2 = new ParseQuery('faq_en');
+            $faqs_en = $query2->find();
             //render a template
-            echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs, 'user' => $user, 'nav' => 9));
+            echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs, 'user' => $user, 'nav' => 9, 'faqs_en'=> $faqs_en));
         }
         else if(isset($_GET['hotel_add'])){
             $template = $twig->loadTemplate('add_hotel.html');

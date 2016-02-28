@@ -262,6 +262,25 @@
                 }
             }); 
         }
+        function edit_faq_en(i){
+            $.ajax({
+               type: "POST",
+               url: "faq.php",
+               data: {edit_faq_form_en:i},
+               success: function(data, textStatus, jqXHR)
+               {
+               var faq = $.parseJSON( data );
+               $('#edit_id').val(faq['id']);
+               $("#edit_question_en").val(faq['edit_question_en']);
+               $("#edit_answer_en").val(faq['edit_answer_en']);
+
+               $('#show-faq-edit').trigger('click');
+               },
+                error: function(xhr, textStatus, errorThrown){
+                   alert(textStatus);
+                }
+            }); 
+        }
         function edit_hotel(i){
             $.ajax({
                type: "POST",

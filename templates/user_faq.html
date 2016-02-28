@@ -7,6 +7,7 @@
     </script>
     {% endif %}
 <a class="popup-text btn btn-primary" href="#add-faq" data-effect="mfp-zoom-out">Асуулт оруулах</a>
+<a class="popup-text btn btn-primary" href="#add-faq-en" data-effect="mfp-zoom-out">Add question</a>
 <div class="gap-small"></div>
 
 {% if faqs %}
@@ -36,7 +37,33 @@
     </tbody>
 </table>
 {% endif %}
-
+{% if faqs_en %}
+<table class="table table-bordered table-striped table-booking-history">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Асуулт</th>
+            <th>Хариулт</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="orders">
+        {% for faq in faqs_en %}
+        <tr>
+            <td class="text-center">
+                {{loop.index}}
+            </td>
+            <td class="booking-history-title">{{faq.header_en}}</td>
+            <td>{{faq.content_en}}</td>
+            <td id="operations">
+                <a name="{{faq.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq_en('{{faq.objectId}}')">Засах</a>
+                <a name="{{faq.objectId}}" class="btn btn-default" onclick="delete_faq_en('{{faq.objectId}}');">Устгах</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
 
 
 
@@ -68,7 +95,7 @@
                 <div class='is-block'>
                     <div class='form-group col-sm-12'>
                         <label for="anwser_mn">Асуулт</label>
-                        <input id="answer_mn" class='form-control' type="text" name="answer_mn" required="" placeholder='Асуулт'>
+                        <input id="answer_mn" class='form-control' type="text" name="answer_mn" required="">
                     </div>
                     <div class='form-group col-md-12'>
                         <label for="question_mn">Хариулт</label>
@@ -80,7 +107,7 @@
                 <div class='is-block'>
                     <div class='form-group col-sm-12'>
                         <label for="anwser_en">Answer</label>
-                        <input id="answer_en" class='form-control' type="text" name="answer_en" required="" placeholder='Асуулт'>
+                        <input id="answer_en" class='form-control' type="text" name="answer_en" required="">
                     </div>
                     <div class='form-group col-md-12'>
                         <label for="question_en">Question</label>
@@ -108,7 +135,7 @@
                 <div class='is-block'>
                     <div class='form-group col-md-12'>
                         <label for="edit_anwser_mn">Асуулт</label>
-                        <input id="edit_answer_mn" class='form-control' type="text" name="edit_answer_mn" required="" placeholder='Асуулт'>
+                        <input id="edit_answer_mn" class='form-control' type="text" name="edit_answer_mn" required="">
                     </div>
                     <div class='form-group col-md-12'>
                         <label for="edit_question_mn">Хариулт</label>
@@ -120,7 +147,70 @@
                 <div class='is-block'>
                     <div class='form-group col-md-12'>
                         <label for="edit_anwser_en">Answer</label>
-                        <input id="edit_answer_en" class='form-control' type="text" name="edit_answer_en" required="" placeholder='Асуулт'>
+                        <input id="edit_answer_en" class='form-control' type="text" name="edit_answer_en" required="">
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for="edit_question_en">Question</label>
+                        <textarea id='edit_question_en' class='form-control' name='edit_question_en' rows="4" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="row no-return" id="room-cta">
+            <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Засах" name='submit'/>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="add-faq-en">
+    <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="news_name_label">Add</span>
+            </legend>
+          <div class="row">
+                <div class='is-block'>
+                    <div class='form-group col-md-12'>
+                        <label for="question_en">Question</label>
+                        <input id="question_en" class='form-control' type="text" name="question_en" required>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for="answer_en">Answer</label>
+                        <textarea id='answer_en' class='form-control' name='answer_en' rows="4" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="row no-return" id="room-cta">
+            <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Add" name='submit'/>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="edit-faq-en">
+    <form id="faq_form_en" action="faq.php" data-parsley-validate method="POST">
+        <fieldset id="main-room-form" class="active">
+            <div id="error_header" class="alert alert-danger hidden"></div>
+            <legend>
+                <span id="news_name_label">Edit</span>
+                <input type="hidden" id="edit_id" name="edit_faq_id" value="" class="form-control" required>
+            </legend>
+            <div class="row">
+                <div class='is-block'>
+                    <div class='form-group col-md-12'>
+                        <label for="edit_anwser_en">Answer</label>
+                        <input id="edit_answer_en" class='form-control' type="text" name="edit_answer_en" required>
                     </div>
                     <div class='form-group col-md-12'>
                         <label for="edit_question_en">Question</label>

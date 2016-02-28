@@ -45,7 +45,7 @@
            }
            if($result){
               $template = $twig->loadTemplate('user_faq.html');
-              echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'user' => $user, 'nav' => 9, 'result'=> 1));
+              echo $template->render(array('title' => 'Асуулт, хариулт', 'user' => $user, 'nav' => 9, 'result'=> 1));
            }else{
               echo 0;
            }
@@ -97,10 +97,42 @@
             $faq = $query->first();
             $faq->destroy();
 
+        }elseif(isset($_POST['answer_en']) && isset($_POST['question_en'])){
+          $question_en = $_POST['question_en'];
+          $answer_en = $_POST['answer_en'];
+
+          $faq = new ParseObject('faq_en');
+          $faq->set('header_en', $question_en);
+          $faq->set('content_en', $answer_en);
+
+          $faq->set('user', $user);
+          $result = false;
+
+           try{
+                $faq->save();
+                $result = true;
+           }catch(ParseException $ex){
+                echo 'Failed:'.$ex->getMessage();
+           }
+           if($result){
+              $template = $twig->loadTemplate('user_faq.html');
+              echo $template->render(array('title' => 'Асуулт, хариулт', 'user' => $user, 'nav' => 9, 'result'=> 1));
+           }else{
+              echo 0;
+           }
         }
-    }
-    else{
+    }elseif(isset($_POST['edit_faq_form_en'])){
+
+            $query = new ParseQuery("faq_en");
+            $query->equalTo("objectId",$_POST['edit_faq_form_en']);
+            $faq = $query->first();
+            $e['id'] = $faq->getObjectId();
+            $e['edit_question_en'] = $faq->get('header_en');
+            $e['edit_answer_en'] = $faq->get('content_en');
+            echo json_encode($e);
+
+    }else{
         $template = $twig->loadTemplate('user_faq.html');
-        echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'nav' => 8, 'result'=> 1));
+        echo $template->render(array('title' => 'Асуулт, хариулт', 'nav' => 8, 'result'=> 1));
     }
 ?>
