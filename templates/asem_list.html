@@ -199,7 +199,7 @@
             <ul class="booking-list" id="hotels">
                 {% for res in results %}
                 <li>
-                  <a class="booking-item" id="{{res.objectId}}" href="#" name="detail">
+                  <a class="booking-item" id="{{res.objectId}}" href="#" title="{{res.name}}" name="detail">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="booking-item-img-wrap">
@@ -334,9 +334,44 @@
         }
         });
     }
-        function details(i){
+    function details(i){
+        event.preventDefault();
+        var curId = $(i).attr('id');
+        var start = $("#start_1").val();
+        var end = $("#end_1").val();
+        var location = $("#location_1").val();
+        var guests = $("#guests").val();
+        var rooms = $("#rooms").val();
+        var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+        window.location.replace(url);
+    }
+    $("#hotel_map").click(function( event ) {
+        $("#hotels").hide();
+        $("#maps_hotel").show();
+        initMap();
+    });
+
+    $("#hotel_list").click(function( event ) {
+        $("#maps_hotel").hide();
+        $("#hotels").show();
+    });
+
+    $(document).ready(function() {
+        $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
+            todayHighlight: true
+        });
+
+        $('input.date-pick, .input-daterange input[name="start_1"]').datepicker();
+        $('.input-daterange input[name="end_1"]').datepicker();
+
+        $('input.time-pick').timepicker({
+            minuteStep: 15,
+            showInpunts: false
+        })
+
+        $("span[name=detail]").click(function( event ) {
             event.preventDefault();
-            var curId = $(i).attr('id');
+            var curId = $(this).attr('id');
             var start = $("#start_1").val();
             var end = $("#end_1").val();
             var location = $("#location_1").val();
@@ -344,166 +379,108 @@
             var rooms = $("#rooms").val();
             var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
             window.location.replace(url);
-        }
-        $("#hotel_map").click(function( event ) {
-            $("#hotels").hide();
-            $("#maps_hotel").show();
-            initMap();
         });
 
-        $("#hotel_list").click(function( event ) {
-            $("#maps_hotel").hide();
-            $("#hotels").show();
+        $("a[name=detail]").click(function( event ) {
+            event.preventDefault();
+            var detialId = $(this).attr('id');
+            var curId = detialId;
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
+            window.location.replace(url);
         });
 
-        $(document).ready(function() {
-            $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
-                todayHighlight: true
-            });
+        $('input.date-pick-years').datepicker({
+            startView: 2
+        });
+        $("input").on('ifChanged', function(event){
 
-            $('input.date-pick, .input-daterange input[name="start_1"]').datepicker();
-            $('.input-daterange input[name="end_1"]').datepicker();
-
-            $('input.time-pick').timepicker({
-                minuteStep: 15,
-                showInpunts: false
-            })
-
-            $("span[name=detail]").click(function( event ) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var guests = $("#guests").val();
-                var rooms = $("#rooms").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
-                window.location.replace(url);
-            });
-            $('#hotels').on('click', 'span[name=detail]',function(event) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var guests = $("#guests").val();
-                var rooms = $("#rooms").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
-                window.location.replace(url);
-            });
-
-            $('#hotels').on('click', 'a[name=detail]',function(event) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var guests = $("#guests").val();
-                var rooms = $("#rooms").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
-                window.location.replace(url);
-            });
-
-
-            $("a[name=detail]").click(function( event ) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var guests = $("#guests").val();
-                var rooms = $("#rooms").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms;  
-                window.location.replace(url);
-            });
-
-            $('input.date-pick-years').datepicker({
-                startView: 2
-            });
-            $("input").on('ifChanged', function(event){
-
-                var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
-                var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
-                var values1 = checkedValues1.toString();
-                var values2 = checkedValues2.toString();
-                var location = 'Ulaanbaatar';
-                console.log(values1);
-                console.log(values2);
-                $.ajax({
-               type: "POST",
-                   url: "search.php",
-                   data: {data:values1, filter:values2, city:location},
-                   success: function(data, textStatus, jqXHR)
-                   {
-                        $("#hotels").empty();
-                        var events = data['events'];
-                        var pages = data['pages'];
-                            $.each(events, function(idx, obj) {
-                                var index = idx+1;
-                                var string = "";
-                                for ($i=0; $i<obj.stars; $i++){
-                                    string += '<i class="fa fa-star"></i></li>';
-                                }
-                                $("#hotels").append('<li><a class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Choose room</span></div></div></a></li>');
-
-                    });
-                }
-                });
-            });
-            $("#search_a").click(function( event ) {
-                var check = true;
-                var start = $("#start").val();
-                var end = $("#end").val();
-                var location = $("#location").val();
-                var persons = $("#num_people").val();
-
-                if(location == ""){
-                    check =false;
-                }
-                if(check){
-                    var url = "index.php?start=" + start + "&end=" + end + "&location=" +location+"&persons="+persons;  
-                    window.location.replace(url);    
-                }else{
-                    $("#alert_1").toggle();
-                    $("#location").css("border-color", "red");
-                }   
-            });
-
-            $("#sorting a").click(function( event ) {
-                var sort = $(this).attr('sort');
-                var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
-                var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
-                var values1 = checkedValues1.toString();
-                var values2 = checkedValues2.toString();
-                var location = $("#location_1").val();
-                console.log(location)
-                $.ajax({
-                    type: "POST",
-                    url: "sort.php",
-                    data: {data:sort, filter1:values1, filter2:values2, city:location},
-                    success: function(data, textStatus, jqXHR)
-                {
+            var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+            var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+            var values1 = checkedValues1.toString();
+            var values2 = checkedValues2.toString();
+            var location = 'Ulaanbaatar';
+            console.log(values1);
+            console.log(values2);
+            $.ajax({
+           type: "POST",
+               url: "search.php",
+               data: {data:values1, filter:values2, city:location},
+               success: function(data, textStatus, jqXHR)
+               {
                     $("#hotels").empty();
                     var events = data['events'];
                     var pages = data['pages'];
-                    var sort = data['sort'];
-                    $("#sorting").val(sort)
-                    $.each(events, function(idx, obj) {
-                        var index = idx+1;
-                        var string = "";
-                        for ($i=0; $i<obj.stars; $i++){
-                            string += '<i class="fa fa-star"></i></li>';
-                        }
-                        $("#hotels").append('<li><a class="booking-item" id="'+obj.objectId+'" href="#"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.objectId+'">Choose room</span></div></div></a></li>');
-                    });
+                        $.each(events, function(idx, obj) {
+                            var index = idx+1;
+                            var string = "";
+                            for ($i=0; $i<obj.stars; $i++){
+                                string += '<i class="fa fa-star"></i></li>';
+                            }
+                            $("#hotels").append('<li><a class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Choose room</span></div></div></a></li>');
 
-
-                //alert(data);
-
-                }
                 });
+            }
             });
-            
-        }); 
+        });
+        $("#search_a").click(function( event ) {
+            var check = true;
+            var start = $("#start").val();
+            var end = $("#end").val();
+            var location = $("#location").val();
+            var persons = $("#num_people").val();
+
+            if(location == ""){
+                check =false;
+            }
+            if(check){
+                var url = "index.php?start=" + start + "&end=" + end + "&location=" +location+"&persons="+persons;  
+                window.location.replace(url);    
+            }else{
+                $("#alert_1").toggle();
+                $("#location").css("border-color", "red");
+            }   
+        });
+
+        $("#sorting a").click(function( event ) {
+            var sort = $(this).attr('sort');
+            var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+            var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+            var values1 = checkedValues1.toString();
+            var values2 = checkedValues2.toString();
+            var location = $("#location_1").val();
+            console.log(location)
+            $.ajax({
+                type: "POST",
+                url: "sort.php",
+                data: {data:sort, filter1:values1, filter2:values2, city:location},
+                success: function(data, textStatus, jqXHR)
+            {
+                $("#hotels").empty();
+                var events = data['events'];
+                var pages = data['pages'];
+                var sort = data['sort'];
+                $("#sorting").val(sort)
+                $.each(events, function(idx, obj) {
+                    var index = idx+1;
+                    var string = "";
+                    for ($i=0; $i<obj.stars; $i++){
+                        string += '<i class="fa fa-star"></i></li>';
+                    }
+                    $("#hotels").append('<li><a class="booking-item" id="'+obj.objectId+'" href="#"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.objectId+'">Choose room</span></div></div></a></li>');
+                });
+
+
+            //alert(data);
+
+            }
+            });
+        });
+        
+    }); 
     </script>
 {% endblock %}

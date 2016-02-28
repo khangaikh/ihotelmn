@@ -26,6 +26,7 @@
             $short_desc=$_POST["news_short_desc"];
             $content=$_POST["news_desc"];
             $subject=$_POST["news_subject"];
+            $language=$_POST["news_language"];
 
             $news = new ParseObject("news");
             $news->set("category", $category);
@@ -46,6 +47,7 @@
             $news->set("short_desc", $short_desc);
             $news->set("subject", $subject);
             $news->set("content", $content);
+            $news->set("language", $language);
             $result = false;
 
             try {
@@ -71,6 +73,7 @@
             $e['category'] = $news->get('category');
             $e['short_desc'] = $news->get('short_desc');
             $e['content'] = $news->get('content');
+            $e['language'] = $news->get('language');
             $e['header_image'] = $news->get('header_image');
             echo json_encode($e);
 
@@ -79,6 +82,7 @@
             $short_desc=$_POST["update_news_short_desc"];
             $content=$_POST["update_news_desc"];
             $subject=$_POST["update_news_subject"];
+            $language=$_POST["update_news_language"];
 
             $query = new ParseQuery("news");
             $query->equalTo("objectId",$_POST['update_news_id']);
@@ -106,6 +110,7 @@
             $news->set("short_desc", $short_desc);
             $news->set("subject", $subject);
             $news->set("content", $content);
+            $news->set("language", $language);
             $result = false;
 
             try {

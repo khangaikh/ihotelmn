@@ -17,6 +17,14 @@
                 </legend>
                 <div class="row">
                     <div class="is-block">
+                        <div class="form-group col-sm-4 col-xs-4">
+                            <label for="news_catogry">News language</label>
+                            <select class="form-control" name="news_language" id="news_language" required="">
+                                <option value="en">English</option>
+                                <option value="mn">Монгол</option>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
                         <div class="form-group col-sm-4 ">
                             <label for="news_subject">News Subject</label>
                             <input type="text" id="news_subject" name="news_subject" value="" class="form-control" required placeholder="subject">
@@ -25,14 +33,9 @@
                         <div class="form-group col-sm-4 col-xs-4">
                             <label for="news_catogry">News category</label>
                             <select class="form-control" name="news_catogry" id="news_catogry" required="">
-                                <option value="Photos">Photos</option>
-                                <option value="Vacation">Vacation</option>
-                                <option value="Flights">Flights</option>
-                                <option value="Travel Advices">Travek Advices</option>
-                                <option value="Trending Now">Trending Now</option>
+                                <option value="Travel Advices">Travel Advices</option>
                                 <option value="Hotels">Hotels</option>
                                 <option value="Places to Go">Places to Go</option>
-                                <option value="Travel Stories">Travel Stories</option>
                             </select>
                             <span class="help-block"></span>
                         </div>
@@ -96,6 +99,14 @@
                 </legend>
                 <div class="row">
                     <div class="is-block">
+                        <div class="form-group col-sm-4 col-xs-4">
+                            <label for="news_catogry">News language</label>
+                            <select class="form-control" name="update_news_language" id="update_news_language" required="">
+                                <option value="en">English</option>
+                                <option value="mn">Монгол</option>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
                         <div class="form-group col-sm-4 ">
                             <label for="news_subject">News Subject</label>
                             <input type="text" id="update_news_subject" name="update_news_subject" value="" class="form-control" required placeholder="subject">
@@ -104,14 +115,9 @@
                         <div class="form-group col-sm-4 col-xs-4">
                             <label for="news_catogry">News category</label>
                             <select class="form-control" name="update_news_catogry" id="update_news_catogry" required="">
-                                <option value="Photos">Photos</option>
-                                <option value="Vacation">Vacation</option>
-                                <option value="Flights">Flights</option>
-                                <option value="Travel Advices">Travek Advices</option>
-                                <option value="Trending Now">Trending Now</option>
+                                <option value="Travel Advices">Travel Advices</option>
                                 <option value="Hotels">Hotels</option>
                                 <option value="Places to Go">Places to Go</option>
-                                <option value="Travel Stories">Travel Stories</option>
                             </select>
                             <span class="help-block"></span>
                         </div>
@@ -133,7 +139,7 @@
                     <div class="is-block">
                         <div class="form-group col-sm-12 col-xs-12">
                             <label for="update_news_desc">News description</label>
-                            <textarea id="update_news_desc" name="update_news_desc" class="col-sm-12" rows="4" maxlength="" required=""></textarea>
+                            <textarea id="update_news_desc" name="update_news_desc" class="col-sm-12" rows="4" required=""></textarea>
                             <span class="help-block"></span>
                         </div>
                     </div>
@@ -174,6 +180,7 @@
         <thead>
             <tr>
                 <th></th>
+                <th>Language</th>
                 <th>Subject</th>
                 <th>Category</th>
                 <th>Short description</th>
@@ -187,7 +194,8 @@
             <td class="text-center">
                 {{loop.index}}
             </td>
-            <td class="booking-history-title">{{new.subject}}</td>
+            <td>{{new.language}}</td>
+            <td>{{new.subject}}</td>
             <td>{{new.category}}</td>
             <td>{{new.short_desc}}</td>
             <td>{{new.createdAt | date("Y-m-d")}}</td>
