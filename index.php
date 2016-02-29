@@ -645,6 +645,42 @@
             $data['place_to_go']=count($place_to_go);
             echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
         }
+        else if(isset($_GET['newsdetail'])){
+            $template = $twig->loadTemplate('news_detail.html');
+            $query = new ParseQuery("news");
+            $query->includeKey("user");
+            $query->equalTo("objectId",$_GET['newsdetail']);
+            $news = $query->first();
+
+            $query->equalTo('category', 'Travel Advices');
+            $travel_advice = $query->find();
+            $data['travel_advice']=count($travel_advice);
+            $query->equalTo('category', 'Hotels');
+            $hotels = $query->find();
+            $data['hotels']=count($hotels);
+            $query->equalTo('category', 'Places to Go');
+            $place_to_go = $query->find();
+            $data['place_to_go']=count($place_to_go);
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
+        }
+        else if(isset($_GET['news_search'])){
+            $template = $twig->loadTemplate('news_search.html');
+            $query = new ParseQuery("news");
+            $query->includeKey("user");
+            $query->equalTo("category",$_GET['news_search']);
+            $news = $query->first();
+
+            $query->equalTo('category', 'Travel Advices');
+            $travel_advice = $query->find();
+            $data['travel_advice']=count($travel_advice);
+            $query->equalTo('category', 'Hotels');
+            $hotels = $query->find();
+            $data['hotels']=count($hotels);
+            $query->equalTo('category', 'Places to Go');
+            $place_to_go = $query->find();
+            $data['place_to_go']=count($place_to_go);
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
+        }
         else if(isset($_GET['news_search'])){
             $template = $twig->loadTemplate('news.html');
             $query = new ParseQuery("news");

@@ -135,8 +135,6 @@
             $question = $_POST['edit_question_asem'];
             
             $query = new ParseQuery("faq_en");
-            echo $_POST['edit_id_asem'];
-            echo 'aaaa';
             $query->equalTo("objectId",$_POST['edit_id_asem']);
             $faq = $query->first();
             $faq->set("header_en", $question);

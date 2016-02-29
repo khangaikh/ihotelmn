@@ -506,6 +506,9 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+    $('.ajax-full-width').click(function(){
+        $(this).css('width', '80%')
+    });
     $('.ajax').click(function(){
         $(this).after('<div id="loading"></div>');
         $(this).addClass('disabled');

@@ -5,7 +5,6 @@
         <div class="row">
             <div class="col-md-9">
                 {% if news %}
-                {% for new in news %}
                 <!-- START BLOG POST -->
                 <div class="article post">
                     <header class="post-header">
@@ -15,48 +14,26 @@
                         </a>
                     </header>
                     <div class="post-inner">
-                        <h4 class="post-title"><a class="text-darken" href="#">{{new.subject}}</a></h4>
+                        <h4 class="post-title"><a class="text-darken" href="#">{{news.subject}}</a></h4>
                         <ul class="post-meta">
-                            <li><i class="fa fa-calendar"></i><a>{{new.createdAt | date("F j, Y")}}</a>
+                            <li><i class="fa fa-calendar"></i><a>{{news.createdAt | date("F j, Y")}}</a>
                             </li>
-                            <li><i class="fa fa-user"></i><a href="#">{{new.user.username}}</a>
+                            <li><i class="fa fa-user"></i><a href="#">{{news.user.username}}</a>
                             </li>
-                            <li><i class="fa fa-tags"></i><a href="#">{{new.category}}</a>
+                            <li><i class="fa fa-tags"></i><a href="#">{{news.category}}</a>
                             </li>
                         </ul>
-                        <p class="post-desciption">{{new.short_desc}}...</p><a class="btn btn-small btn-primary" href="index.php?newsdetail={{new.objectId}}">Дэлгэрэнгүй унших</a>
+                        <p class="post-desciption">{{news.content}}</p>
                     </div>
                 </div>
                 <!-- END BLOG POST -->
-                {% endfor %}
-                <!--<ul class="pagination">
-                    <li class="active"><a href="#">1</a>
-                    </li>
-                    <li><a href="#">2</a>
-                    </li>
-                    <li><a href="#">3</a>
-                    </li>
-                    <li><a href="#">4</a>
-                    </li>
-                    <li><a href="#">5</a>
-                    </li>
-                    <li><a href="#">6</a>
-                    </li>
-                    <li><a href="#">7</a>
-                    </li>
-                    <li class="dots">...</li>
-                    <li><a href="#">43</a>
-                    </li>
-                    <li class="next"><a href="#">Next Page</a>
-                    </li>
-                </ul>-->
                 {% endif %}
             </div>
             <div class="col-md-3">
                 <aside class="sidebar-right">
                     <div class="sidebar-widget">
                         <div class="Form">
-                            <input class="form-control" placeholder="Хайлт..." type="text" />
+                            <input class="form-control" placeholder="Search..." type="text" />
                         </div>
                     </div>
                     <div class="sidebar-widget">
