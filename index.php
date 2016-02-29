@@ -375,7 +375,39 @@
             //render a template
             echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
-        else{
+        else if(isset($_POST['contact_us'])){
+            require 'lib/Mailer/PHPMailerAutoload.php';
+            $content='<h4>Нэр: '.$_POST['name'].'</h4><h4>И-мэйл хаяг: '
+                .$_POST['email']. '</h4><h4> Захидал: </h4><p>'.$_POST['content'].'</p>';
+            date_default_timezone_set('Etc/UTC');
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            //$mail->SMTPDebug = 2;
+            $mail->Debugoutput = 'html';
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 587;
+            $mail->SMTPSecure = 'tsl';
+            $mail->SMTPAuth = true;
+            $mail->Username = "ihotelmn@gmail.com";
+            $mail->Password = "99095102";
+            $mail->setFrom('ihotelmn@gmail.com', 'iHotel.mn');
+            $mail->addAddress('khangai@alchemist.mn', 'Contact us');
+            $mail->Subject = 'Contact us';
+            $mail->msgHTML($content);
+            $mail->AltBody = '';
+            $result = false;
+            if (!$mail->send()) { $result=false; } 
+            else { 
+                $contact_us = new ParseObject("contact_us");
+                $contact_us->set('email', $_POST['email']);
+                $contact_us->set('name', $_POST['name']);
+                $contact_us->set('content', $_POST['content']);
+                $contact_us->save();
+                $result=true; 
+            }
+
+            if($result){ echo 1; }else{ echo 0; }
+        }else{
             $template = $twig->loadTemplate('user_dashboard.html');
             $query = new ParseQuery("orders");
             $query->descending("createdAt");
@@ -421,6 +453,40 @@
             $template = $twig->loadTemplate('register.html');
             //render a template
             echo $template->render(array('title' => 'Бүртгүүлэх'));
+        }
+        else if(isset($_POST['contact_us'])){
+            $contact_us = new ParseObject("contact_us");
+            $contact_us->set('email', $_POST['email']);
+            $contact_us->set('name', $_POST['name']);
+            $contact_us->set('content', $_POST['content']);
+            $contact_us->save();
+            require 'lib/Mailer/PHPMailerAutoload.php';
+            $content='<h5>Нэр: </h5>'.$_POST['name'].'<br/><h5>И-мэйл хаяг: </h5>'
+                .$_POST['email']. '<br/><h5> Захидал: </h5><br/><p>'.$_POST['content'].'</p>';
+            date_default_timezone_set('Etc/UTC');
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            //$mail->SMTPDebug = 2;
+            $mail->Debugoutput = 'html';
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 587;
+            $mail->SMTPSecure = 'tsl';
+            $mail->SMTPAuth = true;
+            $mail->Username = "ihotelmn@gmail.com";
+            $mail->Password = "99095102";
+            $mail->setFrom('ihotelmn@gmail.com', 'iHotel.mn');
+            $mail->addAddress('soninod@gmail.com', 'Contact us');
+            $mail->Subject = 'Contact us';
+            $mail->msgHTML($content);
+            $mail->AltBody = '';
+            if (!$mail->send()) {
+                echo "Mailer Error: " . $mail->ErrorInfo;
+            } else {
+                echo "Message sent!";
+            }
+
+            $template = $twig->loadTemplate('asem_register.html');
+            echo $template->render(array('title' => 'Asem Login'));
         }
         else if(isset($_GET['asem_login'])){
             $template = $twig->loadTemplate('asem_register.html');

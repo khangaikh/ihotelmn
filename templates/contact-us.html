@@ -12,25 +12,38 @@
                 <div class="col-md-7">
                     <p>Таны санал хүсэлт, асуулт бүр бидэнд эрхэм.</p>
                     <form class="mt30">
+                        <input type="hidden" name="contact_us" id="" value="name" />
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Таны нэр</label>
-                                    <input class="form-control" type="text" />
+                                    <input name="name" id="name" class="form-control" required type="text" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Цахим шуудан</label>
-                                    <input class="form-control" type="text" />
+                                    <input name="email" id="email" class="form-control" required type="email" />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Захидал</label>
-                            <textarea class="form-control"></textarea>
+                            <textarea name="content" id="content" class="form-control" required></textarea>
                         </div>
-                        <input class="btn btn-primary" type="submit" value="Илгээх" />
+                        <input id="contact_us" class="btn btn-primary" type="button" value="Илгээх" style="margin-bottom: 20px"/>
+                        <br />
+                        <div class="alert alert-danger" id='contact-alert'>
+                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                            </button>
+                            <p class="text-small"></p>
+                        </div>
+
+                        <div class="alert alert-success" id="contact-success">
+                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                            </button>
+                            <p class="text-small"></p>
+                        </div>
                     </form>
                 </div>
                 <div class="col-md-4">
@@ -58,4 +71,36 @@
         {% endblock %}
 {% block scripting %}
 {{parent()}}
+<script type="text/javascript" charset="utf-8">
+   $('#contact_us').click(function(){
+    $('.alert').hide(0);
+    var $this = $(this);
+    $this.after('<div id="loading"></div>');
+    $this.addClass('disabled');
+       $.post("index.php", {
+            contact_us: 'test',
+            email: $('#email').val(),
+            name: $('#name').val(),
+            content: $('#content').val()
+            },
+            function (result) {
+                if(result==1){
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#email').val('');
+                    $('#name').val('');
+                    $('#content').val('');
+                    $('#contact-success').fadeIn(500);
+                    $('#contact-success p').text('Амжилттай.');
+                }
+                else{
+                contact-alert
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#contact-alert').fadeIn(500);
+                    $('#contact-alert p').text('Амжилтгүй и-мэйл буруу байна.');
+                }
+        });
+    });
+</script>
 {% endblock %}
