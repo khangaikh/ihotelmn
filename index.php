@@ -671,7 +671,6 @@
             }else{
 
             }
-            
         }
         else if(isset($_GET['asem_payment'])){
             
@@ -707,7 +706,6 @@
             }else{
 
             }
-            
         }
         else if(isset($_GET['order'])){
             $query = new ParseQuery("orders");
@@ -735,6 +733,7 @@
         else if(isset($_GET['city'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
+            $query->equalTo("asem",0);
             $query->equalTo("city",$_GET['city']);
             $query->descending("stars");
             $results = $query->find();

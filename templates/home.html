@@ -110,19 +110,19 @@
             <div class="col-md-4">
                 <div class="thumb">
                     <header class="thumb-header">
-                        <a class="hover-img curved" href="#">
+                        <a class="hover-img curved" name="city" city="Ulaanbaatar">
                             <img src="img/ulaanbaatar.png" alt="Image Alternative text" title="196_365" />
                         </a>
                     </header>
                     <div class="thumb-caption">
                         <h4 class="thumb-title"><a class="text-darken" href="#">Улаанбаатар</a></h4>
                     </div>
-                </div>
-            </div>
+                </div> 
+            </div>  
             <div class="col-md-4">
                 <div class="thumb">
                     <header class="thumb-header">
-                        <a class="hover-img curved" href="#">
+                        <a class="hover-img curved" href="#" name="city" city="Darkhan">
                             <img src="img/erdenet.png" alt="Image Alternative text" title="El inevitable paso del tiempo" />
                         </a>
                     </header>
@@ -134,7 +134,7 @@
             <div class="col-md-4">
                 <div class="thumb">
                     <header class="thumb-header">
-                        <a class="hover-img curved" href="#">
+                        <a class="hover-img curved" href="#" name="city" city="Erdenet">
                             <img src="img/darkhan.png" alt="Image Alternative text" title="Upper Lake in New York Central Park" />
                         </a>
                     </header>
@@ -148,63 +148,66 @@
         <div class="gap gap-small"></div>
         <div class="row">
             <div class="col-md-6">
-
                 <ul class="booking-list">
                     {% for hotel in hotels %}
-                    <li>
-                    <div class="booking-item booking-item-small">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <img src="{{hotel.cover_image}}" alt="cover" title="hotel_cover" />
+                    <a href="#" name="featured" hotelid="{{hotel.objectId}}">
+                        <li>
+                            <div class="booking-item booking-item-small">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <img src="{{hotel.cover_image}}" alt="cover" title="hotel_cover" />
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <h5 class="booking-item-title">{{hotel.name}}</h5>
+                                        <ul class="icon-group booking-item-rating-stars">
+                                            {% for i in range(1, hotel.stars) %}
+                                            <li><i class="fa fa-star"></i>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel.address}}</p>
+                                    </div>
+                                    <div class="col-xs-2">
+                                            <span class="booking-item-price-from">эхлэх үнэ</span>
+                                            <br />
+                                            <span class="booking-item-price">${{hotel.average_rate}}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-6">
-                                <h5 class="booking-item-title">{{hotel.name}}</h5>
-                                <ul class="icon-group booking-item-rating-stars">
-                                    {% for i in range(1, hotel.stars) %}
-                                    <li><i class="fa fa-star"></i>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                                <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel.address}}</p>
-                            </div>
-                            <div class="col-xs-2">
-                                    <span class="booking-item-price-from">эхлэх үнэ</span>
-                                    <br />
-                                    <span class="booking-item-price">${{hotel.average_rate}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    </li>
+                        </li>
+                    </a>
                     {% endfor %}
                 </ul>
             </div>
             <div class="col-md-6">
                 <ul class="booking-list">
                     {% for hotel2 in hotels2 %}
-                    <li>
-                    <div class="booking-item booking-item-small">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <img src="{{hotel2.cover_image}}" alt="cover" title="hotel_cover" />
+                    <a href="#" name="featured" hotelid="{{hotel2.objectId}}">
+                        <li>
+                            <div class="booking-item booking-item-small">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <img src="{{hotel2.cover_image}}" alt="cover" title="hotel_cover" />
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <h5 class="booking-item-title">{{hotel2.name}}</h5>
+                                        <ul class="icon-group booking-item-rating-stars">
+                                            {% for i in range(1, hotel2.stars) %}
+                                            <li><i class="fa fa-star"></i>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel2.address}}</p>
+                                    </div>
+                                    <div class="col-xs-2"><span
+                                            class="booking-item-price-from">эхлэх үнэ</span>
+                                            <br />
+                                            <span class="booking-item-price">${{hotel2.average_rate}}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-6">
-                                <h5 class="booking-item-title">{{hotel2.name}}</h5>
-                                <ul class="icon-group booking-item-rating-stars">
-                                    {% for i in range(1, hotel2.stars) %}
-                                    <li><i class="fa fa-star"></i>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                                <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel2.address}}</p>
-                            </div>
-                            <div class="col-xs-2"><span
-                                    class="booking-item-price-from">эхлэх үнэ</span>
-                                    <br />
-                                    <span class="booking-item-price">${{hotel2.average_rate}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    </li>
+                        </li>
+                    </a>
                     {% endfor %}
                 </ul>
             </div>
@@ -238,7 +241,18 @@
                 todayHighlight: true
             });
 
-
+            $("a[name=featured]").on("click", function(event) {
+                event.preventDefault();
+                var curId = $(this).attr("hotelid");
+                var url = "index.php?asemdetail=" + curId +"&depart=2016-06-01&end=2016-07-01&guests=1&rooms=1";
+                window.location.replace(url);
+            });
+            $("a[name=city]").on("click", function(e) {
+                e.preventDefault();
+                var curId = $(this).attr("city");
+                var url = "index.php?city=" + curId;
+                window.location.replace(url);
+            });
 
             $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
             $('.input-daterange input[name="end"]').datepicker('setDate', '+5d');
@@ -251,42 +265,43 @@
             $('input.date-pick-years').datepicker({
                 startView: 2
             });
-                    });
-    $.ajax({
-        url:"https://api.openweathermap.org/data/2.5/weather?q=ulaanbaatar&appid=44db6a862fba0b067b1930da0d769e98&units=metric", 
-        dataType:"jsonp",
-        success: function(data){
-            if(data.main.temp > 0){
-                var temp = '+'+data.main.temp;
-            }else{
-                var temp = data.main.temp
+        });
+
+        $.ajax({
+            url:"http://api.openweathermap.org/data/2.5/weather?q=ulaanbaatar&appid=44db6a862fba0b067b1930da0d769e98&units=metric", 
+            dataType:"jsonp",
+            success: function(data){
+                if(data.main.temp > 0){
+                    var temp = '+'+data.main.temp;
+                }else{
+                    var temp = data.main.temp
+                }
+                $('#mn h3 span').text(data.name);
+                $('#mn .loc-info-weather-num').text(temp+'°C');
+                var img = '';
+                console.log(data.weather[0].id);
+                //alert(data['weather'].id);
+                if(data.weather[0].id > 199 && data.weather[0].id <233){
+                    img = 'img/weather/11d.png';
+                }else if(data.weather[0].id > 299 && data.weather[0].id <322){
+                    img = 'img/weather/09d.png';
+                }else if(data.weather[0].id > 499 && data.weather[0].id <532){
+                    img = 'img/weather/10d.png';
+                }else if(data.weather[0].id > 599 && data.weather[0].id <623){
+                    img = 'img/weather/13d.png';
+                }else if(data.weather[0].id > 699 && data.weather[0].id <782){
+                    img = 'img/weather/50d.png';
+                }else if(data.weather[0].id >799 && data.weather[0].id <805){
+                    img = 'img/weather/02d.png';
+                }else if(data.weather[0].id >899 && data.weather[0].id <907){
+                    img = 'img/weather/50d.png';
+                }else if(data.weather[0].id >950 && data.weather[0].id <963){
+                    img = 'img/weather/50d.png';
+                }else{
+                    img = 'img/weather/01d.png';
+                }
+                $('#img').load().attr('src', img);
             }
-            $('#mn h3 span').text(data.name);
-            $('#mn .loc-info-weather-num').text(temp+'°C');
-            var img = '';
-            console.log(data.weather[0].id);
-            //alert(data['weather'].id);
-            if(data.weather[0].id > 199 && data.weather[0].id <233){
-                img = 'img/weather/11d.png';
-            }else if(data.weather[0].id > 299 && data.weather[0].id <322){
-                img = 'img/weather/09d.png';
-            }else if(data.weather[0].id > 499 && data.weather[0].id <532){
-                img = 'img/weather/10d.png';
-            }else if(data.weather[0].id > 599 && data.weather[0].id <623){
-                img = 'img/weather/13d.png';
-            }else if(data.weather[0].id > 699 && data.weather[0].id <782){
-                img = 'img/weather/50d.png';
-            }else if(data.weather[0].id >799 && data.weather[0].id <805){
-                img = 'img/weather/02d.png';
-            }else if(data.weather[0].id >899 && data.weather[0].id <907){
-                img = 'img/weather/50d.png';
-            }else if(data.weather[0].id >950 && data.weather[0].id <963){
-                img = 'img/weather/50d.png';
-            }else{
-                img = 'img/weather/01d.png';
-            }
-            $('#img').load().attr('src', img);
-        }
-    });
-        </script>
+        });
+    </script>
 {% endblock %}

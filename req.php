@@ -31,7 +31,7 @@ function rs_api_create_res(){
 	    	'room_sub'   => $room_type,
 	    	'start'   => $start
 	    	'end'   => $end,
-	    	'days'   => $days,
+	    	'days'   => $days
 		];
 
 		$ch = curl_init();
