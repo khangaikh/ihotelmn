@@ -78,7 +78,7 @@
                             </p>
                         </div>
                         <div class="gap gap-small"></div>
-                        <div id="map-canvas" style="height:200px; margin-left:10px"></div>
+                        <div id="map-canvas1" style="height:200px; margin-left:10px"></div>
                         <!-- <div class="col-md-12 active" id="google-map-tab">
                                     <div id="map-canvas" style="width:100%; height:140px;"></div>
                                 </div>-->
@@ -366,6 +366,15 @@
 {% block scripting %}
 {{parent()}}
 <script type="text/javascript">
+      var script = '<script type="text/javascript" src="https://google-maps-' +
+          'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
+      if (document.location.search.indexOf('compiled') !== -1) {
+        script += '-compiled';
+      }
+      script += '.js"><' + '/script>';
+      document.write(script);
+</script>
+<script type="text/javascript">
     function set_total(d){
         var total=0;
         $('span[name=subtotal]').each(function(){
@@ -377,6 +386,7 @@
     }
 
     $(document).ready(function() {
+        initMap();
         $.ajax({
             type: "get",
             url:
@@ -552,20 +562,8 @@
           window.location.replace(url);
           });*/
     }); 
-</script>
-
-<script type="text/javascript">
-      var script = '<script type="text/javascript" src="https://google-maps-' +
-          'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
-      if (document.location.search.indexOf('compiled') !== -1) {
-        script += '-compiled';
-      }
-      script += '.js"><' + '/script>';
-      document.write(script);
-</script>
-<script type="text/javascript">
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: 13,
+    var map = new google.maps.Map(document.getElementById('map-canvas1'), {
+        zoom: 16,
         center: new google.maps.LatLng({{hotel.geolocation.latitude}}, {{hotel.geolocation.longitude}}),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
@@ -574,13 +572,15 @@
     var countinfo = 0; 
     var marker;
     function initMap() {
-        map = new google.maps.Map(document.getElementById('maps_hotel'), {
-            zoom: 13,
-            center: new google.maps.LatLng(47.912318, 106.913816),
+        map = new google.maps.Map(document.getElementById('map-canvas1'), {
+            zoom: 16,
+            center: new google.maps.LatLng({{hotel.geolocation.latitude}}, {{hotel.geolocation.longitude}}),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+
         marker = new google.maps.Marker({
             position: {lat: {{hotel.geolocation.latitude}}, lng: {{hotel.geolocation.longitude}}},
+            map: map,
         });
     }
 </script>
