@@ -623,6 +623,14 @@
             $template = $twig->loadTemplate('terms.html');
             echo $template->render(array('title' => ''));
         }
+        else if(isset($_GET['asem_terms'])){
+            $template = $twig->loadTemplate('asem_terms.html');
+            echo $template->render(array('title' => ''));
+        }
+        else if(isset($_GET['asem_terms'])){
+            $template = $twig->loadTemplate('asem_terms.html');
+            echo $template->render(array('title' => ''));
+        }
         else if(isset($_GET['asem-news'])){
             $template = $twig->loadTemplate('asem_news.html');
             echo $template->render(array('title' => ''));
