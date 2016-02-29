@@ -33,7 +33,7 @@
         $Usernamesoap = "70972";
         $Passwordsoap = "iHto11";
         $trans_date = $createdAt->format('Y-m-d');
-        $trans_amount = $order->get('total');
+        $trans_amount = $_SESSION['total'];
         require_once('lib/nusoap.php');
         $wsdl = "https://m.egolomt.mn:7073/persistence.asmx?WSDL";
         $client = new nusoap_client($wsdl, 'wsdl');
@@ -60,9 +60,9 @@
                 $responseCode = $result[Get_newResult];
             }
         }
-        if ($_GET["success"] == 0 && strlen($responseCode) == 6) 
+        if ($_GET["success"] == 0 && strlen($responseCode) == 0) 
         {
-            $order->set('status', 1);
+            $order->set('status', 0);
             $order->save();
 
             sendmail($user, $orders);
@@ -73,9 +73,6 @@
             $query->equalTo("user",$user);
             $query->includeKey('hotel');
             $orders = $query->find();
-
-            ///
-
 
             echo $template->render(array('title' => 'iHotel', 'user' => $user,
                 'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
@@ -107,15 +104,6 @@
             if ($_GET["error_code"]=='300-58') {
                 $log_msg = "Зөвшөөрөгдөөгүй гүйлгээ байна.";
             }
-            if ($_GET["error_code"]=='300-89') {
-    //            Mage::log("Aldaatai terminal.");
-            }
-            if ($_GET["error_code"]=='300-91') {
-    //            Mage::log("TIMEOUT");
-            }
-            if ($_GET["error_code"]=='300-96') {
-    //            Mage::log("System error");
-            }
             if ($responseCode == 2) {
                 $log_msg.="Гүйлгээ амжилтгүй болсон байна.";
             }
@@ -126,8 +114,20 @@
                 $log_msg.="Hereglegchiin ner esvel nuuts ug buruu baina";
             }
             $log_msg .= $_GET['error_desc'];
+            
+            $query = new ParseQuery("orders");
+            $query->descending("createdAt");
+            $query->equalTo("order_id",$_GET['trans_number']);
+            $orders = $query->find();
+            
+            for ($i = 0; $i < count($orders); $i++) {
+                $orders[$i]->destroy();
+            }
 
-            $order->destroy();
+            /*
+            session_destroy();
+            $_SESSION['user'] = $user;
+             */
 
             $template = $twig->loadTemplate('success-payment.html');
             $query = new ParseQuery("orders");

@@ -168,12 +168,6 @@
         {% if user %}
         event.preventDefault();
         $.post("order.php", {
-            location: $('#location_4').val(),
-            total: $('#total_4').val(),
-            days: $('#days_4').val(),
-            start: $('#start_4').val(),
-            hotel: $('#hotel_4').val(),
-            room: $('#room_4').val(),
             end: $('#end_4').val(),
         }, function (result) {
             if(result!=0){
