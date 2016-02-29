@@ -316,8 +316,8 @@
         contentString='<a href="index.php?asemdetail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
             '&guests='+$("#guests").val()+'&rooms='+$("#rooms").val()+'"><div id="content">'+
             '<img style="width: 276px; overflow: hidden;"src="'+hotel['cover_image']+'"><h1></h1>'+
-            '<h4 style="margin: 0;">'+hotel['name']+stars+'<span style="margin: 0;"class="booking-item-price">$92</span>'+
-            '<span style="font-size:15px;">/night</span></h4></div></a>';
+            '<h4 style="margin: 0;">'+hotel['name']+'<br/>'+stars+'<span style="margin: 0; float:right" class="booking-item-price"><span style="margin: 0; font-size:13px" class="booking-item-price">from&nbsp;&nbsp;&nbsp;</span>$'+hotel['average_rate']+'</span>'+
+            '</h4></div></a>';
 
         infoBubble2 = new InfoBubble({
             maxWidth: 300,
