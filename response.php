@@ -72,8 +72,6 @@
                 $orders[$i]->save();
             }
 
-            
-
             sendmail($user, $orders);
 
             rs_api_create_res();
