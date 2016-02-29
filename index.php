@@ -380,7 +380,7 @@
             $query = new ParseQuery("orders");
             $query->descending("createdAt");
             $query->equalTo("user",$user);
-            $query->equalTo("status",1);
+            $query->notEqualTo("status",0);
             $query->includeKey('hotel');
             $old_orders = $query->find();
 

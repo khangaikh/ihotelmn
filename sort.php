@@ -38,6 +38,7 @@
     }else{
         $query->equalTo("asem",0);
     }
+    
     $query->equalTo("status",1);
 
     if($sort=='starup'){

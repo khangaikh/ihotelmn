@@ -35,7 +35,7 @@
                 <td>{{order.start}}<i class="fa fa-long-arrow-right"></i>{{order.end}}</td>
                 <td>{{order.total}}</td>
 
-                <td class="text-center">{%if order.status!=0%}<a name="{{order.objectId}}" class="btn btn-default btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Цуцлах</a>{%endif%}
+                <td class="text-center">{%if order.status==-1%} Банкны хяналтанд <a name="{{order.objectId}}" class="btn btn-default btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Цуцлах</a> {%else%} Батлагдсан{%endif%}
                 </td>
             </tr>
             {% endfor %}
@@ -51,7 +51,8 @@
                     <th>Location</th>
                     <th>Order date</th>
                     <th>Date</th>
-                    <th>Payment $</th>
+                    <th>Days</th>
+                    <th>Payment</th>
                     <th></th>
                 </tr>
             </thead>
@@ -68,12 +69,13 @@
                     {%endif%}
                 </td>
                 <td class="booking-history-title">{{order.hotel.name}}</td>
-                <td>{{order.location}}</td>
+                <td>Ulaanbaatar, Mongolia</td>
                 <td>{{order.createdAt | date("Y-m-d")}}</td>
                 <td>{{order.start}}<i class="fa fa-long-arrow-right"></i>{{order.end}}</td>
-                <td>{{order.total}}</td>
+                <td>{{order.days}}</td>
+                <td>${{order.total}}</td>
 
-                <td class="text-center">{%if order.status!=0%}<a name="{{order.objectId}}" class="btn btn-default btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Cancel</a>{%endif%}
+                <td class="text-center">{%if order.status==-1%}<strong>Under bank control</strong> <a name="{{order.objectId}}" class="btn btn-primary btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Cancel this booking </a>{%else%} <strong>Confirmed</strong> {%endif%}
                 </td>
             </tr>
             {% endfor %}

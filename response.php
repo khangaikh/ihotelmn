@@ -70,10 +70,11 @@
             
             for ($i = 0; $i < count($orders); $i++) {
                 $orders[$i]->set('user',$user);
+                $orders[$i]->set('status',-1);
                 $orders[$i]->save();
             }
             sendmail($user, $orders);
-            rs_api_create_res();
+           // rs_api_create_res();
 
             unset($_SESSION['orders']);
             unset($_SESSION['start']);
