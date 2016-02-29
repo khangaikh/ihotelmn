@@ -409,7 +409,7 @@
             $.ajax({
            type: "POST",
                url: "search.php",
-               data: {data:values1, filter:values2, city:location},
+               data: {data:values1, filter:values2, city:location, asem:1},
                success: function(data, textStatus, jqXHR)
                {
                     $("#hotels").empty();
@@ -457,7 +457,7 @@
             $.ajax({
                 type: "POST",
                 url: "sort.php",
-                data: {data:sort, filter1:values1, filter2:values2, city:location},
+                data: {data:sort, filter1:values1, filter2:values2, city:location, asem:1},
                 success: function(data, textStatus, jqXHR)
             {
                 $("#hotels").empty();
