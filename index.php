@@ -83,9 +83,20 @@
             $template = $twig->loadTemplate('home.html');
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
-            $results = $query->find();
-            //render a template
-            echo $template->render(array('title' => 'iHotel', 'results'=>$results));
+            $query->equalTo("homepage",1);
+            $query->equalTo("city","Ulaanbaatar");
+            $query->descending("name");
+            $query->limit(2);
+            $hotels = $query->find();
+
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("homepage",1);
+            $query->equalTo("city","Ulaanbaatar");
+            $query->ascending("name");
+            $query->limit(2);
+            $hotels2 = $query->find();
+            echo $template->render(array('title' => '', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
         }
         else if(isset($_GET['add_general'])){
             $template = $twig->loadTemplate('add.html');
@@ -402,7 +413,7 @@
                 //render a template
                 echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
             }else{
-                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders));
+                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
             }   
         }
     }else{

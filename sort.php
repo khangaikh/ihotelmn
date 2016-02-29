@@ -32,6 +32,12 @@
     }
     
     $query->equalTo("city",$_POST['city']);
+    
+    if(isset($_POST['asem'])){
+        $query->equalTo("asem",1);
+    }else{
+        $query->equalTo("asem",0);
+    }
     $query->equalTo("status",1);
 
     if($sort=='starup'){
@@ -46,7 +52,6 @@
     if($sort=='pricedown'){
         $query->ascending("average_rate");
     }
-    $query->limit(25);
     $results = $query->find();
     $count = $query->count();
     $_SESSION['sort'] =$sort;
