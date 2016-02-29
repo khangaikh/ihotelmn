@@ -6,7 +6,7 @@
     use Parse\ParseUser;
 	session_start();
 
-	//function rs_api_create_res(){
+	function rs_api_create_res(){
 
 		$start = $_SESSION['start'];
 	    $end = $_SESSION['end'];
@@ -49,7 +49,7 @@
 
 			$ch = curl_init();
 
-			curl_setopt($ch, CURLOPT_URL,"http://localhost/ihotel/api.php");
+			curl_setopt($ch, CURLOPT_URL,"http://rs.ihotel/".$hotel->get("rs_name")."/api.php");
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS,$post);
 
@@ -60,5 +60,5 @@
 			curl_close ($ch);
 			
 	    }
-	//}
+	}
 ?>

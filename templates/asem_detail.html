@@ -536,7 +536,7 @@
                     set_total(days);
                 }else{
                     var roomid = $(this).attr('roomid');
-                    $('ul[name='+roomid+']').each(function(){
+                    $('ul[roomid='+roomid+']').each(function(){
                         $(this).remove();
                     });
                     set_total(days);

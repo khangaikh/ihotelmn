@@ -1,6 +1,7 @@
 <?php
     require_once 'includes/Twig/Autoloader.php';
     require_once "config.php";
+    require_once "req.php";
     use Parse\ParseObject;
     use Parse\ParseClient;
     use Parse\ParseQuery;
@@ -71,7 +72,15 @@
                 $orders[$i]->save();
             }
 
+            
+
             sendmail($user, $orders);
+
+            rs_api_create_res();
+
+            unset($_SESSION['orders']);
+            unset($_SESSION['start']);
+            unset($_SESSION['end']);
 
             $template = $twig->loadTemplate('success-payment.html');
             $query = new ParseQuery("orders");
@@ -136,6 +145,8 @@
             $_SESSION['user'] = $user;
              */
             unset($_SESSION['orders']);
+            unset($_SESSION['start']);
+            unset($_SESSION['end']);
 
             $template = $twig->loadTemplate('success-payment.html');
             $query = new ParseQuery("orders");
