@@ -1,4 +1,4 @@
-<?php
+ <?php
 require_once "config.php";
 use Parse\ParseException;
 use Parse\ParseObject;
@@ -11,8 +11,8 @@ use Parse\ParseQuery;
     $start=$_POST["start"];
     $end=$_POST["end"];
     
-    
-    $rooms = explode(',', $_POST["rooms"]);
+    //$rooms = explode(',', $_POST["rooms"]);
+    $rooms = $_POST["rooms"];
     $qtys = array_map('intval', explode(',', $_POST["qtys"]));
     $subs = array_map('intval', explode(',', $_POST["subs"]));
     
@@ -21,7 +21,7 @@ use Parse\ParseQuery;
     if (isset($_SESSION['user'])){
         $user = $_SESSION['user'];
         $result = true;
-        for ($i = 1; $i < count($rooms); ++$i) {
+        for ($i = 1; $i < count($rooms); $i++) {
             $room_id = $rooms[$i];
             $qty = $qtys[$i];
             $subtotal = $subs[$i];
@@ -65,7 +65,7 @@ use Parse\ParseQuery;
     }
     else{
         $result = true;
-        for ($i = 1; $i < count($rooms); ++$i) {
+        for ($i = 1; $i < count($rooms); $i++) {
             $room_id = $rooms[$i];
             $qty = $qtys[$i];
             $subtotal = $subs[$i];

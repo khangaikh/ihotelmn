@@ -342,7 +342,7 @@
                                 </ul>
                                 <p class="booking-item-payment-total">Total amount: <span id="total"> 4232</span>
                                 </p>
-                                <span name="order" class="btn btn-primary ajax" id="{{room.objectId}}" style="width:100%">Order now</span>
+                                <span name="ordernow" class="btn btn-primary ajax" id="{{room.objectId}}" style="width:100%">Order now</span>
                             </div>
                         <br>
                         <h4>Hotel features</h4>
@@ -452,11 +452,12 @@
         $("#end").datepicker({"autoclose": true}).on("change", function() {
             $("#num_people").focus();
         }).datepicker('setDate', formattedDate1).datepicker({ dateFormat: 'dd-mm-yy' });
-        $("span[name=order]").click(function( event ) {
 
+        $("span[name=ordernow]").click(function( event ) {
             var room_ids = ['1'];
             var room_qtys = ['1'];
             var room_subs = ['1'];
+
             $('ul[name=order_room]').each(function(){
                 var roomid = $(this).attr('roomid');
                 room_ids.push(roomid);
@@ -470,6 +471,7 @@
                 var sub = $(this).text();
                 room_subs.push(sub);
             });
+
             var start = $("#start").val();
             var end = $("#end").val();
             var starta = new Date(start);
@@ -485,11 +487,12 @@
             console.log(room_str);
             console.log(qty_str);
             console.log(sub_str);
+   
             $.post("payment.php", {
                 start: start,
                 end: end,
                 hotel: hotel,
-                rooms : room_str,
+                rooms : room_ids,
                 qtys: qty_str,
                 subs:sub_str,
                 days:days
@@ -499,7 +502,7 @@
                     window.location.replace("index.php?asem_payment");  
                 }
                 else{
-                    alert("Please check your connection");
+                    alert(result);
                 }
             });
 
