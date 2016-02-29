@@ -97,13 +97,13 @@
             $faq = $query->first();
             $faq->destroy();
 
-        }elseif(isset($_POST['answer_en']) && isset($_POST['question_en'])){
-          $question_en = $_POST['question_en'];
-          $answer_en = $_POST['answer_en'];
+        }elseif(isset($_POST['answer_asem']) && isset($_POST['question_asem'])){
+          $question = $_POST['question_asem'];
+          $answer = $_POST['answer_asem'];
 
           $faq = new ParseObject('faq_en');
-          $faq->set('header_en', $question_en);
-          $faq->set('content_en', $answer_en);
+          $faq->set('header_en', $question);
+          $faq->set('content_en', $answer);
 
           $faq->set('user', $user);
           $result = false;
@@ -120,19 +120,54 @@
            }else{
               echo 0;
            }
-        }
-    }elseif(isset($_POST['edit_faq_form_en'])){
-
+        }elseif(isset($_POST['edit_faq_asem'])){
             $query = new ParseQuery("faq_en");
-            $query->equalTo("objectId",$_POST['edit_faq_form_en']);
+            $query->equalTo("objectId",$_POST['edit_faq_asem']);
             $faq = $query->first();
             $e['id'] = $faq->getObjectId();
-            $e['edit_question_en'] = $faq->get('header_en');
-            $e['edit_answer_en'] = $faq->get('content_en');
+            $e['edit_question_asem'] = $faq->get('header_en');
+            $e['edit_answer_asem'] = $faq->get('content_en');
             echo json_encode($e);
 
-    }else{
-        $template = $twig->loadTemplate('user_faq.html');
-        echo $template->render(array('title' => 'Асуулт, хариулт', 'nav' => 8, 'result'=> 1));
+          }
+          elseif(isset($_POST['edit_question_asem']) && isset($_POST['edit_answer_asem']) && isset($_POST['submit'])){
+            $answer = $_POST['edit_answer_asem'];
+            $question = $_POST['edit_question_asem'];
+            
+            $query = new ParseQuery("faq_en");
+            echo $_POST['edit_id_asem'];
+            echo 'aaaa';
+            $query->equalTo("objectId",$_POST['edit_id_asem']);
+            $faq = $query->first();
+            $faq->set("header_en", $question);
+            $faq->set("content_en", $answer);
+
+            $result = false;
+
+            try {
+                $faq->save();
+                $result = true;
+            } catch (ParseException $ex) {  
+                echo 'Failed to create new object, with error message: ' . $ex->getMessage();
+            }
+
+            if($result){
+                $template = $twig->loadTemplate('user_faq.html');
+                echo $template->render(array('title' => 'Асуулт хариулт', 'user' => $user, 'nav' => 8, 'result'=> 1));
+            }else{
+                echo 0;
+            }
+        }elseif(isset($_POST['delete_faq_asem'])){
+          
+            $query = new ParseQuery("faq_en");
+            $query->equalTo("objectId",$_POST['delete_faq_asem']);
+            $faq = $query->first();
+            $faq->destroy();
+
+        }
+          else{
+            $template = $twig->loadTemplate('user_faq.html');
+            echo $template->render(array('title' => 'Асуулт, хариулт', 'nav' => 8, 'result'=> 1));
+          }
     }
 ?>
