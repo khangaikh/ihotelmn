@@ -62,8 +62,14 @@
         }
         if ($_GET["success"] == 0 && strlen($responseCode) == 0) 
         {
-            $order->set('status', 0);
-            $order->save();
+            $query = new ParseQuery("orders");
+            $query->equalTo("order_id",$_GET['trans_number']);
+            $orders = $query->find();
+            
+            for ($i = 0; $i < count($orders); $i++) {
+                $orders[$i]->set('user',$user);
+                $orders[$i]->save();
+            }
 
             sendmail($user, $orders);
 
@@ -124,10 +130,12 @@
                 $orders[$i]->destroy();
             }
 
+
             /*
             session_destroy();
             $_SESSION['user'] = $user;
              */
+            unset($_SESSION['orders']);
 
             $template = $twig->loadTemplate('success-payment.html');
             $query = new ParseQuery("orders");
