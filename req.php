@@ -6,7 +6,7 @@
     use Parse\ParseUser;
 	session_start();
 
-	//function rs_api_create_res(){
+	function rs_api_create_res(){
 
 		$start = $_SESSION['start'];
 	    $end = $_SESSION['end'];
@@ -61,5 +61,5 @@
 			curl_close ($ch);
 			
 	    }
-	//}
+	}
 ?>

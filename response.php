@@ -74,7 +74,7 @@
                 $orders[$i]->save();
             }
             sendmail($user, $orders);
-           // rs_api_create_res();
+            rs_api_create_res();
 
             unset($_SESSION['orders']);
             unset($_SESSION['start']);
