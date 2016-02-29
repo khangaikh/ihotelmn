@@ -566,8 +566,8 @@
             $place_to_go = $query->find();
             $data['place_to_go']=count($place_to_go);
             echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
-       
-        }else if(isset($_GET['news_search'])){
+        }
+        else if(isset($_GET['news_search'])){
             $template = $twig->loadTemplate('news.html');
             $query = new ParseQuery("news");
             $query->equalTo("category",$_GET['news_search']);

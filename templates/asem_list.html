@@ -313,9 +313,9 @@
             stars+='<li><i class="fa fa-star"></i></li>';
         }
         stars+='</ul></div>';
-        contentString='<a href="?detail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
+        contentString='<a href="index.php?asem_detail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
             '&location='+$("#location_1").val()+'&country='+$("#country").val()+'"><div id="content">'+
-            '<img style="width: 276px; overflow: hidden;"src="img/news/5c927f8.png"><h1></h1>'+
+            '<img style="width: 276px; overflow: hidden;"src="'+hotel['cover_image']+'"><h1></h1>'+
             '<h4 style="margin: 0;">'+hotel['name']+stars+'<span style="margin: 0;"class="booking-item-price">$92</span>'+
             '<span style="font-size:15px;">/night</span></h4></div></a>';
 
