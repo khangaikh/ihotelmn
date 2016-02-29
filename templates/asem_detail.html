@@ -237,7 +237,7 @@
                     </li>
                     {% endfor %}
                 </ul>
-                <div class="row">
+                <div id="rating_div" class="row">
                     <div class="col-md-6">
                         <h4 class="lh1em">Summary</h4>
                         <ul class="list booking-item-raiting-summary-list">
@@ -375,26 +375,27 @@
     </div>
 {% endblock %}
 {% block scripting %}
-    {{parent()}}
-    <script type="text/javascript">
-        function set_total(d){
-             var total=0;
-             $('span[name=subtotal]').each(function(){
-                var sub = $(this).text();
-                total = total + parseInt(sub);
-             });
-             total = parseInt(d) * total;
-             $("#total").text("US$ "+total);
-        }
+{{parent()}}
+<script type="text/javascript">
+    function set_total(d){
+        var total=0;
+        $('span[name=subtotal]').each(function(){
+            var sub = $(this).text();
+            total = total + parseInt(sub);
+        });
+        total = parseInt(d) * total;
+        $("#total").text("US$ "+total);
+    }
 
-        $(document).ready(function() {
-            $.ajax({
-                type: "get",
-                url:
-                "https://api.tripadvisor.com/api/partner/2.0/map/47.9167,106.9167?key=4cc4b5b4bf074bce87fecc651006190e&q="+$('#hotelname').text(),
-                dataType: "json",
-                success: function(data){ 
-                    if(data.data.length != 0){
+    $(document).ready(function() {
+        $.ajax({
+            type: "get",
+            url:
+            "https://api.tripadvisor.com/api/partner/2.0/map/47.9167,106.9167?key=4cc4b5b4bf074bce87fecc651006190e&q="+$('#hotelname').text(),
+            dataType: "json",
+            success: function(data){ 
+                if(data.data.length != 0){
+                    if(data.data[0].rating!=null){
                         var str = "https://"
                         var arr = data.data[0].api_detail_url.split('//');
                         var new_url = str+arr[1];
@@ -405,12 +406,7 @@
                             success: function(data){ 
                                 $(".rating_image").attr('src', data.rating_image_url);
                                 $(".tr_reviews").text(data.rating);
-                                var max = data.review_rating_count['1'];
-                                for(var i=1; i<6; i++){
-                                    if( max < data.review_rating_count[i]){
-                                        max = data.review_rating_count[i];
-                                    }
-                                }
+                                var max = 200;
                                 $("#raiting_ex_w").attr('style','width:'+(data.review_rating_count[1]*100/max)+ '%;');
                                 $("#raiting_ex").text(data.review_rating_count[1]);
                                 $("#raiting_vg_w").attr('style','width:'+(data.review_rating_count[2]*100/max)+ '%;');
@@ -428,131 +424,140 @@
                                 $("#rt_service").html('<li><img src="'+data.subratings[3].rating_image_url+'" alt="" /></li>');
                                 $("#rt_clearness").html('<li><img src="'+data.subratings[5].rating_image_url+'" alt="" /></li>');
                                 for(var j = 0; j<3; j++){
-                                    $('#reviewslist').append('<li><div class="row"><div class="col-md-2"><div class="booking-item-review-person"><a class="booking-item-review-person-avatar round" href="#"><img src="http://static.tacdn.com/img2/generic/site/no_user_photo-v1.gif" alt="Image Alternative text" title="Good job"></a><p class="booking-item-review-person-name"><a href="#">'+data.reviews[j].user['username']+'</a></p></div></div><div class="col-md-10"><div class="booking-item-review-content"><h5>"'+data.reviews[j].title+'"</h5><ul class="icon-group booking-item-rating-stars"><img style="width:50px;" src="'+data.reviews[j].rating_image_url+'" alt="" /><small style="margin-left: 3px;">'+data.reviews[j].published_date+'</small></ul><p>'+data.reviews[j].text+'<a href="'+data.reviews[j].url+'">More</a></p></div></div></div></div></li>');
+                                    $('#reviewslist').append('<li><div class="row"><div class="col-md-2"><div class="booking-item-review-person"><a class="booking-item-review-person-avatar round" href="#"><img src="https://static.tacdn.com/img2/generic/site/no_user_photo-v1.gif" alt="Image Alternative text" title="Good job"></a><p class="booking-item-review-person-name"><a href="#">'+data.reviews[j].user['username']+'</a></p></div></div><div class="col-md-10"><div class="booking-item-review-content"><h5>"'+data.reviews[j].title+'"</h5><ul class="icon-group booking-item-rating-stars"><img style="width:50px;" src="'+data.reviews[j].rating_image_url+'" alt="" /><small style="margin-left: 3px;">'+data.reviews[j].published_date+'</small></ul><p>'+data.reviews[j].text+'<a href="'+data.reviews[j].url+'">More</a></p></div></div></div></div></li>');
                                 }
                             }
                         });
+                    }else{
+                        $(".booking-item-rating").hide();
+                        //                    $("#rating_div").hide();
+                        $(".mb20").hide();
                     } 
+                }else{
+                    $(".booking-item-rating").hide();
+                    $("#rating_div").hide();
+                    $(".mb20").hide();
+                } 
+            }
+        });
+        var start =$("#start_3").val();
+        var end =$("#end_3").val();
+        var formattedDate = new Date(start);
+        var formattedDate1 = new Date(end);
+
+        $("#start").datepicker({"autoclose": true}).on("change", function() {
+            $("#end").focus();
+        }).datepicker('setDate', formattedDate);
+        $("#start").datepicker({ dateFormat: 'dd-mm-yy' });
+        $("#end").datepicker({"autoclose": true}).on("change", function() {
+            $("#num_people").focus();
+        }).datepicker('setDate', formattedDate1).datepicker({ dateFormat: 'dd-mm-yy' });
+        $("span[name=order]").click(function( event ) {
+
+            var room_ids = ['1'];
+            var room_qtys = ['1'];
+            var room_subs = ['1'];
+            $('ul[name=order_room]').each(function(){
+                var roomid = $(this).attr('roomid');
+                room_ids.push(roomid);
+            });
+            $('span[name=qtys]').each(function(){
+                var qty = parseInt($(this).text());
+                room_qtys.push(qty);
+            });
+
+            $('span[name=subtotal]').each(function(){
+                var sub = $(this).text();
+                room_subs.push(sub);
+            });
+            var start = $("#start").val();
+            var end = $("#end").val();
+            var starta = new Date(start);
+            var enda   = new Date(end);
+            var diff = new Date(enda - starta);
+            // get days
+            var days = diff/1000/60/60/24;
+
+            var hotel = $("#hotel_3").val();
+            var room_str = room_ids.toString();
+            var qty_str = room_qtys.toString();
+            var sub_str = room_subs.toString();
+            console.log(room_str);
+            console.log(qty_str);
+            console.log(sub_str);
+            $.post("payment.php", {
+                start: start,
+                end: end,
+                hotel: hotel,
+                rooms : room_str,
+                qtys: qty_str,
+                subs:sub_str,
+                days:days
+            },
+            function (result) {
+                if(result==1){
+                    window.location.replace("index.php?asem_payment");  
+                }
+                else{
+                    alert("Please check your connection");
                 }
             });
-            var start =$("#start_3").val();
-            var end =$("#end_3").val();
-            var formattedDate = new Date(start);
-            var formattedDate1 = new Date(end);
-            
-            $("#start").datepicker({"autoclose": true}).on("change", function() {
-                $("#end").focus();
-            }).datepicker('setDate', formattedDate);
-            $("#start").datepicker({ dateFormat: 'dd-mm-yy' });
-            $("#end").datepicker({"autoclose": true}).on("change", function() {
-            $("#num_people").focus();
-            }).datepicker('setDate', formattedDate1).datepicker({ dateFormat: 'dd-mm-yy' });
-            $("span[name=order]").click(function( event ) {
 
-                var room_ids = ['1'];
-                var room_qtys = ['1'];
-                var room_subs = ['1'];
-                $('ul[name=order_room]').each(function(){
-                    var roomid = $(this).attr('roomid');
-                    room_ids.push(roomid);
-                });
-                $('span[name=qtys]').each(function(){
-                    var qty = parseInt($(this).text());
-                    room_qtys.push(qty);
-                });
-
-                $('span[name=subtotal]').each(function(){
-                    var sub = $(this).text();
-                    room_subs.push(sub);
-                });
-                var start = $("#start").val();
-                var end = $("#end").val();
+        });
+        $('select[name=qty]').each(function(){
+            $(this).change(function(){
+                var start =$("#start").val();
+                var end =$("#end").val();
                 var starta = new Date(start);
                 var enda   = new Date(end);
                 var diff = new Date(enda - starta);
-                    // get days
+                // get days
                 var days = diff/1000/60/60/24;
 
-                var hotel = $("#hotel_3").val();
-                var room_str = room_ids.toString();
-                var qty_str = room_qtys.toString();
-                var sub_str = room_subs.toString();
-                console.log(room_str);
-                console.log(qty_str);
-                console.log(sub_str);
-                $.post("payment.php", {
-                    start: start,
-                    end: end,
-                    hotel: hotel,
-                    rooms : room_str,
-                    qtys: qty_str,
-                    subs:sub_str,
-                    days:days
-                    },
-                    function (result) {
-                        if(result==1){
-                            window.location.replace("index.php?asem_payment");  
-                        }
-                        else{
-                            alert("Please check your connection");
-                        }
-                });
+                if($(this).val()>0){
+                    var roomid = $(this).attr('roomid');
+                    $('ul[roomid='+roomid+']').remove();
+                    $("#payment_info").show();
 
+
+                    $("#checkin").text(start);
+                    $("#checkout").text(end);
+                    $("#days").text(days);
+
+                    var room_name = $(this).attr('room');
+                    var price = $(this).attr('price');
+                    var subtotal = $(this).val()* price;
+
+                    $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
+                            );
+                    set_total(days);
+                }else{
+                    var roomid = $(this).attr('roomid');
+                    $('ul[name='+roomid+']').each(function(){
+                        $(this).remove();
+                    });
+                    set_total(days);
+                }
             });
+        });
+
+        $("#search_a").click(function( event ) {
             $('select[name=qty]').each(function(){
-                $(this).change(function(){
-                    var start =$("#start").val();
-                    var end =$("#end").val();
-                    var starta = new Date(start);
-                    var enda   = new Date(end);
-                    var diff = new Date(enda - starta);
-                    // get days
-                    var days = diff/1000/60/60/24;
-
-                    if($(this).val()>0){
-                        var roomid = $(this).attr('roomid');
-                        $('ul[roomid='+roomid+']').remove();
-                        $("#payment_info").show();
-                        
-
-                        $("#checkin").text(start);
-                        $("#checkout").text(end);
-                        $("#days").text(days);
-
-                        var room_name = $(this).attr('room');
-                        var price = $(this).attr('price');
-                        var subtotal = $(this).val()* price;
-
-                        $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
-                        );
-                        set_total(days);
-                    }else{
-                        var roomid = $(this).attr('roomid');
-                        $('ul[name='+roomid+']').each(function(){
-                            $(this).remove();
-                        });
-                        set_total(days);
-                    }
-                });
+                $(this).val("0");
             });
-
-            $("#search_a").click(function( event ) {
-                $('select[name=qty]').each(function(){
-                    $(this).val("0");
-                });
-                $("#payment_info").hide();
-               //ajax lisr available rooms  
-            });
-            /*$("a[name=order]").click(function( event ) {
-                var curId = $(this).attr('id');
-                var start = $("#start_3").val();
-                var end = $("#end_3").val();
-                var location = $("#location_3").val();
-                var hotel = $("#hotel_3").val();
-                var country = $("#country").val();
-                var url = "index.php?payment=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&hotel="+hotel; 
-                window.location.replace(url);
-            });*/
-        }); 
-    </script>
+            $("#payment_info").hide();
+            //ajax lisr available rooms  
+        });
+        /*$("a[name=order]").click(function( event ) {
+          var curId = $(this).attr('id');
+          var start = $("#start_3").val();
+          var end = $("#end_3").val();
+          var location = $("#location_3").val();
+          var hotel = $("#hotel_3").val();
+          var country = $("#country").val();
+          var url = "index.php?payment=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&hotel="+hotel; 
+          window.location.replace(url);
+          });*/
+    }); 
+</script>
 {% endblock %}
