@@ -1,13 +1,14 @@
 {% extends "user.html" %}
 {% block user_content %}
-<a id="show-faq-edit" class="popup-text" href="#edit-faq" data-effect="mfp-zoom-out" style="display: none;"/>
+<a id="show-faq-edit" class="popup-text" href="#edit-faq" data-effect="mfp-zoom-out" style="display: none;"></a>
+<a id="show-faq-asem" class="popup-text" href="#edit-faq-asem" data-effect="mfp-zoom-out" style="display: none;"></a>
    {% if result == 1 %}
     <script type="text/javascript" charset="utf-8">
         window.location.replace("index.php?faq_admin");
     </script>
     {% endif %}
 <a class="popup-text btn btn-primary" href="#add-faq" data-effect="mfp-zoom-out">Асуулт оруулах</a>
-<a class="popup-text btn btn-primary" href="#add-faq-en" data-effect="mfp-zoom-out">Add question</a>
+<a class="popup-text btn btn-primary" href="#add-faq-asem" data-effect="mfp-zoom-out">Add question</a>
 <div class="gap-small"></div>
 
 {% if faqs %}
@@ -56,8 +57,8 @@
             <td class="booking-history-title">{{faq.header_en}}</td>
             <td>{{faq.content_en}}</td>
             <td id="operations">
-                <a name="{{faq.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq_en('{{faq.objectId}}')">Засах</a>
-                <a name="{{faq.objectId}}" class="btn btn-default" onclick="delete_faq_en('{{faq.objectId}}');">Устгах</a>
+                <a name="{{faq.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq_asem('{{faq.objectId}}')">Засах</a>
+                <a name="{{faq.objectId}}" class="btn btn-default" onclick="delete_faq_asem('{{faq.objectId}}');">Устгах</a>
             </td>
         </tr>
         {% endfor %}
@@ -106,11 +107,11 @@
             <div class="row">
                 <div class='is-block'>
                     <div class='form-group col-sm-12'>
-                        <label for="anwser_en">Answer</label>
+                        <label for="anwser_en">Question</label>
                         <input id="answer_en" class='form-control' type="text" name="answer_en" required="">
                     </div>
                     <div class='form-group col-md-12'>
-                        <label for="question_en">Question</label>
+                        <label for="question_en">Answer</label>
                         <textarea id='question_en' class='form-control' name='question_en' rows="4" required></textarea>
                     </div>
                 </div>
@@ -146,11 +147,11 @@
             <div class="row">
                 <div class='is-block'>
                     <div class='form-group col-md-12'>
-                        <label for="edit_anwser_en">Answer</label>
+                        <label for="edit_anwser_en">Question</label>
                         <input id="edit_answer_en" class='form-control' type="text" name="edit_answer_en" required="">
                     </div>
                     <div class='form-group col-md-12'>
-                        <label for="edit_question_en">Question</label>
+                        <label for="edit_question_en">Answer</label>
                         <textarea id='edit_question_en' class='form-control' name='edit_question_en' rows="4" required></textarea>
                     </div>
                 </div>
@@ -171,7 +172,7 @@
 
 
 
-<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="add-faq-en">
+<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="add-faq-asem">
     <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
         <fieldset id="main-room-form" class="active">
             <div id="error_header" class="alert alert-danger hidden"></div>
@@ -181,12 +182,12 @@
           <div class="row">
                 <div class='is-block'>
                     <div class='form-group col-md-12'>
-                        <label for="question_en">Question</label>
-                        <input id="question_en" class='form-control' type="text" name="question_en" required>
+                        <label for="question_asem">Question</label>
+                        <input id="question_asem" class='form-control' type="text" name="question_asem" required>
                     </div>
                     <div class='form-group col-md-12'>
-                        <label for="answer_en">Answer</label>
-                        <textarea id='answer_en' class='form-control' name='answer_en' rows="4" required></textarea>
+                        <label for="answer_asem">Answer</label>
+                        <textarea id='answer_asem' class='form-control' name='answer_asem' rows="4" required></textarea>
                     </div>
                 </div>
             </div>
@@ -198,23 +199,23 @@
         </div>
     </form>
 </div>
-<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="edit-faq-en">
-    <form id="faq_form_en" action="faq.php" data-parsley-validate method="POST">
+<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="edit-faq-asem">
+    <form id="faq_form_asem" action="faq.php" data-parsley-validate method="POST">
         <fieldset id="main-room-form" class="active">
             <div id="error_header" class="alert alert-danger hidden"></div>
             <legend>
                 <span id="news_name_label">Edit</span>
-                <input type="hidden" id="edit_id" name="edit_faq_id" value="" class="form-control" required>
+                <input type="hidden" id="edit_id_asem" name="edit_id_asem" value="" class="form-control" required>
             </legend>
             <div class="row">
                 <div class='is-block'>
                     <div class='form-group col-md-12'>
-                        <label for="edit_anwser_en">Answer</label>
-                        <input id="edit_answer_en" class='form-control' type="text" name="edit_answer_en" required>
+                        <label for="edit_anwser_asem">Question</label>
+                        <input id="edit_answer_asem" class='form-control' type="text" name="edit_answer_asem" required>
                     </div>
                     <div class='form-group col-md-12'>
-                        <label for="edit_question_en">Question</label>
-                        <textarea id='edit_question_en' class='form-control' name='edit_question_en' rows="4" required></textarea>
+                        <label for="edit_question_asem">Answer</label>
+                        <textarea id='edit_question_asem' class='form-control' name='edit_question_asem' rows="4" required></textarea>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% block content %}
     <input type="hidden" id="user" value="{{user.objectId}}">
@@ -91,6 +92,23 @@
                  type: "POST",
                  url: "faq.php",
                  data: {delete_faq:j},
+                 success: function(data, textStatus, jqXHR)
+                 {  
+                 window.location.replace('index.php?faq_admin');
+                  },
+                  error: function(xhr, textStatus, errorThrown){
+                     alert(textStatus);
+                  }
+              });
+          }
+      }
+        function delete_faq_asem(j){
+          if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
+
+             $.ajax({
+                 type: "POST",
+                 url: "faq.php",
+                 data: {delete_faq_asem:j},
                  success: function(data, textStatus, jqXHR)
                  {  
                  window.location.replace('index.php?faq_admin');
@@ -264,19 +282,19 @@
                 }
             }); 
         }
-        function edit_faq_en(i){
+        function edit_faq_asem(i){
             $.ajax({
                type: "POST",
                url: "faq.php",
-               data: {edit_faq_form_en:i},
+               data: {edit_faq_asem:i},
                success: function(data, textStatus, jqXHR)
                {
                var faq = $.parseJSON( data );
-               $('#edit_id').val(faq['id']);
-               $("#edit_question_en").val(faq['edit_question_en']);
-               $("#edit_answer_en").val(faq['edit_answer_en']);
+               $('#edit_id_asem').val(faq['id']);
+               $("#edit_question_asem").val(faq['edit_answer_asem']);
+               $("#edit_answer_asem").val(faq['edit_question_asem']);
 
-               $('#show-faq-edit').trigger('click');
+               $('#show-faq-asem').trigger('click');
                },
                 error: function(xhr, textStatus, errorThrown){
                    alert(textStatus);
