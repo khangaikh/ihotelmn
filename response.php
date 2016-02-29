@@ -18,6 +18,7 @@
     ));
     //load template file
     $twig->setCache(false);
+    $total = 0;
     if(isset($_GET)){
 
         $query = new ParseQuery("orders");
@@ -61,7 +62,7 @@
                 $responseCode = $result[Get_newResult];
             }
         }
-        if ($_GET["success"] == 0 && strlen($responseCode) == 0) 
+        if ($_GET["success"] == 0) 
         {
             $query = new ParseQuery("orders");
             $query->equalTo("order_id",$_GET['trans_number']);
@@ -71,11 +72,7 @@
                 $orders[$i]->set('user',$user);
                 $orders[$i]->save();
             }
-
-            
-
             sendmail($user, $orders);
-
             rs_api_create_res();
 
             unset($_SESSION['orders']);
@@ -138,12 +135,6 @@
             for ($i = 0; $i < count($orders); $i++) {
                 $orders[$i]->destroy();
             }
-
-
-            /*
-            session_destroy();
-            $_SESSION['user'] = $user;
-             */
             unset($_SESSION['orders']);
             unset($_SESSION['start']);
             unset($_SESSION['end']);
@@ -161,30 +152,21 @@
 
     function sendmail($user, $orders){
         $query = new ParseQuery("orders");
-        $query->equalTo("objectId",$_GET['trans_number']);
-        $order = $query->first();
-
-        $query = new ParseQuery("hotel");
-        $query->equalTo("objectId",$order->get('hotel')->getObjectId());
-        $hotel = $query->first();
- 
-        $query = new ParseQuery("rooms");
-        $query->equalTo("hotel",$hotel);
-        $room = $query->first();
-
+        $query->equalTo("order_id",$_GET['trans_number']);
+        $query->includeKey('hotel');
+        $order = $query->find();
         $content = '
-            <div style="box-shadow: 0 2px 1px rgba(0,0,0,0.1);border: 1px solid rgba(0,0,0,0.15); width: 50%;">
                 <header style="padding: 10px 15px;background: #f7f7f7;">
-                    <h5 style="font-size: 14px; margin-bottom: 0; float: right; margin-right: 50%;">
-                        <a style="color: #03629a;text-decoration: none;"href="#">'.$hotel->get('name').'</a></h5>
+                    <h5 style="font-size: 14px; margin-bottom: 0; float: right; margin-right: 80%;">
+                        <a style="color: #03629a;text-decoration: none;"href="#">'.$order[0]->get('hotel')->get('name').'</a></h5>
                     <a style="booking-item-payment-img" href="#">
-                        <img src="'.$hotel->get('cover_image').'" style="width:28%" alt="Image Alternative text" title="hotel 1" />
+                        <img src="'.$order[0]->get('hotel')->get('cover_image').'" style="width:10%" alt="Image Alternative text" title="hotel 1" />
                     </a>
-                </header>
+                    </header>
                 <ul style="list-style: none;margin: 0; padding: 15px; border-top: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9;">
 
                     <h5 style="margin: 0 0 12px; margin-bottom: 8px; font-size: 18.2px; font-weight: 300;line-height: 1em;
-                        color: #565656;">Order number: '.$order->getObjectId().'</h5>
+                        color: #565656;">Order number: '.$order[0]->getObjectId().'</h5>
                     <li style="margin-bottom: 20px;
                             overflow: hidden;
                             display: list-item;
@@ -192,17 +174,21 @@
                             margin: 0;
                             padding: 15px;">
                         <h5 style="margin: 0 0 12px; margin-bottom: 8px;
-                                font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Total days of stay: '.$order->get('days').'</h5>
+                                font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Total days of stay: '.$order[0]->get('days').'</h5>
                         <div style="float: left;">
-                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.$order->get('start').'</p>
-                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order->get('start'))).'</p>
+                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.$order[0]->get('start').'</p>
+                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order[0]->get('start'))).'</p>
                         </div>
                         <div style="float: left; font-size: 50px;">&rarr;</div>
                         <div style="float: left;">
-                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.$order->get('end').'</p>
-                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order->get('end'))).'</p>
+                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.$order[0]->get('end').'</p>
+                            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order[0]->get('end'))).'</p>
                         </div>
                     </li>
+                    ';
+        for ($i = 0; $i < count($order); $i++) {
+            $content .='
+                <ul style="list-style: none;margin: 0; padding: 15px; border-top: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9;">
                     <li style="margin-bottom: 20px;
                             overflow: hidden;
                             display: list-item;
@@ -214,8 +200,8 @@
                         <ul style="margin: 0; padding: 0; list-style: none;">
                             <li style="width: 78%; overflow: hidden;
                             font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;">
-                                <p style="float: left; margin: 5px;">'.$order->get('days').' Nights</p>
-                                <p style="float: right; line-height: 0;">$'.$room->get('night_price').'<small>/per day</small>
+                                <p style="float: left; margin: 5px;">'.$order[$i]->get('days').' Nights</p>
+                                <p style="float: right; line-height: 0;">$'.$order[$i]->get('total').'<small>/per day</small>
                                 </p>
                             </li>
                             <li style="width: 78%; overflow: hidden;
@@ -227,12 +213,13 @@
                         </ul>
                     </li>
                 </ul>
-                <p style="margin: 0 0 0; padding: 8px 30px 8px 15px;
-                            font-size: 12px;">Total amount: <span style="font-size: 24px; color: #686868; font-weight: 400;
-                            letter-spacing: -2px;">US$ '.$order->get('total').'</span>
-                </p>
             </div>
         ';
+        $total +=intval($order[$i]->get('total'));
+        }
+        $content .= '<p style="margin: 0 0 0; padding: 8px 30px 8px 15px; font-size: 12px;">
+            Total amount: <span style="font-size: 24px; color: #686868; font-weight: 400;letter-spacing: -2px;">US$ '
+            .$total*intval($order[0]->get('days')).'</span></p>';
 
         require 'lib/Mailer/PHPMailerAutoload.php';
         $body = $content;
