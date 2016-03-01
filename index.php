@@ -153,7 +153,7 @@
             $query->equalTo("status",1);
             $query->equalTo("asem",0);
             $query->descending("stars");
-            $location = $_GET['location'];
+            //$location = $_GET['location'];
 
             $start = $_GET['start'];
             $end = $_GET['end'];
@@ -585,12 +585,12 @@
 
             $start = $_GET['depart'];
             $end = $_GET['end'];
-            $location = $_GET['location'];
-            $country = $_GET['country'];
+            //$location = $_GET['location'];
+            //$country = $_GET['country'];
 
             $template = $twig->loadTemplate('detail.html');
             //render a template
-            echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
+            echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
         else if(isset($_GET['asemdetail'])){
             $query = new ParseQuery("hotel");

@@ -97,6 +97,7 @@
         <div class="col-md-3">
             <aside class="booking-filters booking-filters-white">
                 <h3>Шүүлт</h3>
+                <input class="form-control" placeholder="Буудлын нэр ..." type="text" style="margin:10px; width:92%" />
                 <ul class="list booking-filters-list">  
                     <li>
                     <h5 class="booking-filters-title"></h5>
@@ -378,7 +379,6 @@
         $('.input-daterange input[name="start"]').datepicker();
         $('.input-daterange input[name="end"]').datepicker();
 
-
         $("input").on('ifChanged', function(event){
 
             var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
@@ -438,54 +438,65 @@
                 type: "POST",
                 url: "sort.php",
                 data: {data:sort, filter1:values1, filter2:values2, city:location},
-                success: function(data, textStatus, jqXHR)
-            {
-                $("#hotels").empty();
-                var events = data['events'];
-                var pages = data['pages'];
-                var sort = data['sort'];
-                $("#sorting").val(sort)
-                $.each(events, function(idx, obj) {
-                    var index = idx+1;
-                    var string = "";
-                    for ($i=0; $i<obj.stars; $i++){
-                        string += '<i class="fa fa-star"></i></li>';
-                    }
-                    $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.id+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars">'+string+'</ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 reviews)</small></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</p><small class="booking-item-last-booked">'+obj.short_desc+'</small></div><div class="csol-md-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.id+'" onclick="details(this);">Book Now</span></div></div></a></li>');
-                });
-            }
+                success: function(data, textStatus, jqXHR){
+                    $("#hotels").empty();
+                    var events = data['events'];
+                    var pages = data['pages'];
+                    var sort = data['sort'];
+                    $("#sorting").val(sort)
+                    $.each(events, function(idx, obj) {
+                        var index = idx+1;
+                        var string = "";
+                        for ($i=0; $i<obj.stars; $i++){
+                            string += '<i class="fa fa-star"></i></li>';
+                        }
+                        $("#hotels").append('<li><a class="booking-item" href="#"><input type="hidden" value="'+obj.id+'"/><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"><div class="booking-item-rating"><ul class="icon-group booking-item-rating-stars">'+string+'</ul><span class="booking-item-rating-number"><b >4.4</b> of 5</span><small>(406 reviews)</small></div><h5 class="booking-item-title">'+obj.name+'</h5><p class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</p><small class="booking-item-last-booked">'+obj.short_desc+'</small></div><div class="csol-md-3"><span class="booking-item-price-from">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary" name="detail" id="'+obj.id+'" onclick="details(this);">Book Now</span></div></div></a></li>');
+                    });
+                }
             });
-            $("span[name=detail]").click(function( event ) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var country = $("#country").val();
-                var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
-                window.location.replace(url);
-            });
-            $('#hotels').on('click', 'span[name=detail]',function(event) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var guests = $("#guests").val();
-                var rooms = $("#rooms").val();
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
-                window.location.replace(url);
-            });
-            $("a[name=detail]").click(function( event ) {
-                event.preventDefault();
-                var curId = $(this).attr('id');
-                var start = $("#start_1").val();
-                var end = $("#end_1").val();
-                var location = $("#location_1").val();
-                var country = $("#country").val();
-                var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
-                window.location.replace(url);
-            });
+        });
+        $("span[name=detail]").click(function( event ) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var country = $("#country").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
+            window.location.replace(url);
+        });
+        $('#hotels').on('click', 'span[name=detail]',function(event) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+            window.location.replace(url);
+        });
+        $('#hotels').on('click', 'a[name=detail]',function(event) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+            window.location.replace(url);
+        });
+        $("a[name=detail]").click(function( event ) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var country = $("#country").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
+            window.location.replace(url);
+        });
         }); 
     </script>
 {% endblock %}

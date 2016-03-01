@@ -580,18 +580,22 @@ $(document).ready(function() {
             } 
         }
     });
+
     var start =$("#start_3").val();
     var end =$("#end_3").val();
     var formattedDate = new Date(start);
     var formattedDate1 = new Date(end);
 
-    $("#start").datepicker({"autoclose": true}).on("change", function() {
+    $('input.date-pick, .input-daterange input[name="start"]').datepicker();
+        $('.input-daterange input[name="end"]').datepicker();
+    /*$("#start_5").datepicker({"autoclose": true}).on("change", function() {
         $("#end").focus();
     }).datepicker('setDate', formattedDate);
     $("#start").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#end").datepicker({"autoclose": true}).on("change", function() {
         $("#num_people").focus();
-    }).datepicker('setDate', formattedDate1).datepicker({ dateFormat: 'dd-mm-yy' });
+    }).datepicker('setDate', formattedDate1).datepicker({ dateFormat: 'dd-mm-yy' });*/
+
     $("span[name=order]").click(function( event ) {
 
         var room_ids = ['1'];
