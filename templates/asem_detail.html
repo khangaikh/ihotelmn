@@ -485,9 +485,6 @@
             var room_str = room_ids.toString();
             var qty_str = room_qtys.toString();
             var sub_str = room_subs.toString();
-            console.log(room_str);
-            console.log(qty_str);
-            console.log(sub_str);
    
             $.post("payment.php", {
                 start: start,
@@ -509,7 +506,6 @@
 
         });
         $(document).on('change','select[name=qty]',function(e){
-            console.log($(this).val());
             var start =$("#start").val();
             var end =$("#end").val();
             var starta = new Date(start);

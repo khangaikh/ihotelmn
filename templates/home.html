@@ -279,8 +279,6 @@
                 $('#mn h3 span').text(data.name);
                 $('#mn .loc-info-weather-num').text(temp+'°C');
                 var img = '';
-                console.log(data.weather[0].id);
-                //alert(data['weather'].id);
                 if(data.weather[0].id > 199 && data.weather[0].id <233){
                     img = 'img/weather/11d.png';
                 }else if(data.weather[0].id > 299 && data.weather[0].id <322){

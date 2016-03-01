@@ -82,44 +82,43 @@
             </tbody>
         </table>
         {% if start %}
-        <h5>Payment due reservations</h5>
-        <table class="table table-bordered table-striped table-booking-history">
-            <thead>
+            <h5>Payment due reservations</h5>
+            <table class="table table-bordered table-striped table-booking-history">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Hotel name</th>
+                        <th>Location</th>
+                        <th>Order date</th>
+                        <th>Date</th>
+                        <th>Payment $</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="orders">
                 <tr>
-                    <th></th>
-                    <th>Hotel name</th>
-                    <th>Location</th>
-                    <th>Order date</th>
-                    <th>Date</th>
-                    <th>Payment $</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="orders">
-            <tr>
-                <td class="text-center">
-                    {% if order.status==1 %}
-                    <i class="fa fa-check" name="{{order.objectId}}"></i>
-                    {%elseif order.status == 2%}
-                    <i class="fa fa-check-circle" name="{{order.objectId}}"></i>
-                    {%else%}
-                    <i class="fa fa-times-circle"></i>
-                    {%endif%}
-                </td>
-                <td class="booking-history-title">{{hotel.name}}</td>
-                <td>Ulaanbaatar, Mongolia (ASEM 11)</td>
-                <td>Just now</td>
-                <td>{{start}}<i class="fa fa-long-arrow-right"></i>{{end}}</td>
-                <td>{{total}}</td>
+                    <td class="text-center">
+                        {% if order.status==1 %}
+                        <i class="fa fa-check" name="{{order.objectId}}"></i>
+                        {%elseif order.status == 2%}
+                        <i class="fa fa-check-circle" name="{{order.objectId}}"></i>
+                        {%else%}
+                        <i class="fa fa-times-circle"></i>
+                        {%endif%}
+                    </td>
+                    <td class="booking-history-title">{{hotel.name}}</td>
+                    <td>Ulaanbaatar, Mongolia (ASEM 11)</td>
+                    <td>Just now</td>
+                    <td>{{start}}<i class="fa fa-long-arrow-right"></i>{{end}}</td>
+                    <td>{{total}}</td>
 
-                <td class="text-center"><a name="{{order.objectId}}" class="btn btn-primary btn-sm" href="index.php?asem_payment" >Pay now</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    <td class="text-center"><a name="{{order.objectId}}" class="btn btn-primary btn-sm" href="index.php?asem_payment" >Pay now</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         {% endif %}
     {%endif%} 
-    
 {% else %}
     {%if user.asem==0%} 
         <h4>Сайн байна уу</h4>
@@ -127,7 +126,7 @@
     {%else%} 
         <h4>Greeting ASEM 2016 guest</h4>
         {% if start %}
-            <h5>Payment due reservations</h5>
+        <h5>Payment due reservations</h5>
         <table class="table table-bordered table-striped table-booking-history">
             <thead>
                 <tr>
@@ -167,7 +166,5 @@
         <p>You haven't done any hotel booking currently. Please book you hotel as soon as possible. <a href="index.php?asem">Click here</a> to order your first booking.</p> 
         {%endif%}
     {%endif%}
-
 {% endif %}
-
 {% endblock %}

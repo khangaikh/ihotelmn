@@ -1,9 +1,8 @@
-
 {% extends "base.html" %}
 {% block content %}
     <input type="hidden" id="user" value="{{user.objectId}}">
     <div style="height:20px"></div>
-     <div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <aside class="user-profile-sidebar">
@@ -19,8 +18,8 @@
                         {%if user.asem==0%}
                         <li {% if nav == 2 %} class="active" {% endif %}><a href="index.php"><i class="fa fa-check"></i>Захиалга</a>
                         </li>
-                       <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
-                        </li>-->
+                        <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
+                            </li>-->
                         {% if user.role == 3 %}
                         <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудлууд</a>
                         </li>
@@ -30,16 +29,16 @@
                         </li>
                         {% endif %}
                         <li {% if nav == 5 %} class="active" {% endif %}>
-                            <a class="popup-text" data-effect="mfp-zoom-out" href="#forgot-dialog"><i class="fa fa-cog"></i>Нууц үг солих</a>
+                        <a class="popup-text" data-effect="mfp-zoom-out" href="#forgot-dialog"><i class="fa fa-cog"></i>Нууц үг солих</a>
                         </li>
                         {%else%}
                         <li {% if nav == 2 %} class="active" {% endif %}><a href="index.php"><i class="fa fa-check"></i>My orders</a>
                         </li>
                         <li {% if nav == 5 %} class="active" {% endif %}>
-                            <a class="popup-text" data-effect="mfp-zoom-out" href="#forgot-dialog"><i class="fa fa-cog"></i>Change password</a>
+                        <a class="popup-text" data-effect="mfp-zoom-out" href="#forgot-dialog"><i class="fa fa-cog"></i>Change password</a>
                         </li>
-                       <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
-                        </li>-->
+                        <!--<li {% if nav == 3 %} class="active" {% endif %}><a href="index.php?card"><i class="fa fa-credit-card"></i>Картууд</a>
+                            </li>-->
                         {% if user.role == 3 %}
                         <li {% if nav == 4 %} class="active" {% endif %}><a href="index.php?hotels"><i class="fa fa-building"></i>Буудлууд</a>
                         </li>
@@ -48,7 +47,7 @@
                         <li {% if nav == 7 %} class="active" {% endif %}><a href="index.php?faq_admin"><i class="fa fa-question"></i>Асуулт, хариулт</a>
                         </li>
                         {% endif %}
-                        
+
                         {%endif%}
                     </ul>
                 </aside>
@@ -78,329 +77,347 @@
                 {% block user_content %}
                 {% endblock %}
             </div>
-                
         </div>
     </div>
 {% endblock %}
 {% block scripting %}
-    {{parent()}}
-    <script type="text/javascript">
-        function delete_faq(j){
-          if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
-
-             $.ajax({
-                 type: "POST",
-                 url: "faq.php",
-                 data: {delete_faq:j},
-                 success: function(data, textStatus, jqXHR)
-                 {  
-                 window.location.replace('index.php?faq_admin');
-                  },
-                  error: function(xhr, textStatus, errorThrown){
-                     alert(textStatus);
-                  }
-              });
-          }
-      }
-        function delete_faq_asem(j){
-          if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
-
-             $.ajax({
-                 type: "POST",
-                 url: "faq.php",
-                 data: {delete_faq_asem:j},
-                 success: function(data, textStatus, jqXHR)
-                 {  
-                 window.location.replace('index.php?faq_admin');
-                  },
-                  error: function(xhr, textStatus, errorThrown){
-                     alert(textStatus);
-                  }
-              });
-          }
-      }
-        $('#forgot_password').click(function(){
-           $.post("user.php", {
-                forgot_password: $('#forgot_email').val(),
-                }, function (result) {
-                    if(result==1){
-                        $(".mfp-close").trigger('click');
-                        $('#register-success2').removeClass('hidden');
-                        $('#register-success2 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээх болно.');
-                    }
-                    else{
-                        $(".mfp-close").trigger('click');
-                        $('#login-alert2').removeClass('hidden');
-                        $('#login-alert2 p').text('Таны и-мэйл хаяг буруу байна!');
-                    }
+{{parent()}}
+<script type="text/javascript">
+    function delete_faq(j){
+        if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
+            var $this = $(this);
+            $this.after('<div id="loading"></div>');
+            $this.addClass('disabled');
+            $.ajax({
+                type: "POST",
+                url: "faq.php",
+                data: {delete_faq:j},
+                success: function(data, textStatus, jqXHR)
+            {  
+                window.location.replace('index.php?faq_admin');
+            },
+                error: function(xhr, textStatus, errorThrown){
+                    alert(textStatus);
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                }
+            });
+        }
+    }
+    function delete_faq_asem(j){
+        if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
+            var $this = $(this);
+            $this.after('<div id="loading"></div>');
+            $this.addClass('disabled');
+            $.ajax({
+                type: "POST",
+            url: "faq.php",
+            data: {delete_faq_asem:j},
+            success: function(data, textStatus, jqXHR)
+            {  
+               window.location.replace('index.php?faq_admin');
+            },
+            error: function(xhr, textStatus, errorThrown){
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                alert(textStatus);
+            }
+            });
+        }
+    }
+    $('#forgot_password').click(function(){
+        var $this = $(this);
+        $this.after('<div id="loading"></div>');
+        $this.addClass('disabled');
+        $.post("user.php", {
+            forgot_password: $('#forgot_email').val(),
+        }, function (result) {
+            if(result==1){
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                $(".mfp-close").trigger('click');
+                $('#register-success2').removeClass('hidden');
+                $('#register-success2 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээх болно.');
+            }
+            else{
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                $(".mfp-close").trigger('click');
+                $('#login-alert2').removeClass('hidden');
+                $('#login-alert2 p').text('Таны и-мэйл хаяг буруу байна!');
+            }
+        });
+    });
+    $(document).ready(function() {
+        $("input").on('ifChecked', function(event){
+            var $this = $(this);
+            $this.after('<div id="loading"></div>');
+            $this.addClass('disabled');
+            $.ajax({
+                type: "POST",
+                url: "show.php",
+                data: {data:1},
+                success: function(data, textStatus, jqXHR)
+            {
+                $("#orders").empty();
+                $.each(data, function(idx, obj) {
+                    $("#orders").append('<tr><td class="text-center"><i class="fa fa-check" name="'+ obj.id +'"></i></td><td class="booking-history-title">'+obj.name+'</td><td>'+obj.location+'</td><td>'+obj.orderDate +'</td><td>'+ obj.start+'<i class="fa fa-long-arrow-right"></i>'+obj.end +'</td><td>'+obj.total+'</td><td class="text-center"><a name="'+ obj.id +'" class="btn btn-default btn-sm" href="#" onclick="cancel('+obj.id+')">Цуцлах</a></td></tr>');     
+                });
+            },
+                error: function(xhr, textStatus, errorThrown){
+                    alert(textStatus);
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                }
             });
         });
-        $(document).ready(function() {
-
-            $("input").on('ifChecked', function(event){
-              $.ajax({
-                   type: "POST",
-                   url: "show.php",
-                   data: {data:1},
-                   success: function(data, textStatus, jqXHR)
-                   {
-                      $("#orders").empty();
-                        $.each(data, function(idx, obj) {
-                            $("#orders").append('<tr><td class="text-center"><i class="fa fa-check" name="'+ obj.id +'"></i></td><td class="booking-history-title">'+obj.name+'</td><td>'+obj.location+'</td><td>'+obj.orderDate +'</td><td>'+ obj.start+'<i class="fa fa-long-arrow-right"></i>'+obj.end +'</td><td>'+obj.total+'</td><td class="text-center"><a name="'+ obj.id +'" class="btn btn-default btn-sm" href="#" onclick="cancel('+obj.id+')">Цуцлах</a></td></tr>');     
-                        });
-                    },
-                    error: function(xhr, textStatus, errorThrown){
-                       alert(textStatus);
-                    }
+        $("input").on('ifUnchecked', function(event){
+            $.ajax({
+                type: "POST",
+                url: "show.php",
+                data: {data:2},
+                success: function(data, textStatus, jqXHR)
+            {
+                $.each(data, function(idx, obj) {
+                    $("#orders").append('<tr><td class="text-center"><i class="fa fa-times-circle" name="'+ obj.id +'"></i></td><td class="booking-history-title">'+obj.name+'</td><td>'+obj.location+'</td><td>'+obj.orderDate +'</td><td>'+ obj.start+'<i class="fa fa-long-arrow-right"></i>'+obj.end +'</td><td>'+obj.total+'</td><td class="text-center"><a name="'+ obj.id +'" class="btn btn-default btn-sm" href="#" onclick="cancel('+obj.id+')">Цуцлах</a></td></tr>');     
                 });
+            },
+                error: function(xhr, textStatus, errorThrown){
+                    alert(textStatus);
+                }
             });
-            $("input").on('ifUnchecked', function(event){
-              $.ajax({
-                   type: "POST",
-                   url: "show.php",
-                   data: {data:2},
-                   success: function(data, textStatus, jqXHR)
-                   {
-                        $.each(data, function(idx, obj) {
-                            $("#orders").append('<tr><td class="text-center"><i class="fa fa-times-circle" name="'+ obj.id +'"></i></td><td class="booking-history-title">'+obj.name+'</td><td>'+obj.location+'</td><td>'+obj.orderDate +'</td><td>'+ obj.start+'<i class="fa fa-long-arrow-right"></i>'+obj.end +'</td><td>'+obj.total+'</td><td class="text-center"><a name="'+ obj.id +'" class="btn btn-default btn-sm" href="#" onclick="cancel('+obj.id+')">Цуцлах</a></td></tr>');     
-                        });
-                    },
-                    error: function(xhr, textStatus, errorThrown){
-                       alert(textStatus);
-                    }
-                });
-            });
-            $("#new_pass").click(function(){
-                
-                $('#oldPass').parsley().validate();
-                if($('#oldPass').parsley().isValid() == false){
-                    $('#oldPass').css('border-color','red');
-                } else{
-                    $('#oldPass').css('border-color','green');
-                }
-                $('#newPass').parsley().validate();
-                if($('#newPass').parsley().isValid() == false){
-                    $('#newPass').css('border-color','red');
-                } else{
-                    $('#newPass').css('border-color','green');
-                }
-                 $('#newPassConfirm').parsley().validate();
-                if($('#newPassConfirm').parsley().isValid() == false){
-                    $('#newPassConfirm').css('border-color','red');
-                } else{
-                    $('#newPassConfirm').css('border-color','green');
-                }
-                if($('#newPassConfirm').parsley().isValid() && $('#oldPass').parsley().isValid() && $('#newPass').parsley().isValid()){
-                  var old = $('#oldPass').val();
-                  var yeni = $('#newPass').val();
-                  var confirm = $('#newPassConfirm').val();
+        });
+        $("#new_pass").click(function(){
 
-                  if(confirm == yeni){
+            $('#oldPass').parsley().validate();
+            if($('#oldPass').parsley().isValid() == false){
+                $('#oldPass').css('border-color','red');
+            } else{
+                $('#oldPass').css('border-color','green');
+            }
+            $('#newPass').parsley().validate();
+            if($('#newPass').parsley().isValid() == false){
+                $('#newPass').css('border-color','red');
+            } else{
+                $('#newPass').css('border-color','green');
+            }
+            $('#newPassConfirm').parsley().validate();
+            if($('#newPassConfirm').parsley().isValid() == false){
+                $('#newPassConfirm').css('border-color','red');
+            } else{
+                $('#newPassConfirm').css('border-color','green');
+            }
+            if($('#newPassConfirm').parsley().isValid() && $('#oldPass').parsley().isValid() && $('#newPass').parsley().isValid()){
+                var old = $('#oldPass').val();
+                var yeni = $('#newPass').val();
+                var confirm = $('#newPassConfirm').val();
+
+                if(confirm == yeni){
                     $.ajax({
                         type: "POST",
                         url: "settings.php",
                         data: {old:old, newPass:yeni},
                         success: function(data, textStatus, jqXHR)
-                        {
-                            $('#oldPass').val('');
-                            $('#newPass').val('');
-                            $('#newPassConfirm').val('');
-                            alert("Нууц үг амжилтатй солигдлоо.");
-                        },
+                    {
+                        $('#oldPass').val('');
+                        $('#newPass').val('');
+                        $('#newPassConfirm').val('');
+                        alert("Нууц үг амжилтатй солигдлоо.");
+                    },
                         error: function(xhr, textStatus, errorThrown){
-                           alert(textStatus);
+                            alert(textStatus);
                         }
-                        });
-                  }else{
-                      alert("2 нууц үг хоорондоо таарахгүй байна.");
-                  }
-                  
-                }                
-            });
+                    });
+                }else{
+                    alert("2 нууц үг хоорондоо таарахгүй байна.");
+                }
+
+            }                
         });
-        function cancel(i){
-            if (confirm('Та итгэлтэй байна уу? Цуцлах үйлдлийг буцаах боломжгүй')) {
-               $.ajax({
-                   type: "POST",
-                   url: "cancel.php",
-                   data: {data:i},
-                   success: function(data, textStatus, jqXHR)
-                   {
-                        $('i[name='+i+']').removeClass('fa-check-circle');  
-                        $('i[name='+i+']').removeClass('fa-check'); 
-                        $('i[name='+i+']').addClass('fa-times-circle'); 
-                        $('a[name='+i+']').hide(); 
-                    },
-                    error: function(xhr, textStatus, errorThrown){
-                       alert(textStatus);
-                    }
-                });
-            }
-        }
-        function edit_news(i){
+    });
+    function cancel(i){
+        if (confirm('Та итгэлтэй байна уу? Цуцлах үйлдлийг буцаах боломжгүй')) {
             $.ajax({
-               type: "POST",
-               url: "news.php",
-               data: {news_update_form:i},
-               success: function(data, textStatus, jqXHR)
-               {
-
-               var news = $.parseJSON( data );
-               $("#update_news_id").val(news['id']);
-               $("#update_news_subject").val(news['subject']);
-               $("#update_news_catogry").val(news['category']);
-               $("#update_news_short_desc").val(news['short_desc']);
-               $("#update_news_desc").val(news['content']);
-               $("#update_news_language").val(news['language']);
-               $("#update_news_pic").attr('src',news['header_image']);
-
-               $('#show-news-edit').trigger('click');
-               },
+                type: "POST",
+                url: "cancel.php",
+                data: {data:i},
+                success: function(data, textStatus, jqXHR)
+            {
+                $('i[name='+i+']').removeClass('fa-check-circle');  
+                $('i[name='+i+']').removeClass('fa-check'); 
+                $('i[name='+i+']').addClass('fa-times-circle'); 
+                $('a[name='+i+']').hide(); 
+            },
                 error: function(xhr, textStatus, errorThrown){
-                   alert(textStatus);
+                    alert(textStatus);
                 }
-            }); 
+            });
         }
-        function edit_faq(i){
+    }
+    function edit_news(i){
+        $.ajax({
+            type: "POST",
+        url: "news.php",
+        data: {news_update_form:i},
+        success: function(data, textStatus, jqXHR)
+        {
+
+            var news = $.parseJSON( data );
+            $("#update_news_id").val(news['id']);
+            $("#update_news_subject").val(news['subject']);
+            $("#update_news_catogry").val(news['category']);
+            $("#update_news_short_desc").val(news['short_desc']);
+            $("#update_news_desc").val(news['content']);
+            $("#update_news_language").val(news['language']);
+            $("#update_news_pic").attr('src',news['header_image']);
+
+            $('#show-news-edit').trigger('click');
+        },
+        error: function(xhr, textStatus, errorThrown){
+            alert(textStatus);
+        }
+        }); 
+    }
+    function edit_faq(i){
+        $.ajax({
+            type: "POST",
+        url: "faq.php",
+        data: {edit_faq_form:i},
+        success: function(data, textStatus, jqXHR)
+        {
+            var faq = $.parseJSON( data );
+            $('#edit_id').val(faq['id']);
+            $("#edit_answer_mn").val(faq['edit_answer_mn']);
+            $("#edit_question_mn").val(faq['edit_question_mn']);
+            $("#edit_answer_en").val(faq['edit_answer_en']);
+            $("#edit_question_en").val(faq['edit_question_en']);
+
+            $('#show-faq-edit').trigger('click');
+        },
+        error: function(xhr, textStatus, errorThrown){
+            alert(textStatus);
+        }
+        }); 
+    }
+    function edit_faq_asem(i){
+        $.ajax({
+            type: "POST",
+        url: "faq.php",
+        data: {edit_faq_asem:i},
+        success: function(data, textStatus, jqXHR)
+        {
+            var faq = $.parseJSON( data );
+            $('#edit_id_asem').val(faq['id']);
+            $("#edit_question_asem").val(faq['edit_answer_asem']);
+            $("#edit_answer_asem").val(faq['edit_question_asem']);
+
+            $('#show-faq-asem').trigger('click');
+        },
+        error: function(xhr, textStatus, errorThrown){
+            alert(textStatus);
+        }
+        }); 
+    }
+    function edit_hotel(i){
+        $.ajax({
+            type: "POST",
+        url: "update.php",
+        data: {data:i},
+        success: function(data, textStatus, jqXHR)
+        {
+            //alert(data);
+            var url = "index.php?hotel_add";  
+            window.location.replace(url);        
+        },
+        error: function(xhr, textStatus, errorThrown){
+            alert(textStatus);
+        }
+        }); 
+    }
+    function delete1(j){
+        if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
             $.ajax({
-               type: "POST",
-               url: "faq.php",
-               data: {edit_faq_form:i},
-               success: function(data, textStatus, jqXHR)
-               {
-               var faq = $.parseJSON( data );
-               $('#edit_id').val(faq['id']);
-               $("#edit_answer_mn").val(faq['edit_answer_mn']);
-               $("#edit_question_mn").val(faq['edit_question_mn']);
-               $("#edit_answer_en").val(faq['edit_answer_en']);
-               $("#edit_question_en").val(faq['edit_question_en']);
-
-               $('#show-faq-edit').trigger('click');
-               },
+                type: "POST",
+                url: "delete.php",
+                data: {data:j,action:1},
+                success: function(data, textStatus, jqXHR)
+            {
+                $('#'+j).hide(); 
+            },
                 error: function(xhr, textStatus, errorThrown){
-                   alert(textStatus);
+                    alert(textStatus);
                 }
-            }); 
+            });
         }
-        function edit_faq_asem(i){
+    } 
+    function delete_news(j){
+        if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
             $.ajax({
-               type: "POST",
-               url: "faq.php",
-               data: {edit_faq_asem:i},
-               success: function(data, textStatus, jqXHR)
-               {
-               var faq = $.parseJSON( data );
-               $('#edit_id_asem').val(faq['id']);
-               $("#edit_question_asem").val(faq['edit_answer_asem']);
-               $("#edit_answer_asem").val(faq['edit_question_asem']);
-
-               $('#show-faq-asem').trigger('click');
-               },
+                type: "POST",
+                url: "news.php",
+                data: {delete_news:j},
+                success: function(data, textStatus, jqXHR)
+            {  
+                window.location.replace('index.php?news_admin');
+            },
                 error: function(xhr, textStatus, errorThrown){
-                   alert(textStatus);
+                    alert(textStatus);
                 }
-            }); 
+            });
         }
-        function edit_hotel(i){
+    }
+
+    function disable_hotel(j){
+        if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
             $.ajax({
-               type: "POST",
-               url: "update.php",
-               data: {data:i},
-               success: function(data, textStatus, jqXHR)
-               {
-                //alert(data);
-                  var url = "index.php?hotel_add";  
-                  window.location.replace(url);        
-                },
+                type: "POST",
+                url: "delete.php",
+                data: {data:j,action:2},
+                success: function(data, textStatus, jqXHR)
+            {  
+                $('i[name='+j+']').removeClass('fa-check-circle');  
+                $('i[name='+j+']').removeClass('fa-check'); 
+                $('i[name='+j+']').addClass('fa-times-circle'); 
+            },
                 error: function(xhr, textStatus, errorThrown){
-                   alert(textStatus);
+                    alert(textStatus);
                 }
-            }); 
+            });
         }
-        function delete1(j){
-            if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
-               $.ajax({
-                   type: "POST",
-                   url: "delete.php",
-                   data: {data:j,action:1},
-                   success: function(data, textStatus, jqXHR)
-                   {
-                        $('#'+j).hide(); 
-                    },
-                    error: function(xhr, textStatus, errorThrown){
-                       alert(textStatus);
-                    }
-                });
-            }
-        } 
-        function delete_news(j){
-            if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
-               $.ajax({
-                   type: "POST",
-                   url: "news.php",
-                   data: {delete_news:j},
-                   success: function(data, textStatus, jqXHR)
-                   {  
-                   window.location.replace('index.php?news_admin');
-                    },
-                    error: function(xhr, textStatus, errorThrown){
-                       alert(textStatus);
-                    }
-                });
-            }
+    }
+    function set_hotel(j){
+        if (confirm('Та итгэлтэй байна уу?')) {
+            $.ajax({
+                type: "POST",
+                url: "delete.php",
+                data: {data:j,action:3},
+                success: function(data, textStatus, jqXHR)
+            {  
+                $('a[name='+j+']').hide();
+                $("#operations").append('<a name="'+j+'" set="1" class="btn btn-primary" href="#" onclick="unset_hotel('+j+')">Unset</a>');
+            },
+                error: function(xhr, textStatus, errorThrown){
+                    alert(textStatus);
+                }
+            });
         }
-
-        function disable_hotel(j){
-            if (confirm('Та итгэлтэй байна уу? Устгах үйлдлийг буцаах боломжгүй')) {
-               $.ajax({
-                   type: "POST",
-                   url: "delete.php",
-                   data: {data:j,action:2},
-                   success: function(data, textStatus, jqXHR)
-                   {  
-                        $('i[name='+j+']').removeClass('fa-check-circle');  
-                        $('i[name='+j+']').removeClass('fa-check'); 
-                        $('i[name='+j+']').addClass('fa-times-circle'); 
-                    },
-                    error: function(xhr, textStatus, errorThrown){
-                       alert(textStatus);
-                    }
-                });
-            }
+    }
+    function unset_hotel(j){
+        if (confirm('Та итгэлтэй байна уу?')) {
+            $.ajax({
+                type: "POST",
+                url: "delete.php",
+                data: {data:j,action:4},
+                success: function(data, textStatus, jqXHR)
+            {    
+                $('a[name='+j+']').hide();
+                $("#operations").append('<a name="'+j+'" set="1" class="btn btn-primary" href="#" onclick="set_hotel('+j+')">Set</a>');
+            },
+                error: function(xhr, textStatus, errorThrown){
+                    alert(textStatus);
+                }
+            });
         }
-        function set_hotel(j){
-            if (confirm('Та итгэлтэй байна уу?')) {
-               $.ajax({
-                   type: "POST",
-                   url: "delete.php",
-                   data: {data:j,action:3},
-                   success: function(data, textStatus, jqXHR)
-                   {  
-                       $('a[name='+j+']').hide();
-                       $("#operations").append('<a name="'+j+'" set="1" class="btn btn-primary" href="#" onclick="unset_hotel('+j+')">Unset</a>');
-                    },
-                    error: function(xhr, textStatus, errorThrown){
-                       alert(textStatus);
-                    }
-                });
-            }
-        }
-        function unset_hotel(j){
-            if (confirm('Та итгэлтэй байна уу?')) {
-               $.ajax({
-                   type: "POST",
-                   url: "delete.php",
-                   data: {data:j,action:4},
-                   success: function(data, textStatus, jqXHR)
-                   {    
-                       $('a[name='+j+']').hide();
-                       $("#operations").append('<a name="'+j+'" set="1" class="btn btn-primary" href="#" onclick="set_hotel('+j+')">Set</a>');
-                    },
-                    error: function(xhr, textStatus, errorThrown){
-                       alert(textStatus);
-                    }
-                });
-            }
-        }
-    </script>
+    }
+</script>
 {% endblock %}
