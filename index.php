@@ -469,36 +469,36 @@
         }
         else if(isset($_POST['contact_us'])){
             require 'lib/Mailer/PHPMailerAutoload.php';
-             $content='<h4>Нэр: '.$_POST['name'].'</h4><h4>И-мэйл хаяг: '
-                 .$_POST['email']. '</h4><h4> Захидал: </h4><p>'.$_POST['content'].'</p>';
-             date_default_timezone_set('Etc/UTC');
-             $mail = new PHPMailer;
-             $mail->isSMTP();
-             //$mail->SMTPDebug = 2;
-             $mail->Debugoutput = 'html';
-             $mail->Host = 'smtp.gmail.com';
-             $mail->Port = 587;
-             $mail->SMTPSecure = 'tsl';
-             $mail->SMTPAuth = true;
-             $mail->Username = "ihotelmn@gmail.com";
-             $mail->Password = "99095102";
-             $mail->setFrom('ihotelmn@gmail.com', 'iHotel.mn');
-             $mail->addAddress('khangai@alchemist.mn', 'Contact us');
-             $mail->Subject = 'Contact us';
-             $mail->msgHTML($content);
-             $mail->AltBody = '';
-             $result = false;
-             if (!$mail->send()) { $result=false; } 
-             else { 
-                 $contact_us = new ParseObject("contact_us");
-                 $contact_us->set('email', $_POST['email']);
-                 $contact_us->set('name', $_POST['name']);
-                 $contact_us->set('content', $_POST['content']);
-                 $contact_us->save();
-                 $result=true; 
-             }
- 
-             if($result){ echo 1; }else{ echo 0; }
+            $content='<h4>Нэр: '.$_POST['name'].'</h4><h4>И-мэйл хаяг: '
+                .$_POST['email']. '</h4><h4> Захидал: </h4><p>'.$_POST['content'].'</p>';
+            date_default_timezone_set('Etc/UTC');
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            //$mail->SMTPDebug = 2;
+            $mail->Debugoutput = 'html';
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 587;
+            $mail->SMTPSecure = 'tsl';
+            $mail->SMTPAuth = true;
+            $mail->Username = "ihotelmn@gmail.com";
+            $mail->Password = "99095102";
+            $mail->setFrom('ihotelmn@gmail.com', 'iHotel.mn');
+            $mail->addAddress('khangai@alchemist.mn', 'Contact us');
+            $mail->Subject = 'Contact us';
+            $mail->msgHTML($content);
+            $mail->AltBody = '';
+            $result = false;
+            if (!$mail->send()) { $result=false; } 
+            else { 
+                $contact_us = new ParseObject("contact_us");
+                $contact_us->set('email', $_POST['email']);
+                $contact_us->set('name', $_POST['name']);
+                $contact_us->set('content', $_POST['content']);
+                $contact_us->save();
+                $result=true; 
+            }
+
+            if($result){ echo 1; }else{ echo 0; }
         }
         else if(isset($_GET['asem_login'])){
             $template = $twig->loadTemplate('asem_register.html');
@@ -554,7 +554,7 @@
 
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
-  
+
             $template = $twig->loadTemplate('asem_list.html');
             //render a template
             echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms));
@@ -683,7 +683,6 @@
             $query->includeKey("user");
             $query->equalTo("category",$_GET['news_search']);
             $news = $query->find();
-
             $query->equalTo('category', 'Travel Advices');
             $travel_advice = $query->find();
             $data['travel_advice']=count($travel_advice);
@@ -736,7 +735,7 @@
             echo $template->render(array('title' => 'FAQ', 'nav' => 3, 'faqs'=>$faqs));
         }
         else if(isset($_GET['payment'])){
-            
+
             if(isset($_SESSION['orders'])){
                 $start = $_SESSION['start'];
                 $end = $_SESSION['end'];
@@ -771,7 +770,7 @@
             }
         }
         else if(isset($_GET['asem_payment'])){
-            
+
             if(isset($_SESSION['orders'])){
                 $start = $_SESSION['start'];
                 $end = $_SESSION['end'];
