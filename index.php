@@ -753,7 +753,7 @@
             echo $template->render(array('title' => ''));
         }
         else if(isset($_GET['asem-faq'])){
-            $query = new ParseQuery("faq");
+            $query = new ParseQuery("faq_en");
             $faqs = $query->find();
             $template = $twig->loadTemplate('asem-faq.html');
             echo $template->render(array('title' => 'FAQ', 'nav' => 3, 'faqs'=>$faqs));
