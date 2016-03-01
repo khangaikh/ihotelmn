@@ -503,11 +503,14 @@ $(document).ready(function(){
   $('.disabled').click(function(){
     return false;
   });
-});
+});60
 
 $(document).ready(function(){
     $('.ajax-full-width').click(function(){
-        $(this).css('width', '80%')
+        var width = $(this).width();
+        $(this).after('<div id="loading"></div>');
+        $(this).addClass('disabled');
+        $(this).width(width - 60);
     });
     $('.ajax').click(function(){
         $(this).after('<div id="loading"></div>');
