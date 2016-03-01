@@ -1,27 +1,26 @@
 {% extends "user.html" %}
 {% block user_content %}
-<a id="show-faq-edit" class="popup-text" href="#edit-faq" data-effect="mfp-zoom-out" style="display: none;"></a>
-<a id="show-faq-asem" class="popup-text" href="#edit-faq-asem" data-effect="mfp-zoom-out" style="display: none;"></a>
-   {% if result == 1 %}
+    <a id="show-faq-edit" class="popup-text" href="#edit-faq" data-effect="mfp-zoom-out" style="display: none;"></a>
+    <a id="show-faq-asem" class="popup-text" href="#edit-faq-asem" data-effect="mfp-zoom-out" style="display: none;"></a>
+{% if result == 1 %}
     <script type="text/javascript" charset="utf-8">
-        window.location.replace("index.php?faq_admin");
+    window.location.replace("index.php?faq_admin");
     </script>
-    {% endif %}
-<a class="popup-text btn btn-primary" href="#add-faq" data-effect="mfp-zoom-out">Асуулт оруулах</a>
-<a class="popup-text btn btn-primary" href="#add-faq-asem" data-effect="mfp-zoom-out">Add question</a>
-<div class="gap-small"></div>
-
+{% endif %}
+    <a class="popup-text btn btn-primary" href="#add-faq" data-effect="mfp-zoom-out">Асуулт оруулах</a>
+    <a class="popup-text btn btn-primary" href="#add-faq-asem" data-effect="mfp-zoom-out">Add question</a>
+    <div class="gap-small"></div>
 {% if faqs %}
-<table class="table table-bordered table-striped table-booking-history">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Асуулт</th>
-            <th>Хариулт</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="orders">
+    <table class="table table-bordered table-striped table-booking-history">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Асуулт</th>
+                <th>Хариулт</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="orders">
         {% for faq in faqs %}
         <tr>
             <td class="text-center">
@@ -35,20 +34,20 @@
             </td>
         </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 {% endif %}
 {% if faqs_en %}
-<table class="table table-bordered table-striped table-booking-history">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Асуулт</th>
-            <th>Хариулт</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="orders">
+    <table class="table table-bordered table-striped table-booking-history">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Асуулт</th>
+                <th>Хариулт</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="orders">
         {% for faq in faqs_en %}
         <tr>
             <td class="text-center">
@@ -62,169 +61,141 @@
             </td>
         </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 {% endif %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="add-faq">
-    <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
-        <fieldset id="main-room-form" class="active">
-            <div id="error_header" class="alert alert-danger hidden"></div>
-            <legend>
-                <span id="news_name_label">Нэмэх</span>
-            </legend>
-            <div class="row">
-                <div class='is-block'>
-                    <div class='form-group col-sm-12'>
-                        <label for="anwser_mn">Асуулт</label>
-                        <input id="answer_mn" class='form-control' type="text" name="answer_mn" required="">
-                    </div>
-                    <div class='form-group col-md-12'>
-                        <label for="question_mn">Хариулт</label>
-                        <textarea id='question_mn' class='form-control' name='question_mn' rows="4" required></textarea>
+    <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="add-faq">
+        <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="news_name_label">Нэмэх</span>
+                </legend>
+                <div class="row">
+                    <div class='is-block'>
+                        <div class='form-group col-sm-12'>
+                            <label for="anwser_mn">Асуулт</label>
+                            <input id="answer_mn" class='form-control' type="text" name="answer_mn" required="">
+                        </div>
+                        <div class='form-group col-md-12'>
+                            <label for="question_mn">Хариулт</label>
+                            <textarea id='question_mn' class='form-control' name='question_mn' rows="4" required></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class='is-block'>
-                    <div class='form-group col-sm-12'>
-                        <label for="anwser_en">Question</label>
-                        <input id="answer_en" class='form-control' type="text" name="answer_en" required="">
-                    </div>
-                    <div class='form-group col-md-12'>
-                        <label for="question_en">Answer</label>
-                        <textarea id='question_en' class='form-control' name='question_en' rows="4" required></textarea>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-        <div class="row no-return" id="room-cta">
-            <div class="col-md-12 col-sm-12 col-xs-12 continue">
-                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Нэмэх" name='submit'/>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="edit-faq">
-    <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
-        <fieldset id="main-room-form" class="active">
-            <div id="error_header" class="alert alert-danger hidden"></div>
-            <legend>
-                <span id="news_name_label">Засах</span>
-                <input type="hidden" id="edit_id" name="edit_faq_id" value="" class="form-control" required>
-            </legend>
-            <div class="row">
-                <div class='is-block'>
-                    <div class='form-group col-md-12'>
-                        <label for="edit_anwser_mn">Асуулт</label>
-                        <input id="edit_answer_mn" class='form-control' type="text" name="edit_answer_mn" required="">
-                    </div>
-                    <div class='form-group col-md-12'>
-                        <label for="edit_question_mn">Хариулт</label>
-                        <textarea id='edit_question_mn' class='form-control' name='edit_question_mn' rows="4" required></textarea>
+                <div class="row">
+                    <div class='is-block'>
+                        <div class='form-group col-sm-12'>
+                            <label for="anwser_en">Question</label>
+                            <input id="answer_en" class='form-control' type="text" name="answer_en" required="">
+                        </div>
+                        <div class='form-group col-md-12'>
+                            <label for="question_en">Answer</label>
+                            <textarea id='question_en' class='form-control' name='question_en' rows="4" required></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class='is-block'>
-                    <div class='form-group col-md-12'>
-                        <label for="edit_anwser_en">Question</label>
-                        <input id="edit_answer_en" class='form-control' type="text" name="edit_answer_en" required="">
-                    </div>
-                    <div class='form-group col-md-12'>
-                        <label for="edit_question_en">Answer</label>
-                        <textarea id='edit_question_en' class='form-control' name='edit_question_en' rows="4" required></textarea>
-                    </div>
+            </fieldset>
+            <div class="row no-return" id="room-cta">
+                <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                    <input type="submit" class="btn btn-block btn-primary btn-lg" value="Нэмэх" name='submit'/>
                 </div>
             </div>
-        </fieldset>
-        <div class="row no-return" id="room-cta">
-            <div class="col-md-12 col-sm-12 col-xs-12 continue">
-                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Засах" name='submit'/>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-
-
-
-
-
-
-<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="add-faq-asem">
-    <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
-        <fieldset id="main-room-form" class="active">
-            <div id="error_header" class="alert alert-danger hidden"></div>
-            <legend>
-                <span id="news_name_label">Add</span>
-            </legend>
-          <div class="row">
-                <div class='is-block'>
-                    <div class='form-group col-md-12'>
-                        <label for="question_asem">Question</label>
-                        <input id="question_asem" class='form-control' type="text" name="question_asem" required>
-                    </div>
-                    <div class='form-group col-md-12'>
-                        <label for="answer_asem">Answer</label>
-                        <textarea id='answer_asem' class='form-control' name='answer_asem' rows="4" required></textarea>
+        </form>
+    </div>
+    <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="edit-faq">
+        <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="news_name_label">Засах</span>
+                    <input type="hidden" id="edit_id" name="edit_faq_id" value="" class="form-control" required>
+                </legend>
+                <div class="row">
+                    <div class='is-block'>
+                        <div class='form-group col-md-12'>
+                            <label for="edit_anwser_mn">Асуулт</label>
+                            <input id="edit_answer_mn" class='form-control' type="text" name="edit_answer_mn" required="">
+                        </div>
+                        <div class='form-group col-md-12'>
+                            <label for="edit_question_mn">Хариулт</label>
+                            <textarea id='edit_question_mn' class='form-control' name='edit_question_mn' rows="4" required></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </fieldset>
-        <div class="row no-return" id="room-cta">
-            <div class="col-md-12 col-sm-12 col-xs-12 continue">
-                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Add" name='submit'/>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="edit-faq-asem">
-    <form id="faq_form_asem" action="faq.php" data-parsley-validate method="POST">
-        <fieldset id="main-room-form" class="active">
-            <div id="error_header" class="alert alert-danger hidden"></div>
-            <legend>
-                <span id="news_name_label">Edit</span>
-                <input type="hidden" id="edit_id_asem" name="edit_id_asem" value="" class="form-control" required>
-            </legend>
-            <div class="row">
-                <div class='is-block'>
-                    <div class='form-group col-md-12'>
-                        <label for="edit_anwser_asem">Question</label>
-                        <input id="edit_answer_asem" class='form-control' type="text" name="edit_answer_asem" required>
-                    </div>
-                    <div class='form-group col-md-12'>
-                        <label for="edit_question_asem">Answer</label>
-                        <textarea id='edit_question_asem' class='form-control' name='edit_question_asem' rows="4" required></textarea>
+                <div class="row">
+                    <div class='is-block'>
+                        <div class='form-group col-md-12'>
+                            <label for="edit_anwser_en">Question</label>
+                            <input id="edit_answer_en" class='form-control' type="text" name="edit_answer_en" required="">
+                        </div>
+                        <div class='form-group col-md-12'>
+                            <label for="edit_question_en">Answer</label>
+                            <textarea id='edit_question_en' class='form-control' name='edit_question_en' rows="4" required></textarea>
+                        </div>
                     </div>
                 </div>
+            </fieldset>
+            <div class="row no-return" id="room-cta">
+                <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                    <input type="submit" class="btn btn-block btn-primary btn-lg" value="Засах" name='submit'/>
+                </div>
             </div>
-        </fieldset>
-        <div class="row no-return" id="room-cta">
-            <div class="col-md-12 col-sm-12 col-xs-12 continue">
-                <input type="submit" class="btn btn-block btn-primary btn-lg" value="Засах" name='submit'/>
+        </form>
+    </div>
+    <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="add-faq-asem">
+        <form id="faq_form" action="faq.php" data-parsley-validate method="POST">
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="news_name_label">Add</span>
+                </legend>
+                <div class="row">
+                    <div class='is-block'>
+                        <div class='form-group col-md-12'>
+                            <label for="question_asem">Question</label>
+                            <input id="question_asem" class='form-control' type="text" name="question_asem" required>
+                        </div>
+                        <div class='form-group col-md-12'>
+                            <label for="answer_asem">Answer</label>
+                            <textarea id='answer_asem' class='form-control' name='answer_asem' rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row no-return" id="room-cta">
+                <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                    <input type="submit" class="btn btn-block btn-primary btn-lg" value="Add" name='submit'/>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+    <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="edit-faq-asem">
+        <form id="faq_form_asem" action="faq.php" data-parsley-validate method="POST">
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="news_name_label">Edit</span>
+                    <input type="hidden" id="edit_id_asem" name="edit_id_asem" value="" class="form-control" required>
+                </legend>
+                <div class="row">
+                    <div class='is-block'>
+                        <div class='form-group col-md-12'>
+                            <label for="edit_anwser_asem">Question</label>
+                            <input id="edit_answer_asem" class='form-control' type="text" name="edit_answer_asem" required>
+                        </div>
+                        <div class='form-group col-md-12'>
+                            <label for="edit_question_asem">Answer</label>
+                            <textarea id='edit_question_asem' class='form-control' name='edit_question_asem' rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row no-return" id="room-cta">
+                <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                    <input type="submit" class="btn btn-block btn-primary btn-lg" value="Засах" name='submit'/>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

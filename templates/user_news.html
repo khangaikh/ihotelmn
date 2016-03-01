@@ -1,10 +1,10 @@
 {% extends "user.html" %}
 
 {% block user_content %}
-<a id="show-news-edit" class="popup-text" href="#update-dialog" data-effect="mfp-zoom-out" style="display: none;"/>
+    <a id="show-news-edit" class="popup-text" href="#update-dialog" data-effect="mfp-zoom-out" style="display: none;"/>
     {% if result == 1 %}
     <script type="text/javascript" charset="utf-8">
-        window.location.replace("index.php?news_admin");
+window.location.replace("index.php?news_admin");
     </script>
     {% endif %}
     <div class="gap-small"></div>
@@ -215,58 +215,58 @@
 {% block scripting %}
 {{parent()}}
 <script type="text/javascript" charset="utf-8">
-$("#update_news_image").on("change", function(){
+    $("#update_news_image").on("change", function(){
         var files = !!this.files ? this.files : [];
         if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
 
         $.each( files, function( key, value ) {
             if (/^image/.test( files[key].type)){ // only image file
-            var reader = new FileReader(); // instance of the FileReader
-            reader.readAsDataURL(files[key]); // read the local file
-            reader.onloadend = function(){ 
-            // set image data as background of div
-            var div = $('<div id="'+key+'" class="col-md-6">');
-            var add = $('<a name="remove" class="btn btn-lg" style="margin-left:40px" onClick="removeDiv(this);"><i class="fa fa-times-circle"></a>');
-            var img = $('#update_news_pic'); //Equivalent: $(document.createElement('img'))
-            img.attr('src', this.result);
-            $('#update_news_image1').attr('value',this.result);
-            img.attr('name', 'room-images');
-            img.attr('class', "img-thumbnail");
-            img.appendTo(div);
-            add.appendTo(div);
-            div.appendTo('#update_imagePreview');
-            $("#rempic").hide();
-            }
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[key]); // read the local file
+                reader.onloadend = function(){ 
+                    // set image data as background of div
+                    var div = $('<div id="'+key+'" class="col-md-6">');
+                    var add = $('<a name="remove" class="btn btn-lg" style="margin-left:40px" onClick="removeDiv(this);"><i class="fa fa-times-circle"></a>');
+                    var img = $('#update_news_pic'); //Equivalent: $(document.createElement('img'))
+                    img.attr('src', this.result);
+                    $('#update_news_image1').attr('value',this.result);
+                    img.attr('name', 'room-images');
+                    img.attr('class', "img-thumbnail");
+                    img.appendTo(div);
+                    add.appendTo(div);
+                    div.appendTo('#update_imagePreview');
+                    $("#rempic").hide();
+                }
             }else{
-            alert("Зураг биш байна. Тохиромжтой зураг оруулна уу");
+                alert("Зураг биш байна. Тохиромжтой зураг оруулна уу");
             }
         });
-});
-$("#news_image").on("change", function(){
+    });
+    $("#news_image").on("change", function(){
         var files = !!this.files ? this.files : [];
         if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
 
         $.each( files, function( key, value ) {
             if (/^image/.test( files[key].type)){ // only image file
-            var reader = new FileReader(); // instance of the FileReader
-            reader.readAsDataURL(files[key]); // read the local file
-            reader.onloadend = function(){ 
-            // set image data as background of div
-            var div = $('<div id="'+key+'" class="col-md-6">');
-            var add = $('<a name="remove" class="btn btn-lg" style="margin-left:40px" onClick="removeDiv(this);"><i class="fa fa-times-circle"></a>');
-            var img = $('<img>'); //Equivalent: $(document.createElement('img'))
-            img.attr('src', this.result);
-            $('#news_image1').attr('value',this.result);
-            img.attr('name', 'room-images');
-            img.attr('class', "img-thumbnail");
-            img.appendTo(div);
-            add.appendTo(div);
-            div.appendTo('#imagePreview');
-            }
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[key]); // read the local file
+                reader.onloadend = function(){ 
+                    // set image data as background of div
+                    var div = $('<div id="'+key+'" class="col-md-6">');
+                    var add = $('<a name="remove" class="btn btn-lg" style="margin-left:40px" onClick="removeDiv(this);"><i class="fa fa-times-circle"></a>');
+                    var img = $('<img>'); //Equivalent: $(document.createElement('img'))
+                    img.attr('src', this.result);
+                    $('#news_image1').attr('value',this.result);
+                    img.attr('name', 'room-images');
+                    img.attr('class', "img-thumbnail");
+                    img.appendTo(div);
+                    add.appendTo(div);
+                    div.appendTo('#imagePreview');
+                }
             }else{
-            alert("Зураг биш байна. Тохиромжтой зураг оруулна уу");
+                alert("Зураг биш байна. Тохиромжтой зураг оруулна уу");
             }
-            });
-});
+        });
+    });
 </script>
 {% endblock %}

@@ -121,47 +121,54 @@
 {% endblock %}
 {% block scripting %}
 {{parent()}}
-<script src="js/jquery.creditCardValidator.js"></script>
 <script type="text/javascript">
     $('#login').click(function(){
-             $('.alert').hide(0);
+        $('.alert').hide(0);
         var $this = $(this);
         $this.after('<div id="loading"></div>');
         $this.addClass('disabled');
-           $.post("login.php", {
-                email: $('#email').val(),
-                password: $('#password').val()
-                }, function (result) {
-                    if(result==1){
-                        window.location.replace(window.location.href);   
-                    }
-                    else{
-                        $('#loading').remove();
-                        $this.removeClass('disabled');
-                        $('#login-alert').fadeIn(500);
-                        $('#login-alert p').text('Username or password incorrect!');
-                    }
-            });
+        $.post("login.php", {
+            email: $('#email').val(),
+            password: $('#password').val()
+        }, function (result) {
+            if(result==1){
+                window.location.replace(window.location.href);   
+            }
+            else{
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                $('#login-alert').fadeIn(500);
+                $('#login-alert p').text('Username or password incorrect!');
+            }
         });
-        $('#forgot_password').click(function(){
-           $.post("user.php", {
-                forgot_password: $('#forgot_email').val(),
-                }, function (result) {
-                    if(result==1){
-                        $(".mfp-close").trigger('click');
-                        $('#register-success1').removeClass('hidden');
-                        $('#register-success1 p').text('Please check your email');
-                    }
-                    else{
-                        $(".mfp-close").trigger('click');
-                        $('#login-alert1').removeClass('hidden');
-                        $('#login-alert1 p').text('Your email is wrong!');
-                    }
-            });
+    });
+    $('#forgot_password').click(function(){
+        var $this = $(this);
+        $this.after('<div id="loading"></div>');
+        $this.addClass('disabled');
+        $.post("user.php", {
+            forgot_password: $('#forgot_email').val(),
+        }, function (result) {
+            if(result==1){
+                $(".mfp-close").trigger('click');
+                $('#register-success1').removeClass('hidden');
+                $('#register-success1 p').text('Please check your email');
+            }
+            else{
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                $(".mfp-close").trigger('click');
+                $('#login-alert1').removeClass('hidden');
+                $('#login-alert1 p').text('Your email is wrong!');
+            }
         });
-        $("#golomt_pay").submit(function( event ) {
+    });
+    $("#golomt_pay").submit(function( event ) {
         {% if user %}
         event.preventDefault();
+        var $this = $(this);
+        $this.after('<div id="loading"></div>');
+        $this.addClass('disabled');
         $.post("order.php", {
             end: $('#end_4').val(),
         }, function (result) {
@@ -172,57 +179,31 @@
                     trans_amount: $('#total_4').val(), lang_ind: '1',
                     customer_id: '',
                     subID: '1'
-                });
+                    });
             }
             else{
+                $('#loading').remove();
+                $this.removeClass('disabled');
                 alert(result);
             }
         });
-
-        {% else %}
-        $.post("order.php", {
-            name: $('#full_name').val(), 
-            email: $('#email').val(), 
-            phone: $('#phone').val(),
-            location: $('#location_4').val(),
-            total: $('#total_4').val(),
-            days: $('#days_4').val(),
-            start: $('#start_4').val(),
-            hotel: $('#hotel_4').val(),
-            room: $('#room_4').val(),
-            end: $('#end_4').val(),
-        }, function (result) {
-            if(result!=0){
-                var orderID = result;  
-                post('https://m.egolomt.mn/billingnew/cardinfo.aspx', {key_number: '254251235225252244203251255231202171168165162162182164175',
-                    trans_number: orderID, 
-                    trans_amount: $('#total_4').val(), lang_ind: '1',
-                    customer_id: '',
-                    subID: '1'
-                });
-            }
-            else{
-                alert(result);
-            }
-        });
-        event.preventDefault();
         {% endif %}
     });
 
     $('#add').click(function(){
-     $.post("user.php", {
-        email: $('#remail').val(),
-        username: $('#rusername').val(),
-        password: $('#rpassword').val()
-    }, function (result) {
-        if(result==1){
-            alert("Амжилттай бүртгүүллээ. Та бүртгүүлсэн мэдээллээ ашиглан нэвтэрнэ үү");
-            window.location.replace("index.php");  
-        }
-        else{
-            alert(result);
-        }
-    });
+        $.post("user.php", {
+            email: $('#remail').val(),
+            username: $('#rusername').val(),
+            password: $('#rpassword').val()
+        }, function (result) {
+            if(result==1){
+                alert("Амжилттай бүртгүүллээ. Та бүртгүүлсэн мэдээллээ ашиглан нэвтэрнэ үү");
+                window.location.replace("index.php");  
+            }
+            else{
+                alert(result);
+            }
+        });
     });
     function post(path, params, method) {
         method = method || "post"; 
@@ -241,6 +222,5 @@
         }
         document.body.appendChild(form);
         form.submit();
-    }
-</script> 
+}</script> 
 {% endblock %}

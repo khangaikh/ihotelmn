@@ -7,15 +7,11 @@
     use Parse\ParseUser;
 
     session_start();
-    //register autoloader
     Twig_Autoloader::register();
-    //loader for template files
     $loader = new Twig_Loader_Filesystem('templates');
-    //twig instance
     $twig = new Twig_Environment($loader, array(
         'cache' => 'cache',
     ));
-    //load template file
     $twig->setCache(false);
 
     if(isset($_SESSION['user'])){
