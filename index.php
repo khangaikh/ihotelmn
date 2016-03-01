@@ -344,7 +344,6 @@
             echo json_encode($e);
         }
         else if(isset($_GET['asemdetail'])){
-            $_SESSION['back_page'] = 1;
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['asemdetail']);
             $hotel = $query->first();
@@ -405,60 +404,44 @@
 
             if($result){ echo 1; }else{ echo 0; }
         }else{
-            if(isset($_SESSION['back_page'])){
-                unset($_SESSION['back_page']);
-                $query = new ParseQuery("hotel");
-                $query->equalTo("status",1);
-                $query->equalTo("asem",1);
-                $query->descending("stars");
+            $template = $twig->loadTemplate('user_dashboard.html');
+            $query = new ParseQuery("orders");
+            $query->descending("createdAt");
+            $query->equalTo("user",$user);
+            $query->notEqualTo("status",0);
+            $query->includeKey('hotel');
+            $old_orders = $query->find();
 
-                $query->equalTo("city",'Ulaanbaatar');
-                $results = $query->find();
-                $count = $query->count();
-
-                $template = $twig->loadTemplate('asem_list.html');
+            if(isset($_SESSION['orders'])){
+                $start = $_SESSION['start'];
+                $end = $_SESSION['end'];
+                $days = $_SESSION['days'];
+                $hotel = $_SESSION['hotel'];
+                $day_start = date('l', strtotime( $start));
+                $day_end = date('l', strtotime( $end));
+                $orders = $_SESSION['orders'];
+                class Event {}
+                $rooms = array();
+                $total = 0;
+                for ($i = 0; $i < count($orders); ++$i){
+                    $e = new Event();
+                    $order_id = $orders[$i];
+                    $query = new ParseQuery("orders");
+                    $query->equalTo("objectId",$order_id);
+                    $query->includeKey("room");
+                    $order = $query->first();
+                    $room = $order->get('room');
+                    $e->name = $room->get('room_type');
+                    $e->qty = $order->get('qty');
+                    $e->sub = $order->get('total');
+                    $total = $total + (int)$order->get('total');
+                    array_push($rooms,$e);
+                }
+                $total= $total * $days;
                 //render a template
-                echo $template->render(array('title' => 'Asem 2016 Hotels', 'nav' => 1, 'results' =>$results));
+                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
             }else{
-                $template = $twig->loadTemplate('user_dashboard.html');
-                $query = new ParseQuery("orders");
-                $query->descending("createdAt");
-                $query->equalTo("user",$user);
-                $query->notEqualTo("status",0);
-                $query->includeKey('hotel');
-                $old_orders = $query->find();
-
-                if(isset($_SESSION['orders'])){
-                    $start = $_SESSION['start'];
-                    $end = $_SESSION['end'];
-                    $days = $_SESSION['days'];
-                    $hotel = $_SESSION['hotel'];
-                    $day_start = date('l', strtotime( $start));
-                    $day_end = date('l', strtotime( $end));
-                    $orders = $_SESSION['orders'];
-                    class Event {}
-                    $rooms = array();
-                    $total = 0;
-                    for ($i = 0; $i < count($orders); ++$i){
-                        $e = new Event();
-                        $order_id = $orders[$i];
-                        $query = new ParseQuery("orders");
-                        $query->equalTo("objectId",$order_id);
-                        $query->includeKey("room");
-                        $order = $query->first();
-                        $room = $order->get('room');
-                        $e->name = $room->get('room_type');
-                        $e->qty = $order->get('qty');
-                        $e->sub = $order->get('total');
-                        $total = $total + (int)$order->get('total');
-                        array_push($rooms,$e);
-                    }
-                    $total= $total * $days;
-                    //render a template
-                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
-                }else{
-                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
-                }   
+                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
             }
         }
     }else{
@@ -610,7 +593,6 @@
             echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
         else if(isset($_GET['asemdetail'])){
-            $_SESSION['back_page'] = 1;
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['asemdetail']);
             $hotel = $query->first();
@@ -843,10 +825,6 @@
             //render a template
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel'));
         }
-        else if(isset($_POST['unset_page'])){
-                unset($_SESSION['back_page']);
-                echo 1;
-        }
         else if(isset($_GET['asem'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
@@ -862,39 +840,23 @@
             echo $template->render(array('title' => 'Asem 2016 Hotels', 'nav' => 1, 'results' =>$results));
         }
         else{
-            if(isset($_SESSION['back_page'])){
-                unset($_SESSION['back_page']);
-                $query = new ParseQuery("hotel");
-                $query->equalTo("status",1);
-                $query->equalTo("asem",1);
-                $query->descending("stars");
+            $template = $twig->loadTemplate('home.html');
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("homepage",1);
+            $query->equalTo("city","Ulaanbaatar");
+            $query->descending("name");
+            $query->limit(2);
+            $hotels = $query->find();
 
-                $query->equalTo("city",'Ulaanbaatar');
-                $results = $query->find();
-                $count = $query->count();
-
-                $template = $twig->loadTemplate('asem_list.html');
-                //render a template
-                echo $template->render(array('title' => 'Asem 2016 Hotels', 'nav' => 1, 'results' =>$results));
-            }else{
-                $template = $twig->loadTemplate('home.html');
-                $query = new ParseQuery("hotel");
-                $query->equalTo("status",1);
-                $query->equalTo("homepage",1);
-                $query->equalTo("city","Ulaanbaatar");
-                $query->descending("name");
-                $query->limit(2);
-                $hotels = $query->find();
-
-                $query = new ParseQuery("hotel");
-                $query->equalTo("status",1);
-                $query->equalTo("homepage",1);
-                $query->equalTo("city","Ulaanbaatar");
-                $query->ascending("name");
-                $query->limit(2);
-                $hotels2 = $query->find();
-                echo $template->render(array('title' => 'iHotel', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
-            }
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("homepage",1);
+            $query->equalTo("city","Ulaanbaatar");
+            $query->ascending("name");
+            $query->limit(2);
+            $hotels2 = $query->find();
+            echo $template->render(array('title' => 'iHotel', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
         } 
     }
 ?>
