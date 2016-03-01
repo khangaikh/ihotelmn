@@ -168,7 +168,7 @@
                 <ul id="rooms" class="booking-list">
                     {% for room in rooms %}
                     <li>
-                    <a name="order" class="booking-item" id="{{room.objectId}}">
+                    <div name="order" class="booking-item" id="{{room.objectId}}">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
@@ -222,7 +222,7 @@
 
                             </div>
                         </div>
-                    </a>
+                    </div>
                     </li>
                     {% endfor %}
                 </ul>

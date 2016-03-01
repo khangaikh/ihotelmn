@@ -894,7 +894,7 @@
             $query->ascending("name");
             $query->limit(2);
             $hotels2 = $query->find();
-            echo $template->render(array('title' => '', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
+            echo $template->render(array('title' => 'iHotel', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
         } 
     }
 ?>
