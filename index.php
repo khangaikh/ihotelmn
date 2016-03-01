@@ -609,6 +609,7 @@
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",0);
+
             $images = $query->find();
 
             $start = $_GET['depart'];
@@ -663,7 +664,7 @@
             $query = new ParseQuery("news");
             $query->includeKey("user");
             $query->equalTo("category",$_GET['news_search']);
-            $news = $query->first();
+            $news = $query->find();
 
             $query->equalTo('category', 'Travel Advices');
             $travel_advice = $query->find();
