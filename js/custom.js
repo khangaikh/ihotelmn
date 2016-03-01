@@ -699,3 +699,16 @@ $(document).ready(function() {
       window.location.replace(url);
       });*/
 }); 
+$(".logo").click(function(){
+    $.ajax({
+        type: "POST",
+        url: "index.php",
+        data: {unset_page:1},
+        success: function(data, textStatus, jqXHR)
+    {
+        if(data == 1){
+            window.location.replace('index.php');
+        }
+    }
+    });
+});
