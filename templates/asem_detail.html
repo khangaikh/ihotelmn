@@ -297,7 +297,8 @@
                             </li>
                         </ul>
                     </div>
-                    <a style="margin: 10px 0 30px;" id="write_review" class="btn btn-primary" href="#">Write a Review</a>
+                    <a class="popup-text btn btn-primary"style="margin: 10px 0
+                        30px;" href="#review-dialog" data-effect="mfp-zoom-out">Write a Reviews</a>
                 </div>
                 <h3 class="mb20">Hotel Reviews</h3>
                 <ul id="reviewslist" class="booking-item-reviews list">
@@ -362,6 +363,10 @@
             <div class="gap gap-small"></div>
         </div>
     </div>
+    <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="review-dialog">
+        <iframe id="write_review" src="http://localhost/ihotelmn" style="width:100%; height: 500px;" frameborder="0">
+        </iframe>
+    </div>
 {% endblock %}
 {% block scripting %}
 {{parent()}}
@@ -416,13 +421,13 @@
                                 $("#raiting_pr").text(data.review_rating_count[4]);
                                 $("#raiting_tr_w").attr('style','width:'+(data.review_rating_count[5]*100/max)+ '%;');
                                 $("#raiting_tr").text(data.review_rating_count[5]);
-                                $("#write_review").attr('href',data.write_review);
+                                $("#write_review").attr('src',data.write_review);
                                 $("#rt_location").html('<li><img src="'+data.subratings[0].rating_image_url+'" alt="" /></li>');
                                 $("#rt_sleep").html('<li><img src="'+data.subratings[1].rating_image_url+'" alt="" /></li>');
                                 $("#rt_rooms").html('<li><img src="'+data.subratings[2].rating_image_url+'" alt="" /></li>');
                                 $("#rt_service").html('<li><img src="'+data.subratings[3].rating_image_url+'" alt="" /></li>');
                                 $("#rt_clearness").html('<li><img src="'+data.subratings[5].rating_image_url+'" alt="" /></li>');
-                                var htmlreview;
+                                var htmlreview="";
                                 for(var j = 0; j<3; j++){
                                     htmlreview +='<li><div class="row"><div class="col-md-2"><div class="booking-item-review-person"><a class="booking-item-review-person-avatar round" href="#"><img src="https://static.tacdn.com/img2/generic/site/no_user_photo-v1.gif" alt="Image Alternative text" title="Good job"></a><p class="booking-item-review-person-name"><a href="#">'+data.reviews[j].user['username']+'</a></p></div></div><div class="col-md-10"><div class="booking-item-review-content"><h5>"'+data.reviews[j].title+'"</h5><ul class="icon-group booking-item-rating-stars"><img style="width:50px;" src="'+data.reviews[j].rating_image_url+'" alt="" /><small style="margin-left: 3px;">'+data.reviews[j].published_date+'</small></ul><p>'+data.reviews[j].text+'<a href="'+data.reviews[j].url+'">More</a></p></div></div></div></div></li>';
                                 }
