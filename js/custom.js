@@ -491,6 +491,7 @@ $(document).ready(function(){
   var frameWidth = 30;
   var offset=counter * -frameWidth;
   $("#loading").css('background-position', 0 + "px" + " " + offset + "px");
+  $('.loading-input').css('background-position', 0 + "px" + " " + offset + "px");
   counter++; if (counter>=frames) counter =0; }, 100);
 });
 
@@ -503,7 +504,7 @@ $(document).ready(function(){
   $('.disabled').click(function(){
     return false;
   });
-});60
+});
 
 $(document).ready(function(){
     $('.ajax-full-width').click(function(){
@@ -517,4 +518,3 @@ $(document).ready(function(){
         $(this).addClass('disabled');
     });
 });
-

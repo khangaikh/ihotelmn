@@ -79,70 +79,70 @@
 </div>
 {% endblock %}
 {% block scripting %}
-    {{parent()}}
-    <script type="text/javascript">
-       $('#login').click(function(){
+{{parent()}}
+<script type="text/javascript">
+    $('#login').click(function(){
         $('.alert').hide(0);
         var $this = $(this);
         $this.after('<div id="loading"></div>');
         $this.addClass('disabled');
-           $.post("login.php", {
-                email: $('#email').val(),
-                password: $('#password').val()
-                },
-                function (result) {
-                    if(result==1){
-                        window.location.replace("index.php");
-                    }
-                    else{
-                        $('#loading').remove();
-                        $this.removeClass('disabled');
-                        $('#login-alert').fadeIn(500);
-                        $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
-                    }
-            });
+        $.post("login.php", {
+            email: $('#email').val(),
+            password: $('#password').val()
+        },
+        function (result) {
+            if(result==1){
+                window.location.replace("index.php");
+            }
+            else{
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                $('#login-alert').fadeIn(500);
+                $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
+            }
         });
-        $('#add').click(function(){
-             $('#register-success').hide();
-             $('#register-alert').hide();
-             var $this = $(this);
-             $this.after('<div id="loading"></div>');
-             $this.addClass('disabled');
-           $.post("user.php", {
-                email: $('#remail').val(),
-                username: $('#rusername').val(),
-                password: $('#rpassword').val()
-                }, function (result) {
-                    if(result==1){
-                        $('#loading').remove();
-                        $('#register-success').fadeIn(500);
-                        $('#register-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
-                    }
-                    else{
-                      $('#loading').remove();
-                      $this.removeClass('disabled');
-                        $('#register-alert').fadeIn(500);
-                        $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
-                    }
-            });
+    });
+    $('#add').click(function(){
+        $('#register-success').hide();
+        $('#register-alert').hide();
+        var $this = $(this);
+        $this.after('<div id="loading"></div>');
+        $this.addClass('disabled');
+        $.post("user.php", {
+            email: $('#remail').val(),
+            username: $('#rusername').val(),
+            password: $('#rpassword').val()
+        }, function (result) {
+            if(result==1){
+                $('#loading').remove();
+                $('#register-success').fadeIn(500);
+                $('#register-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
+            }
+            else{
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                $('#register-alert').fadeIn(500);
+                $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
+            }
         });
-                $('#forgot_password').click(function(){
-                    $('#register-success1').hide();
-                     $('#login-alert1').hide();
-           $.post("user.php", {
-                forgot_password: $('#forgot_email').val(),
-                }, function (result) {
-                    if(result==1){
-                        $(".mfp-close").trigger('click');
-                        $('#register-success1').fadeIn(500);
-                        $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
-                    }
-                    else{
-                        $(".mfp-close").trigger('click');
-                        $('#login-alert1').fadeIn(500);
-                        $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
-                    }
-            });
+    });
+    $('#forgot_password').click(function(){
+        $('#register-success1').hide();
+        $('#login-alert1').hide();
+        $.post("user.php", {
+            forgot_password: $('#forgot_email').val(),
+        }, function (result) {
+            if(result==1){
+                $(".mfp-close").trigger('click');
+                $('#register-success1').fadeIn(500);
+                $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
+            }
+            else{
+                $(".mfp-close").trigger('click');
+                $('#login-alert1').fadeIn(500);
+                $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
+            }
         });
-    </script>
+    });
+</script>
 {% endblock %}

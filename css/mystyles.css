@@ -219,3 +219,11 @@ button:after{
 .header-top .phone span{
 	margin-left:5px;
 }
+.loading-input{
+	width:22px;
+	height:22px;
+	background-image:url('../img/spiffygif_30x30.png');
+	background-repeat: no-repeat;
+	margin-right:20px;
+	float:left;
+}
