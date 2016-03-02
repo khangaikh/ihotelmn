@@ -518,4 +518,3 @@ $(document).ready(function(){
         $(this).addClass('disabled');
     });
 });
-
