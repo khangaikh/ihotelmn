@@ -435,12 +435,17 @@
                 var values1 = checkedValues1.toString();
                 var values2 = checkedValues2.toString();
                 var location = 'Ulaanbaatar';
+                var $this = $(this).parent();
+                $this.parent().find('#loading').remove();
+                $this.after('<div id="loading"></div>');
+                console.log($(this));
                 $.ajax({
                     type: "POST",
                     url: "search.php",
                     data: {data:values1, filter:values2, city:location},
                     success: function(data, textStatus, jqXHR)
                 {
+                    $this.parent().find('#loading').remove();
                     $("#hotels").empty();
                     var events = data['events'];
                     var pages = data['pages'];
