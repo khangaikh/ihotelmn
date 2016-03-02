@@ -24,7 +24,19 @@
         }
         else if(isset($_GET['news'])){
             $template = $twig->loadTemplate('news.html');
-            echo $template->render(array('title' => 'Мэдээ мэдээлэл'));
+            $query = new ParseQuery("news");
+            $query->includeKey("user");
+            $news = $query->find();
+            $query->equalTo('category', 'Travel Advices');
+            $travel_advice = $query->find();
+            $data['travel_advice']=count($travel_advice);
+            $query->equalTo('category', 'Hotels');
+            $hotels = $query->find();
+            $data['hotels']=count($hotels);
+            $query->equalTo('category', 'Places to Go');
+            $place_to_go = $query->find();
+            $data['place_to_go']=count($place_to_go);
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
         }
         else if(isset($_GET['contact'])){
             $template = $twig->loadTemplate('contact-us.html');
@@ -659,12 +671,30 @@
             $data['place_to_go']=count($place_to_go);
             echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
         }
+        else if(isset($_GET['news_category'])){
+            $template = $twig->loadTemplate('news_category.html');
+            $query = new ParseQuery("news");
+            $query->includeKey("user");
+            $query->equalTo("category",$_GET['news_category']);
+            $news = $query->find();
+            $query->equalTo('category', 'Travel Advices');
+            $travel_advice = $query->find();
+            $data['travel_advice']=count($travel_advice);
+            $query->equalTo('category', 'Hotels');
+            $hotels = $query->find();
+            $data['hotels']=count($hotels);
+            $query->equalTo('category', 'Places to Go');
+            $place_to_go = $query->find();
+            $data['place_to_go']=count($place_to_go);
+            echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'category'=>$data));
+        }
         else if(isset($_GET['news_search'])){
             $template = $twig->loadTemplate('news_search.html');
             $query = new ParseQuery("news");
             $query->includeKey("user");
-            $query->equalTo("category",$_GET['news_search']);
+            $query->containedIn("subject",[$_GET['news_search']]);
             $news = $query->find();
+
             $query->equalTo('category', 'Travel Advices');
             $travel_advice = $query->find();
             $data['travel_advice']=count($travel_advice);
