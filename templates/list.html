@@ -205,6 +205,7 @@
                 {% for res in results %}
                 <li>
                     <a class="booking-item" id="{{res.objectId}}" asem="0" title="{{res.name}}"href="#" name="detail">
+
                     <div class="row">
                         <div class="col-md-3">
                             <div class="booking-item-img-wrap">
@@ -543,6 +544,51 @@
             }
             });
         });
-    }); 
+
+   
+        $("span[name=detail]").click(function( event ) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var country = $("#country").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
+            window.location.replace(url);
+        });
+        $('#hotels').on('click', 'span[name=detail]',function(event) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+            window.location.replace(url);
+        });
+        $('#hotels').on('click', 'a[name=detail]',function(event) {
+            event.preventDefault();
+            var aseme = $(this).attr("asem");
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+            window.location.replace(url);
+        });
+        $("a[name=detail]").click(function( event ) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var country = $("#country").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&location=" +location+"&country="+country; 
+            window.location.replace(url);
+        });
+     }); 
     </script>
 {% endblock %}
