@@ -10,7 +10,6 @@
                 <div class="sidebar-widget">
                     <div class="Form">
                         <input class="form-control" placeholder="Хайлт..." type="text" id='search'/>
-                        <button type='submit' id='submit'>Хайх</button>
                     </div>
                 </div>
                 <div class="sidebar-widget">
@@ -36,11 +35,12 @@
 {{parent()}}
 <script>
 $(document).ready(function(){
-    $('#submit').click(function(){
+    $('#search').keypress(function(e){
+        if(e.keyCode == 13){
             var key = $('#search').val();
             var url = "index.php?news_search="+key;
             window.location.replace(url);
-        
+        }
     });
 });
 </script>
