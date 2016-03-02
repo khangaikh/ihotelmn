@@ -428,7 +428,7 @@
         $('input.date-pick-years').datepicker({
             startView: 2
         });
-        $("input[type=checkbox]").on('ifChanged', function(event){
+        $("input").on('ifChanged', function(event){
             if(this.id !='asem_box'){
                 var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
                 var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
