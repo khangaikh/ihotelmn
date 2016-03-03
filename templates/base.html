@@ -22,10 +22,6 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/mystyles.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
-    {%if user.asem==1%} 
-    <link rel="stylesheet" href="css/asem.css">
-    <link rel="stylesheet" href="css/asem_mystyle.css">
-    {%endif%}
     <script src="js/modernizr.js"></script>
     {% endblock %}
 </head>
@@ -79,7 +75,6 @@
             <div class="nav">
                 <ul class="slimmenu" id="slimmenu">
                     {%if user%} 
-                        {%if user.asem==0%} 
                             <div class="container">
                                 <li class="active"><a href="index.php?search">Зочид буудал</a></li>
                                 <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">Машин түрээс</a></li>
@@ -87,19 +82,6 @@
                                <!-- <li><a href="index.php?tour">Аялал</a></li>-->
                                 <li class='active' id='asem'><a href="index.php?asem">FOR ASEM GUESTS</a></li>
                             </div>
-                        {%else%} 
-                            <div class="container">
-                                <li class="active">
-                                    <a href="index.php?asem">ASEM ULAANBAATAR HOTELS</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">CAR RENT</a>
-                                </li>
-                                <li><a href="http://www.asem11.mn/">ASEM 2016 NEWS</a></li>
-                                <!--<li><a href="index.php?asem-tours">TOURS</a></li>-->
-                                <li><a href="index.php?asem-faq">FAQ</a></li>
-                            </div>
-                        {%endif%}
                     {%else%} 
                         <div class="container">
                             <li class="active"><a href="index.php?search">Зочид буудал</a></li>
@@ -117,90 +99,47 @@
 
     {% endblock %}
     <div class="gap"></div>
-    {%if user.asem==0%} 
-        <footer id="main-footer">
-            <div class="container">
-                <div class="flex between middle">
-                    <div>
-                        <a class="logo" href="index.php">
-                            <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
-                        </a>
-                    </div>
-                    <div>
-                        <ul class="list list-horizontal list-space" id="footer-link">
-                            <li><a href='index.php?about'>Бидний тухай</a></li>
-                            <li><a href='index.php?terms'>Үйлчилгээний нөхцөл</a></li>
-                            <li><a href='index.php?faq'>Асуулт хариулт</a></li>
-                            <li><a href='index.php?contact'>Холбогдох</a></li>
-                        </ul>
-                    </div>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="flex between middle">
+                <div>
+                    <a class="logo" href="index.php">
+                        <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
+                    </a>
                 </div>
-                <div class='flex between middle'>
-                    <div>
-                        <p>Мэдээллийн Технологийн Үндэсний Парк, 206 тоот, Улаанбаатар, 99066350, info@ihotel.mn</p>
-                        <p>&copy 2016 iHotel.mn</p>
-                    </div>
-                    <div>
-                        <ul class="list list-horizontal list-space">
-                            <li>
-                            <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="https://www.facebook.com/ihotel.mn/"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="https://twitter.com/iHotelmn"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="https://plus.google.com/114743746404564984742"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="https://www.linkedin.com/in/khangaikh"></a>
-                            </li>
-                        </ul>
-                    </div>
+                <div>
+                    <ul class="list list-horizontal list-space" id="footer-link">
+                        <li><a href='index.php?about'>Бидний тухай</a></li>
+                        <li><a href='index.php?terms'>Үйлчилгээний нөхцөл</a></li>
+                        <li><a href='index.php?faq'>Асуулт хариулт</a></li>
+                        <li><a href='index.php?contact'>Холбогдох</a></li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-    {% else %}
-        <footer id="main-footer">
-            <div class="container">
-                <div class="flex between middle">
-                    <div>
-                        <a class="logo" href="index.php">
-                            <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
-                        </a>
-                    </div>
-                    <div>
-                        <ul class="list list-horizontal list-space" id="footer-link">
-                            <li><a href='index.php?asem_terms'>Terms and Uses</a></li>
-                            <li><a href='index.php?asem-faq'>FAQ</a></li>
-                            <li><a href='http://www.asem11.mn/?page_id=15&lang=en'>Contact</a></li>
-                        </ul>
-                    </div>
+            <div class='flex between middle'>
+                <div>
+                    <p>Мэдээллийн Технологийн Үндэсний Парк, 206 тоот, Улаанбаатар, 99066350, info@ihotel.mn</p>
+                    <p>&copy 2016 iHotel.mn</p>
                 </div>
-                <div class='flex between middle'>
-                    <div>
-                        <p>National Information Technology Park , Room 206, Ulaanbaatar, Mongolia, info@ihotel.mn</p>
-                        <p>&copy 2016 iHotel.mn</p>
-                    </div>
-                    <div>
-                        <ul class="list list-horizontal list-space">
-                            <li>
-                            <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
-                            </li>
-                        </ul>
-                    </div>
+                <div>
+                    <ul class="list list-horizontal list-space">
+                        <li>
+                        <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="https://www.facebook.com/ihotel.mn/"></a>
+                        </li>
+                        <li>
+                        <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="https://twitter.com/iHotelmn"></a>
+                        </li>
+                        <li>
+                        <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="https://plus.google.com/114743746404564984742"></a>
+                        </li>
+                        <li>
+                        <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="https://www.linkedin.com/in/khangaikh"></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-    {%endif%}
+        </div>
+    </footer>
 </div>
 {% block scripting %}
     <script src="js/jquery.js"></script>
