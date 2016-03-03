@@ -37,6 +37,8 @@
             $e->address = $row->get('address');
             $e->cover =$row->get('cover_image');
             $e->rate = $row->get('average_rate');
+            $e->latitude = $row->get('geolocation')->getLatitude();
+            $e->longitude = $row->get('geolocation')->getLongitude();
             $events[] = $e; 
         }
 
@@ -73,6 +75,8 @@
             $e->address = $row->get('address');
             $e->cover =$row->get('cover_image');
             $e->rate = $row->get('average_rate');
+            $e->latitude = $row->get('geolocation')->getLatitude();
+            $e->longitude = $row->get('geolocation')->getLongitude();
             $events[] = $e; 
         }
         $data = array();
@@ -108,6 +112,8 @@
             $e->address = $row->get('address');
             $e->cover =$row->get('cover_image');
             $e->rate = $row->get('average_rate');
+            $e->latitude = $row->get('geolocation')->getLatitude();
+            $e->longitude = $row->get('geolocation')->getLongitude();
             $events[] = $e; 
         }
         $data = array();
@@ -165,6 +171,8 @@
             $e->address = $row->get('address');
             $e->cover =$row->get('cover_image');
             $e->rate = $row->get('average_rate');
+            $e->latitude = $row->get('geolocation')->getLatitude();
+            $e->longitude = $row->get('geolocation')->getLongitude();
             $events[] = $e; 
         }
         $data = array();

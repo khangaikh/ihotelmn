@@ -21,7 +21,7 @@
                         <img src="img/golomt-header.jpg" alt="Image Alternative text" title="Image Title" />
                         <img src="img/mastervisa.jpg" alt="Image Alternative text" title="Image Title" />
                         <form id="golomt_pay">
-                            <input style="width:100%" type="submit" value="Pay now" class="btn btn-primary" />
+                            <input style="width:100%" type="submit" value="Төлбөр хийх" class="btn btn-primary" />
                         </form>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                     </header>
                     <ul class="booking-item-payment-details">
                         <li>
-                            <h5>Total days of stay: {{days}}</h5>
+                            <h5>Нийт хоногийн тоо: {{days}}</h5>
                             <div class="booking-item-payment-date">
                                 <p class="booking-item-payment-date-day">{{start}}</p>
                                 <p class="booking-item-payment-date-weekday">{{day_start}}</p>
@@ -124,19 +124,20 @@
                             </div>
                         </li>
                         <li>
-                            <h5>Room</h5>
+                            <h5>Өрөө</h5>
                             <ul class="booking-item-payment-price">
                                 {%for room in rooms%}
                                     <li>
                                         <p class="booking-item-payment-price-title">{{room.name}}</p>
-                                        <p class="booking-item-payment-price-title" style="margin-left:10px">{{oom.qty}}<small>/rooms</small></p>
-                                        <p class="booking-item-payment-price-amount">${{room.sub}}<small>/per day</small></p>
+                                        <p
+                                        class="booking-item-payment-price-title" style="margin-left:10px">{{oom.qty}}<small>/өрөө</small></p>
+                                        <p class="booking-item-payment-price-amount">${{room.sub}}<small>/хоногийн</small></p>
                                     </li>
                                 {%endfor%}
                             </ul>
                         </li>
                     </ul>
-                    <p class="booking-item-payment-total">Total amount: <span>US$ {{total}}</span>
+                    <p class="booking-item-payment-total">Нийт дүн: <span>US$ {{total}}</span>
                     </p>
                 </div>
             </div>

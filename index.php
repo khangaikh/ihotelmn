@@ -165,7 +165,7 @@
             $query->equalTo("status",1);
             $query->equalTo("asem",0);
             $query->descending("stars");
-            //$location = $_GET['location'];
+            $location = $_GET['location'];
 
             $start = $_GET['start'];
             $end = $_GET['end'];
@@ -191,12 +191,18 @@
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
             $query->equalTo("city","Ulaanbaatar");
-            $query->descending("stars");
-            $query->limit(25);
+            $query->descending("name");
+            $query->limit(2);
             $hotels = $query->find();
-            $ub = $query->count();
-            //render a template
-            echo $template->render(array('title' => 'Нүүр', 'user'=> $user, 'nav' => 1,'ub'=>$ub, 'hotels'=>$hotels));
+
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("homepage",1);
+            $query->equalTo("city","Ulaanbaatar");
+            $query->ascending("name");
+            $query->limit(2);
+            $hotels2 = $query->find();
+            echo $template->render(array('title' => 'iHotel', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
         }
         else if(isset($_GET['detail'])){
             $query = new ParseQuery("hotel");
@@ -219,12 +225,12 @@
 
             $start = $_GET['depart'];
             $end = $_GET['end'];
-            $location = $_GET['location'];
-            $country = $_GET['country'];
+//            $location = $_GET['location'];
+//            $country = $_GET['country'];
 
             $template = $twig->loadTemplate('detail.html');
             //render a template
-            echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel,'location' => $location, 'country' =>$country, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images, 'user' =>$user));
+            echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
         else if(isset($_GET['order'])){
             $query = new ParseQuery("orders");
@@ -839,12 +845,18 @@
                 $query->equalTo("status",1);
                 $query->equalTo("homepage",1);
                 $query->equalTo("city","Ulaanbaatar");
-                $query->descending("stars");
-                $query->limit(25);
+                $query->descending("name");
+                $query->limit(2);
                 $hotels = $query->find();
-                $ub = $query->count();
-                //render a template
-                echo $template->render(array('title' => 'Нүүр', 'nav' => 1,'ub'=>$ub, 'hotels'=>$hotels));
+
+                $query = new ParseQuery("hotel");
+                $query->equalTo("status",1);
+                $query->equalTo("homepage",1);
+                $query->equalTo("city","Ulaanbaatar");
+                $query->ascending("name");
+                $query->limit(2);
+                $hotels2 = $query->find();
+                echo $template->render(array('title' => 'iHotel', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
             }
             else if(isset($_GET['city'])){
                 $query = new ParseQuery("hotel");

@@ -37,7 +37,9 @@
                             </ul>
                         </div>
                         <div class="col-md-3">
-                            <p class="booking-item-header-price"><small></small>  <span class="text-lg">US$ {{hotel.average_rate}}</span>/night</p>
+                            <p
+                            class="booking-item-header-price"><small></small>
+                            <span class="text-lg">US$ {{hotel.average_rate}}</span>/хоногийн</p>
                         </div>
                     </div>
             </header>
@@ -45,7 +47,8 @@
                 <div class="col-md-6">
                     <div class="tabbable booking-details-tabbable">
                         <ul class="nav nav-tabs" id="myTab">
-                            <li class="active"><a href="#tab-1" data-toggle="tab"><i class="fa fa-camera"></i>Images</a>
+                            <li class="active"><a href="#tab-1"
+                                data-toggle="tab"><i class="fa fa-camera"></i>Зураг</a>
                             </li>
 
                             </li>
@@ -87,7 +90,7 @@
             </div>
         </div>
         <div class="gap"></div>
-        <h3>Rooms</h3>
+        <h3>Өрөөнүүд</h3>
         <div class="row">
             <div class="col-md-9">
                 <div class="booking-item-dates-change">
@@ -98,13 +101,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                                <label>Check-in</label>
+                                                <label>Ирэх</label>
                                                 <input class="form-control"  type="text" id="start" data-date-format="yyyy-mm-dd" value="{{start}}"/>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                                <label>Check-out</label>
+                                                <label>Буцах</label>
                                                 <input class="form-control"  type="text" id="end" data-date-format="yyyy-mm-dd" value="{{end}}"/>
                                             </div>
                                         </div>
@@ -113,7 +116,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group form-group-select-plus">
-                                    <label>Adult</label>
+                                    <label>Том хүн</label>
                                     <select class="form-control " id="adult">
                                         <option selected="selected">{{guests}}</option>
                                         <option >1</option>
@@ -135,7 +138,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group form-group-select-plus">
-                                    <label>Children</label>
+                                    <label>Хүүхэд</label>
                                     <select class="form-control" id="kids">
                                         <option selected="selected">0</option>
                                         <option>1</option>
@@ -158,7 +161,7 @@
                             <div class="col-md-2">
                                 <div class="form-group form-group-select-plus">
                                     <label>&nbsp;</label>
-                                    <a class="btn btn-primary btn-md" id="search_a" >Search</a>
+                                    <a class="btn btn-primary btn-md" id="search_a" >Хайх</a>
                                 </div>
                             </div>
                         </div>
@@ -209,9 +212,9 @@
                                 </ul>
                             </div>
                             <div class="col-md-3">
-                                <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
+                                <span class="booking-item-price">${{room.night_price}}</span><span>/хоногийн</span>
                                 <div class="form-group form-group-select-plus">
-                                    <label>Room availability</label>
+                                    <label>Боломжит өрөөнүүд</label>
                                     <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" > 
                                         <option selected="selected">0</option>
                                         {% for i in range(1, room.num_rooms) %}
@@ -308,7 +311,7 @@
                 <div id="payment_info" class="booking-item-payment" style="display:none">
                     <ul class="booking-item-payment-details" style="width:100%">
                         <li>
-                        <h5>Total days of stay: <span id="days"><span></h5>
+                        <h5>Нийт хоногийн тоо: <span id="days"><span></h5>
                                 <div class="booking-item-payment-date">
                                     <p class="booking-item-payment-date-day" id="checkin">2016-07-11</p>
                                 </div><i class="fa fa-arrow-right booking-item-payment-date-separator"></i>
@@ -317,7 +320,7 @@
                                 </div>
                                 </li>
                                 <li>
-                                <h5>Rooms</h5>
+                                <h5>Өрөөнүүд</h5>
 
                                 <span id="payment_rooms">
 
@@ -326,34 +329,35 @@
                                 <ul class="booking-item-payment-price">
                                     <li>
                                     <p class="booking-item-payment-price-title">VAT</p>
-                                    <p class="booking-item-payment-price-amount">(incluled)<small>/per day</small>
+                                    <p class="booking-item-payment-price-amount">(incluled)<small>/хоногийн</small>
                                     </p>
                                     </li>
                                 </ul>
-                                <p class="booking-item-payment-total">Total amount: <span id="total"> 4232</span>
+                                <p class="booking-item-payment-total">Нийт дүн: <span id="total"> 4232</span>
                                 </p>
-                                <span name="ordernow" class="btn btn-primary ajax-full-width" id="{{room.objectId}}" style="width:100%">Order now</span>
+                                <span name="ordernow" class="btn btn-primary
+                                    ajax-full-width" id="{{room.objectId}}" style="width:100%">Захиалах</span>
                             </div>
                         <br>
-                        <h4>Hotel features</h4>
+                        <h4>Зочид буудлын онцлог</h4>
                         <ul class="booking-item-features booking-item-features-expand mb30 clearfix">
-                            <li><i class="im im-wi-fi"></i><span class="booking-item-feature-title">Wi-Fi</span>
+                            <li><i class="im im-wi-fi"></i><span class="booking-item-feature-title">Утасгүй интернет</span>
                             </li>
-                            <li><i class="im im-parking"></i><span class="booking-item-feature-title">Parking</span>
+                            <li><i class="im im-parking"></i><span class="booking-item-feature-title">Автомашины зогсоол</span>
                             </li>
                             <li><i class="im im-bus"></i><span class="booking-item-feature-title">Airport pickup</span>
                             </li>
-                            <li><i class="im im-fitness"></i><span class="booking-item-feature-title">Fitness</span>
+                            <li><i class="im im-fitness"></i><span class="booking-item-feature-title">Фитнесс</span>
                             </li>
-                            <li><i class="im im-pool"></i><span class="booking-item-feature-title">Indoor pool</span>
+                            <li><i class="im im-pool"></i><span class="booking-item-feature-title">Усан сан</span>
                             </li>
-                            <li><i class="im im-spa"></i><span class="booking-item-feature-title">Sauna</span>
+                            <li><i class="im im-spa"></i><span class="booking-item-feature-title">Саун</span>
                             </li>
                             <li><i class="im im-restaurant"></i><span class="booking-item-feature-title">Food service</span>
                             </li>
-                            <li><i class="im im-business-person"></i><span class="booking-item-feature-title">Meeting room</span>
+                            <li><i class="im im-business-person"></i><span class="booking-item-feature-title">Уулзалтын өрөө</span>
                             </li>
-                            <li><i class="im im-children"></i><span class="booking-item-feature-title">Kids room</span>
+                            <li><i class="im im-children"></i><span class="booking-item-feature-title">Хүүхдүүдийн өрөө</span>
                             </li>
                         </ul>
 
@@ -364,7 +368,7 @@
         </div>
     </div>
     <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="review-dialog">
-        <iframe id="write_review" src="http://localhost/ihotelmn" style="width:100%; height: 500px;" frameborder="0">
+        <iframe id="write_review" src="https://ihotel.mn" style="width:100%; height: 500px;" frameborder="0">
         </iframe>
     </div>
 {% endblock %}
@@ -533,7 +537,7 @@
                 var price = $(this).attr('price');
                 var subtotal = $(this).val()* price;
 
-                $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
+                $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'"class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/өрөө</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/хоногийн</small></p></li></ul>'
                         );
                 set_total(days);
             }else{

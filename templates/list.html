@@ -269,6 +269,15 @@
           document.write(script);
     </script>
     <script type="text/javascript">
+    var keyup = false;
+    var results = [];
+
+    {% for res in results %}
+        {% if res.geolocation %}
+            results.push({lat: {{res.geolocation.latitude}}, lng: {{res.geolocation.longitude}}, id: '{{res.objectId}}', avg: '{{res.average_rate}}'});
+        {% endif %}
+    {% endfor %}
+
     var map = new google.maps.Map(document.getElementById('maps_hotel'), {
         zoom: 13,
         center: new google.maps.LatLng(47.912318, 106.913816),
@@ -278,36 +287,33 @@
     var infoBubble2; 
     var countinfo = 0; 
     var marker;
-    function initMap() {
+    function initMap(resulst) {
         map = new google.maps.Map(document.getElementById('maps_hotel'), {
             zoom: 13,
             center: new google.maps.LatLng(47.912318, 106.913816),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-        console.log('{{results|length}}');
-        {% for res in results %}
-        {% if res.geolocation %}
-        marker = new google.maps.Marker({
-            position: {lat: {{res.geolocation.latitude}}, lng: {{res.geolocation.longitude}}},
-        });
-        infoBubble = new InfoBubble({
-            content: '<h5 id="{{res.objectId}}" onclick="help(this.id);"style="cursor: pointer; margin-bottom: 0px; color: #FFF;font-weight: bold;">${{res.average_rate}}</h5>',
-                   arrowSize: 8,
-                   maxWidth: 100,
-                   minHeight: 35,
-                   backgroundColor: '#FF0C0C',
-                   hideCloseButton: true,
-                   arrowPosition: 50,
-                   padding: 4,
-                   borderRadius: 8,
-                   arrowStyle: 0,
-                   map: map,
-                   shadowStyle: 1
-        });
-        infoBubble.open(map, marker);
-        {% endif %}
-        {% endfor %}
-
+        for(var i = 0; i<results.length; i++){
+            marker = new google.maps.Marker({
+                position: {lat: results[i].lat, lng: results[i].lng},
+            });
+            infoBubble = new InfoBubble({
+                content: '<h5 id="'+results[i].id+'" onclick="help(this.id);"style="cursor: pointer; margin-bottom: 0px; color: #FFF;font-weight: bold;">$'+
+                results[i].avg+'</h5>',
+                       arrowSize: 8,
+                       maxWidth: 100,
+                       minHeight: 35,
+                       backgroundColor: '#FF0C0C',
+                       hideCloseButton: true,
+                       arrowPosition: 50,
+                       padding: 4,
+                       borderRadius: 8,
+                       arrowStyle: 0,
+                       map: map,
+                       shadowStyle: 1
+            });
+            infoBubble.open(map, marker);
+        }
     }
     function help(tid){
         var contentString;
@@ -371,7 +377,8 @@
     $("#hotel_map").click(function( event ) {
         $("#hotels").hide();
         $("#maps_hotel").show();
-        initMap();
+        initMap(results);
+        console.log(results);
     });
 
     $("#hotel_list").click(function( event ) {
@@ -508,16 +515,19 @@
                 var pages = data['pages'];
                 var sort = data['sort'];
                 $("#sorting").val(sort)
+                results=[];
                 $.each(events, function(idx, obj) {
                     var index = idx+1;
                     var string = "";
+                    
+                    results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
+
                     for ($i=0; $i<obj.stars; $i++){
                         string += '<i class="fa fa-star"></i></li>';
                     }
                     $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.objectId+'" href="#"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.objectId+'">Choose room</span></div></div></a></li>');
                 });
-
-
+                initMap(results);
             //alert(data);
 
             }
@@ -562,15 +572,18 @@
 
             var events = data['events'];
             var pages = data['pages'];
+            results = [];
             $.each(events, function(idx, obj) {
                 var index = idx+1;
                 var string = "";
+                results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
                 for ($i=0; $i<obj.stars; $i++){
                     string += '<i class="fa fa-star"></i></li>';
                 }
                 $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Choose room</span></div></div></a></li>');
 
             });
+            initMap(results);
         }
         });
     }
@@ -584,15 +597,18 @@
             $("#hotels").empty();
             var events = data['events'];
             var pages = data['pages'];
+            results=[];
             $.each(events, function(idx, obj) {
                 var index = idx+1;
                 var string = "";
+                results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
                 for ($i=0; $i<obj.stars; $i++){
                     string += '<i class="fa fa-star"></i></li>';
                 }
                 $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Choose room</span></div></div></a></li>');
 
             });
+            initMap(results);
         }
         });
     }
@@ -608,39 +624,60 @@
 
             var events = data['events'];
             var pages = data['pages'];
+            results=[];
             $.each(events, function(idx, obj) {
                 var index = idx+1;
                 var string = "";
+                results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
                 for ($i=0; $i<obj.stars; $i++){
                     string += '<i class="fa fa-star"></i></li>';
                 }
                 $("#hotels").append('<li><a asem="1" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Choose room</span></div></div></a></li>');
 
             });
+                initMap(results);
         }
         });
     }
-    $( "#tags" ).keypress(function() {
-        $.ajax({
-            type: "POST",
-            url: "search.php",
-            data: {search: $("#tags").val(), city:'Ulaanbaatar'},
-            success: function(data, textStatus, jqXHR)
-        {
-            $("#hotels").empty();
-            var events = data['events'];
-            var pages = data['pages'];
-            $.each(events, function(idx, obj) {
-                var index = idx+1;
-                var string = "";
-                for ($i=0; $i<obj.stars; $i++){
-                    string += '<i class="fa fa-star"></i></li>';
-                }
-                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Choose room</span></div></div></a></li>');
+    $( "#tags" ).keyup(function(event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var text =$('#tags').val();
 
-            });
+        if(keycode == 8 && (text.length == 0) && keyup == true){
+            not_checked();
+            keyup = false;
         }
-        });
+        else{
+            if(keycode == '13'){
+                keyup = true;
+
+                $.ajax({
+                    type: "POST",
+                    url: "search.php",
+                    data: {search: $("#tags").val(), city:'Ulaanbaatar'},
+                    success: function(data, textStatus, jqXHR)
+                {
+                    $("#hotels").empty();
+
+                    var events = data['events'];
+                    var pages = data['pages'];
+
+                    results=[];
+                    $.each(events, function(idx, obj) {
+                        var index = idx+1;
+                        var string = "";
+                        results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
+                        for ($i=0; $i<obj.stars; $i++){
+                            string += '<i class="fa fa-star"></i></li>';
+                        }
+                        $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Choose room</span></div></div></a></li>');
+
+                    });
+                }
+                });
+                initMap(results);
+            }
+        }
     });
 
     </script>
