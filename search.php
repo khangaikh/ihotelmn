@@ -125,6 +125,12 @@
     }
     elseif(isset($_POST['autocomplete'])){
     
+        if (isset($_POST['stars'])) {
+            $stars = $_POST['stars'];
+            $pieces = array_map('intval', explode(',', $stars));
+            $query->containedIn("stars",$pieces);
+        }
+
         $query->equalTo("city",$_POST['city']);
 
         if(isset($_POST['asem'])){

@@ -370,7 +370,6 @@
         $("#hotels").hide();
         $("#maps_hotel").show();
         initMap(results);
-        console.log(results);
     });
 
     $("#hotel_list").click(function( event ) {
@@ -409,7 +408,6 @@
 
         $(document).on("click",'a[name=detail]', function( event ) {
             event.preventDefault();
-            console.log('');
             var detialId = $(this).attr('id');
             var curId = detialId;
             var start = $("#start_1").val();
@@ -430,35 +428,16 @@
             startView: 2
         });
         $("input").on('ifChanged', function(event){
-            if(this.id !='asem_box'){
                 var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
                 var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                 var values1 = checkedValues1.toString();
                 var values2 = checkedValues2.toString();
                 var location = 'Ulaanbaatar';
                 if(checkedValues1.length !=0 || checkedValues2.length !=0){
-                    checked(values1, values2, location);
+                checked(values1, values2, location);
                 }else{
-                    not_checked();
+                not_checked();
                 }
-            }
-            else{
-                if(this.checked) {
-                    asem_checked();
-                }
-                else{
-                    var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
-                    var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
-                    var values1 = checkedValues1.toString();
-                    var values2 = checkedValues2.toString();
-                    var location = 'Ulaanbaatar';
-                    if(checkedValues1.length !=0 || checkedValues2.length !=0){
-                        checked(values1, values2, location);
-                    }else{
-                        not_checked();
-                    }
-                }
-            }
         });
         $("#search_a").click(function( event ) {
             var check = true;
