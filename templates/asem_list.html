@@ -14,7 +14,7 @@
             <div class="col-md-4">
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                     <label>Destination</label>
-                    <input class="typeahead form-control" name='location' value="Ulaanbaatar, UB, Mongolia" type="text" disabled/>
+                    <input class="form-control" id="location" name='location' value="Ulaanbaatar, Mongolia" type="text" disabled/>
                 </div>
             </div>
             <div class="col-md-4">
@@ -595,5 +595,6 @@
         }
         });
     }
+    $("#location").geocomplete();
     </script>
 {% endblock %}

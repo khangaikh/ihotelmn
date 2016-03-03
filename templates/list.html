@@ -16,7 +16,7 @@
             <div class="col-md-4">
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                     <label>Зорьчих газар</label>
-                    <input class="typeahead form-control" name='location' value="{{location}}" type="text" />
+                    <input class="form-control" id="location" name='location' value="{{location}}" type="text" />
                 </div>
             </div>
             <div class="col-md-4">
@@ -270,6 +270,7 @@
     </script>
     <script type="text/javascript">
     var keyup = false;
+    var asem = false;
     var results = [];
 
     {% for res in results %}
@@ -448,6 +449,7 @@
             startView: 2
         });
         $("input").on('ifChanged', function(event){
+            $("#tags").val('');
             if(this.id !='asem_box'){
                 var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
                 var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
@@ -465,6 +467,20 @@
                     asem_checked();
                 }
                 else{
+                    $("#tags").val('');
+                    $.ajax({
+                        type: "POST",
+                        url: "search.php",
+                        data: {autocomplete:1, city:'Ulaanbaatar'},
+                        success: function(data, textStatus, jqXHR)
+                    {
+                        availableTags = $.parseJSON(data);
+
+                        $( "#tags" ).autocomplete({
+                          source: availableTags
+                        });
+                    }
+                    });
                     var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
                     var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                     var values1 = checkedValues1.toString();
@@ -557,9 +573,9 @@
             window.location.replace(url);
         });
     }); 
-
     function not_checked(){
         var location = 'Ulaanbaatar';
+
         $.ajax({
             type: "POST",
             url: "search.php",
@@ -612,6 +628,20 @@
     }
     function asem_checked(){
         var location = 'Ulaanbaatar';
+        $("#tags").val('');
+        $.ajax({
+            type: "POST",
+            url: "search.php",
+            data: {autocomplete:1, city:'Ulaanbaatar', asem: 1},
+            success: function(data, textStatus, jqXHR)
+        {
+            availableTags = $.parseJSON(data);
+
+            $( "#tags" ).autocomplete({
+              source: availableTags
+            });
+        }
+        });
         $.ajax({
             type: "POST",
             url: "search.php",
@@ -677,6 +707,6 @@
             }
         }
     });
-
+    $("#location").geocomplete();
     </script>
 {% endblock %}

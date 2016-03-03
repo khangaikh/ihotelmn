@@ -183,7 +183,7 @@
 
             $template = $twig->loadTemplate('list.html');
             //render a template
-            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $pieces[0], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[2],'user' => $user));
+            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $pieces[0], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1],'user' => $user));
         }
         else if(isset($_GET['search'])){
             $template = $twig->loadTemplate('home.html');
@@ -540,7 +540,7 @@
 
             $template = $twig->loadTemplate('list.html');
             //render a template
-            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $location, 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[2], 'pages' => $pages, 'guests'=>$guests, 'persons'=>$persons));
+            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $location, 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1], 'pages' => $pages, 'guests'=>$guests, 'persons'=>$persons));
         }
         else if(isset($_GET['start_1'])){
             $query = new ParseQuery("hotel");

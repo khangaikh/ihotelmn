@@ -148,11 +148,6 @@
     
         $query->equalTo("city",$_POST['city']);
 
-        if(isset($_POST['asem'])){
-            $query->equalTo("asem",1);
-        }else{
-            $query->equalTo("asem",0);
-        }
 
         $query->equalTo("status",1);
         $query->equalTo("name",$_POST['search']);
