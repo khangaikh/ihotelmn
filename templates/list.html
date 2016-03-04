@@ -427,6 +427,7 @@
             window.location.replace(url);
         });
         $(document).on("click",'a[name=detail]', function( event ) {
+            $(this).append('<div id="full-loader"><div id="loading"></div></div>')
             event.preventDefault();
             var detialId = $(this).attr('id');
             var curId = detialId;
