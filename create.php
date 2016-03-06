@@ -3,6 +3,7 @@
     use Parse\ParseException;
     use Parse\ParseObject;
     use Parse\ParseQuery;
+    use Parse\ParseGeoPoint;
     use Parse\ParseFile;
     
     session_start();
@@ -22,6 +23,8 @@
         $hotel->set('short_desc',$data['short_desc']);
         $hotel->set('long_desc',$data['long_desc']);
         $hotel->set('name',$data['hotel_name']);
+        $point = new ParseGeoPoint(floatval($data['lat']), floatval($data['lng']));
+        $hotel->set("geolocation", $point);
         $hotel->set('zipcode',(string)$data['basic_info_zipcode']);
     }
     if($_POST['section']==2){

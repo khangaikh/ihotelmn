@@ -111,6 +111,7 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $results = $query->find();
+
             //render a template
             echo $template->render(array('title' => 'Буудал нэмэх', 'results'=>$results, 'user' => $user, 'nav' => 1));
         }

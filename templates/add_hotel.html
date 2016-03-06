@@ -816,6 +816,12 @@
                                                    <span class="help-block"></span>
                                                 </div>
                                           </div>
+                                          <div class="row address-row" style="padding: 15px;">
+                                              <div id="map-geo" style="height: 300px;">
+                                              </div>
+                                              <input type="hidden" name="lat" id="m_lat" value="" />
+                                              <input type="hidden" name="lng" id="m_lng" value="" />
+                                          </div>
                                           <div class="row address-row">
                                                 <div class="form-group col-sm-9 col-xs-12">
                                                    <label for="address">Address</label>
@@ -4568,6 +4574,31 @@
 {% block scripting %}
       {{parent()}}
       <script type="text/javascript">
+            function initMap() {
+                var map = new google.maps.Map(document.getElementById('map-geo'), {
+                    zoom: 15,
+                    center: new google.maps.LatLng(47.912318, 106.913816),
+                    mapTypeId: google.maps.MapTypeId.SATELLITE,
+                });
+
+                $("#map-geo .gm-style").css('style', 'height: 500px;');
+/*                var marker= null;
+
+
+                google.maps.event.addListener(map, "click", function(event) {
+                        if(marker != null){
+                            marker.setMap(null);
+                        }
+
+                        $("#m_lat").val(event.latLng.lat());
+                        $("#m_lng").val(event.latLng.lng());
+
+                        marker = new google.maps.Marker({
+                            position: event.latLng,
+                            map: map
+                          });
+                });*/
+            }
               var validateFront = function () {
                     if ($('#create_basic_info_form')){
                           if (true === $('#create_basic_info_form').parsley().isValid()) {
@@ -4732,7 +4763,7 @@
                               console.log(url);
                               var div = $('<div id="'+i+'" class="col-md-4">');
                               var add = $('<a name="remove" class="btn btn-lg" style="margin-left:70px" onClick="removeImage(this,'+i+',\''+room['id']+'\');"><i class="fa fa-times-circle"></a>');
-                              var img = $('<img>'); //Equivalent: $(document.createElement('img'))
+                              var img = $('<img>'); 
                               img.attr('src', url);
                               img.attr('name', 'room-images');
                               img.attr('class', "img-thumbnail");
@@ -4761,9 +4792,8 @@
                   }); 
                }
             }
-               
             $(document).ready(function(){ 
-                
+                  initMap();
                   $('.nav li').not('.active').addClass('disabled');
                   $('.nav li').not('.active').find('a').removeAttr("data-toggle");
 
