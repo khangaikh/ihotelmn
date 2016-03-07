@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                <label> Гарах</label>
+                                <label>Гарах</label>
                                 <input class="form-control" id="end" name="end" type="text" data-date-format="yyyy-mm-dd" {%if end %} value="{{end}}" {%else %} value="2016-07-01" {%endif%} />
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option >5</option>
+                                <option>5</option>
                                 <option>6</option>
                                 <option>7</option>
                                 <option>8</option>
@@ -97,7 +97,9 @@
         <div class="col-md-3">
             <aside class="booking-filters booking-filters-white">
                 <h3>Шүүлт</h3>
+                <div class='input-ajax'>
                 <input id="tags" class="form-control" placeholder="Буудлын нэр ..." type="text" style="margin:10px; width:92%" />
+                </div>
                 <ul class="list booking-filters-list">  
                     <li>
                     <h5 class="booking-filters-title"></h5>
@@ -427,7 +429,6 @@
             window.location.replace(url);
         });
         $(document).on("click",'a[name=detail]', function( event ) {
-            $(this).append('<div id="full-loader"><div id="loading"></div></div>')
             event.preventDefault();
             var detialId = $(this).attr('id');
             var curId = detialId;
@@ -464,6 +465,8 @@
                 }
             }
             else{
+                $('#full-loader').remove();
+                $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
                 if(this.checked) {
                     asem = true;
                     asem_checked();
@@ -728,13 +731,15 @@
         else{
             if(keycode == '13'){
                 keyup = true;
-
+                $('.spinner').remove();
+                $(this).after('<div class="spinner"></div>');
                 $.ajax({
                     type: "POST",
                     url: "search.php",
                     data: {search: $("#tags").val(), city:'{{location}}'},
                     success: function(data, textStatus, jqXHR)
                 {
+                    $('.spinner').remove();
                     $("#hotels").empty();
 
                     var events = data['events'];
