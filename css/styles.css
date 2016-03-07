@@ -1738,6 +1738,7 @@ h5.thumb-title {
 }
 .post .post-desciption {
   margin-bottom: 15px;
+  text-align: justify;
 }
 .post .post-meta {
   list-style: none;
