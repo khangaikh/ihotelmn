@@ -87,6 +87,10 @@ footer#main-footer .logo{
 	align-items:center;
 	-webkit-align-items:center;
 }
+.flex.center{
+	justify-content:center;
+	-webkit-justify-content:center;
+}
 .flex-col{
 	flex-direction:column;
 	-webkit-flex-direction:column;
@@ -169,6 +173,9 @@ button:after{
 }
 .alert{
 	display: none;
+}
+#partner>div{
+	margin-top:20px;
 }
 #partner img{
 	-webkit-filter: grayscale(1);
