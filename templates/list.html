@@ -391,7 +391,7 @@
         $.ajax({
             type: "POST",
             url: "search.php",
-            data: {autocomplete:1, city:'Ulaanbaatar'},
+            data: {autocomplete:1, city:'{{location}}'},
             success: function(data, textStatus, jqXHR)
         {
             availableTags = $.parseJSON(data);
@@ -454,7 +454,7 @@
                 var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                 var values1 = checkedValues1.toString();
                 var values2 = checkedValues2.toString();
-                var location = 'Ulaanbaatar';
+                var location = '{{location}}';
                 $('#full-loader').remove();
                 $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
                 if(checkedValues1.length !=0 || checkedValues2.length !=0){
@@ -474,7 +474,7 @@
                     var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                     var values1 = checkedValues1.toString();
                     var values2 = checkedValues2.toString();
-                    var location = 'Ulaanbaatar';
+                    var location = '{{location}}';
                     if(checkedValues1.length !=0 || checkedValues2.length !=0){
                         checked(values1, values2, location);
                     }else{
@@ -561,7 +561,7 @@
         });
     }); 
     function not_checked(){
-        var location = 'Ulaanbaatar';
+        var location = '{{location}}';
         var data;
         if(asem){
             data={not_checked:1, city:location, asem:1};
@@ -636,13 +636,13 @@
         });
     }
     function asem_checked(){
-        var location = 'Ulaanbaatar';
+        var location = '{{location}}';
         $("#tags").val('');
         var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
         var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
         var values1 = checkedValues1.toString();
         var values2 = checkedValues2.toString();
-        var location = 'Ulaanbaatar';
+        var location = '{{location}}';
         if(checkedValues1.length !=0 || checkedValues2.length !=0){
             $.ajax({
                 type: "POST",
@@ -715,7 +715,7 @@
             var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
             var values1 = checkedValues1.toString();
             var values2 = checkedValues2.toString();
-            var location = 'Ulaanbaatar';
+            var location = '{{location}}';
 
             if(checkedValues1.length !=0 || checkedValues2.length !=0){
                 checked(values1, values2, location);
@@ -732,7 +732,7 @@
                 $.ajax({
                     type: "POST",
                     url: "search.php",
-                    data: {search: $("#tags").val(), city:'Ulaanbaatar'},
+                    data: {search: $("#tags").val(), city:'{{location}}'},
                     success: function(data, textStatus, jqXHR)
                 {
                     $("#hotels").empty();
