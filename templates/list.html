@@ -393,7 +393,7 @@
         $.ajax({
             type: "POST",
             url: "search.php",
-            data: {autocomplete:1, city:'{{location}}'},
+            data: {autocomplete:1, city:'Ulaanbaatar'},
             success: function(data, textStatus, jqXHR)
         {
             availableTags = $.parseJSON(data);
@@ -455,7 +455,7 @@
                 var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                 var values1 = checkedValues1.toString();
                 var values2 = checkedValues2.toString();
-                var location = '{{location}}';
+                var location = 'Ulaanbaatar';
                 $('#full-loader').remove();
                 $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
                 if(checkedValues1.length !=0 || checkedValues2.length !=0){
@@ -639,13 +639,12 @@
         });
     }
     function asem_checked(){
-        var location = '{{location}}';
         $("#tags").val('');
         var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
         var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
         var values1 = checkedValues1.toString();
         var values2 = checkedValues2.toString();
-        var location = '{{location}}';
+        var location = 'Ulaanbaatar';
         if(checkedValues1.length !=0 || checkedValues2.length !=0){
             $.ajax({
                 type: "POST",
@@ -718,7 +717,7 @@
             var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
             var values1 = checkedValues1.toString();
             var values2 = checkedValues2.toString();
-            var location = '{{location}}';
+            var location = 'Ulaanbaatar';
 
             if(checkedValues1.length !=0 || checkedValues2.length !=0){
                 checked(values1, values2, location);
@@ -736,7 +735,7 @@
                 $.ajax({
                     type: "POST",
                     url: "search.php",
-                    data: {search: $("#tags").val(), city:'{{location}}'},
+                    data: {search: $("#tags").val(), city:'Ulaanbaatar'},
                     success: function(data, textStatus, jqXHR)
                 {
                     $('.spinner').remove();
