@@ -1,6 +1,6 @@
 .rating_image{
-    width: 98px;
-    margin-bottom: 6px;
+	width: 98px;
+	margin-bottom: 6px;
 }
 #maps_hotel{
 	width: 800px;
@@ -131,6 +131,9 @@ dd{
 	.small-hidden{
 		display:none;
 	}
+	#partner>div{
+		margin-top:30px;
+	}
 	#slimmenu .container{
 		width: 100%;
 		padding:0;
@@ -174,8 +177,8 @@ button:after{
 .alert{
 	display: none;
 }
-#partner>div{
-	margin-top:20px;
+#partner>div:nth-child(n+6){
+	margin-top:30px;
 }
 #partner img{
 	-webkit-filter: grayscale(1);
