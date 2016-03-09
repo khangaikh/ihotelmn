@@ -94,7 +94,7 @@
                             <div class="loc-info text-right hidden-xs hidden-sm">
                                 <h3 class="loc-info-title"><img src="img/flags/32/mn.png" alt="Image Alternative text" title="Image Title" /><span></span></h3>
                                 <p class="loc-info-weather"><span class="loc-info-weather-num"></span><img id='img'></p>
-                                <ul class="loc-info-list">
+                                <ul class="loc-info-list currency">
                                     <li><a href='#' class='mnt'></a>
                                     </li>
                                     <li><a href='#' class="cny"></a>
@@ -308,9 +308,9 @@
             var cny = data.quotes.USDCNY.toFixed(2);
             var eur = data.quotes.USDEUR.toFixed(2);
 
-            $('.mnt').text(mnt+' ₮ | $');
-            $('.cny').text(cny+' ¥ | $');
-            $('.eur').text(eur+' € | $');
+            $('.mnt').text(mnt+' ₮');
+            $('.cny').text(cny+' ¥');
+            $('.eur').text(eur+' €');
         }
     });
 </script>

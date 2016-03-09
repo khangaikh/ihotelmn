@@ -269,3 +269,7 @@ button:after{
 .share>*:nth-child(n+2){
 	margin-left:10px;
 }
+.currency li{
+	font-size:20px;
+	padding:5px;
+} 
