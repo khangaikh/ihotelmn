@@ -517,4 +517,8 @@ $(document).ready(function(){
         $(this).after('<div id="loading"></div>');
         $(this).addClass('disabled');
     });
+    $('#hotels>li').click(function(){
+        $('#full-loader').remove();
+        $(this).append('<div id="full-loader"><div id="loading"></div></div>');
+    });
 });
