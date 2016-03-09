@@ -93,8 +93,15 @@
                         <div class="container" id='mn'>
                             <div class="loc-info text-right hidden-xs hidden-sm">
                                 <h3 class="loc-info-title"><img src="img/flags/32/mn.png" alt="Image Alternative text" title="Image Title" /><span></span></h3>
-                                <p class="loc-info-weather"><span class="loc-info-weather-num"></span><img id='img'>
-                                </p>
+                                <p class="loc-info-weather"><span class="loc-info-weather-num"></span><img id='img'></p>
+                                <ul class="loc-info-list">
+                                    <li><a href='#' class='mnt'></a>
+                                    </li>
+                                    <li><a href='#' class="cny"></a>
+                                    </li>
+                                    <li><a href='#' class="eur"></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -118,8 +125,8 @@
                     <div class="thumb-caption">
                         <h4 class="thumb-title"><a class="text-darken" href="#">Улаанбаатар</a></h4>
                     </div>
-                </div> 
-            </div>  
+                </div>
+            </div>
             <div class="col-md-4">
                 <div class="thumb">
                     <header class="thumb-header">
@@ -246,6 +253,7 @@
 {% block scripting %}
 {{parent()}}
 <script type="text/javascript">
+
     $(document).ready(function() {
         $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
             todayHighlight: true
@@ -278,7 +286,7 @@
     });
     $("#location").geocomplete();
     $.ajax({
-        url:"https://api.apixu.com/v1/current.json?key=7e5bc4b7f5f54b7598144108160103&q=Ulaanbaatar", 
+        url:"https://api.apixu.com/v1/current.json?key=7e5bc4b7f5f54b7598144108160103&q=Ulaanbaatar",
         dataType:"json",
         success: function(data){
             if(data.current.temp_c > 0){
@@ -290,6 +298,19 @@
             $('#mn .loc-info-weather-num').text(temp+'°C');
             var img = data.current.condition.icon;
             $('#img').load().attr('src', img);
+        }
+    });
+    $.ajax({
+        url:"http://apilayer.net/api/live?access_key=5463c8433389385312baf041c269be12&currencies=MNT,CNY,EUR&format=1",
+        dataType:"json",
+        success: function(data){
+            var mnt = data.quotes.USDMNT.toFixed(2);
+            var cny = data.quotes.USDCNY.toFixed(2);
+            var eur = data.quotes.USDEUR.toFixed(2);
+
+            $('.mnt').text(mnt+' ₮ | $');
+            $('.cny').text(cny+' ¥ | $');
+            $('.eur').text(eur+' € | $');
         }
     });
 </script>
