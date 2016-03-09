@@ -1,5 +1,6 @@
 <?php
     require 'js/parse/autoload.php';
+    require_once "lib/recaptchalib.php";
     use Parse\ParseException;
     use Parse\ParseUser;
     use Parse\ParseSessionStorage;
@@ -16,25 +17,43 @@
     
     $result =false;
 
-    try {
-        $query = ParseUser::query();
-        $query->equalTo("username", $_POST['email']); 
-        $query->equalTo("emailVerified", true); 
-        $results = $query->find();
-        if ($results) {
-            $user = ParseUser::logIn($_POST['email'], $_POST['password']);
-            $user->save();
-            $result = true;
-        }
-    } catch (ParseException $error) {
-        echo $error;
+    $secret = "6LfSXhoTAAAAAPaw-YLaAtKdmrI-amR_xNS6RFmf";
+
+    // empty response
+    $response = null;
+
+    // check secret key
+    $reCaptcha = new ReCaptcha($secret);
+
+    if ($_POST["g_recaptcha_response"]) {
+        $response = $reCaptcha->verifyResponse(
+            $_SERVER["REMOTE_ADDR"],
+            $_POST["g_recaptcha_response"]
+        );
     }
-    if($result){
-        $user = ParseUser::getCurrentUser();
-        $_SESSION['user'] = $user;
-        echo 1;
-    }else{
-        echo 0;
+    if ($response != null && $response->success) {
+        try {
+            $query = ParseUser::query();
+            $query->equalTo("username", $_POST['email']); 
+            $query->equalTo("emailVerified", true); 
+            $results = $query->find();
+            if ($results) {
+                $user = ParseUser::logIn($_POST['email'], $_POST['password']);
+                $user->save();
+                $result = true;
+            }
+        } catch (ParseException $error) {
+            echo $error;
+        }
+        if($result){
+            $user = ParseUser::getCurrentUser();
+            $_SESSION['user'] = $user;
+            echo 1;
+        }else{
+            echo 0;
+        }
+    } else {
+        echo 2;
     }
     
 ?>

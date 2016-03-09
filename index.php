@@ -226,8 +226,6 @@
 
             $start = $_GET['depart'];
             $end = $_GET['end'];
-//            $location = $_GET['location'];
-//            $country = $_GET['country'];
 
             $template = $twig->loadTemplate('detail.html');
             //render a template

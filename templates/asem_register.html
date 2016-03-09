@@ -14,11 +14,12 @@
                     <label>Password</label>
                     <input class="form-control" type="password" placeholder="*****" id="password"/>
                 </div>
-            <div class="alert alert-danger" id='login-alert'>
-                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                </button>
-                <p class="text-small"></p>
-            </div>
+                <div class="form-group form-group-icon-left g-recaptcha" data-sitekey="6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP"></div>
+                <div class="alert alert-danger" id='login-alert'>
+                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                    </button>
+                    <p class="text-small"></p>
+                </div>
                 <input class="btn btn-primary" type="button" value="Login" id="login"/>
                 <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Forgot password?</a>
             </form>
@@ -56,16 +57,23 @@
         $this.addClass('disabled');
            $.post("login.php", {
                 email: $('#email').val(),
-                password: $('#password').val()
+                password: $('#password').val(),
+                g_recaptcha_response: $('#g-recaptcha-response').val()
                 }, function (result) {
                     if(result==1){
                         window.location.replace("index.php");  
+                    }
+                    else if(result==2){
+                        $('#loading').remove();
+                        $this.removeClass('disabled');
+                        $('#login-alert').fadeIn(500);
+                        $('#login-alert p').text('reCaptcha error!');
                     }
                     else{
                         $('#loading').remove();
                         $this.removeClass('disabled');
                         $('#login-alert').fadeIn(500);
-                        $('#login-alert p').text('Username or password incorrect!');
+                        $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
                     }
             });
         });
