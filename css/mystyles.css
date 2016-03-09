@@ -263,3 +263,6 @@ button:after{
 	right:20px;
 	top:9px;
 }
+.share>*:nth-child(n+2){
+	margin-left:10px;
+}

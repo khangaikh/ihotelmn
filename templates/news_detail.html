@@ -1,60 +1,67 @@
-{% extends "base.html" %} 
-{% block content %}          
-    <div class='gap'></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                {% if news %}
-                <!-- START BLOG POST -->
-                <div class="article post">
-                    <header class="post-header">
-                        <a class="hover-img" href="index.php?newsdetail={{new.objectId}}">
-                            <img src="{{news.header_image}}" alt="Image Alternative text" title="{{new.subject}}" />
-                            <i class="fa fa-link box-icon-# hover-icon round"></i>
-                        </a>
-                    </header>
-                    <div class="post-inner">
-                        <h4 class="post-title"><a class="text-darken" href="#">{{news.subject}}</a></h4>
-                        <ul class="post-meta">
-                            <li><i class="fa fa-calendar"></i><a>{{news.createdAt | date("F j, Y")}}</a>
-                            </li>
-                            <li><i class="fa fa-user"></i><a href="#">{{news.user.username}}</a>
-                            </li>
-                            <li><i class="fa fa-tags"></i><a href="#">{{news.category}}</a>
-                            </li>
-                        </ul>
-                        <p class="post-desciption">{{news.content}}</p>
-                    </div>
-                </div>
-                <!-- END BLOG POST -->
-                {% endif %}
-            </div>
-            <div class="col-md-3">
-                <aside class="sidebar-right">
-                    <div class="sidebar-widget">
-                        <div class="Form">
-                            <input class="form-control" placeholder="Search..." type="text" />
-                        </div>
-                    </div>
-                    <div class="sidebar-widget">
-                        <h4>Ангилал</h4>
-                        <ul class="icon-list list-category">
-                            <li><a href="index.php?news_search=Travel Advices">
-                                <i class="fa fa-angle-right"></i>Аялалын зөвлөгөө <small>({{category.travel_advice}})</small></a>
-                            </li>
-                            <li><a href="index.php?news_search=Hotels">
-                                <i class="fa fa-angle-right"></i>Зочид Буудлууд <small>({{category.hotels}})</small></a>
-                            </li>
-                            <li><a href="index.php?news_search=Places to Go">
-                                <i class="fa fa-angle-right"></i>Сонин хачин <small >({{category.place_to_go}})</small></a>
-                            </li>
-                        </ul>
-                    </div>
-                </aside>
-            </div>
+{% extends "newscategory.html" %}
+{% block subcontent %}
+<?php 
+$link = $_SERVER['REQUEST_URI']; 
+?>
+<div class="col-md-9">
+    {% if news %}
+    <!-- START BLOG POST -->
+    <div class="article post">
+        <header class="post-header">
+            <a class="hover-img" href="#">
+                <img src="{{new.header_image}}" alt="Image Alternative text" title="{{new.subject}}" />
+                <i class="fa fa-link box-icon-# hover-icon round"></i>
+            </a>
+        </header>
+        <div class="post-inner">
+            <h4 class="post-title"><a class="text-darken" href="#">{{news.subject}}</a></h4>
+            <ul class="post-meta">
+                <li><i class="fa fa-calendar"></i><a>{{news.createdAt | date("F j, Y")}}</a>
+                </li>
+                <li><i class="fa fa-user"></i><a href="#">{{news.user.username}}</a>
+                </li>
+                <li><i class="fa fa-tags"></i><a href="#">{{news.category}}</a>
+                </li>
+            </ul>
+            <p class="post-desciption">{{news.content}}...</p>
         </div>
     </div>
-{% endblock %} 
-{% block scripting %} 
-{{parent()}}
-{% endblock %}
+    <div class='share flex middle'>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <div class="fb-share-button" data-href="<?php $link; ?>" data-layout="button"></div>
+      <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
+  <!-- END BLOG POST -->
+                <!--<ul class="pagination">
+                    <li class="active"><a href="#">1</a>
+                    </li>
+                    <li><a href="#">2</a>
+                    </li>
+                    <li><a href="#">3</a>
+                    </li>
+                    <li><a href="#">4</a>
+                    </li>
+                    <li><a href="#">5</a>
+                    </li>
+                    <li><a href="#">6</a>
+                    </li>
+                    <li><a href="#">7</a>
+                    </li>
+                    <li class="dots">...</li>
+                    <li><a href="#">43</a>
+                    </li>
+                    <li class="next"><a href="#">Next Page</a>
+                    </li>
+                </ul>-->
+                {% endif %}
+            </div>
+            {% endblock %}
