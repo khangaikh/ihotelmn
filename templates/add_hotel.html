@@ -4740,7 +4740,6 @@
                      url: "room.php",
                      data: {data:j, action:1},
                      success: function(data, textStatus, jqXHR){
-                           console.log(data);
                            var room = $.parseJSON( data );
                            $("#edit_room_id").val(room['id']);
                            $("#room_detail_edit_roomtype_id").val(room['type']);
@@ -4750,7 +4749,6 @@
 
                            for(var i=0; i<room['fac'].length; i++){
                               var element ='#edit_'+room['fac'][i];
-                              console.log(element);
                               $(element).iCheck('check');
                            }
                            $("#room_detail_edit_bedtype_id_SINGLE_1").val(room['bed_size']);
@@ -4760,7 +4758,6 @@
 
                            for(var i=0; i<room['images'].length; i++){
                               var url = room['images'][i];
-                              console.log(url);
                               var div = $('<div id="'+i+'" class="col-md-4">');
                               var add = $('<a name="remove" class="btn btn-lg" style="margin-left:70px" onClick="removeImage(this,'+i+',\''+room['id']+'\');"><i class="fa fa-times-circle"></a>');
                               var img = $('<img>'); 
@@ -4777,14 +4774,12 @@
                }); 
             }
             function delete_room(j){
-               console.log(j);
                if (confirm('Are you sure ?')) {
                   $.ajax({
                      type: "POST",
                      url: "room.php",
                      data: {data:j, action:4},
                      success: function(data, textStatus, jqXHR){
-                           console.log(data);
                            if(data == 1 ){
                               window.location.reload();
                            } 
@@ -4983,6 +4978,9 @@
                         validateFront();
                         if($("#create_basic_info_form").parsley().isValid()){ 
                               var values = $("#create_basic_info_form").serializeObject();
+                              var $this = $(this);
+                              $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+                              $this.addClass('disabled');
                               $.ajax({
                                     type: "POST",
                                     url: "create.php",
@@ -4990,10 +4988,11 @@
                                     success: function(data, textStatus, jqXHR){
                                           //alert(data);
                                           if(data == 1 ){
-                                                /*enable next tab*/
-                                                $('.nav li.active').next('li').removeClass('disabled');
-                                                $('.nav li.active').next('li').find('a').attr("data-toggle","tab");
-                                                $('.nav li.active').next('li').find('a').tab('show');    
+                                                $('#loading').remove();
+                                                $this.removeClass('disabled');
+                                                $('#navLeftMenu li.active').next('li').removeClass('disabled');
+                                                $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
+                                                $('#navLeftMenu li.active').next('li').find('a').tab('show');    
                                           } 
                                     }
                               });
@@ -5016,6 +5015,9 @@
                               var business_fac = $('input[name="business_fac"]:checkbox:checked').map(function() {return this.value;}).get();
                               var shops = $('input[name="shops"]:checkbox:checked').map(function() {return this.value;}).get();
                               var others = $('input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+                              var $this = $(this);
+                              $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+                              $this.addClass('disabled');
                               
                               $.ajax({
                                     type: "POST",
@@ -5025,9 +5027,12 @@
                                           //alert(data);
                                           if(data == 1 ){
                                                 /*enable next tab*/
-                                                $('.nav li.active').next('li').removeClass('disabled');
-                                                $('.nav li.active').next('li').find('a').attr("data-toggle","tab");
-                                                $('.nav li.active').next('li').find('a').tab('show');    
+                                                $('#loading').remove();
+                                                $this.removeClass('disabled');
+
+                                                $('#navLeftMenu li.active').next('li').removeClass('disabled');
+                                                $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
+                                                $('#navLeftMenu li.active').next('li').find('a').tab('show');    
                                           } 
                                     }
                               });
@@ -5043,12 +5048,17 @@
                               var room_images = $('img[name="room-images"]').map(function() {return $(this).attr('src');}).get();
                               var facilities = $('input[name="amenities_room"]:checkbox:checked').map(function() {return this.value;}).get();
                               $("#room_details_continue_btn").attr('disable',true);
+                              var $this = $(this);
+                              $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+                              $this.addClass('disabled');
+
                               $.ajax({
                                     type: "POST",
                                     url: "create.php",
                                     data: {data:values, section:3, images:room_images, facilities:facilities},
                                     success: function(data, textStatus, jqXHR){
-                                          console.log(data);
+                                          $('#loading').remove();
+                                          $this.removeClass('disabled');
                                           if(data == 1 ){
                                                window.location.reload();
                                           } 
@@ -5057,6 +5067,9 @@
                         }  
                   });
                   $("#room_continue_btn").click(function(){
+                     var $this = $(this);
+                     $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+                     $this.addClass('disabled');
                      $.ajax({
                            type: "POST",
                            url: "create.php",
@@ -5064,9 +5077,12 @@
                            success: function(data, textStatus, jqXHR){
                                  if(data == 1 ){
                                        /*enable next tab*/
-                                       $('.nav li.active').next('li').removeClass('disabled');
-                                       $('.nav li.active').next('li').find('a').attr("data-toggle","tab");
-                                       $('.nav li.active').next('li').find('a').tab('show');    
+                                       $('#loading').remove();
+                                       $this.removeClass('disabled');
+
+                                       $('#navLeftMenu li.active').next('li').removeClass('disabled');
+                                       $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
+                                       $('#navLeftMenu li.active').next('li').find('a').tab('show');    
                                  } 
                            }
                      });      
@@ -5078,32 +5094,40 @@
                         if($("#create_photo_upload_form").parsley().isValid() && $("#cover_photo_upload_form").parsley().isValid() ){
                               var hotel_images = $('img[name="hotel-images"]').map(function() {return $(this).attr('src');}).get();
                               var cover_images = $('img[name="cover-images"]').map(function() {return $(this).attr('src');}).get();
+                              var $this = $(this);
+                              $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+                              $this.addClass('disabled');
                               $.ajax({
                                     type: "POST",
                                     url: "create.php",
                                     data: {data:1, hotel_images:hotel_images, cover_images:cover_images, section:4},
                                     success: function(data, textStatus, jqXHR){
-                                       console.log(data);
                                           if(data == 1 ){
-                                             $('.nav li.active').next('li').removeClass('disabled');
-                                             $('.nav li.active').next('li').find('a').attr("data-toggle","tab");
-                                             $('.nav li.active').next('li').find('a').tab('show'); 
+                                             $('#loading').remove();
+                                             $this.removeClass('disabled');
+                                             $('#navLeftMenu li.active').next('li').removeClass('disabled');
+                                             $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
+                                             $('#navLeftMenu li.active').next('li').find('a').tab('show'); 
                                           } 
                                     }
                               }); 
                         }
                   });
                   $("#payment_continue_btn").click(function(){
+                        var $this = $(this);
+                        $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+                        $this.addClass('disabled');
                         $.ajax({
                            type: "POST",
                            url: "create.php",
                            data: {data:1, section:5},
                            success: function(data, textStatus, jqXHR){
-                              console.log(data);
                                  if(data == 1 ){
-                                    $('.nav li.active').next('li').removeClass('disabled');
-                                    $('.nav li.active').next('li').find('a').attr("data-toggle","tab");
-                                    $('.nav li.active').next('li').find('a').tab('show'); 
+                                    $('#loading').remove();
+                                    $this.removeClass('disabled');
+                                    $('#navLeftMenu li.active').next('li').removeClass('disabled');
+                                    $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
+                                    $('#navLeftMenu li.active').next('li').find('a').tab('show'); 
                                  } 
                            }
                         }); 
@@ -5112,16 +5136,20 @@
                         $("#create_agreement_form").parsley().validate();
                         validateFront();
                         if($("#create_agreement_form").parsley().isValid()){
+                              var $this = $(this);
+                              $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+                              $this.addClass('disabled');
                               $.ajax({
                                  type: "POST",
                                  url: "create.php",
                                  data: {data:1, section:6},
                                  success: function(data, textStatus, jqXHR){
-                                    console.log(data);
                                        if(data == 1 ){
-                                          $('.nav li.active').next('li').removeClass('disabled');
-                                          $('.nav li.active').next('li').find('a').attr("data-toggle","tab");
-                                          $('.nav li.active').next('li').find('a').tab('show'); 
+                                          $('#loading').remove();
+                                          $this.removeClass('disabled');
+                                          $('#navLeftMenu li.active').next('li').removeClass('disabled');
+                                          $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
+                                          $('#navLeftMenu li.active').next('li').find('a').tab('show'); 
                                        } 
                                  }
                               });
@@ -5130,13 +5158,18 @@
                   });
                   $('a[name="activate_hotel_btn"]').click(function(){ 
                         if (confirm('Are you sure ?')) {
+                           var $this = $(this);
+                           $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+                           $this.addClass('disabled');
+
                            $.ajax({
                                  type: "POST",
                                  url: "create.php",
                                  data: {data:1, section:7},
                                  success: function(data, textStatus, jqXHR){
-                                    console.log(data);
                                        if(data == 1 ){
+                                          $('#loading').remove();
+                                          $this.removeClass('disabled');
                                           window.location.replace("index.php"); 
                                        } 
                                  }
