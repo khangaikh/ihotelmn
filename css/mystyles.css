@@ -180,8 +180,9 @@ button:after{
 .alert{
 	display: none;
 }
-#partner>div:nth-child(n+6){
-	margin-top:30px;
+#partner>div{
+	width:12.5%;
+	padding:0 10px;
 }
 #partner img{
 	-webkit-filter: grayscale(1);
