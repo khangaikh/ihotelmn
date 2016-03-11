@@ -17,6 +17,7 @@
         $e->id = $room->getObjectId();
         $e->num_of_guest = $room->get('num_of_guest');
         $e->price = $room->get('night_price');
+        $e->price2 = $room->get('night_price2');
         $e->desc = $room->get('short_desc');
         $e->fac = $room->get('facilities');
         $e->size = $room->get('roomt_size');
@@ -56,6 +57,7 @@
             $room->setArray('facilities',$_POST['facilities']);  
         }
         $room->set("night_price", (int)$data['room_detail_edit_room_price_x_persons']);
+        $room->set("night_price2", (int)$data['room_detail_edit_room_price_2x_persons']);
         $paths= $room->get('images');
         if(isset($_POST['images'])){
             foreach ($_POST['images'] as $key=>$value){

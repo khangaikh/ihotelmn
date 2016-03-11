@@ -214,6 +214,16 @@
                                  </div>
                                  <span class="help-block "></span>
                               </div>
+                        </div>
+                        <div class="row">
+                              <div class="is-block form-group">
+                                 <label for="room_details_room_price_2x_persons" id="room_details_sb_room_details_price_for_2x_people" class="col-lg-12 col-sm-12">Price for 2 personsss</label>
+                                 <div class="input-group col-lg-3 col-sm-3">
+                                    <span class="input-group-addon">US$/per night</span>
+                                    <input type="tel" id="room_details_room_price_2x_persons" name="room_details_room_price_2x_persons" value="" class="form-control" placeholder="" data-parsley-type="number" required="">
+                                 </div>
+                                 <span class="help-block "></span>
+                              </div>
                               <span class="col-lg-12 help-block">Please enter the price you want your guests to pay for this room. What you enter here can be updated once you're done signing up.</span>
                         </div>
                   </fieldset>
@@ -454,7 +464,17 @@
                                  </div>
                                  <span class="help-block "></span>
                               </div>
-                              <span class="col-lg-12 help-block">Please enter the price you want your guests to pay for this room. What you enter here can be updated once you're done signing up.</span>
+                        </div>
+                            <div class="row">
+                              <div class="is-block form-group">
+                                 <label for="room_detail_edit_room_price_2x_persons" id="room_detail_edit_sb_room_detail_edit_price_for_2x_people" class="col-lg-12 col-sm-12">Price for 2 person</label>
+                                 <div class="input-group col-lg-3 col-sm-3">
+                                    <span class="input-group-addon">US$/per night</span>
+                                    <input type="text" id="room_detail_edit_room_price_2x_persons" name="room_detail_edit_room_price_2x_persons" value="" class="form-control" placeholder="" data-parsley-type="number" required="">
+                                 </div>
+                                 <span class="help-block "></span>
+                              </div>
+                               <span class="col-lg-12 help-block">Please enter the price you want your guests to pay for this room. What you enter here can be updated once you're done signing up.</span>
                         </div>
                   </fieldset>
                   <fieldset class="thumbnails-wrapper js-thumbnails-readiness active">
@@ -4755,6 +4775,7 @@
                            $("#room_detail_edit_bed_number_SINGLE_1").val(room['beds']);
                            $("#room_detail_edit_num_guests").val(room['num_of_guest']);
                            $("#room_detail_edit_room_price_x_persons").val(room['price']);
+                            $("#room_detail_edit_room_price_2x_persons").val(room['price2']);
 
                            for(var i=0; i<room['images'].length; i++){
                               var url = room['images'][i];
