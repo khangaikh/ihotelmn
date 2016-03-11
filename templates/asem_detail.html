@@ -330,6 +330,14 @@
                                     </p>
                                     </li>
                                 </ul>
+                                <div>
+                                    <div class="checkbox checkbox-small">
+                                        <label><input class="i-check" type="checkbox" name="pickup" value="vip"/>Vip</label>
+                                    </div>
+                                    <div class="checkbox checkbox-small">
+                                        <label><input class="i-check" type="checkbox" name="pickup" value="budget"/>Budget</label>
+                                    </div>
+                                </div>
                                 <p class="booking-item-payment-total">Total amount: <span id="total"> 4232</span>
                                 </p>
                                 <span name="ordernow" class="btn btn-primary ajax-full-width" id="{{room.objectId}}" style="width:100%">Order now</span>
@@ -380,8 +388,9 @@
       document.write(script);
 </script>
 <script type="text/javascript">
+    var total=0;
     function set_total(d){
-        var total=0;
+        total=0;
         $('span[name=subtotal]').each(function(){
             var sub = $(this).text();
             total = total + parseInt(sub);
@@ -390,6 +399,26 @@
         $("#total").text("US$ "+total);
     }
 
+    $(document).on("ifChanged",'input[name=pickup]', function( event ) {
+            var s = 0;
+            var checkedValues1 = $(' input[name="pickup"]:checkbox:checked').map(function() {return this.value;}).get();
+            if(checkedValues1.length ==0){
+                $("#total").text("US$ "+total);
+            } 
+            var thisId = this;
+            $('input[name="pickup"]').each(function(){
+                if(this == thisId){
+                    if ($(this).is(":checked")) {
+                        $(this).val() == "budget" ? s=total+25 : s=total+200;
+                        $("#total").text("US$ "+s);
+                    }
+                }
+                else{
+                    $(this).attr("checked", false);
+                    $(this).parent().attr("class", "i-check");
+                }
+            });
+    });
     $(document).ready(function() {
         initMap();
         $.ajax({
@@ -463,10 +492,16 @@
             var room_ids = ['1'];
             var room_qtys = ['1'];
             var room_subs = ['1'];
+            var pickup = "empty";
 
             $('ul[name=order_room]').each(function(){
                 var roomid = $(this).attr('roomid');
                 room_ids.push(roomid);
+            });
+            $('input[name="pickup"]').each(function(){
+                if ($(this).is(":checked")) {
+                    pickup = $(this).val();
+                }
             });
             $('span[name=qtys]').each(function(){
                 var qty = parseInt($(this).text());
@@ -498,6 +533,7 @@
                 rooms : room_ids,
                 qtys: qty_str,
                 subs:sub_str,
+                pickup: pickup,
                 days:days
             },
             function (result) {

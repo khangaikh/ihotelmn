@@ -176,9 +176,14 @@
                                         <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel.address}}</p>
                                     </div>
                                     <div class="col-xs-2">
-                                            <span class="booking-item-price-from">эхлэх үнэ</span>
-                                            <br />
-                                            <span class="booking-item-price">${{hotel.average_rate}}</span>
+                                        <span class="booking-item-price-from">эхлэх үнэ</span>
+                                        <br />
+                                        {% if hotel.asem == 0 %}
+                                        <span class="booking-item-price">{{hotel.average_rate}} ₮</span>
+                                        {% endif %}
+                                        {% if hotel.asem == 1 %}
+                                        <span class="booking-item-price">$ {{hotel.average_rate}}</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -207,10 +212,14 @@
                                         </ul>
                                         <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel2.address}}</p>
                                     </div>
-                                    <div class="col-xs-2"><span
-                                            class="booking-item-price-from">эхлэх үнэ</span>
-                                            <br />
-                                            <span class="booking-item-price">${{hotel2.average_rate}}</span>
+                                    <div class="col-xs-2"><span class="booking-item-price-from">эхлэх үнэ</span>
+                                        <br />
+                                        {% if hotel2.asem == 0 %}
+                                        <span class="booking-item-price">{{hotel2.average_rate}} ₮</span>
+                                        {% endif %}
+                                        {% if hotel2.asem == 1 %}
+                                        <span class="booking-item-price">$ {{hotel2.average_rate}}</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

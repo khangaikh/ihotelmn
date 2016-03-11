@@ -1,8 +1,5 @@
 {% extends "newscategory.html" %}
 {% block subcontent %}
-<?php 
-$link = $_SERVER['REQUEST_URI']; 
-?>
 <div class="col-md-9">
     {% if news %}
     <!-- START BLOG POST -->
@@ -29,19 +26,19 @@ $link = $_SERVER['REQUEST_URI'];
     <div class='share flex middle'>
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
-          fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
-      <div class="fb-share-button" data-href="<?php $link; ?>" data-layout="button"></div>
-      <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-  </div>
-  <!-- END BLOG POST -->
-                <!--<ul class="pagination">
+        <div class="fb-share-button" data-href="<?php $link; ?>" data-layout="button"></div>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+    <!-- END BLOG POST -->
+    <!--<ul class="pagination">
                     <li class="active"><a href="#">1</a>
                     </li>
                     <li><a href="#">2</a>
@@ -62,6 +59,6 @@ $link = $_SERVER['REQUEST_URI'];
                     <li class="next"><a href="#">Next Page</a>
                     </li>
                 </ul>-->
-                {% endif %}
-            </div>
-            {% endblock %}
+    {% endif %}
+</div>
+{% endblock %}

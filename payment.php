@@ -10,6 +10,8 @@ use Parse\ParseQuery;
     $days=$_POST["days"];
     $start=$_POST["start"];
     $end=$_POST["end"];
+
+    $pickup = $_POST["pickup"];
     
     //$rooms = explode(',', $_POST["rooms"]);
     $rooms = $_POST["rooms"];
@@ -43,6 +45,7 @@ use Parse\ParseQuery;
             $order->set("days", (int)$days);
             $order->set("qty", (int)$qty);
             $order->set("total", (string)$subtotal);
+            $order->set("pickup", (string)$pickup);
             $order->set("status", 0);
 
             try {
@@ -86,6 +89,7 @@ use Parse\ParseQuery;
             $order->set("days", (int)$days);
             $order->set("qty", (int)$qty);
             $order->set("total", (string)$subtotal);
+            $order->set("pickup", (string)$pickup);
             $order->set("status", 0);
 
             try {
@@ -110,4 +114,5 @@ use Parse\ParseQuery;
     $_SESSION['days'] = $days;
     $_SESSION['start'] = $start;
     $_SESSION['end'] = $end;
+    $_SESSION['pickup'] = $pickup;
 ?>

@@ -131,14 +131,36 @@
                                     <li>
                                         <p class="booking-item-payment-price-title">{{room.name}}</p>
                                         <p
-                                        class="booking-item-payment-price-title" style="margin-left:10px">{{oom.qty}}<small>/өрөө</small></p>
+                                        class="booking-item-payment-price-title" style="margin-left:10px">{{room.qty}}<small>/өрөө</small></p>
                                         <p class="booking-item-payment-price-amount">${{room.sub}}<small>/хоногийн</small></p>
                                     </li>
                                 {%endfor%}
                             </ul>
                         </li>
+                        <li>
+                        {% if pickup == "badge" %}
+                            <h5>Pickup</h5>
+                            <ul class="booking-item-payment-price">
+                                    <li>
+                                        <p class="booking-item-payment-price-title"></p>
+                                        <p class="booking-item-payment-price-title" style="margin-left:10px"><small>BUDGET</small></p>
+                                        <p class="booking-item-payment-price-amount">$<small>25</small></p>
+                                    </li>
+                            </ul>
+                        {% endif %}
+                        {% if pickup == "vip" %}
+                            <h5>Pickup</h5>
+                            <ul class="booking-item-payment-price">
+                                    <li>
+                                        <p class="booking-item-payment-price-title"></p>
+                                        <p class="booking-item-payment-price-title" style="margin-left:10px"><small>VIP</small></p>
+                                        <p class="booking-item-payment-price-amount">$<small>200</small></p>
+                                    </li>
+                            </ul>
+                        {% endif %}
+                        </li>
                     </ul>
-                    <p class="booking-item-payment-total">Нийт дүн: <span>US$ {{total}}</span>
+                    <p class="booking-item-payment-total">Нийт дүн: <span>{{total}} ₮</span>
                     </p>
                 </div>
             </div>

@@ -248,7 +248,9 @@
                 $end = $_SESSION['end'];
                 $days = $_SESSION['days'];
                 $hotel = $_SESSION['hotel'];
+                $pickup = $_SESSION['pickup'];
                 $day_start = date('l', strtotime( $start));
+                $day_end = date('l', strtotime( $end));
                 $day_end = date('l', strtotime( $end));
                 $orders = $_SESSION['orders'];
                 class Event {}
@@ -269,9 +271,12 @@
                     array_push($rooms,$e);
                 }
                 $total= $total * $days;
+
+                if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 200; }
+
                 $_SESSION['total'] = $total;
                 $template = $twig->loadTemplate('payment.html');
-                echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'user' => $user));
+                echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user));
             }else{
 
             }
@@ -281,6 +286,7 @@
                 $start = $_SESSION['start'];
                 $end = $_SESSION['end'];
                 $days = $_SESSION['days'];
+                $pickup = $_SESSION['pickup'];
                 $hotel = $_SESSION['hotel'];
                 $day_start = date('l', strtotime( $start));
                 $day_end = date('l', strtotime( $end));
@@ -303,10 +309,13 @@
                     array_push($rooms,$e);
                 }
                 $total= $total * $days;
+
+                if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 200; }
+
                 $_SESSION['total'] = $total;
                 $template = $twig->loadTemplate('asem_payment.html');
                 //render a template
-                echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'user' => $user));
+                echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user));
             }else{
 
             }
@@ -764,6 +773,7 @@
                     $end = $_SESSION['end'];
                     $days = $_SESSION['days'];
                     $hotel = $_SESSION['hotel'];
+                    $pickup = $_SESSION['pickup'];
                     $day_start = date('l', strtotime( $start));
                     $day_end = date('l', strtotime( $end));
                     $orders = $_SESSION['orders'];
@@ -785,10 +795,13 @@
                         array_push($rooms,$e);
                     }
                     $total= $total * $days;
+
+                    if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 200; }
+
                     $_SESSION['total'] = $total;
                     $template = $twig->loadTemplate('payment.html');
                     //render a template
-                    echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end));
+                    echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'pickup' => $pickup, 'day_end' => $day_end));
                 }else{
 
                 }
@@ -800,6 +813,7 @@
                     $end = $_SESSION['end'];
                     $days = $_SESSION['days'];
                     $hotel = $_SESSION['hotel'];
+                    $pickup = $_SESSION['pickup'];
                     $day_start = date('l', strtotime( $start));
                     $day_end = date('l', strtotime( $end));
                     $orders = $_SESSION['orders'];
@@ -821,9 +835,12 @@
                         array_push($rooms,$e);
                     }
                     $total= $total * $days;
+
+                    if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 200; }
+
                     $template = $twig->loadTemplate('asem_payment.html');
                     //render a template
-                    echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end));
+                    echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup));
                 }else{
 
                 }
