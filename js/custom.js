@@ -15,7 +15,7 @@ $('.countdown').each(function() {
     $(this).countdown({
         zeroCallback: function(options) {
             var newDate = new Date(),
-                newDate = newDate.setHours(newDate.getHours() + 130);
+            newDate = newDate.setHours(newDate.getHours() + 130);
 
             $(count).attr("data-countdown", newDate);
             $(count).countdown({
@@ -32,7 +32,7 @@ $("[rel='tooltip']").tooltip();
 
 $('.form-group').each(function() {
     var self = $(this),
-        input = self.find('input');
+    input = self.find('input');
 
     input.focus(function() {
         self.addClass('form-group-focus');
@@ -107,14 +107,14 @@ $('.booking-item-price-calc .checkbox label').click(function() {
                 }
             });
         };
-    if (!checked) {
-        animateInt(eqPriceInt, eqPrice, true);
-        animateInt(tPriceInt, tPrice, true);
-    } else {
-        animateInt(eqPriceInt, eqPrice, false);
-        animateInt(tPriceInt, tPrice, false);
-    }
-});
+        if (!checked) {
+            animateInt(eqPriceInt, eqPrice, true);
+            animateInt(tPriceInt, tPrice, true);
+        } else {
+            animateInt(eqPriceInt, eqPrice, false);
+            animateInt(tPriceInt, tPrice, false);
+        }
+    });
 
 
 $('div.bg-parallax').each(function() {
@@ -140,30 +140,30 @@ $('div.bg-parallax').each(function() {
 $(document).ready(
     function() {
 
-    $('html').niceScroll({
-        cursorcolor: "#000",
-        cursorborder: "0px solid #fff",
-        railpadding: {
-            top: 0,
-            right: 0,
-            left: 0,
-            bottom: 0
-        },
-        cursorwidth: "10px",
-        cursorborderradius: "0px",
-        cursoropacitymin: 0.2,
-        cursoropacitymax: 0.8,
-        boxzoom: true,
-        horizrailenabled: false,
-        zindex: 9999
-    });
+        $('html').niceScroll({
+            cursorcolor: "#000",
+            cursorborder: "0px solid #fff",
+            railpadding: {
+                top: 0,
+                right: 0,
+                left: 0,
+                bottom: 0
+            },
+            cursorwidth: "10px",
+            cursorborderradius: "0px",
+            cursoropacitymin: 0.2,
+            cursoropacitymax: 0.8,
+            boxzoom: true,
+            horizrailenabled: false,
+            zindex: 9999
+        });
 
 
         // Owl Carousel
         var owlCarousel = $('#owl-carousel'),
-            owlItems = owlCarousel.attr('data-items'),
-            owlCarouselSlider = $('#owl-carousel-slider'),
-            owlNav = owlCarouselSlider.attr('data-nav');
+        owlItems = owlCarousel.attr('data-items'),
+        owlCarouselSlider = $('#owl-carousel-slider'),
+        owlNav = owlCarouselSlider.attr('data-nav');
         // owlSliderPagination = owlCarouselSlider.attr('data-pagination');
 
         owlCarousel.owlCarousel({
@@ -185,13 +185,13 @@ $(document).ready(
 
     // footer always on bottom
     var docHeight = $(window).height();
-   var footerHeight = $('#main-footer').height();
-   var footerTop = $('#main-footer').position().top + footerHeight;
+    var footerHeight = $('#main-footer').height();
+    var footerTop = $('#main-footer').position().top + footerHeight;
 
-   if (footerTop < docHeight) {
-    $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
-   }
+    if (footerTop < docHeight) {
+        $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
     }
+}
 
 
 );
@@ -230,8 +230,8 @@ $('.booking-item-review-expand').click(function(event) {
 
 $('.stats-list-select > li > .booking-item-rating-stars > li').each(function() {
     var list = $(this).parent(),
-        listItems = list.children(),
-        itemIndex = $(this).index();
+    listItems = list.children(),
+    itemIndex = $(this).index();
 
     $(this).hover(function() {
         for (var i = 0; i < listItems.length; i++) {
@@ -280,7 +280,7 @@ $('.form-group-cc-cvc input').payment('formatCardCVC');
 
 if ($('#map-canvas').length) {
     var map,
-        service;
+    service;
     jQuery(function($) {
         $(document).ready(function() {
             var latlng = new google.maps.LatLng(47.921634, 106.922474);
@@ -358,8 +358,8 @@ $('.popup-iframe').magnificPopup({
 
 $('.form-group-select-plus').each(function() {
     var self = $(this),
-        btnGroup = self.find('.btn-group').first(),
-        select = self.find('select');
+    btnGroup = self.find('.btn-group').first(),
+    select = self.find('select');
     btnGroup.children('label').last().click(function() {
         btnGroup.addClass('hidden');
         select.removeClass('hidden');
@@ -487,12 +487,12 @@ function abortTimer() { // to be called when you want to stop the timer
 $(document).ready(function(){
   var counter = 0;
   setInterval(function() {
-  var frames=12;
-  var frameWidth = 30;
-  var offset=counter * -frameWidth;
-  $("#loading").css('background-position', 0 + "px" + " " + offset + "px");
-  $('.loading-input').css('background-position', 0 + "px" + " " + offset + "px");
-  counter++; if (counter>=frames) counter =0; }, 100);
+      var frames=12;
+      var frameWidth = 30;
+      var offset=counter * -frameWidth;
+      $("#loading").css('background-position', 0 + "px" + " " + offset + "px");
+      $('.loading-input').css('background-position', 0 + "px" + " " + offset + "px");
+      counter++; if (counter>=frames) counter =0; }, 100);
 });
 
 $('.alert .close').click(function(e){
@@ -503,15 +503,15 @@ $('.alert .close').click(function(e){
 $(document).ready(function(){
   $('.disabled').click(function(){
     return false;
-  });
+});
 });
 
 $(document).ready(function(){
     $('.ajax-full-width').click(function(){
         var width = $(this).width();
+        $(this).width(width - 60);
         $(this).after('<div id="loading"></div>');
         $(this).addClass('disabled');
-        $(this).width(width - 60);
     });
     $('.ajax').click(function(){
         $(this).after('<div id="loading"></div>');

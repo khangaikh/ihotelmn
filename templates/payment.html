@@ -21,7 +21,7 @@
                         <img src="img/golomt-header.jpg" alt="Image Alternative text" title="Image Title" />
                         <img src="img/mastervisa.jpg" alt="Image Alternative text" title="Image Title" />
                         <form id="golomt_pay">
-                            <input style="width:100%" type="submit" value="Төлбөр хийх" class="btn btn-primary" />
+                            <input style="width:100%" type="submit" value="Төлбөр хийх" class="btn btn-primary ajax-full-width" />
                         </form>
                     </div>
                 </div>
@@ -200,9 +200,6 @@
     $("#golomt_pay").submit(function( event ) {
         {% if user %}
         event.preventDefault();
-        var $this = $(this);
-        $this.after('<div id="loading"></div>');
-        $this.addClass('disabled');
         $.post("order.php", {
             end: $('#end_4').val(),
         }, function (result) {
