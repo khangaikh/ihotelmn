@@ -393,8 +393,9 @@
                 data: {data:j,action:3},
                 success: function(data, textStatus, jqXHR)
             {  
-                $('a[name='+j+']').hide();
-                $("#operations").append('<a name="'+j+'" set="1" class="btn btn-primary" href="#" onclick="unset_hotel('+j+')">Unset</a>');
+                
+                $('a[name='+j+']').parent('.operations').children('.edit').after('<a name="'+j+'" set="1" class="btn btn-primary unset" href="#" onclick="unset_hotel('+j+')">Unset</a>');
+                $('a[name='+j+']').parent('.operations').children('.set').remove();
             },
                 error: function(xhr, textStatus, errorThrown){
                     alert(textStatus);
@@ -410,8 +411,8 @@
                 data: {data:j,action:4},
                 success: function(data, textStatus, jqXHR)
             {    
-                $('a[name='+j+']').hide();
-                $("#operations").append('<a name="'+j+'" set="1" class="btn btn-primary" href="#" onclick="set_hotel('+j+')">Set</a>');
+                 $('a[name='+j+']').parent('.operations').children('.edit').after('<a name="'+j+'" set="1" class="btn btn-primary set" href="#" onclick="set_hotel('+j+')">Set</a>');
+                 $('a[name='+j+']').parent('.operations').children('.unset').remove();
             },
                 error: function(xhr, textStatus, errorThrown){
                     alert(textStatus);

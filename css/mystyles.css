@@ -257,7 +257,6 @@ button:after{
 .input-ajax{
 	position: relative;
 }
-
 .input-ajax .spinner{
 	width:16px;
 	height: 16px;
@@ -274,3 +273,17 @@ button:after{
 	font-size:20px;
 	padding:5px;
 } 
+.mrgn5{
+	margin-top:5px;
+}
+.select_room .form-control{
+	width:60%;
+}
+.select_room i{
+	width:35px;
+	height:35px;
+	line-height: 35px;
+	text-align: center;
+	border:1px solid #ccc;
+	color:#686868;
+}

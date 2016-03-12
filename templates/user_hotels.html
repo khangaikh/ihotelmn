@@ -34,12 +34,12 @@
             <i class="fa fa-times-circle"></i>
             {%endif%}
         </td>
-        <td id="operations">
-            <a name="{{hotel.objectId}}" class="btn btn-primary" href="#" onclick="edit_hotel('{{hotel.objectId}}')">Засах</a>
+        <td class="operations">
+            <a name="{{hotel.objectId}}" class="btn btn-primary edit" href="#" onclick="edit_hotel('{{hotel.objectId}}')">Засах</a>
             {% if hotel.homepage ==0 %}
-            <a name="{{hotel.objectId}}" set="1" class="btn btn-primary" href="#" onclick="set_hotel('{{hotel.objectId}}')">Set</a>
+            <a name="{{hotel.objectId}}" set="1" class="btn btn-primary set" href="#" onclick="set_hotel('{{hotel.objectId}}')">Set</a>
             {%else%}
-            <a name="{{hotel.objectId}}" set="0" class="btn btn-primary" href="#" onclick="unset_hotel('{{hotel.objectId}}')">Unset</a>
+            <a name="{{hotel.objectId}}" set="0" class="btn btn-primary unset" href="#" onclick="unset_hotel('{{hotel.objectId}}')">Unset</a>
             {%endif%}
             <a name="{{hotel.objectId}}"  class="btn btn-default" href="#" onclick="disable_hotel('{{hotel.objectId}}')">Цуцлах</a>
         </td>
