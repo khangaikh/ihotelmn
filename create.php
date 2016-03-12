@@ -87,6 +87,7 @@
             $room->setArray('facilities',$_POST['facilities']);  
         }
         $room->set("night_price", (int)$data['room_details_room_price_x_persons']);
+        $room->set("night_price2", (int)$data['room_details_room_price_2x_persons']);
         $paths=array();
 
         foreach ($_POST['images'] as $key=>$value){
