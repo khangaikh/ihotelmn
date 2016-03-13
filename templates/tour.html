@@ -1,492 +1,634 @@
-{% extends "base.html" %} 
-{% block content %}                
-<div class='container'>
-	<div class='gap'></div>
-                <div class="col-md-12">
-                    <div class="nav-drop booking-sort">
-                        <h5 class="booking-sort-title"><a href="#">Sort: Aviability<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
-                        <ul class="nav-drop-menu">
-                            <li><a href="#">Price (low to high)</a>
-                            </li>
-                            <li><a href="#">Price (hight to low)</a>
-                            </li>
-                            <li><a href="#">Ranking</a>
-                            </li>
-                            <li><a href="#">Distance</a>
-                            </li>
-                            <li><a href="#">Number of Reviews</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row row-wrap">
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel 1" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-o"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">InterContinental New York Barclay</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$244</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel 2" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-o"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">New York Hilton Midtown</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$333</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="The pool" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Grand Hyatt New York</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$196</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY RIO INTERNACIONAL rooftop pool" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Warwick New York Hotel</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$212</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY LIBERDADE" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-half-empty"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-o"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Holiday Inn Express Kennedy</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$390</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel THE CLIFF BAY spa suite" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-half-empty"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Wellington Hotel</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$194</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-half-empty"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Waldorf Astoria New York</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$170</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF library" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">The Benjamin</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$263</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF suite" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">The Kimberly Hotel</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$245</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF suite2" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Affinia Shelburne</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$344</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel EDEN MAR suite" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Club Quarters Grand Central</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$318</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="hotel PORTO BAY RIO INTERNACIONAL de luxe" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-o"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">The London NYC</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$442</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-o"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Bryant Park Hotel</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$344</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO luxury suite" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-half-empty"></i>
-                                        </li>
-                                        <li><i class="fa fa-star-o"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">Wyndham Garden Chinatown</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$398</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumb">
-                                <header class="thumb-header">
-                                    <a class="hover-img" href="#">
-                                        <img src="img/800x600.png" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO lobby" />
-                                        <h5 class="hover-title-center">Book Now</h5>
-                                    </a>
-                                </header>
-                                <div class="thumb-caption">
-                                    <ul class="icon-group text-tiny text-color">
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                        <li><i class="fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <h5 class="thumb-title"><a class="text-darken" href="#">JFK Inn</a></h5>
-                                    <p class="mb0"><small>New York City: Midtown West , New York, NY</small>
-                                    </p>
-                                    <p class="mb0 text-darken"><span class="text-lg lh1em">$212</span><small> avg/night</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <ul class="breadcrumb">
+        <li><a href="index.html">Нүүр</a></li>
+        <li class="active">{{location}}</li>
+    </ul>
+    <div style="height:20px"></div>
+    <input type="hidden" id="location_1" value="{{location}}"/>
+    <input type="hidden" id="country" value="{{country}}"/>
+    <input type="hidden" id="start_1" value="{{start}}"/>
+    <input type="hidden" id="end_1" value="{{end}}"/>
+    <input type="hidden" id="num_person_1" value="{{num_person}}"/>
+    <form class="booking-item-dates-change mb40">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                    <label>Зорьчих газар</label>
+                    <input class="form-control" id="location" name='location' value="{{location}}" type="text" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-daterange">
                     <div class="row">
                         <div class="col-md-6">
-                            <p><small>521 hotels found in New York. &nbsp;&nbsp;Showing 1 – 15</small>
-                            </p>
-                            <ul class="pagination">
-                                <li class="active"><a href="#">1</a>
-                                </li>
-                                <li><a href="#">2</a>
-                                </li>
-                                <li><a href="#">3</a>
-                                </li>
-                                <li><a href="#">4</a>
-                                </li>
-                                <li><a href="#">5</a>
-                                </li>
-                                <li><a href="#">6</a>
-                                </li>
-                                <li><a href="#">7</a>
-                                </li>
-                                <li class="dots">...</li>
-                                <li><a href="#">43</a>
-                                </li>
-                                <li class="next"><a href="#">Next Page</a>
-                                </li>
-                            </ul>
+                            <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                <label>Ирэх</label>
+                                <input class="form-control" id="start" name="start" type="text" data-date-format="yyyy-mm-dd"  {%if start %} value="{{start}}" {%else %} value="2016-06-01" {%endif%}  />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                <label>Гарах</label>
+                                <input class="form-control" id="end" name="end" type="text" data-date-format="yyyy-mm-dd" {%if end %} value="{{end}}" {%else %} value="2016-07-01" {%endif%} />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-                {% endblock %} 
-{% block scripting %} 
-{{parent()}}
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group form-group- form-group-select-plus">
+                            <label>Зочид</label>
+                            <select id="persons" class="form-control" name="persons">
+                                <option  selected="selected" >{{persons}}</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-group-select-plus">
+                            <label>Өрөө</label>
+                            <select id="guests" class="form-control" name="guests">
+                                <option selected="selected" >{{guests}}</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button class="btn btn-primary" type="submit">Хайх</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-3">
+            <aside class="booking-filters booking-filters-white">
+                <h3>Шүүлт</h3>
+                <div class='input-ajax'>
+                <input id="tags" class="form-control" placeholder="Амралтын газрын нэр ..." type="text" style="margin:10px; width:92%" />
+                </div>
+                <ul class="list booking-filters-list">  
+                    <li>
+                    <h5 class="booking-filters-title">Нэмэлт</h5>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="wifi" />Утасгүй интернет
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="parking" />Зогсоол
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox"  name="others" value="fitness" />Бялдаржуулах төв
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="pool" />Бассейн
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="saun" />Саун
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox"  name="others" value="famroom"/>Гэр бүлийн өрөө
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="rest" />Баар
+                    </div>
+                    </li>
+                    <li>
+                    <h5 class="booking-filters-title">Өрөө</h5>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="air" />Агааржуулагч
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="tv" /> Хавтгай телевизор
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="kitchen" />Гал тогоо
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="noise" />Дуу тусгаарлагч
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="jakuz" />Жакуззи
+                    </div>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" name="others" value="washing"/>Угаалгын машин
+                    </div>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+        <div class="col-md-9">
+            <div class="nav-drop booking-sort small-top">
+                <h5 class="booking-sort-title"><a href="#">Эрэмбэлэх:<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
+                <ul id="sorting" class="nav-drop-menu">
+                    <li id="pricedown"><a href="#" name="sort" sort="pricedown">Үнэ (ихээс бага руу)</a>
+                    </li>
+                    <li id="priceup"><a href="#" name="sort" sort="priceup">Үнэ (багаас их рүү)</a>
+                    </li>
+                    <li id="starup"><a href="#" name="sort" sort="starup">Одоор (ихээс бага руу )</a>
+                    </li>
+                    <li id="stardown"><a href="#" name="sort" sort="stardown">Одоор (багаас их рүү)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-drop booking-sort small-top" style="float:right;">
+                <h5 id="hotel_list"><a href="#" title="Жагсаалт"><i class="fa fa-list"></i>Жагсаалт</a></h5>
+                <h5 id="hotel_map"><a href="#" title="Газрын зураг"><i class="fa fa-map-marker"></i>Газрын зураг</a></h5>
+            </div>
+            <div id="maps_hotel" style="display: none;">
+            </div>
+            <ul class="booking-list" id="hotels">
+                {% for res in results %}
+                <li>
+                    <a class="booking-item" id="{{res.objectId}}" asem="0" title="{{res.name}}"href="#" name="detail">
 
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="booking-item-img-wrap">
+                                <img src="{{res.cover_image}}" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" />
+                                <div class="booking-item-img-num"><i class="fa fa-picture-o"></i>{{res.images|length}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class='flex'>
+                                <div>
+                                    <h5 class="booking-item-title">{{res.name}}</h5>
+                                </div>
+                                <div>
+                                    <div class="booking-item-rating mrg-left">
+                                        <ul class="icon-group booking-item-rating-stars">
+                                            {% for i in range(1, res.stars) %}
+                                            <li><i class="fa fa-star"></i></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <small class="booking-item-address"><i class="fa fa-map-marker"></i>{{res.address}}</small><br><br><small class="booking-item-address">{{res.short_desc}}</small>
+                        </div>
+                        <div class="col-md-3"><span class="booking-item-price-from small-hidden">дунджаар</span><span class="booking-item-price">{{res.average_rate}}₮</span><span>/өдөр</span><span class="small-left btn btn-primary" name="detail" id="{{res.objectId}}">Өрөө сонгох</span>
+                        </div>
+                    </div>
+                </a>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><small> {{location}}-т {{count}} буудал олдлоо.</small></p>
+                    <ul class="pagination">
+                        {% for i in range(0, pages) %}
+                        {% if i == 0 %}
+                        {% set j=i+1 %}
+                        <li class="active"><a href="#">{{j}}</a></li>
+                        {% else %}
+                        <li><a href="#">{{i}}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+{% block scripting %}
+    {{parent()}}
+    <script type="text/javascript">
+          var script = '<script type="text/javascript" src="https://google-maps-' +
+              'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
+          if (document.location.search.indexOf('compiled') !== -1) {
+            script += '-compiled';
+          }
+          script += '.js"><' + '/script>';
+          document.write(script);
+    </script>
+    <script type="text/javascript">
+    var keyup = false;
+    var asem = false;
+    var results = [];
+
+    {% for res in results %}
+        {% if res.geolocation %}
+            results.push({lat: {{res.geolocation.latitude}}, lng: {{res.geolocation.longitude}}, id: '{{res.objectId}}', avg: '{{res.average_rate}}'});
+        {% endif %}
+    {% endfor %}
+
+    var map = new google.maps.Map(document.getElementById('maps_hotel'), {
+        zoom: 13,
+        center: new google.maps.LatLng(47.912318, 106.913816),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    var infoBubble;
+    var infoBubble2; 
+    var countinfo = 0; 
+    var marker;
+    function initMap(resulst) {
+        map = new google.maps.Map(document.getElementById('maps_hotel'), {
+            zoom: 13,
+            center: new google.maps.LatLng(47.912318, 106.913816),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        for(var i = 0; i<results.length; i++){
+            marker = new google.maps.Marker({
+                position: {lat: results[i].lat, lng: results[i].lng},
+            });
+            infoBubble = new InfoBubble({
+                content: '<h5 id="'+results[i].id+'" onclick="help(this.id);"style="cursor: pointer; margin-bottom: 0px; color: #FFF;font-weight: bold;">$'+
+                results[i].avg+'</h5>',
+                       arrowSize: 8,
+                       maxWidth: 100,
+                       minHeight: 35,
+                       backgroundColor: '#FF0C0C',
+                       hideCloseButton: true,
+                       arrowPosition: 50,
+                       padding: 4,
+                       borderRadius: 8,
+                       arrowStyle: 0,
+                       map: map,
+                       shadowStyle: 1
+            });
+            infoBubble.open(map, marker);
+        }
+    }
+    function help(tid){
+        var contentString;
+        $.ajax({
+            type: "POST",
+            url: "index.php",
+            data: {mapGeoId:tid},
+            success: function(data, textStatus, jqXHR)
+        {
+            if (countinfo >= 1) {
+                if (infoBubble2.isOpen()) {
+                    infoBubble2.close();
+                }
+            }
+            countinfo++;
+            var hotel = $.parseJSON(data);
+            marker = new google.maps.Marker({
+                position: {lat: hotel['latitude'], lng: hotel['longitude']},
+            });
+
+
+            var stars ='<div style="font-size: 13px;margin:0;line-height: 20px;"'+
+            'class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'; 
+        for(var i = 0; i<hotel['stars']; i++){ 
+            stars+='<li><i class="fa fa-star"></i></li>';
+        }
+        stars+='</ul></div>';
+        contentString='<a href="index.php?asemdetail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
+            '&guests='+$("#guests").val()+'&rooms='+$("#rooms").val()+'"><div id="content">'+
+            '<img style="width: 276px; overflow: hidden;"src="'+hotel['cover_image']+'"><h1></h1>'+
+            '<h4 style="margin: 0;">'+hotel['name']+'<br/>'+stars+'<span style="margin: 0; float:right" class="booking-item-price"><span style="margin: 0; font-size:13px" class="booking-item-price">from&nbsp;&nbsp;&nbsp;</span>$'+hotel['average_rate']+'</span>'+
+            '</h4></div></a>';
+
+        infoBubble2 = new InfoBubble({
+            maxWidth: 300,
+                    minWidth: 300,
+                    minHeight: 290,
+                    hideCloseButton: true,
+                    overflow: 'hidden',
+                    content: contentString
+        });
+        infoBubble2.open(map, marker);
+        google.maps.event.addListener(map,'click', function() {
+            infoBubble2.close();
+        });
+        }
+        });
+    }
+    function details(i){
+        event.preventDefault();
+        var curId = $(i).attr('id');
+        var start = $("#start_1").val();
+        var end = $("#end_1").val();
+        var location = $("#location_1").val();
+        var guests = $("#guests").val();
+        var rooms = $("#rooms").val();
+        var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+        window.location.replace(url);
+    }
+
+    $("#hotel_map").click(function( event ) {
+        $("#hotels").hide();
+        $("#maps_hotel").show();
+        initMap(results);
+    });
+
+    $("#hotel_list").click(function( event ) {
+        $("#maps_hotel").hide();
+        $("#hotels").show();
+    });
+
+    $(document).ready(function() {
+        var availableTags = ['q','x'];
+        $.ajax({
+            type: "POST",
+            url: "search.php",
+            data: {autocomplete:1, city:'Ulaanbaatar', resort:1},
+            success: function(data, textStatus, jqXHR)
+        {
+            availableTags = $.parseJSON(data);
+
+            $( "#tags" ).autocomplete({
+              source: availableTags
+            });
+        }
+        });
+        $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
+            todayHighlight: true
+        });
+        $('input.date-pick, .input-daterange input[name="start_1"]').datepicker();
+        $('.input-daterange input[name="end_1"]').datepicker();
+        $('input.time-pick').timepicker({
+            minuteStep: 15,
+            showInpunts: false
+        })
+        $(document).on("click",'span[name=detail]', function( event ) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            if($(this).attr('asem') == 0){
+                var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
+            }
+            else{
+                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
+            }
+            window.location.replace(url);
+        });
+        $(document).on("click",'a[name=detail]', function( event ) {
+            event.preventDefault();
+            var detialId = $(this).attr('id');
+            var curId = detialId;
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            if($(this).attr('asem') == 0){
+                var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
+            }
+            else{
+                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
+            }
+            window.location.replace(url);
+        });
+        $('input.date-pick-years').datepicker({
+            startView: 2
+        });
+
+        $("input").on('ifChanged', function(event){
+                $("#tags").val('');
+                var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+                var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+                var values1 = checkedValues1.toString();
+                var values2 = checkedValues2.toString();
+                var location = '{{location}}'.split(",");
+                $('#full-loader').remove();
+                $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
+                if(checkedValues1.length !=0 || checkedValues2.length !=0){
+                checked(values1, values2, location[0]);
+                }else{
+                not_checked();
+                }
+        });
+
+        $("#search_a").click(function( event ) {
+            var check = true;
+            var start = $("#start").val();
+            var end = $("#end").val();
+            var location = $("#location").val();
+            var persons = $("#num_people").val();
+
+            if(location == ""){
+                check =false;
+            }
+            if(check){
+                var url = "index.php?start=" + start + "&end=" + end + "&location=" +location+"&persons="+persons;  
+                window.location.replace(url);    
+            }else{
+                $("#alert_1").toggle();
+                $("#location").css("border-color", "red");
+            }   
+        });
+
+        $("#sorting a").click(function( event ) {
+            var sort = $(this).attr('sort');
+            var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+            var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+            var values1 = checkedValues1.toString();
+            var values2 = checkedValues2.toString();
+            var location = $("#location_1").val();
+            $.ajax({
+                type: "POST",
+                url: "sort.php",
+                data: {data:sort, filter1:values1, filter2:values2, city:location},
+                success: function(data, textStatus, jqXHR)
+            {
+                $("#hotels").empty();
+                var events = data['events'];
+                var pages = data['pages'];
+                var sort = data['sort'];
+                $("#sorting").val(sort)
+                results=[];
+                $.each(events, function(idx, obj) {
+                    var index = idx+1;
+                    var string = "";
+                    results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
+                    for ($i=0; $i<obj.stars; $i++){
+                        string += '<i class="fa fa-star"></i></li>';
+                    }
+                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.objectId+'" href="#"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.objectId+'">Өрөө сонгох</span></div></div></a></li>');
+                });
+                initMap(results);
+            //alert(data);
+
+            }
+            });
+        });
+        $('#hotels').on('click', 'span[name=detail]',function(event) {
+            event.preventDefault();
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+            window.location.replace(url);
+        });
+        $('#hotels').on('click', 'a[name=detail]',function(event) {
+            event.preventDefault();
+            var aseme = $(this).attr("asem");
+            var curId = $(this).attr('id');
+            var start = $("#start_1").val();
+            var end = $("#end_1").val();
+            var location = $("#location_1").val();
+            var guests = $("#guests").val();
+            var rooms = $("#rooms").val();
+            var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+            window.location.replace(url);
+        });
+    }); 
+    function not_checked(){
+        var location = '{{location}}'.split(",");
+        var data={not_checked:1, city:location[0], resort:1};
+
+        $.ajax({
+            type: "POST",
+            url: "search.php",
+            data: data,
+            success: function(data, textStatus, jqXHR)
+        {
+            $("#hotels").empty();
+
+            var events = data['events'];
+            var pages = data['pages'];
+            results = [];
+            availableTags = [];
+            $.each(events, function(idx, obj) {
+                var index = idx+1;
+                var string = "";
+                availableTags.push(obj.name);  
+                results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
+                for ($i=0; $i<obj.stars; $i++){
+                    string += '<i class="fa fa-star"></i></li>';
+                }
+                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+
+            });
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+            initMap(results);
+        }
+        });
+    }
+    function checked(values1, values2, location){
+        var data={data:values1, filter:values2, city:location, resort:1};
+
+        $("#tags").val('');
+        $.ajax({
+            type: "POST",
+            url: "search.php",
+            data: data,
+            success: function(data, textStatus, jqXHR)
+        {
+            $("#hotels").empty();
+            var events = data['events'];
+            var pages = data['pages'];
+            results=[];
+            availableTags = [];
+            $.each(events, function(idx, obj) {
+                var index = idx+1;
+                var string = "";
+                availableTags.push(obj.name);  
+                results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
+                for ($i=0; $i<obj.stars; $i++){
+                    string += '<i class="fa fa-star"></i></li>';
+                }
+                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+
+            });
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+            initMap(results);
+        }
+        });
+    }
+    $( "#tags" ).keyup(function(event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var text =$('#tags').val();
+
+        if(keycode == 8 && (text.length == 0) && keyup == true){
+
+            var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+            var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+            var values1 = checkedValues1.toString();
+            var values2 = checkedValues2.toString();
+            var location = '{{location}}'.split(",");
+
+            if(checkedValues1.length !=0 || checkedValues2.length !=0){
+                checked(values1, values2, location[0]);
+            }else{
+                not_checked();
+            }
+
+            keyup = false;
+        }
+        else{
+            if(keycode == '13'){
+                keyup = true;
+                $('.spinner').remove();
+                $(this).after('<div class="spinner"></div>');
+                $.ajax({
+                    type: "POST",
+                    url: "search.php",
+                    data: {search: $("#tags").val(), city:'Ulaanbaatar', resort:"1"},
+                    success: function(data, textStatus, jqXHR)
+                {
+                    $('.spinner').remove();
+                    $("#hotels").empty();
+
+                    var events = data['events'];
+                    var pages = data['pages'];
+
+                    results=[];
+                    $.each(events, function(idx, obj) {
+                        var index = idx+1;
+                        var string = "";
+                        results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
+                        for ($i=0; $i<obj.stars; $i++){
+                            string += '<i class="fa fa-star"></i></li>';
+                        }
+                        $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+
+                    });
+                }
+                });
+                initMap(results);
+            }
+        }
+    });
+    $("#location").geocomplete();
+    </script>
 {% endblock %}

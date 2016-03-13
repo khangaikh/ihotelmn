@@ -20,6 +20,10 @@
             $query->equalTo("asem",0);
         }
 
+        if(isset($_POST['resort'])){
+            $query->equalTo("type", "Resort");
+        }
+
         $query->equalTo("status",1);
         $query->limit(25);
         $results = $query->find();
@@ -58,6 +62,10 @@
         }else{
             $query->equalTo("asem",0);
         }
+         
+        if(isset($_POST['resort'])){
+            $query->equalTo("type", "Resort");
+        }
 
         $query->equalTo("status",1);
         $query->limit(25);
@@ -94,6 +102,10 @@
             $query->equalTo("asem",1);
         }else{
             $query->equalTo("asem",0);
+        }
+
+        if(isset($_POST['resort'])){
+            $query->equalTo("type", "Resort");
         }
 
         $query->equalTo("status",1);
@@ -139,6 +151,10 @@
             $query->equalTo("asem",0);
         }
 
+        if(isset($_POST['resort'])){
+            $query->equalTo("type", "Resort");
+        }
+
         $query->equalTo("status",1);
         $query->limit(25);
         $results = $query->find();
@@ -154,6 +170,9 @@
     
         $query->equalTo("city",$_POST['city']);
 
+        if(isset($_POST['resort'])){
+            $query->equalTo("type", "Resort");
+        }
 
         $query->equalTo("status",1);
         $query->equalTo("name",$_POST['search']);

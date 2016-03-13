@@ -19,8 +19,19 @@
         $username = $user->get("username");
 
         if(isset($_GET['tour'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("asem",0);
+            $query->equalTo("type","Resort");
+            $query->descending("stars");
+            $results = $query->find();
+            $date = new DateTime();
+            $checkin = $date->format('Y-m-d');
+            $date = new DateTime();
+            $checkout = $date->format('Y-m-d');
+            $count = $query->count();
             $template = $twig->loadTemplate('tour.html');
-            echo $template->render(array('title' => 'Аялал'));
+            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => 'Ulaanbaatar', 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'user' => $user));
         }
         else if(isset($_GET['news'])){
             $template = $twig->loadTemplate('news.html');
@@ -654,8 +665,19 @@
             echo $template->render(array('title' => 'Choose room', 'nav' => 1,  'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
         else if(isset($_GET['tour'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("asem",0);
+            $query->equalTo("type",'Resort');
+            $query->descending("stars");
+            $results = $query->find();
+            $date = new DateTime();
+            $checkin = $date->format('Y-m-d');
+            $date = new DateTime();
+            $checkout = $date->format('Y-m-d');
+            $count = $query->count();
             $template = $twig->loadTemplate('tour.html');
-            echo $template->render(array('title' => 'Аялал'));
+            echo $template->render(array('title' => 'Аялал', 'nav' => 1, 'location' => 'Ulaanbaatar', 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel'));
         }
         else if(isset($_GET['news'])){
             $template = $twig->loadTemplate('news.html');

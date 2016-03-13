@@ -1,3 +1,9 @@
+.checkbox-border span{
+    float: right; 
+}
+.checkbox-border{
+    border-bottom: 1px dashed #d9d9d9;
+}
 .booking-list a li{
     margin-bottom: 5px;
 }
