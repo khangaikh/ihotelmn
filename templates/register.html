@@ -14,7 +14,7 @@
                     <label>Нууц үг</label>
                     <input class="form-control" type="password" placeholder="*****" id="password"/>
                 </div>
-                <div class="form-group form-group-icon-left g-recaptcha" data-sitekey="6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP"></div>
+                <div id="RecaptchaField1" class="form-group"></div>
                 <div class="alert alert-danger" id='login-alert'>
                     <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                     </button>
@@ -40,6 +40,7 @@
                         <label>Цахим шуудан</label>
                         <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
                     </div>
+                    <div id="RecaptchaField3" class="form-group"></div>
                     <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
                 </form>
             </div>
@@ -59,6 +60,7 @@
                     <label>Нууц үг</label>
                     <input class="form-control" type="password" placeholder="****" id="rpassword" />
                 </div>
+                <div id="RecaptchaField2" class="form-group"></div>
                 <div class="alert alert-success" id='register-success'>
                     <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                     </button>
@@ -77,6 +79,12 @@
 
         </div>
     </div>
+    <input type="hidden" name="recaptcha1" id="recaptcha1" value="" />
+    <input type="hidden" name="recaptcha2" id="recaptcha2" value="" />
+    <input type="hidden" name="recaptcha3" id="recaptcha3" value="" />
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn"
+async defer>
+    </script>
 </div>
 {% endblock %}
 {% block scripting %}
@@ -90,7 +98,7 @@
         $.post("login.php", {
             email: $('#email').val(),
             password: $('#password').val(),
-            g_recaptcha_response: $('#g-recaptcha-response').val()
+            g_recaptcha_response: $('#recaptcha1').val()
         },
         function (result) {
             if(result==1){
@@ -119,12 +127,19 @@
         $.post("user.php", {
             email: $('#remail').val(),
             username: $('#rusername').val(),
-            password: $('#rpassword').val()
+            password: $('#rpassword').val(),
+            g_recaptcha_response: $('#recaptcha2').val()
         }, function (result) {
             if(result==1){
                 $('#loading').remove();
                 $('#register-success').fadeIn(500);
                 $('#register-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
+            }
+            else if(result==2){
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                $('#login-alert').fadeIn(500);
+                $('#login-alert p').text('reCaptcha error!');
             }
             else{
                 $('#loading').remove();
@@ -139,11 +154,17 @@
         $('#login-alert1').hide();
         $.post("user.php", {
             forgot_password: $('#forgot_email').val(),
+            g_recaptcha_response: $('#recaptcha3').val()
         }, function (result) {
             if(result==1){
                 $(".mfp-close").trigger('click');
                 $('#register-success1').fadeIn(500);
                 $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
+            }
+            else if(result==2){
+                $(".mfp-close").trigger('click');
+                $('#login-alert1').fadeIn(500);
+                $('#login-alert1 p').text('reCaptche error!');
             }
             else{
                 $(".mfp-close").trigger('click');
@@ -152,5 +173,35 @@
             }
         });
     });
+</script>
+<script type="text/javascript">
+      var verifyCallback = function(response) {
+        $("#recaptcha1").val(response);
+      };
+      var verifyCallback1 = function(response) {
+        $("#recaptcha2").val(response);
+      };
+      var verifyCallback2 = function(response) {
+        $("#recaptcha3").val(response);
+      };
+      var widgetId1;
+      var widgetId2;
+      var onloadCallback = function() {
+        widgetId1 = grecaptcha.render('RecaptchaField1', {
+          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+          'callback' : verifyCallback,
+          'theme' : 'light'
+        });
+        widgetId2 = grecaptcha.render('RecaptchaField3', {
+          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+          'callback' : verifyCallback2,
+          'theme' : 'light'
+        });
+        grecaptcha.render('RecaptchaField2', {
+          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+          'callback' : verifyCallback1,
+          'theme' : 'light'
+        });
+      };
 </script>
 {% endblock %}

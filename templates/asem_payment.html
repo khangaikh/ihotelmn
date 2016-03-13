@@ -40,7 +40,7 @@
                             <label>Password</label>
                             <input class="form-control" type="password" placeholder="*****" id="password"/>
                         </div>
-                        <div class="form-group form-group-icon-left g-recaptcha" data-sitekey="6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP"></div>
+                        <div id="RecaptchaField1" class="form-group"></div>
                         <div class="alert alert-danger" id='login-alert'>
                             <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                             </button>
@@ -66,6 +66,7 @@
                                 <label>Please write your registered email address</label>
                                 <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
                             </div>
+                            <div id="RecaptchaField2" class="form-group"></div>
                             <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
                         </form>
                     </div>
@@ -112,7 +113,7 @@
                             </ul>
                         </li>
                         <li>
-                        {% if pickup == "badge" %}
+                        {% if pickup == "budget" %}
                             <h5>Pickup</h5>
                             <ul class="booking-item-payment-price">
                                     <li>
@@ -141,6 +142,11 @@
         </div>
         <div class="gap"></div>
     </div>
+    <input type="hidden" name="recaptcha1" id="recaptcha1" value="" />
+    <input type="hidden" name="recaptcha2" id="recaptcha2" value="" />
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn"
+async defer>
+    </script>
 {% endblock %}
 {% block scripting %}
 {{parent()}}
@@ -153,7 +159,7 @@
         $.post("login.php", {
             email: $('#email').val(),
             password: $('#password').val(),
-            g_recaptcha_response: $('#g-recaptcha-response').val()
+            g_recaptcha_response: $('#recaptcha1').val()
         }, function (result) {
             if(result==1){
                 window.location.replace(window.location.href);   
@@ -178,18 +184,22 @@
         $this.addClass('disabled');
         $.post("user.php", {
             forgot_password: $('#forgot_email').val(),
+            g_recaptcha_response: $('#recaptcha2').val()
         }, function (result) {
             if(result==1){
                 $(".mfp-close").trigger('click');
                 $('#register-success1').removeClass('hidden');
                 $('#register-success1 p').text('Please check your email');
             }
-            else{
-                $('#loading').remove();
-                $this.removeClass('disabled');
+            else if(result==2){
                 $(".mfp-close").trigger('click');
-                $('#login-alert1').removeClass('hidden');
-                $('#login-alert1 p').text('Your email is wrong!');
+                $('#login-alert1').fadeIn(500);
+                $('#login-alert1 p').text('reCaptche error!');
+            }
+            else{
+                $(".mfp-close").trigger('click');
+                $('#login-alert1').fadeIn(500);
+                $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
             }
         });
     });
@@ -219,7 +229,6 @@
         });
         {% endif %}
     });
-
     $('#add').click(function(){
         $.post("user.php", {
             email: $('#remail').val(),
@@ -253,4 +262,25 @@
         document.body.appendChild(form);
         form.submit();
 }</script> 
+<script type="text/javascript">
+      var verifyCallback = function(response) {
+        $("#recaptcha1").val(response);
+      };
+      var verifyCallback1 = function(response) {
+        $("#recaptcha2").val(response);
+      };
+      var widgetId1;
+      var onloadCallback = function() {
+        widgetId1 = grecaptcha.render('RecaptchaField1', {
+          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+          'callback' : verifyCallback,
+          'theme' : 'light'
+        });
+        grecaptcha.render('RecaptchaField2', {
+          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+          'callback' : verifyCallback1,
+          'theme' : 'light'
+        });
+      };
+</script>
 {% endblock %}
