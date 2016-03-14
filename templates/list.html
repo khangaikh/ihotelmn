@@ -106,8 +106,12 @@
                     <div class="checkbox">
                         <input class="i-check" type="checkbox" id="asem_box" name="asem_box" value="5"/>ASEM MONGOLIA 2016 
                     </div>
+                    <h5 class="booking-filters-title"></h5>
+                    <div class="checkbox">
+                        <input class="i-check" type="checkbox" id="tour_box" name="tour_box" value="5"/>Амралтын газрууд 
+                    </div>
                     </li>
-                    <li>
+                    <li id="stars_filter">
                     <h5 class="booking-filters-title">Од</h5>
                     <div class="checkbox">
                         <input class="i-check" type="checkbox" name="stars" value="5"/>5 одтой
@@ -266,6 +270,7 @@
     <script type="text/javascript">
     var keyup = false;
     var asem = false;
+    var tour = false;
     var results = [];
 
     {% for res in results %}
@@ -444,17 +449,47 @@
         $("input").on('ifChanged', function(event){
             $("#tags").val('');
             if(this.id !='asem_box'){
-                var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
-                var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
-                var values1 = checkedValues1.toString();
-                var values2 = checkedValues2.toString();
-                var location = '{{location}}'.split(",");
-                $('#full-loader').remove();
-                $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
-                if(checkedValues1.length !=0 || checkedValues2.length !=0){
-                    checked(values1, values2, location[0]);
-                }else{
-                    not_checked();
+                if(this.id == "tour_box"){ 
+                    $('#full-loader').remove();
+                    $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
+                    if(this.checked) {
+                        tour = true;
+                        asem = false;
+                        $("input[name='asem_box']").attr("checked", false);
+                        $("input[name='asem_box']").parent().attr("class", "i-check");
+                        $("#stars_filter").hide();
+                        tour_checked();
+                    }
+                    else{
+                        tour = false;
+                        $("#stars_filter").show();
+                        var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+                        var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+                        var values1 = checkedValues1.toString();
+                        var values2 = checkedValues2.toString();
+                        var location = '{{location}}'.split(",");
+                        var type = "Hotel";
+                        if(checkedValues1.length !=0 || checkedValues2.length !=0){
+                            checked(values1, values2, location[0], type);
+                        }else{
+                            not_checked(type);
+                        }
+                    }
+                }
+                else{
+                    var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+                    var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+                    var values1 = checkedValues1.toString();
+                    var values2 = checkedValues2.toString();
+                    var location = '{{location}}'.split(",");
+                    var type = "Hotel";
+                    $('#full-loader').remove();
+                    $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
+                    if(checkedValues1.length !=0 || checkedValues2.length !=0){
+                        checked(values1, values2, location[0], type);
+                    }else{
+                        not_checked(type);
+                    }
                 }
             }
             else{
@@ -462,6 +497,10 @@
                 $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
                 if(this.checked) {
                     asem = true;
+                    tour = false;
+                    $("#stars_filter").show();
+                    $("input[name='tour_box']").attr("checked", false);
+                    $("input[name='tour_box']").parent().attr("class", "i-check");
                     asem_checked();
                 }
                 else{
@@ -471,10 +510,11 @@
                     var values1 = checkedValues1.toString();
                     var values2 = checkedValues2.toString();
                     var location = '{{location}}'.split(",");
+                    var type = "Hotel";
                     if(checkedValues1.length !=0 || checkedValues2.length !=0){
-                        checked(values1, values2, location[0]);
+                        checked(values1, values2, location[0], type);
                     }else{
-                        not_checked();
+                        not_checked(type);
                     }
                 }
             }
@@ -556,13 +596,13 @@
             window.location.replace(url);
         });
     }); 
-    function not_checked(){
+    function not_checked(type){
         var location = '{{location}}'.split(",");
         var data;
         if(asem){
-            data={not_checked:1, city:location[0], asem:1, type: "Hotel"};
+            data={not_checked:1, city:location[0], asem:1, type: type};
         }else{
-            data={not_checked:1, city:location[0], type: "Hotel"};
+            data={not_checked:1, city:location[0], type: type};
         }
         $.ajax({
             type: "POST",
@@ -594,12 +634,12 @@
         }
         });
     }
-    function checked(values1, values2, location){
+    function checked(values1, values2, location, type){
         var data;
         if(asem){
-            data={data:values1, filter:values2, city:location, asem:1, type: "Hotel"};
+            data={data:values1, filter:values2, city:location, asem:1, type: type};
         }else{
-            data={data:values1, filter:values2, city:location, type: "Hotel"};
+            data={data:values1, filter:values2, city:location, type: type};
         }
         $("#tags").val('');
         $.ajax({
@@ -700,7 +740,41 @@
             });
         }
     }
+    function tour_checked(){
+        $("#tags").val('');
+        var location = '{{location}}'.split(",");
+        $.ajax({
+            type: "POST",
+            url: "search.php",
+            data: {not_checked:1, city:location[0], type: "Resort"},
+            success: function(data, textStatus, jqXHR)
+        {
+            $("#hotels").empty();
+
+            var events = data['events'];
+            var pages = data['pages'];
+            results=[];
+            availableTags = [];
+            $.each(events, function(idx, obj) {
+                var index = idx+1;
+                var string = "";
+                availableTags.push(obj.name);  
+                results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
+                for ($i=0; $i<obj.stars; $i++){
+                    string += '<i class="fa fa-star"></i></li>';
+                }
+                $("#hotels").append('<li><a asem="1" class="booking-item" id="'+obj.id+'" href="#" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">$'+obj.rate+'</span><span>/night</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+
+            });
+                $( "#tags" ).autocomplete({
+                    source: availableTags
+                });
+                initMap(results);
+        }
+        });
+    }
     $( "#tags" ).keyup(function(event) {
+        var data;
         var keycode = (event.keyCode ? event.keyCode : event.which);
         var text =$('#tags').val();
 
@@ -712,23 +786,32 @@
             var values2 = checkedValues2.toString();
             var location = '{{location}}'.split(",");
 
+            var type = "Hotel";
+            if(tour){ type = "Resort";}
+
             if(checkedValues1.length !=0 || checkedValues2.length !=0){
-                checked(values1, values2, location[0]);
+                checked(values1, values2, location[0],type);
             }else{
-                not_checked();
+                not_checked(type);
             }
 
             keyup = false;
         }
         else{
             if(keycode == '13'){
+                if(tour){
+                    data = {search: $("#tags").val(), city:'Ulaanbaatar', type: "Resort"};
+                }
+                else{
+                    data = {search: $("#tags").val(), city:'Ulaanbaatar', type: "Hotel"}; 
+                }
                 keyup = true;
                 $('.spinner').remove();
                 $(this).after('<div class="spinner"></div>');
                 $.ajax({
                     type: "POST",
                     url: "search.php",
-                    data: {search: $("#tags").val(), city:'Ulaanbaatar', type: "Hotel"},
+                    data: data,
                     success: function(data, textStatus, jqXHR)
                 {
                     $('.spinner').remove();
