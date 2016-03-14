@@ -359,7 +359,7 @@
         $.ajax({
             type: "POST",
             url: "search.php",
-            data: {autocomplete:1, city:'Ulaanbaatar', resort:1},
+            data: {autocomplete:1, city:'Ulaanbaatar', type:"Resort"},
             success: function(data, textStatus, jqXHR)
         {
             availableTags = $.parseJSON(data);
@@ -510,7 +510,7 @@
     }); 
     function not_checked(){
         var location = '{{location}}'.split(",");
-        var data={not_checked:1, city:location[0], resort:1};
+        var data={not_checked:1, city:location[0], type:"Resort"};
 
         $.ajax({
             type: "POST",
@@ -543,7 +543,7 @@
         });
     }
     function checked(values1, values2, location){
-        var data={data:values1, filter:values2, city:location, resort:1};
+        var data={data:values1, filter:values2, city:location, type:"Resort"};
 
         $("#tags").val('');
         $.ajax({
@@ -603,7 +603,7 @@
                 $.ajax({
                     type: "POST",
                     url: "search.php",
-                    data: {search: $("#tags").val(), city:'Ulaanbaatar', resort:"1"},
+                    data: {search: $("#tags").val(), city:'Ulaanbaatar', type:"Resort"},
                     success: function(data, textStatus, jqXHR)
                 {
                     $('.spinner').remove();

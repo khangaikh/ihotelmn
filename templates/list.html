@@ -386,7 +386,7 @@
         $.ajax({
             type: "POST",
             url: "search.php",
-            data: {autocomplete:1, city:'Ulaanbaatar'},
+            data: {autocomplete:1, city:'Ulaanbaatar', type: "Hotel"},
             success: function(data, textStatus, jqXHR)
         {
             availableTags = $.parseJSON(data);
@@ -508,7 +508,7 @@
             $.ajax({
                 type: "POST",
                 url: "sort.php",
-                data: {data:sort, filter1:values1, filter2:values2, city:location},
+                data: {data:sort, filter1:values1, filter2:values2, city:location, type: "Hotel"},
                 success: function(data, textStatus, jqXHR)
             {
                 $("#hotels").empty();
@@ -560,9 +560,9 @@
         var location = '{{location}}'.split(",");
         var data;
         if(asem){
-            data={not_checked:1, city:location[0], asem:1};
+            data={not_checked:1, city:location[0], asem:1, type: "Hotel"};
         }else{
-            data={not_checked:1, city:location[0]};
+            data={not_checked:1, city:location[0], type: "Hotel"};
         }
         $.ajax({
             type: "POST",
@@ -597,9 +597,9 @@
     function checked(values1, values2, location){
         var data;
         if(asem){
-            data={data:values1, filter:values2, city:location, asem:1};
+            data={data:values1, filter:values2, city:location, asem:1, type: "Hotel"};
         }else{
-            data={data:values1, filter:values2, city:location};
+            data={data:values1, filter:values2, city:location, type: "Hotel"};
         }
         $("#tags").val('');
         $.ajax({
@@ -642,7 +642,7 @@
             $.ajax({
                 type: "POST",
                 url: "search.php",
-                data: {data:values1, filter:values2, city:location[0], asem:1},
+                data: {data:values1, filter:values2, city:location[0], asem:1, type: "Hotel"},
                 success: function(data, textStatus, jqXHR)
             {
                 $("#hotels").empty();
@@ -672,7 +672,7 @@
             $.ajax({
                 type: "POST",
                 url: "search.php",
-                data: {changed_asem:1, city:location[0], asem:1},
+                data: {changed_asem:1, city:location[0], asem:1, type: "Hotel"},
                 success: function(data, textStatus, jqXHR)
             {
                 $("#hotels").empty();
@@ -728,7 +728,7 @@
                 $.ajax({
                     type: "POST",
                     url: "search.php",
-                    data: {search: $("#tags").val(), city:'Ulaanbaatar'},
+                    data: {search: $("#tags").val(), city:'Ulaanbaatar', type: "Hotel"},
                     success: function(data, textStatus, jqXHR)
                 {
                     $('.spinner').remove();

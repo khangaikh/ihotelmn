@@ -1,5 +1,4 @@
 <?php
-
     require_once 'includes/Twig/Autoloader.php';
     require_once "config.php";
     use Parse\ParseQuery;
@@ -20,9 +19,7 @@
             $query->equalTo("asem",0);
         }
 
-        if(isset($_POST['resort'])){
-            $query->equalTo("type", "Resort");
-        }
+        $query->equalTo("type", $_POST['type']);
 
         $query->equalTo("status",1);
         $query->limit(25);
@@ -63,9 +60,7 @@
             $query->equalTo("asem",0);
         }
          
-        if(isset($_POST['resort'])){
-            $query->equalTo("type", "Resort");
-        }
+        $query->equalTo("type", $_POST['type']);
 
         $query->equalTo("status",1);
         $query->limit(25);
@@ -104,9 +99,7 @@
             $query->equalTo("asem",0);
         }
 
-        if(isset($_POST['resort'])){
-            $query->equalTo("type", "Resort");
-        }
+        $query->equalTo("type", $_POST['type']);
 
         $query->equalTo("status",1);
         $query->limit(25);
@@ -151,9 +144,7 @@
             $query->equalTo("asem",0);
         }
 
-        if(isset($_POST['resort'])){
-            $query->equalTo("type", "Resort");
-        }
+        $query->equalTo("type", $_POST['type']);
 
         $query->equalTo("status",1);
         $query->limit(25);
@@ -170,9 +161,7 @@
     
         $query->equalTo("city",$_POST['city']);
 
-        if(isset($_POST['resort'])){
-            $query->equalTo("type", "Resort");
-        }
+        $query->equalTo("type", $_POST['type']);
 
         $query->equalTo("status",1);
         $query->equalTo("name",$_POST['search']);

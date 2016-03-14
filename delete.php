@@ -26,7 +26,7 @@
             echo 0;
         }
     }
-    if($_POST['action']==1){
+    if($_POST['action']==2){
         $query = new ParseQuery("hotel");
         $query->equalTo("objectId",$_POST['data']);
         $hotel = $query->first();
@@ -95,6 +95,4 @@
             echo 0;
         }
     }
-    
-
 ?>

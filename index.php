@@ -83,6 +83,7 @@
         }
         else if(isset($_GET['asem'])){
             $query = new ParseQuery("hotel");
+            $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
             $query->equalTo("asem",1);
 
@@ -102,6 +103,7 @@
             $template = $twig->loadTemplate('home.html');
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
+            $query->equalTo("type","Hotel");
             $query->equalTo("homepage",1);
             $query->equalTo("city","Ulaanbaatar");
             $query->descending("name");
@@ -109,6 +111,7 @@
             $hotels = $query->find();
 
             $query = new ParseQuery("hotel");
+            $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
             $query->equalTo("city","Ulaanbaatar");
@@ -175,6 +178,7 @@
         else if(isset($_GET['start'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
+            $query->equalTo("type","Hotel");
             $query->equalTo("asem",0);
             $query->descending("stars");
             $location = $_GET['location'];
@@ -333,6 +337,7 @@
         }
         else if(isset($_GET['city'])){
             $query = new ParseQuery("hotel");
+            $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
             $query->equalTo("city",$_GET['city']);
             $query->equalTo("asem",0);
@@ -535,6 +540,9 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("asem",0);
+            $query->equalTo("type", "Hotel");
+
+
             $query->descending("stars");
             $location = $_GET['location'];
 
@@ -564,6 +572,7 @@
         else if(isset($_GET['start_1'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
+            $query->equalTo("type", "Hotel");
             $query->equalTo("asem",1);
             $query->descending("stars");
 
@@ -914,6 +923,7 @@
             }
             else if(isset($_GET['asem'])){
                 $query = new ParseQuery("hotel");
+                $query->equalTo("type", $_GET['type']);
                 $query->equalTo("status",1);
                 $query->equalTo("asem",1);
                 $query->descending("stars");
