@@ -923,7 +923,7 @@
             }
             else if(isset($_GET['asem'])){
                 $query = new ParseQuery("hotel");
-                $query->equalTo("type", $_GET['type']);
+                $query->equalTo("type", 'Hotel');
                 $query->equalTo("status",1);
                 $query->equalTo("asem",1);
                 $query->descending("stars");
