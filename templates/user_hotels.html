@@ -17,39 +17,84 @@
         </tr>
     </thead>
     <tbody id="orders">
-    {% for hotel in hotels %}
-    <tr>
-        <td class="text-center">
-            {{loop.index}}
-        </td>
-        <td class="booking-history-title">{{hotel.name}}</td>
-        <td>{{hotel.city}}</td>
-        <td>{{hotel.num_rooms}}</td>
-        <td>{{hotel.createdAt | date("Y-m-d")}}</td>
-        <td>{% if hotel.status==1 %}
-            <i class="fa fa-check" name="{{hotel.objectId}}"></i>
-            {%elseif hotel.status == 2%}
-            <i class="fa fa-check-circle" name="{{hotel.objectId}}"></i>
-            {%else%}
-            <i class="fa fa-times-circle"></i>
-            {%endif%}
-        </td>
-        <td class="operations">
-            <a name="{{hotel.objectId}}" class="btn btn-primary edit" href="#" onclick="edit_hotel('{{hotel.objectId}}')">Засах</a>
-            {% if hotel.homepage ==0 %}
-            <a name="{{hotel.objectId}}" set="1" class="btn btn-primary set" href="#" onclick="set_hotel('{{hotel.objectId}}')">Set</a>
-            {%else%}
-            <a name="{{hotel.objectId}}" set="0" class="btn btn-primary unset" href="#" onclick="unset_hotel('{{hotel.objectId}}')">Unset</a>
-            {%endif%}
-            <a name="{{hotel.objectId}}"  class="btn btn-default" href="#" onclick="disable_hotel('{{hotel.objectId}}')">Цуцлах</a>
-        </td>
-    </tr>
-    {% endfor %}
+        {% for hotel in hotels %}
+        <tr>
+            <td class="text-center">
+                {{loop.index}}
+            </td>
+            <td class="booking-history-title">{{hotel.name}}</td>
+            <td>{{hotel.city}}</td>
+            <td>{{hotel.num_rooms}}</td>
+            <td>{{hotel.createdAt | date("Y-m-d")}}</td>
+            <td>{% if hotel.status==1 %}
+                <i class="fa fa-check" name="{{hotel.objectId}}"></i>
+                {%elseif hotel.status == 2%}
+                <i class="fa fa-check-circle" name="{{hotel.objectId}}"></i>
+                {%else%}
+                <i class="fa fa-times-circle"></i>
+                {%endif%}
+            </td>
+            <td class="operations">
+                <a name="{{hotel.objectId}}" class="btn btn-primary edit" href="#" onclick="edit_hotel('{{hotel.objectId}}')">Засах</a>
+                {% if hotel.homepage ==0 %}
+                <a name="{{hotel.objectId}}" set="1" class="btn btn-primary set" href="#">Set</a>
+                {%else%}
+                <a name="{{hotel.objectId}}" set="0" class="btn btn-primary unset" href="#">Unset</a>
+                {%endif%}
+                <a name="{{hotel.objectId}}"  class="btn btn-default" href="#" onclick="disable_hotel('{{hotel.objectId}}')">Цуцлах</a>
+            </td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% else %}
 <h4>Сайн байна уу</h4>
 <p>Одоогоор та буудал нэмээгүй байна <a href="index.php?add_general">Энд</a> дарж анхны буудалаа үүсгэнэ үү.</p>
 {% endif %}
+{% endblock %}
 
+{% block scripting %}
+{{parent()}}
+<script>
+$(document).on('click', '.set', function(){
+    var name = $(this).attr('name');
+    var $this = $(this);
+
+    if (confirm('Та итгэлтэй байна уу?')) {
+        $.ajax({
+            type: "POST",
+            url: "delete.php",
+            data: {data:name,action:3},
+            success: function(data, textStatus, jqXHR)
+            {  
+                $this.text('Unset');
+                $this.removeClass('set').addClass('unset');
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert(textStatus);
+            }
+        });
+    }
+});
+$(document).on('click', '.unset', function(){
+    var name = $(this).attr('name');
+    var $this = $(this);
+
+    if (confirm('Та итгэлтэй байна уу?')) {
+        $.ajax({
+            type: "POST",
+            url: "delete.php",
+            data: {data:name,action:4},
+            success: function(data, textStatus, jqXHR)
+            {    
+                $this.text('Set');
+                $this.removeClass('unset').addClass('set');
+           },
+           error: function(xhr, textStatus, errorThrown){
+            alert(textStatus);
+        }
+    });
+    }
+});   
+</script>
 {% endblock %}

@@ -385,40 +385,5 @@
             });
         }
     }
-    function set_hotel(j){
-        if (confirm('Та итгэлтэй байна уу?')) {
-            $.ajax({
-                type: "POST",
-                url: "delete.php",
-                data: {data:j,action:3},
-                success: function(data, textStatus, jqXHR)
-            {  
-                
-                $('a[name='+j+']').parent('.operations').children('.edit').after('<a name="'+j+'" set="1" class="btn btn-primary unset" href="#" onclick="unset_hotel('+j+')">Unset</a>');
-                $('a[name='+j+']').parent('.operations').children('.set').remove();
-            },
-                error: function(xhr, textStatus, errorThrown){
-                    alert(textStatus);
-                }
-            });
-        }
-    }
-    function unset_hotel(j){
-        if (confirm('Та итгэлтэй байна уу?')) {
-            $.ajax({
-                type: "POST",
-                url: "delete.php",
-                data: {data:j,action:4},
-                success: function(data, textStatus, jqXHR)
-            {    
-                 $('a[name='+j+']').parent('.operations').children('.edit').after('<a name="'+j+'" set="1" class="btn btn-primary set" href="#" onclick="set_hotel('+j+')">Set</a>');
-                 $('a[name='+j+']').parent('.operations').children('.unset').remove();
-            },
-                error: function(xhr, textStatus, errorThrown){
-                    alert(textStatus);
-                }
-            });
-        }
-    }
 </script>
 {% endblock %}
