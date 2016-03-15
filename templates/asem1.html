@@ -12,13 +12,13 @@
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>Country or organization</label>
-                <input class='form-control' type='text'>
+                <input class='form-control' id='location' type='text'>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>Contact person</label>
-                <input class='form-control' type='text'>
+                <input class='form-control' type='text' pattern="[a-z]{1,15}">
             </div>
         </div>
         <div class='col-md-4'>
@@ -36,7 +36,7 @@
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>E-mail</label>
-                <input class='form-control' type='text'>
+                <input class='form-control' type='text' pattern='[a-z]'>
             </div>
         </div>
         <div class='col-md-4'>
@@ -69,8 +69,8 @@
         <div class='col-md-2'>
             <div class='form-group'>
                 <div class="input-daterange">
-                <label>Arrival date</label>
-                <input class='form-control arrival' type='text'>
+                    <label>Arrival date</label>
+                    <input class='form-control arrival' type='text'>
                 </div>
             </div>
         </div>
@@ -88,8 +88,10 @@
         </div>
         <div class='col-md-2'>
             <div class='form-group'>
+                <div class="input-daterange">
                 <label>Depart date</label>
                 <input class='form-control depart' type='text'>
+            </div>
             </div>
         </div>
         <div class='col-md-1'>
@@ -104,7 +106,7 @@
                 <input class='form-control flight2' type='text'>
             </div>
         </div>
-         <div class='col-md-2'>
+        <div class='col-md-2'>
             <label>&nbsp;</label>
             <button class='add btn'>Add</button>
         </div>
@@ -132,30 +134,36 @@
 $(document).on('click', '.add', function(){
 
     var name = $('.name').val(),
-        title = $('.title').val(),
-        accompanied = $('.accompanied').val(),
-        arrival = $('.arrival').val(),
-        time = $('.time').val(),
-        flight = $('.flight').val(),
-        depart = $('.depart').val(),
-        time2 = $('.time2').val(),
-        flight2 = $('.flight2').val(),
-        count = 0;
-        table = '<tr><td>'+name+'</td>'+
-                    '<td>'+title+'</td>'+
-                    '<td>'+accompanied+'</td>'+
-                    '<td>'+arrival+'</td>'+
-                    '<td>'+time+'</td>'+
-                    '<td>'+flight+'</td>'+
-                    '<td>'+depart+'</td>'+
-                    '<td>'+time2+'</td>'+
-                    '<td>'+flight2+'</td>'+
-                    '<td><button class="btn min">-</button></td></tr>';
+    title = $('.title').val(),
+    accompanied = $('.accompanied').val(),
+    arrival = $('.arrival').val(),
+    time = $('.time').val(),
+    flight = $('.flight').val(),
+    depart = $('.depart').val(),
+    time2 = $('.time2').val(),
+    flight2 = $('.flight2').val(),
+    count = 0,
+    table = '<tr><td>'+name+'</td>'+
+    '<td>'+title+'</td>'+
+    '<td>'+accompanied+'</td>'+
+    '<td>'+arrival+'</td>'+
+    '<td>'+time+'</td>'+
+    '<td>'+flight+'</td>'+
+    '<td>'+depart+'</td>'+
+    '<td>'+time2+'</td>'+
+    '<td>'+flight2+'</td>'+
+    '<td><button class="btn min">-</button></td></tr>';
 
     $('table').append(table);
 });
 $(document).on('click', '.min', function(){
     $(this).closest('tr').remove();
 });
+$(document).ready(function(){
+    $('.input-daterange input').datepicker({
+        todayHighlight: true
+    });
+});
+$("#location").geocomplete();
 </script>
 {% endblock %}
