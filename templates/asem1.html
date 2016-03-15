@@ -11,106 +11,88 @@
     <div class='row row-wrap'>
         <div class='col-md-4'>
             <div class='form-group'>
-                <label>Country or organization</label>
-                <input class='form-control' id='location' type='text'>
+                <label>Last Name</label>
+                <input class='form-control' type='text' name='lastName'>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
-                <label>Contact person</label>
-                <input class='form-control' type='text' pattern="[a-z]{1,15}">
+                <label>First Name</label>
+                <input class='form-control' type='text' name='firstName'>
+            </div>
+        </div>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <label>Country or Organization</label>
+                <input class='form-control' type='text' name='location'>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>Telephone</label>
-                <input class='form-control' type='text'>
+                <input class='form-control' type='text' name='telephone'>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>Fax</label>
-                <input class='form-control' type='text'>
+                <input class='form-control' type='text' name='fax'>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>E-mail</label>
-                <input class='form-control' type='text' pattern='[a-z]'>
-            </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='form-group'>
-                <label>Hotel in Ulaanbaatar</label>
-                <input class='form-control' type='text'>
+                <input class='form-control' type='text' name='email'>
             </div>
         </div>
     </div>
     <h4>Delegation registration</h4>
     <div class='row row-wrap'>
-        <div class='col-md-4'>
-            <div class='form-group'>
-                <label>Last name, First name, Mr./ Ms</label>
-                <input class='form-control name' type='text'>
-            </div>
-        </div>
-        <div class='col-md-5'>
-            <div class='form-group'>
-                <label>Title(s)</label>
-                <input class='form-control title' type='text'>
-            </div>
-        </div>
-        <div class='col-md-3'>
-            <div class='form-group'>
-                <label>Accompanied by :</label>
-                <input class='form-control accompanied' type='text'>
-            </div>
-        </div>
         <div class='col-md-2'>
             <div class='form-group'>
                 <div class="input-daterange">
                     <label>Arrival date</label>
-                    <input class='form-control arrival' type='text'>
+                    <input class='form-control arrival' type='text' name='arrival'>
                 </div>
             </div>
         </div>
         <div class='col-md-1'>
             <div class='form-group'>
                 <label>Time</label>
-                <input class='form-control time' type='text'>
+                <input class='form-control time' type='text' name='time'>
             </div>
         </div>
         <div class='col-md-2'>
             <div class='form-group'>
                 <label>Flight №</label>
-                <input class='form-control flight' type='text'>
+                <input class='form-control flight' type='text' name='flight'>
             </div>
         </div>
         <div class='col-md-2'>
             <div class='form-group'>
                 <div class="input-daterange">
-                <label>Depart date</label>
-                <input class='form-control depart' type='text'>
-            </div>
+                    <label>Depart date</label>
+                    <input class='form-control depart' type='text' name='depart'>
+                </div>
             </div>
         </div>
         <div class='col-md-1'>
             <div class='form-group'>
                 <label>Time</label>
-                <input class='form-control time2' type='text'>
+                <input class='form-control time2' type='text' name='time2'>
             </div>
         </div>
         <div class='col-md-2'>
             <div class='form-group'>
                 <label>Flight №</label>
-                <input class='form-control flight2' type='text'>
+                <input class='form-control flight2' type='text' name='flight2'>
             </div>
         </div>
         <div class='col-md-2'>
             <label>&nbsp;</label>
-            <button class='add btn'>Add</button>
+            <button class='add btn' type='submit' name='submit'>Register</button>
         </div>
-        <table>
+        <!--<table>
             <tr>
                 <td>Last name, First name, Mr./ Ms</td>
                 <td>Titles</td>
@@ -123,7 +105,7 @@
                 <td>Flight №</td>
                 <td>-</td>
             </tr>
-        </table>
+        </table>-->
     </div>
 </div>
 </div>
