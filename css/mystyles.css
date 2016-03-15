@@ -1,11 +1,11 @@
 .checkbox-border span{
-    float: right; 
+	float: right; 
 }
 .checkbox-border{
-    border-bottom: 1px dashed #d9d9d9;
+	border-bottom: 1px dashed #d9d9d9;
 }
 .booking-list a li{
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 .rating_image{
 	width: 98px;
@@ -108,8 +108,9 @@ footer#main-footer .logo{
 	justify-content:flex-end;
 	-webkit-justify-content:flex-end;
 }
-#asem a{
-	background: #FFBC42;
+.flex.bottom{
+	align-items:flex-end;
+	-webkit-align-items:flex-end;
 }
 dl .fa{
 	margin-right:10px;
@@ -292,4 +293,34 @@ button:after{
 	text-align: center;
 	border:1px solid #ccc;
 	color:#686868;
+}
+#asem2 ul, #asem2 li{
+	list-style: none;
+	margin:0;
+	padding:0;
+}
+#asem2 a{
+	color:#000;
+}
+#asem2 a:hover{
+	text-decoration: underline;
+}
+#asem2 li{
+	margin-top:10px;
+}
+#asem2 .add{
+	font-size:13px;
+}
+#asem_register table, #asem_register th, #asem_register td{
+	border:1px solid #000;
+	border-collapse: collapse;
+}
+#asem_register table{
+	width:100%;
+}
+#asem_register th, #asem_register td{
+	padding:5px 10px;
+}
+#asem_register table td:last-child{
+	text-align: center;
 }

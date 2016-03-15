@@ -1,0 +1,161 @@
+{% extends "asem.html" %}
+{% block content %}
+<div class="gap"></div>
+<div class="container" id='asem_register'>
+    <div class='flex flex-col middle'>
+        <h4>THE 9th ASIA-EUROPE PARLAMENTARY PARTNERSHIP (ASEP9) MEETING</h4>
+        <div>Ulaanbaatar, Mongolia</div>
+        <div>21-23 April 2016</div>
+    </div>
+    <div class="gap"></div>
+    <div class='row row-wrap'>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <label>Country or organization</label>
+                <input class='form-control' type='text'>
+            </div>
+        </div>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <label>Contact person</label>
+                <input class='form-control' type='text'>
+            </div>
+        </div>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <label>Telephone</label>
+                <input class='form-control' type='text'>
+            </div>
+        </div>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <label>Fax</label>
+                <input class='form-control' type='text'>
+            </div>
+        </div>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <label>E-mail</label>
+                <input class='form-control' type='text'>
+            </div>
+        </div>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <label>Hotel in Ulaanbaatar</label>
+                <input class='form-control' type='text'>
+            </div>
+        </div>
+    </div>
+    <h4>Delegation registration</h4>
+    <div class='row row-wrap'>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <label>Last name, First name, Mr./ Ms</label>
+                <input class='form-control name' type='text'>
+            </div>
+        </div>
+        <div class='col-md-5'>
+            <div class='form-group'>
+                <label>Title(s)</label>
+                <input class='form-control title' type='text'>
+            </div>
+        </div>
+        <div class='col-md-3'>
+            <div class='form-group'>
+                <label>Accompanied by :</label>
+                <input class='form-control accompanied' type='text'>
+            </div>
+        </div>
+        <div class='col-md-2'>
+            <div class='form-group'>
+                <div class="input-daterange">
+                <label>Arrival date</label>
+                <input class='form-control arrival' type='text'>
+                </div>
+            </div>
+        </div>
+        <div class='col-md-1'>
+            <div class='form-group'>
+                <label>Time</label>
+                <input class='form-control time' type='text'>
+            </div>
+        </div>
+        <div class='col-md-2'>
+            <div class='form-group'>
+                <label>Flight №</label>
+                <input class='form-control flight' type='text'>
+            </div>
+        </div>
+        <div class='col-md-2'>
+            <div class='form-group'>
+                <label>Depart date</label>
+                <input class='form-control depart' type='text'>
+            </div>
+        </div>
+        <div class='col-md-1'>
+            <div class='form-group'>
+                <label>Time</label>
+                <input class='form-control time2' type='text'>
+            </div>
+        </div>
+        <div class='col-md-2'>
+            <div class='form-group'>
+                <label>Flight №</label>
+                <input class='form-control flight2' type='text'>
+            </div>
+        </div>
+         <div class='col-md-2'>
+            <label>&nbsp;</label>
+            <button class='add btn'>Add</button>
+        </div>
+        <table>
+            <tr>
+                <td>Last name, First name, Mr./ Ms</td>
+                <td>Titles</td>
+                <td>Accompanied by</td>
+                <td>Arrival date</td>
+                <td>Time</td>
+                <td>Flight №</td>
+                <td>Depart date</td>
+                <td>Time</td>
+                <td>Flight №</td>
+                <td>-</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+{% endblock %}
+{% block scripting %}
+{{parent()}}
+<script>
+$(document).on('click', '.add', function(){
+
+    var name = $('.name').val(),
+        title = $('.title').val(),
+        accompanied = $('.accompanied').val(),
+        arrival = $('.arrival').val(),
+        time = $('.time').val(),
+        flight = $('.flight').val(),
+        depart = $('.depart').val(),
+        time2 = $('.time2').val(),
+        flight2 = $('.flight2').val(),
+        count = 0;
+        table = '<tr><td>'+name+'</td>'+
+                    '<td>'+title+'</td>'+
+                    '<td>'+accompanied+'</td>'+
+                    '<td>'+arrival+'</td>'+
+                    '<td>'+time+'</td>'+
+                    '<td>'+flight+'</td>'+
+                    '<td>'+depart+'</td>'+
+                    '<td>'+time2+'</td>'+
+                    '<td>'+flight2+'</td>'+
+                    '<td><button class="btn min">-</button></td></tr>';
+
+    $('table').append(table);
+});
+$(document).on('click', '.min', function(){
+    $(this).closest('tr').remove();
+});
+</script>
+{% endblock %}

@@ -63,6 +63,10 @@
             $template = $twig->loadTemplate('faq.html');
             echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs));
         }
+        else if(isset($_GET['asem1'])){
+            $template = $twig->loadTemplate('asem1.html');
+            echo $template->render(array('title' => 'Бидний тухай'));
+        }
         else if(isset($_GET['terms'])){
             $template = $twig->loadTemplate('terms.html');
             echo $template->render(array('title' => 'Үйлчилгээний нөхцөл'));
@@ -770,6 +774,10 @@
             $faqs = $query->find();
             $template = $twig->loadTemplate('faq.html');
             echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs));
+        }
+        else if(isset($_GET['asem1'])){
+            $template = $twig->loadTemplate('asem1.html');
+            echo $template->render(array('title' => 'Бидний тухай'));
         }
         else if(isset($_GET['help'])){
             $template = $twig->loadTemplate('help.html');
