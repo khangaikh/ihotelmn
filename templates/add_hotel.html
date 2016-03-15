@@ -546,9 +546,11 @@
                   <div class="tab-content">
                         <!--This is a start. Basic Info Tab-->
                         <div id="basic_info_tab" class="col-md-9 tab-pane fade">
+
                               <div class="gap gap-small"></div>
                               <h2> Товч мэдээлэл</h2>
                               <form id="create_basic_info_form"  data-parsley-validate>
+
                                     <p>Here’s the first step to listing your property. To get started, provide some basic information, such as what kind of accommodations you provide and the property address. You can edit or update this section after the registration process, if needed.</p>
                                     <div class="gap gap-small"></div>
                                     <fieldset class="active">
@@ -837,8 +839,7 @@
                                                 </div>
                                           </div>
                                           <div class="row address-row" style="padding: 15px;">
-                                              <div id="map-geo" style="height: 300px;">
-                                              </div>
+                                              <div id="map-geo" style="height: 290px;"></div>
                                               <input type="hidden" name="lat" id="m_lat" value="" />
                                               <input type="hidden" name="lng" id="m_lng" value="" />
                                           </div>
@@ -4594,17 +4595,18 @@
 {% block scripting %}
 {{parent()}}
 <script type="text/javascript">
+    var map = new google.maps.Map(document.getElementById('map-geo'), {
+        zoom: 13,
+        center: new google.maps.LatLng(47.912318, 106.913816),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
     function initMap() {
-        var map = new google.maps.Map(document.getElementById('map-geo'), {
-            zoom: 15,
-            center: new google.maps.LatLng(47.912318, 106.913816),
-            mapTypeId: google.maps.MapTypeId.SATELLITE,
-        });
-
-        $("#map-geo .gm-style").css('style', 'height: 900px;');
         var marker= null;
-
-
+        map = new google.maps.Map(document.getElementById('map-geo'), {
+            zoom: 13,
+            center: new google.maps.LatLng(47.912318, 106.913816),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
         google.maps.event.addListener(map, "click", function(event) {
             if(marker != null){
                 marker.setMap(null);
@@ -4808,8 +4810,14 @@
         }
     }
     $(document).ready(function(){ 
-        initMap();
         check_checked();
+        initMap();
+        $("#general").hover(function(){
+            initMap();
+        });
+        $("#general").click(function(){
+            initMap();
+        });
         $('.nav li').not('.active').addClass('disabled');
         $('.nav li').not('.active').find('a').removeAttr("data-toggle");
 

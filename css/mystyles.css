@@ -11,9 +11,16 @@
 	width: 98px;
 	margin-bottom: 6px;
 }
+#map-geo{
+    height: 300px;
+}
+#map-geo .gm-style{
+    height: 300px;
+}
 #maps_hotel{
 	width: 800px;
 	height: 600px;
+    position: relative;
 }
 
 #hotel_list{
