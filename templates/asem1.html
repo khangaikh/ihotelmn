@@ -2,121 +2,156 @@
 {% block content %}
 <div class="gap"></div>
 <div class="container" id='asem_register'>
-            <form>
     <div class='flex flex-col middle'>
         <h4>THE 9th ASIA-EUROPE PARLAMENTARY PARTNERSHIP (ASEP9) MEETING</h4>
         <div>Ulaanbaatar, Mongolia</div>
         <div>21-23 April 2016</div>
     </div>
     <div class="gap"></div>
-    <div class='row row-wrap'>
-        <div class='col-md-4'>
-            <div class='form-group'>
-                <label>Last Name</label>
-                <input class='form-control' type='text' name='lastName' required>
+    <form>
+        <div class='row row-wrap'>
+            <div class='col-md-4'>
+                <div class='form-group'>
+                    <label>Last Name</label>
+                    <input class='form-control' type='text' id='lastName' name='lastName'>
+                </div>
             </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='form-group'>
-                <label>First Name</label>
-                <input class='form-control' type='text' name='firstName' required>
+            <div class='col-md-4'>
+                <div class='form-group'>
+                    <label>First Name</label>
+                    <input class='form-control' type='text' id='firstName' name='firstName'>
+                </div>
             </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='form-group'>
-                <label>Country or Organization</label>
-                <input class='form-control' type='text' name='location' required>
+            <div class='col-md-4'>
+                <div class='form-group'>
+                    <label>Country or Organization</label>
+                    <input class='form-control' type='text' id='location' name='location'>
+                </div>
             </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='form-group'>
-                <label>Telephone</label>
-                <input class='form-control' type='text' name='telephone' required>
+            <div class='col-md-4'>
+                <div class='form-group'>
+                    <label>Telephone</label>
+                    <input class='form-control' type='text' id='telephone' name='telephone'>
+                </div>
             </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='form-group'>
-                <label>Fax</label>
-                <input class='form-control' type='text' name='fax' required>
+            <div class='col-md-4'>
+                <div class='form-group'>
+                    <label>Fax</label>
+                    <input class='form-control' type='text' name='fax' id="fax">
+                </div>
             </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='form-group'>
-                <label>E-mail</label>
-                <input class='form-control' type='email' name='email' required>
-            </div>
-        </div>
-    </div>
-    <h4>Delegation registration</h4>
-    <div class='row row-wrap'>
-        <div class='col-md-2'>
-            <div class='form-group'>
-                <div class="input-daterange">
-                    <label>Arrival date</label>
-                    <input class='form-control arrival' type='text' name='arrival' required>
+            <div class='col-md-4'>
+                <div class='form-group'>
+                    <label>E-mail</label>
+                    <input class='form-control' type='text' name='email' id="email">
                 </div>
             </div>
         </div>
-        <div class='col-md-1'>
-            <div class='form-group'>
-                <label>Time</label>
-                <input class='form-control time' type='text' name='time' required>
+        <h4>Delegation registration</h4>
+        <div class='row row-wrap'>
+            <div class='col-md-2'>
+                <div class='form-group'>
+                    <div class="input-daterange">
+                        <label>Arrival date</label>
+                        <input class='form-control arrival' type='text' id='arrival_date' name='arrival_date'>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class='col-md-2'>
-            <div class='form-group'>
-                <label>Flight №</label>
-                <input class='form-control flight' type='text' pattern="[0-9]*" name='flight' required>
+            <div class='col-md-1'>
+                <div class='form-group'>
+                    <label>Time</label>
+                    <input class='form-control time' type='text' id='arrival_time' name='arrival_time'>
+                </div>
             </div>
-        </div>
-        <div class='col-md-2'>
-            <div class='form-group'>
-                <div class="input-daterange">
-                    <label>Depart date</label>
-                    <input class='form-control depart' type='text' name='depart' required>
+            <div class='col-md-2'>
+                <div class='form-group'>
+                    <label>Flight №</label>
+                    <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight'>
+                </div>
+            </div>
+            <div class='col-md-2'>
+                <div class='form-group'>
+                    <div class="input-daterange">
+                        <label>Depart date</label>
+                        <input class='form-control depart' type='text' name='depart_date' id='depart_date'>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-1'>
+                <div class='form-group'>
+                    <label>Time</label>
+                    <input class='form-control time2' type='text' name='depart_time' id='depart_time'>
+                </div>
+            </div>
+            <div class='col-md-2'>
+                <div class='form-group'>
+                    <label>Flight №</label>
+                    <input class='form-control flight2' type='text' name='depart_flight' id='depart_flight'>
                 </div>
             </div>
         </div>
-        <div class='col-md-1'>
-            <div class='form-group'>
-                <label>Time</label>
-                <input class='form-control time2 val-time' type='text' name='time2' required>
+        <div class='row row-wrap'>
+            <div class='col-md-4' id="RecaptchaField">
+            </div>
+            <div class='col-md-2'>
+                <label>&nbsp;</label>
+                <input class="btn btn-primary" type="button" value="Register" id="register"/>
             </div>
         </div>
-        <div class='col-md-2'>
-            <div class='form-group'>
-                <label>Flight №</label>
-                <input class='form-control flight2' type='text' min='0' pattern="[0-9]*" name='flight2' required>
-            </div>
+        <div class="alert alert-danger" id='login-alert1'>
+            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+            </button>
+            <p class="text-small"></p>
         </div>
-        <div class='col-md-2'>
-            <label>&nbsp;</label>
-            <button class='add btn' type='submit' name='submit'>Register</button>
-        </div>
-        <!--<table>
-            <tr>
-                <td>Last name, First name, Mr./ Ms</td>
-                <td>Titles</td>
-                <td>Accompanied by</td>
-                <td>Arrival date</td>
-                <td>Time</td>
-                <td>Flight №</td>
-                <td>Depart date</td>
-                <td>Time</td>
-                <td>Flight №</td>
-                <td>-</td>
-            </tr>
-        </table>-->
-    </div>
-</div>
-</div>
+        <input type="hidden" name="recaptcha" id="recaptcha" value="" />
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=en" async defer></script>
+    </form>
 </div>
 {% endblock %}
 {% block scripting %}
 {{parent()}}
 <script>
+$(document).on('click', '#register', function(){
+    $.post("user.php", {
+        email: $('#email').val(),
+        username: $('#firstName').val(),
+        password: "123456",
+        g_recaptcha_response: $('#recaptcha').val()
+    }, function (result) {
+        if(result==1){
+            $.post("meeting.php", {
+                section: 8,
+                lastName: $('#lastName').val(),
+                firstName: $('#firstName').val(),
+                telephone: $('#telephone').val(),
+                fax: $('#fax').val(),
+                location: $('#location').val(),
+                email: $('#email').val(),
+                arrival_date: $('#arrival_date').val(),
+                arrival_time: $('#arrival_time').val(),
+                arrival_flight: $('#arrival_flight').val(),
+                depart_date: $('#depart_date').val(),
+                depart_time: $('#depart_time').val(),
+                depart_flight: $('#depart_flight').val(),
+            }, function (result) {
+                if(result==1){
+                    window.location.replace('index.php?asem_login');
+                }else{
+                
+                }
+            });
+        }
+        else if(result==2){
+            $('#login-alert1').fadeIn(500);
+            $('#login-alert1 p').text('reCaptcha error!');
+        }
+        else{
+            $('#login-alert1').fadeIn(500);
+            $('#login-alert1 p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
+        }
+    });
+});
 $(document).on('click', '.add', function(){
-
     var name = $('.name').val(),
     title = $('.title').val(),
     accompanied = $('.accompanied').val(),
@@ -148,10 +183,18 @@ $(document).ready(function(){
         todayHighlight: true
     });
 });
-$(document).ready(function(){
-    $('.input-daterange input').datepicker({
-        todayHighlight: true
-    });
-});
+</script>
+<script type="text/javascript">
+      var verifyCallback = function(response) {
+        $("#recaptcha").val(response);
+      };
+
+      var onloadCallback = function() {
+        grecaptcha.render('RecaptchaField', {
+          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+          'callback' : verifyCallback,
+          'theme' : 'light'
+        });
+      };
 </script>
 {% endblock %}

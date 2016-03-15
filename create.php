@@ -194,7 +194,6 @@
         $_SESSION['section']=7;
     }
     
-    
     try {
         $hotel->save();
     } catch (ParseException $ex) {  

@@ -777,7 +777,7 @@
         }
         else if(isset($_GET['asem1'])){
             $template = $twig->loadTemplate('asem1.html');
-            echo $template->render(array('title' => 'Бидний тухай'));
+            echo $template->render(array('title' => 'Partnership'));
         }
         else if(isset($_GET['help'])){
             $template = $twig->loadTemplate('help.html');
