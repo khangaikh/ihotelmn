@@ -2,6 +2,7 @@
 {% block content %}
 <div class="gap"></div>
 <div class="container" id='asem_register'>
+            <form>
     <div class='flex flex-col middle'>
         <h4>THE 9th ASIA-EUROPE PARLAMENTARY PARTNERSHIP (ASEP9) MEETING</h4>
         <div>Ulaanbaatar, Mongolia</div>
@@ -12,37 +13,37 @@
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>Last Name</label>
-                <input class='form-control' type='text' name='lastName'>
+                <input class='form-control' type='text' name='lastName' required>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>First Name</label>
-                <input class='form-control' type='text' name='firstName'>
+                <input class='form-control' type='text' name='firstName' required>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>Country or Organization</label>
-                <input class='form-control' type='text' name='location'>
+                <input class='form-control' type='text' name='location' required>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>Telephone</label>
-                <input class='form-control' type='text' name='telephone'>
+                <input class='form-control' type='text' name='telephone' required>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>Fax</label>
-                <input class='form-control' type='text' name='fax'>
+                <input class='form-control' type='text' name='fax' required>
             </div>
         </div>
         <div class='col-md-4'>
             <div class='form-group'>
                 <label>E-mail</label>
-                <input class='form-control' type='text' name='email'>
+                <input class='form-control' type='email' name='email' required>
             </div>
         </div>
     </div>
@@ -52,40 +53,40 @@
             <div class='form-group'>
                 <div class="input-daterange">
                     <label>Arrival date</label>
-                    <input class='form-control arrival' type='text' name='arrival'>
+                    <input class='form-control arrival' type='text' name='arrival' required>
                 </div>
             </div>
         </div>
         <div class='col-md-1'>
             <div class='form-group'>
                 <label>Time</label>
-                <input class='form-control time' type='text' name='time'>
+                <input class='form-control time' type='text' name='time' required>
             </div>
         </div>
         <div class='col-md-2'>
             <div class='form-group'>
                 <label>Flight №</label>
-                <input class='form-control flight' type='text' name='flight'>
+                <input class='form-control flight' type='number' min='0' pattern="[0-9]*" name='flight' required>
             </div>
         </div>
         <div class='col-md-2'>
             <div class='form-group'>
                 <div class="input-daterange">
                     <label>Depart date</label>
-                    <input class='form-control depart' type='text' name='depart'>
+                    <input class='form-control depart' type='text' name='depart' required>
                 </div>
             </div>
         </div>
         <div class='col-md-1'>
             <div class='form-group'>
                 <label>Time</label>
-                <input class='form-control time2' type='text' name='time2'>
+                <input class='form-control time2 val-time' type='text' name='time2' required>
             </div>
         </div>
         <div class='col-md-2'>
             <div class='form-group'>
                 <label>Flight №</label>
-                <input class='form-control flight2' type='text' name='flight2'>
+                <input class='form-control flight2' type='number' min='0' pattern="[0-9]*" name='flight2' required>
             </div>
         </div>
         <div class='col-md-2'>
@@ -107,6 +108,7 @@
             </tr>
         </table>-->
     </div>
+</div>
 </div>
 </div>
 {% endblock %}
@@ -146,6 +148,5 @@ $(document).ready(function(){
         todayHighlight: true
     });
 });
-$("#location").geocomplete();
 </script>
 {% endblock %}
