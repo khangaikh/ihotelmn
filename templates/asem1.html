@@ -66,7 +66,7 @@
         <div class='col-md-2'>
             <div class='form-group'>
                 <label>Flight №</label>
-                <input class='form-control flight' type='number' min='0' pattern="[0-9]*" name='flight' required>
+                <input class='form-control flight' type='text' pattern="[0-9]*" name='flight' required>
             </div>
         </div>
         <div class='col-md-2'>
@@ -86,7 +86,7 @@
         <div class='col-md-2'>
             <div class='form-group'>
                 <label>Flight №</label>
-                <input class='form-control flight2' type='number' min='0' pattern="[0-9]*" name='flight2' required>
+                <input class='form-control flight2' type='text' min='0' pattern="[0-9]*" name='flight2' required>
             </div>
         </div>
         <div class='col-md-2'>
@@ -142,6 +142,11 @@ $(document).on('click', '.add', function(){
 });
 $(document).on('click', '.min', function(){
     $(this).closest('tr').remove();
+});
+$(document).ready(function(){
+    $('.input-daterange input').datepicker({
+        todayHighlight: true
+    });
 });
 $(document).ready(function(){
     $('.input-daterange input').datepicker({
