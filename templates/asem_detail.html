@@ -209,12 +209,11 @@
                                 </ul>
                             </div>
                             <div class="col-md-3">
-                                <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
                                 <div class="form-group form-group-select-plus">
-                                    <label>Room availability</label>
+                                    <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
                                               <div class='flex select_room middle between'>
-                                    <div rel="tooltip" data-placement="top" title="Adults">
-                                        <i class='fa fa-male'></i> x 1
+                                    <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                        <i class='fa fa-male'></i>
                                     </div>
                                     <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" > 
                                         <option selected="selected">0</option>
@@ -223,9 +222,10 @@
                                         {% endfor %}
                                     </select>
                                     </div>
+                                    <span class="booking-item-price">${{room.night_price2}}</span><span>/night</span>
                                           <div class='flex select_room between middle mrgn5'>
-                                    <div rel="tooltip" data-placement="top" title="Adults">
-                                        <i class='fa fa-male'></i> x 2
+                                    <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                        <i class='fa fa-male'></i><i class='fa fa-male'></i>
                                     </div>
                                     <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" > 
                                         <option selected="selected">0</option>
