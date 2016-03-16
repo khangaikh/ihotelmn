@@ -342,7 +342,7 @@
             stars+='<li><i class="fa fa-star"></i></li>';
         }
         stars+='</ul></div>';
-        contentString='<a href="index.php?asemdetail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
+        contentString='<a href="index.php?detail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
             '&guests='+$("#guests").val()+'&rooms='+$("#rooms").val()+'"><div id="content">'+
             '<img style="width: 276px; overflow: hidden;"src="'+hotel['cover_image']+'"><h1></h1>'+
             '<h4 style="margin: 0;">'+hotel['name']+'<br/>'+stars+'<span style="margin: 0; float:right" class="booking-item-price"><span style="margin: 0; font-size:13px" class="booking-item-price">from&nbsp;&nbsp;&nbsp;</span>$'+hotel['average_rate']+'</span>'+
@@ -371,7 +371,7 @@
         var location = $("#location_1").val();
         var guests = $("#guests").val();
         var rooms = $("#rooms").val();
-        var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
+        var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms=" +rooms; 
         window.location.replace(url);
     }
 
@@ -422,7 +422,7 @@
                 var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
             }
             else{
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
+                var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
             }
             window.location.replace(url);
         });
@@ -439,7 +439,7 @@
                 var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
             }
             else{
-                var url = "index.php?asemdetail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
+                var url = "index.php?detail=" + curId +"&depart=" + start + "&end=" + end + "&guests=" +guests+ "&rooms="+rooms;
             }
             window.location.replace(url);
         });
