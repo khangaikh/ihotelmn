@@ -8,42 +8,42 @@
         <div>21-23 April 2016</div>
     </div>
     <div class="gap"></div>
-    <form>
+    <form id="meeting_form">
         <div class='row row-wrap'>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>Last Name</label>
-                    <input class='form-control' type='text' id='lastName' name='lastName'>
+                    <input class='form-control' type='text' id='lastName' name='lastName' required>
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>First Name</label>
-                    <input class='form-control' type='text' id='firstName' name='firstName'>
+                    <input class='form-control' type='text' id='firstName' name='firstName' required>
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>Country or Organization</label>
-                    <input class='form-control' type='text' id='location' name='location'>
+                    <input class='form-control' type='text' id='location' name='location' required>
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>Telephone</label>
-                    <input class='form-control' type='text' id='telephone' name='telephone'>
+                    <input class='form-control' type='text' id='telephone' name='telephone' required>
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>Fax</label>
-                    <input class='form-control' type='text' name='fax' id="fax">
+                    <input class='form-control' type='text' name='fax' id="fax" required>
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>E-mail</label>
-                    <input class='form-control' type='text' name='email' id="email">
+                    <input class='form-control' type='email' name='email' id="email" required>
                 </div>
             </div>
         </div>
@@ -53,40 +53,40 @@
                 <div class='form-group'>
                     <div class="input-daterange">
                         <label>Arrival date</label>
-                        <input class='form-control arrival' type='text' id='arrival_date' name='arrival_date'>
+                        <input class='form-control arrival' type='text' id='arrival_date' name='arrival_date' required>
                     </div>
                 </div>
             </div>
             <div class='col-md-1'>
                 <div class='form-group'>
                     <label>Time</label>
-                    <input class='form-control time' type='text' id='arrival_time' name='arrival_time'>
+                    <input class='form-control time' type='text' id='arrival_time' name='arrival_time' required>
                 </div>
             </div>
             <div class='col-md-2'>
                 <div class='form-group'>
                     <label>Flight №</label>
-                    <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight'>
+                    <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight' required>
                 </div>
             </div>
             <div class='col-md-2'>
                 <div class='form-group'>
                     <div class="input-daterange">
                         <label>Depart date</label>
-                        <input class='form-control depart' type='text' name='depart_date' id='depart_date'>
+                        <input class='form-control depart' type='text' name='depart_date' id='depart_date' required>
                     </div>
                 </div>
             </div>
             <div class='col-md-1'>
                 <div class='form-group'>
                     <label>Time</label>
-                    <input class='form-control time2' type='text' name='depart_time' id='depart_time'>
+                    <input class='form-control time2' type='text' name='depart_time' id='depart_time' required>
                 </div>
             </div>
             <div class='col-md-2'>
                 <div class='form-group'>
                     <label>Flight №</label>
-                    <input class='form-control flight2' type='text' name='depart_flight' id='depart_flight'>
+                    <input class='form-control flight2' type='text' name='depart_flight' id='depart_flight' required>
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@
             </div>
             <div class='col-md-2'>
                 <label>&nbsp;</label>
-                <input class="btn btn-primary" type="button" value="Register" id="register"/>
+                <input class="btn btn-primary" type="button" value="Register" id="register" required/>
             </div>
         </div>
         <div class="alert alert-danger" id='login-alert1'>
@@ -111,45 +111,63 @@
 {% block scripting %}
 {{parent()}}
 <script>
+var validateFront = function () {
+    if ($('#meeting_form')){
+        if (true === $('#meeting_form').parsley().isValid()) {
+            $('.bs-callout-info').removeClass('hidden');
+            $('.bs-callout-warning').addClass('hidden');
+        }
+        else {
+            $('.bs-callout-info').addClass('hidden');
+            $('.bs-callout-warning').removeClass('hidden');
+        }
+    }
+};
 $(document).on('click', '#register', function(){
-    $.post("user.php", {
-        email: $('#email').val(),
-        username: $('#firstName').val(),
-        password: "123456",
-        g_recaptcha_response: $('#recaptcha').val()
-    }, function (result) {
-        if(result==1){
-            $.post("meeting.php", {
-                section: 8,
-                lastName: $('#lastName').val(),
-                firstName: $('#firstName').val(),
-                telephone: $('#telephone').val(),
-                fax: $('#fax').val(),
-                location: $('#location').val(),
-                email: $('#email').val(),
-                arrival_date: $('#arrival_date').val(),
-                arrival_time: $('#arrival_time').val(),
-                arrival_flight: $('#arrival_flight').val(),
-                depart_date: $('#depart_date').val(),
-                depart_time: $('#depart_time').val(),
-                depart_flight: $('#depart_flight').val(),
-            }, function (result) {
-                if(result==1){
-                    window.location.replace('index.php?asem_login');
-                }else{
-                
-                }
-            });
-        }
-        else if(result==2){
-            $('#login-alert1').fadeIn(500);
-            $('#login-alert1 p').text('reCaptcha error!');
-        }
-        else{
-            $('#login-alert1').fadeIn(500);
-            $('#login-alert1 p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
-        }
-    });
+    $("#meeting_form").parsley().validate();
+    validateFront();
+    if($("#meeting_form").parsley().isValid()){
+        $.post("user.php", {
+            email: $('#email').val(),
+            username: $('#firstName').val(),
+            password: "123456",
+            type: {{type}},
+            g_recaptcha_response: $('#recaptcha').val()
+        }, function (result) {
+            if(result==1){
+                $.post("meeting.php", {
+                    section: 8,
+                    lastName: $('#lastName').val(),
+                    firstName: $('#firstName').val(),
+                    telephone: $('#telephone').val(),
+                    fax: $('#fax').val(),
+                    location: $('#location').val(),
+                    email: $('#email').val(),
+                    arrival_date: $('#arrival_date').val(),
+                    arrival_time: $('#arrival_time').val(),
+                    arrival_flight: $('#arrival_flight').val(),
+                    depart_date: $('#depart_date').val(),
+                    depart_time: $('#depart_time').val(),
+                    type: {{type}},
+                    depart_flight: $('#depart_flight').val(),
+                }, function (result) {
+                    if(result==1){
+                        window.location.replace('index.php?asem_login');
+                    }else{
+                    
+                    }
+                });
+            }
+            else if(result==2){
+                $('#login-alert1').fadeIn(500);
+                $('#login-alert1 p').text('reCaptcha error!');
+            }
+            else{
+                $('#login-alert1').fadeIn(500);
+                $('#login-alert1 p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
+            }
+        });
+    }
 });
 $(document).on('click', '.add', function(){
     var name = $('.name').val(),
@@ -183,6 +201,7 @@ $(document).ready(function(){
         todayHighlight: true
     });
 });
+$("#location").geocomplete();
 </script>
 <script type="text/javascript">
       var verifyCallback = function(response) {

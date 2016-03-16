@@ -23,6 +23,7 @@
         $meeting->set("depart_date",$_POST['depart_date']);
         $meeting->set("depart_time",$_POST['depart_time']);
         $meeting->set("depart_flight",intval($_POST['depart_flight']));
+        $meeting->set("type",intval($_POST['type']));
 
         try {
             $meeting->save();

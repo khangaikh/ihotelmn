@@ -31,7 +31,7 @@
             $checkout = $date->format('Y-m-d');
             $count = $query->count();
             $template = $twig->loadTemplate('tour.html');
-            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => 'Ulaanbaatar', 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'user' => $user));
+            echo $template->render(array('title' => 'Амралтын газар', 'nav' => 1, 'location' => 'Ulaanbaatar', 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'user' => $user));
         }
         else if(isset($_GET['news'])){
             $template = $twig->loadTemplate('news.html');
@@ -65,7 +65,7 @@
         }
         else if(isset($_GET['asem1'])){
             $template = $twig->loadTemplate('asem1.html');
-            echo $template->render(array('title' => 'Бидний тухай'));
+            echo $template->render(array('title' => 'Бидний тухай', 'type' => $_GET['type']));
         }
         else if(isset($_GET['terms'])){
             $template = $twig->loadTemplate('terms.html');
@@ -690,7 +690,7 @@
             $checkout = $date->format('Y-m-d');
             $count = $query->count();
             $template = $twig->loadTemplate('tour.html');
-            echo $template->render(array('title' => 'Аялал', 'nav' => 1, 'location' => 'Ulaanbaatar', 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel'));
+            echo $template->render(array('title' => 'Амралтын газар', 'nav' => 1, 'location' => 'Ulaanbaatar', 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel'));
         }
         else if(isset($_GET['news'])){
             $template = $twig->loadTemplate('news.html');
@@ -776,8 +776,13 @@
             echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs));
         }
         else if(isset($_GET['asem1'])){
-            $template = $twig->loadTemplate('asem1.html');
-            echo $template->render(array('title' => 'Partnership'));
+            if ($_GET['type'] == 1) {
+                $template = $twig->loadTemplate('asem1.html');
+                echo $template->render(array('title' => 'Partnership', 'type' => $_GET['type']));
+            }else{
+                $template = $twig->loadTemplate('asem_register.html');
+                echo $template->render(array('title' => 'Asem Login'));
+            }
         }
         else if(isset($_GET['help'])){
             $template = $twig->loadTemplate('help.html');
@@ -930,6 +935,7 @@
                 echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel'));
             }
             else if(isset($_GET['asem'])){
+                /*
                 $query = new ParseQuery("hotel");
                 $query->equalTo("type", 'Hotel');
                 $query->equalTo("status",1);
@@ -943,6 +949,10 @@
                 $template = $twig->loadTemplate('asem_list.html');
                 //render a template
                 echo $template->render(array('title' => 'Asem 2016 Hotels', 'nav' => 1, 'results' =>$results));
+                 */
+
+                $template = $twig->loadTemplate('asem_register.html');
+                echo $template->render(array('title' => 'Asem Login', 'list' => 1));
             }
             else{
                 $template = $twig->loadTemplate('home.html');

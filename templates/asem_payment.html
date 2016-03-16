@@ -66,6 +66,16 @@
                                 <label>Please write your registered email address</label>
                                 <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
                             </div>
+                            <div class="alert alert-success" id="forget_success">
+                                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                                </button>
+                                <p class="text-small"></p>
+                            </div>
+                            <div class="alert alert-danger" id='forget_danger'>
+                                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                                </button>
+                                <p class="text-small"></p>
+                            </div>
                             <div id="RecaptchaField2" class="form-group"></div>
                             <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
                         </form>
@@ -187,19 +197,16 @@ async defer>
             g_recaptcha_response: $('#recaptcha2').val()
         }, function (result) {
             if(result==1){
-                $(".mfp-close").trigger('click');
-                $('#register-success1').removeClass('hidden');
-                $('#register-success1 p').text('Please check your email');
+                $('#forget_success').fadeIn(100);
+                $('#forget_success p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
             }
             else if(result==2){
-                $(".mfp-close").trigger('click');
-                $('#login-alert1').fadeIn(500);
-                $('#login-alert1 p').text('reCaptche error!');
+                $('#forget_danger').fadeIn(100);
+                $('#forget_danger p').text('ReCaptcha required');
             }
             else{
-                $(".mfp-close").trigger('click');
-                $('#login-alert1').fadeIn(500);
-                $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
+                $('#forget_danger').fadeIn(100);
+                $('#forget_danger p').text('Incorrect an email');
             }
         });
     });

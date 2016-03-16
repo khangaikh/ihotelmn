@@ -33,6 +33,11 @@
             $user->set("status", 0);
             $user->set("asem", 0);
             $user->set("role", 1);
+
+            if (isset($_POST['type'])) {
+                $user->set("meeting_type", intval($_POST['type']));
+            }
+
             $result = false;
 
             try {
