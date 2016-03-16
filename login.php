@@ -35,6 +35,9 @@
         try {
             $query = ParseUser::query();
             $query->equalTo("username", $_POST['email']); 
+            if (isset($_POST['asem'])) {
+                $query->equalTo("asem", 1); 
+            }
             $query->equalTo("emailVerified", true); 
             $results = $query->find();
             if ($results) {

@@ -84,6 +84,7 @@ $('#login').click(function(){
    $.post("login.php", {
     email: $('#email').val(),
     password: $('#password').val(),
+    asem: 1,
     g_recaptcha_response: $('#recaptcha1').val()
 }, function (result) {
     if(result==1){
