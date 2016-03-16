@@ -191,6 +191,9 @@ button:after{
 	margin-right:20px;
 	float:left;
 }
+.ajax2{
+	position: relative;
+}
 .alert{
 	display: none;
 }

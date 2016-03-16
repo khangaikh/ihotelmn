@@ -35,13 +35,13 @@
                 {%endif%}
             </td>
             <td class="operations">
-                <a name="{{hotel.objectId}}" class="btn btn-primary edit" href="#" onclick="edit_hotel('{{hotel.objectId}}')">Засах</a>
+                <a name="{{hotel.objectId}}" class="btn btn-primary edit ajax" href="#" onclick="edit_hotel('{{hotel.objectId}}')">Засах</a>
                 {% if hotel.homepage ==0 %}
                 <a name="{{hotel.objectId}}" set="1" class="btn btn-primary set" href="#">Set</a>
                 {%else%}
                 <a name="{{hotel.objectId}}" set="0" class="btn btn-primary unset" href="#">Unset</a>
                 {%endif%}
-                <a name="{{hotel.objectId}}"  class="btn btn-default" href="#" onclick="disable_hotel('{{hotel.objectId}}')">Цуцлах</a>
+                <a name="{{hotel.objectId}}"  class="btn btn-default ajax" href="#" onclick="disable_hotel('{{hotel.objectId}}')">Цуцлах</a>
             </td>
         </tr>
         {% endfor %}

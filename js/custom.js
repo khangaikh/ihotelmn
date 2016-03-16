@@ -513,10 +513,22 @@ $(document).ready(function(){
         $(this).after('<div id="loading"></div>');
         $(this).addClass('disabled');
     });
+    $('.ajax2').click(function(){
+        $(this).append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+        $(this).addClass('disabled');
+    });
     $('.ajax').click(function(){
         $(this).after('<div id="loading"></div>');
         $(this).addClass('disabled');
     });
+    $(document).ajaxComplete(function(){
+        $('#loading').remove();
+        $('.disabled').removeClass('disabled');
+    });
+    $(document).ajaxError(function(){
+        $('#loading').remove();
+        $('.disabled').removeClass('disabled');  
+    })
     $('#hotels>li').click(function(){
         $('#full-loader').remove();
         $(this).append('<div id="full-loader"><div id="loading"></div></div>');

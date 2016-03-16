@@ -366,7 +366,7 @@ $(document).on('click', '#register', function(){
     if($("#meeting_form").parsley().isValid()){
         $.post("user.php", {
             email: $('#email').val(),
-            username: $('#firstName').val(),
+            username: $('#firstName').val(),    
             password: "123456",
             type: {{type}},
             g_recaptcha_response: $('#recaptcha').val()

@@ -959,7 +959,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <a id="basic_info_continue_btn" class="btn btn-block btn-primary btn-lg">Үргэжлүүлэх </a>
+                        <a id="basic_info_continue_btn" class="btn btn-block btn-primary btn-lg ajax2">Үргэлжлүүлэх </a>
                     </form>
                     <div class="gap"></div>
                 </div>
@@ -2703,7 +2703,7 @@
                                 </ul>
                             </fieldset>
                         </div>
-                        <a id="property_details_continue_btn" class="btn btn-block btn-primary btn-lg save_and_proceed">Үргэжлүүлэх </a>
+                        <a id="property_details_continue_btn" class="btn btn-block btn-primary btn-lg save_and_proceed ajax2">Үргэлжлүүлэх </a>
                     </form>
                     <div class="gap gap-small"></div>
                 </div>
@@ -2762,7 +2762,7 @@
                             <div id="bottom_buttons">
                                 <div class="col-sm-12 col-sm-12 col-xs-12">
                                     {% if count > 0%}
-                                    <a class="btn btn-primary btn-block btn-lg save_and_proceed" id="room_continue_btn" href="" data-track-stage-on-click="">Үргэжлүүлэх</a>
+                                    <a class="btn btn-primary btn-block btn-lg save_and_proceed ajax2" id="room_continue_btn" href="" data-track-stage-on-click="">Үргэлжлүүлэх</a>
                                     {%else%}
                                     <h5>Please insert atleast one room</h5>
                                     {%endif%}
@@ -3933,7 +3933,7 @@
                     </div>
                     <div class="gap gap-medium"></div>
                     <div class="col-xs-12">
-                        <a class="btn btn-primary btn-block btn-lg"id="photo_continue_btn" href="#" >Үргэжлүүлэх</a>
+                        <a class="btn btn-primary btn-block btn-lg" id="photo_continue_btn" href="#">Үргэлжлүүлэх</a>
                     </div>
                     <div class="gap gap-small"></div>
                 </div>
@@ -4255,7 +4255,7 @@
                                         </ul>
                                     </fieldset>
                                 </div>
-                                <a class="btn btn-primary btn-block btn-lg" id="payment_continue_btn" href="#" >Үргэжлүүлэх</a>
+                                <a class="btn btn-primary btn-block btn-lg ajax2" id="payment_continue_btn" href="#" >Үргэлжлүүлэх</a>
                             </form>
                         </div>
                     </div>
@@ -4368,7 +4368,7 @@
                                         </div>
                                     </div>
                                     <div class="gap gap-small"></div>
-                                    <a class="btn btn-primary btn-block btn-lg" id="agreement_continue_btn" href="#" >Үргэжлүүлэх</a>
+                                    <a class="btn btn-primary btn-block btn-lg ajax2" id="agreement_continue_btn" href="#" >Үргэлжлүүлэх</a>
                                     <div class="gap gap-small"></div>
                                 </form>
                             </div>
@@ -4385,7 +4385,7 @@
                     </div>
                     <form role="form" id="create_preview_form" action="/preview.html" method="POST" data-parsley-validate>
                         <div class="prevew-top-submit">
-                            <a class="btn btn-primary btn-block btn-lg" name="activate_hotel_btn" href="#" >Илгээх</a>
+                            <a class="btn btn-primary btn-block btn-lg ajax" name="activate_hotel_btn" href="#" >Илгээх</a>
                         </div>
                         <input type="hidden" name="token" value="ae64d9ff38799d5b78d41be790fcce02e52adb64">
                         <div class="gap gap-small"></div>
@@ -4707,11 +4707,17 @@
             var values = $("#edit_room_details_form").serializeObject();
             var room_images = $('img[name="room-edit-images"]').map(function() {return $(this).attr('src');}).get();
             var facilities = $('input[name="amenities_room_edit"]:checkbox:checked').map(function() {return this.value;}).get();
+            var $this = $(this);
+            $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+            $this.addClass('disabled');
+
             $.ajax({
                 type: "POST",
                 url: "room.php",
                 data: {data:roomId, values:values, action:3, images:room_images, facilities:facilities},
                 success: function(data, textStatus, jqXHR){
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
                     if(data == 1 ){
                         window.location.reload();
                     } 
@@ -5008,8 +5014,6 @@
             if($("#create_basic_info_form").parsley().isValid()){ 
                 var values = $("#create_basic_info_form").serializeObject();
                 var $this = $(this);
-                $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
-                $this.addClass('disabled');
                 $.ajax({
                     type: "POST",
                     url: "create.php",
@@ -5017,8 +5021,6 @@
                     success: function(data, textStatus, jqXHR){
                         //alert(data);
                         if(data == 1 ){
-                            $('#loading').remove();
-                            $this.removeClass('disabled');
                             $('#navLeftMenu li.active').next('li').removeClass('disabled');
                             $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
                             $('#navLeftMenu li.active').next('li').find('a').tab('show');    
@@ -5045,8 +5047,6 @@
                 var shops = $('input[name="shops"]:checkbox:checked').map(function() {return this.value;}).get();
                 var others = $('input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                 var $this = $(this);
-                $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
-                $this.addClass('disabled');
 
                 $.ajax({
                     type: "POST",
@@ -5056,8 +5056,6 @@
                         //alert(data);
                         if(data == 1 ){
                             /*enable next tab*/
-                            $('#loading').remove();
-                            $this.removeClass('disabled');
 
                             $('#navLeftMenu li.active').next('li').removeClass('disabled');
                             $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
@@ -5078,9 +5076,8 @@
                 var facilities = $('input[name="amenities_room"]:checkbox:checked').map(function() {return this.value;}).get();
                 $("#room_details_continue_btn").attr('disable',true);
                 var $this = $(this);
-                $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
-                $this.addClass('disabled');
-
+                    $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+                    $this.addClass('disabled');
                 $.ajax({
                     type: "POST",
                     url: "create.php",
@@ -5088,6 +5085,7 @@
                     success: function(data, textStatus, jqXHR){
                         $('#loading').remove();
                         $this.removeClass('disabled');
+
                         if(data == 1 ){
                             window.location.reload();
                         } 
@@ -5097,8 +5095,6 @@
         });
         $("#room_continue_btn").click(function(){
             var $this = $(this);
-            $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
-            $this.addClass('disabled');
             $.ajax({
                 type: "POST",
                 url: "create.php",
@@ -5106,8 +5102,6 @@
                 success: function(data, textStatus, jqXHR){
                     if(data == 1 ){
                         /*enable next tab*/
-                        $('#loading').remove();
-                        $this.removeClass('disabled');
 
                         $('#navLeftMenu li.active').next('li').removeClass('disabled');
                         $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
@@ -5124,16 +5118,18 @@
                 var hotel_images = $('img[name="hotel-images"]').map(function() {return $(this).attr('src');}).get();
                 var cover_images = $('img[name="cover-images"]').map(function() {return $(this).attr('src');}).get();
                 var $this = $(this);
-                $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
+
+                $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
                 $this.addClass('disabled');
+
                 $.ajax({
                     type: "POST",
                     url: "create.php",
                     data: {data:1, hotel_images:hotel_images, cover_images:cover_images, section:4},
                     success: function(data, textStatus, jqXHR){
+                        $('#loading').remove();
+                        $this.removeClass('disabled');
                         if(data == 1 ){
-                            $('#loading').remove();
-                            $this.removeClass('disabled');
                             $('#navLeftMenu li.active').next('li').removeClass('disabled');
                             $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
                             $('#navLeftMenu li.active').next('li').find('a').tab('show'); 
@@ -5144,16 +5140,12 @@
         });
         $("#payment_continue_btn").click(function(){
             var $this = $(this);
-            $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
-            $this.addClass('disabled');
             $.ajax({
                 type: "POST",
                 url: "create.php",
                 data: {data:1, section:5},
                 success: function(data, textStatus, jqXHR){
                     if(data == 1 ){
-                        $('#loading').remove();
-                        $this.removeClass('disabled');
                         $('#navLeftMenu li.active').next('li').removeClass('disabled');
                         $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
                         $('#navLeftMenu li.active').next('li').find('a').tab('show'); 
@@ -5166,16 +5158,12 @@
             validateFront();
             if($("#create_agreement_form").parsley().isValid()){
                 var $this = $(this);
-                $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
-                $this.addClass('disabled');
                 $.ajax({
                     type: "POST",
                     url: "create.php",
                     data: {data:1, section:6},
                     success: function(data, textStatus, jqXHR){
                         if(data == 1 ){
-                            $('#loading').remove();
-                            $this.removeClass('disabled');
                             $('#navLeftMenu li.active').next('li').removeClass('disabled');
                             $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
                             $('#navLeftMenu li.active').next('li').find('a').tab('show'); 
@@ -5188,8 +5176,6 @@
         $('a[name="activate_hotel_btn"]').click(function(){ 
             if (confirm('Are you sure ?')) {
                 var $this = $(this);
-                $this.append('<span style="margin:0; position:absolute; float:none;" id="loading"></span');
-                $this.addClass('disabled');
 
                 $.ajax({
                     type: "POST",
@@ -5197,8 +5183,6 @@
                     data: {data:1, section:7},
                     success: function(data, textStatus, jqXHR){
                         if(data == 1 ){
-                            $('#loading').remove();
-                            $this.removeClass('disabled');
                             window.location.replace("index.php"); 
                         } 
                     }
