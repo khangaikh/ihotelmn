@@ -205,6 +205,31 @@
             //render a template
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $pieces[0], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1],'user' => $user));
         }
+        else if(isset($_GET['start_1'])){
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("type", "Hotel");
+            $query->equalTo("asem",1);
+            $query->descending("stars");
+
+            $start = $_GET['start_1'];
+            $end = $_GET['end_1'];
+            $guests = $_GET['guests'];
+            $rooms = $_GET['rooms'];
+
+            $date = new DateTime($start);
+            $checkin = $date->format('Y-m-d');
+
+            $date = new DateTime($end);
+            $checkout = $date->format('Y-m-d');
+
+            $query->equalTo("city",'Ulaanbaatar');
+            $results = $query->find();
+
+            $template = $twig->loadTemplate('asem_list.html');
+            //render a template
+            echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms));
+        }
         else if(isset($_GET['search'])){
             $template = $twig->loadTemplate('home.html');
             $query = new ParseQuery("hotel");
