@@ -310,16 +310,30 @@
         }
     });
     $.ajax({
-        url:"http://apilayer.net/api/live?access_key=5463c8433389385312baf041c269be12&currencies=MNT,CNY,EUR&format=1",
+        url:"http://globalcurrencies.xignite.com/xGlobalCurrencies.json/GetRealTimeRate?Symbol=USDMNT&_token=949BFAD4EFFB491091E7664BA8D9A7A9",
         dataType:"json",
         success: function(data){
-            var mnt = data.quotes.USDMNT.toFixed(2);
-            var cny = data.quotes.USDCNY.toFixed(2);
-            var eur = data.quotes.USDEUR.toFixed(2);
-
+            var mnt = data.Mid;
+            console.log(mnt);
             $('.mnt').text(mnt+' ₮');
-            $('.cny').text(cny+' ¥');
-            $('.eur').text(eur+' €');
+        }
+    });
+     $.ajax({
+        url:"http://globalcurrencies.xignite.com/xGlobalCurrencies.json/GetRealTimeRate?Symbol=CNYMNT&_token=949BFAD4EFFB491091E7664BA8D9A7A9",
+        dataType:"json",
+        success: function(data){
+            var mnt = data.Mid;
+            
+            $('.cny').text(mnt+' ¥');
+        }
+    });
+      $.ajax({
+        url:"http://globalcurrencies.xignite.com/xGlobalCurrencies.json/GetRealTimeRate?Symbol=EURMNT&_token=949BFAD4EFFB491091E7664BA8D9A7A9",
+        dataType:"json",
+        success: function(data){
+            var mnt = data.Mid;
+            
+            $('.eur').text(mnt+' €');
         }
     });
 </script>

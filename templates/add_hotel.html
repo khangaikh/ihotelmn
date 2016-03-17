@@ -959,7 +959,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <a id="basic_info_continue_btn" class="btn btn-block btn-primary btn-lg ajax2">Үргэлжлүүлэх </a>
+                        <a id="basic_info_continue_btn" class="btn btn-block btn-primary btn-lg">Үргэлжлүүлэх </a>
                     </form>
                     <div class="gap"></div>
                 </div>
@@ -2703,7 +2703,7 @@
                                 </ul>
                             </fieldset>
                         </div>
-                        <a id="property_details_continue_btn" class="btn btn-block btn-primary btn-lg save_and_proceed ajax2">Үргэлжлүүлэх </a>
+                        <a id="property_details_continue_btn" class="btn btn-block btn-primary btn-lg save_and_proceed">Үргэлжлүүлэх </a>
                     </form>
                     <div class="gap gap-small"></div>
                 </div>
@@ -2762,7 +2762,7 @@
                             <div id="bottom_buttons">
                                 <div class="col-sm-12 col-sm-12 col-xs-12">
                                     {% if count > 0%}
-                                    <a class="btn btn-primary btn-block btn-lg save_and_proceed ajax2" id="room_continue_btn" href="" data-track-stage-on-click="">Үргэлжлүүлэх</a>
+                                    <a class="btn btn-primary btn-block btn-lg save_and_proceed" id="room_continue_btn" href="" data-track-stage-on-click="">Үргэлжлүүлэх</a>
                                     {%else%}
                                     <h5>Please insert atleast one room</h5>
                                     {%endif%}
@@ -4255,7 +4255,7 @@
                                         </ul>
                                     </fieldset>
                                 </div>
-                                <a class="btn btn-primary btn-block btn-lg ajax2" id="payment_continue_btn" href="#" >Үргэлжлүүлэх</a>
+                                <a class="btn btn-primary btn-block btn-lg" id="payment_continue_btn" href="#" >Үргэлжлүүлэх</a>
                             </form>
                         </div>
                     </div>
@@ -4368,7 +4368,7 @@
                                         </div>
                                     </div>
                                     <div class="gap gap-small"></div>
-                                    <a class="btn btn-primary btn-block btn-lg ajax2" id="agreement_continue_btn" href="#" >Үргэлжлүүлэх</a>
+                                    <a class="btn btn-primary btn-block btn-lg" id="agreement_continue_btn" href="#" >Үргэлжлүүлэх</a>
                                     <div class="gap gap-small"></div>
                                 </form>
                             </div>
@@ -5014,6 +5014,9 @@
             if($("#create_basic_info_form").parsley().isValid()){ 
                 var values = $("#create_basic_info_form").serializeObject();
                 var $this = $(this);
+                var $this = $(this);
+                $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+                $this.addClass('disabled');
                 $.ajax({
                     type: "POST",
                     url: "create.php",
@@ -5047,6 +5050,9 @@
                 var shops = $('input[name="shops"]:checkbox:checked').map(function() {return this.value;}).get();
                 var others = $('input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                 var $this = $(this);
+                var $this = $(this);
+                $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+                $this.addClass('disabled');
 
                 $.ajax({
                     type: "POST",
@@ -5095,6 +5101,8 @@
         });
         $("#room_continue_btn").click(function(){
             var $this = $(this);
+            $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+            $this.addClass('disabled');
             $.ajax({
                 type: "POST",
                 url: "create.php",
@@ -5158,6 +5166,8 @@
             validateFront();
             if($("#create_agreement_form").parsley().isValid()){
                 var $this = $(this);
+                $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+                $this.addClass('disabled');
                 $.ajax({
                     type: "POST",
                     url: "create.php",
@@ -5176,6 +5186,8 @@
         $('a[name="activate_hotel_btn"]').click(function(){ 
             if (confirm('Are you sure ?')) {
                 var $this = $(this);
+                $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+                $this.addClass('disabled');
 
                 $.ajax({
                     type: "POST",
