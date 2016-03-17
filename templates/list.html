@@ -111,8 +111,8 @@
                         <input class="i-check" type="checkbox" id="tour_box" name="tour_box" value="5"/>Амралтын газрууд 
                     </div>
                     </li>
-                    <li>
-                        <h5 class="booking-filters-title">Price</h5>
+                    <li id="price_filter">
+                        <h5 class="booking-filters-title">Үнэ</h5>
                         <input type="text" id="price-slider">
                     </li>
                     <li id="stars_filter">
@@ -466,11 +466,13 @@
                         $("input[name='asem_box']").attr("checked", false);
                         $("input[name='asem_box']").parent().attr("class", "i-check");
                         $("#stars_filter").hide();
+                        $("#price_filter").hide();
                         tour_checked();
                     }
                     else{
                         tour = false;
                         $("#stars_filter").show();
+                        $("#price_filter").show();
                         var checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
                         var checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
                         var values1 = checkedValues1.toString();
@@ -491,6 +493,9 @@
                     var values2 = checkedValues2.toString();
                     var location = '{{location}}'.split(",");
                     var type = "Hotel";
+                    if(tour){
+                        type = "Resort";
+                    } 
                     $('#full-loader').remove();
                     $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
                     if(checkedValues1.length !=0 || checkedValues2.length !=0){
