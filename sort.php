@@ -9,26 +9,19 @@
     $query = new ParseQuery("hotel");
     
     $sort = $_POST['data'];
-    $datas = $_POST['filter1'];
-    $pieces = explode(",", $datas);
 
-    if (in_array('0',$pieces) == false) {
-        $query->notEqualTo("stars",0); 
+    if ($_POST['filter1']!=null) {
+        $datas = $_POST['filter1'];
+        $pieces = array_map('intval', explode(',', $datas));
+        $query->containedIn("stars",$pieces);
     }
-    if (in_array('1',$pieces) == false) {
-        $query->notEqualTo("stars",1); 
-    }
-    if (in_array('2',$pieces) == false) {
-        $query->notEqualTo("stars",2); 
-    }
-    if (in_array('3',$pieces) == false) {
-        $query->notEqualTo("stars",3); 
-    }
-    if (in_array('5',$pieces) == false) {
-        $query->notEqualTo("stars",5); 
-    }
-    if (in_array('4',$pieces) == false) {
-        $query->notEqualTo("stars",4); 
+
+    if ($_POST['filter2']!=null) {
+        $filter2 = $_POST['filter2'];
+        $filter_2 = explode(',', $filter2);
+        for ($i = 0; $i < count($filter_2); $i++) {
+            $query->equalTo($filter_2[$i], 1);
+        }
     }
     
     $query->equalTo("city",$_POST['city']);
@@ -48,10 +41,10 @@
         $query->ascending("stars");
     }
     if($sort=='priceup'){
-        $query->descending("average_rate");
+        $query->descending("min_rate");
     }
     if($sort=='pricedown'){
-        $query->ascending("average_rate");
+        $query->ascending("min_rate");
     }
     $results = $query->find();
     $count = $query->count();
@@ -67,7 +60,9 @@
         $e->short_desc = $row->get('short_desc');
         $e->address = $row->get('address');
         $e->cover =$row->get('cover_image');
-        $e->rate = $row->get('average_rate');
+        $e->rate = $row->get('min_rate');
+        $e->latitude = $row->get('geolocation')->getLatitude();
+        $e->longitude = $row->get('geolocation')->getLongitude();
         $events[] = $e; 
     }
 
@@ -78,6 +73,5 @@
 
     header('Content-Type: application/json');
     echo json_encode($data);
-
 ?>
 

@@ -112,18 +112,13 @@
             $room->save();
             $query = new ParseQuery("rooms");
             $query->equalTo("hotel",$hotel);
-            $rooms = $query->find();
-            $count = $query->count();
-
             $total = 0;
 
-            foreach ($rooms as $value) {
-                $total = $total + $value->get('night_price');
-            }
+            $query->ascending("night_price");
+            $e = $query->first();
+            $min = $e->get('night_price'); 
 
-            $average = (int)($total/$count);
-
-            $hotel->set('average_rate', (string)$average);
+            $hotel->set('min_rate', intval($min));
             try {
                 $hotel->save();
             } catch (ParseException $ex) {  

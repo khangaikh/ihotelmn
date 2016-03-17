@@ -84,16 +84,12 @@
             $hotel = $_SESSION['hotel'];
             $query = new ParseQuery("rooms");
             $query->equalTo("hotel",$hotel);
-            $rooms = $query->find();
-            $count = $query->count();
+            $query->ascending("night_price");
+            $e = $query->first();
+            $min = $e->get('night_price'); 
 
-            $min_array = [];
+            $hotel->set('min_rate', intval($min));
 
-            foreach ($rooms as $value) {
-                array_push($min_array, (int)$value->get('night_price'));
-            }
-
-            $hotel->set('min_rate', (int)min($min_array));
 
             try {
                 $hotel->save();

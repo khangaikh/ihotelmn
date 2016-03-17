@@ -98,8 +98,17 @@
             $count = $query->count();
 
             $template = $twig->loadTemplate('asem_list.html');
+
+            $query->ascending("min_rate");
+            $e = $query->first();
+            $min = $e->get('min_rate'); 
+
+            $query->descending("min_rate");
+            $e = $query->first();
+            $max = $e->get('min_rate'); 
+
             //render a template
-            echo $template->render(array('title' => 'Search', 'nav' => 1, 'user' => $user, 'results' =>$results));
+            echo $template->render(array('title' => 'Search', 'nav' => 1, 'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
         }
         else if(isset($_GET['logout'])){
             session_unset();
@@ -200,10 +209,18 @@
             $query->equalTo("city",$pieces[0]);
             $results = $query->find();
             $count = $query->count();
-
             $template = $twig->loadTemplate('list.html');
+
+            $query->ascending("min_rate");
+            $e = $query->first();
+            $min = $e->get('min_rate'); 
+
+            $query->descending("min_rate");
+            $e = $query->first();
+            $max = $e->get('min_rate'); 
+
             //render a template
-            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $pieces[0], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1],'user' => $user));
+            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $pieces[0], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1],'user' => $user, 'max' => $max, 'min' => $min));
         }
         else if(isset($_GET['start_1'])){
             $query = new ParseQuery("hotel");
@@ -378,8 +395,17 @@
             $checkout = $date->format('Y-m-d');
             $count = $query->count();
             $template = $twig->loadTemplate('list.html');
+
+            $query->ascending("min_rate");
+            $e = $query->first();
+            $min = $e->get('min_rate'); 
+
+            $query->descending("min_rate");
+            $e = $query->first();
+            $max = $e->get('min_rate'); 
+
             //render a template
-            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'user' =>$user));
+            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'user' =>$user, 'min'=>$min, 'max'=>$max));
         }
         else if(isset($_GET['card'])){
             $query = new ParseQuery("user_cards");
@@ -411,7 +437,7 @@
             $query->equalTo("objectId",$_POST['mapGeoId']);
             $hotel = $query->first();
             $e['cover_image'] = $hotel->get('cover_image');
-            $e['average_rate'] = $hotel->get('average_rate');
+            $e['average_rate'] = $hotel->get('min_rate');
             $e['address'] = $hotel->get('address');
             $e['stars'] = $hotel->get('stars');
             $e['name'] = $hotel->get('name');
@@ -595,8 +621,17 @@
             $pages = (int)($count / 25);
 
             $template = $twig->loadTemplate('list.html');
+
+            $query->ascending("min_rate");
+            $e = $query->first();
+            $min = $e->get('min_rate'); 
+
+            $query->descending("min_rate");
+            $e = $query->first();
+            $max = $e->get('min_rate'); 
+
             //render a template
-            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $location, 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1], 'pages' => $pages, 'guests'=>$guests, 'persons'=>$persons));
+            echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $location, 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1], 'pages' => $pages, 'guests'=>$guests, 'persons'=>$persons, 'max'=>$max, 'min'=>$min));
         }
         else if(isset($_GET['start_1'])){
             $query = new ParseQuery("hotel");
@@ -620,15 +655,24 @@
             $results = $query->find();
 
             $template = $twig->loadTemplate('asem_list.html');
+
+            $query->ascending("min_rate");
+            $e = $query->first();
+            $min = $e->get('min_rate'); 
+
+            $query->descending("min_rate");
+            $e = $query->first();
+            $max = $e->get('min_rate'); 
+
             //render a template
-            echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms));
+            echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms, 'max'=>$max, 'min'=>$min));
         }
         else if(isset($_POST['mapGeoId'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_POST['mapGeoId']);
             $hotel = $query->first();
             $e['cover_image'] = $hotel->get('cover_image');
-            $e['average_rate'] = $hotel->get('average_rate');
+            $e['average_rate'] = $hotel->get('min_rate');
             $e['address'] = $hotel->get('address');
             $e['stars'] = $hotel->get('stars');
             $e['name'] = $hotel->get('name');
@@ -956,8 +1000,16 @@
                 $checkout = $date->format('Y-m-d');
                 $count = $query->count();
                 $template = $twig->loadTemplate('list.html');
+
+                $query->ascending("min_rate");
+                $e = $query->first();
+                $min = $e->get('min_rate'); 
+
+                $query->descending("min_rate");
+                $e = $query->first();
+                $max = $e->get('min_rate'); 
                 //render a template
-                echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel'));
+                echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'max' => $max, 'min' => $min));
             }
             else if(isset($_GET['asem'])){
                 /*
