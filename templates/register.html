@@ -44,6 +44,7 @@
                     <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
                 </form>
             </div>
+            <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
         </div>
         <div class="col-md-4 small-top">
             <h3>Бүртгүүлэх үү?</h3>
@@ -89,6 +90,15 @@ async defer>
 {% endblock %}
 {% block scripting %}
 {{parent()}}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1546296545668775";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <script type="text/javascript">
     $('#login').click(function(){
         $('.alert').hide(0);
