@@ -207,7 +207,7 @@
             <ul class="booking-list" id="hotels">
                 {% for res in results %}
                 <li>
-                    <a class="booking-item" id="{{res.objectId}}" asem="0" title="{{res.name}}"href="#" name="detail">
+                    <a class="booking-item" id="{{res.objectId}}" asem="0" title="{{res.name}}"href="#" {% if res.sold_out %} name="detail" {% else %} name="" {%endif%}>
 
                     <div class="row">
                         <div class="col-md-3">
@@ -234,9 +234,14 @@
 
                             <small class="booking-item-address"><i class="fa fa-map-marker"></i>{{res.address}}</small><br><br><small class="booking-item-address">{{res.short_desc}}</small>
                         </div>
+<<<<<<< Updated upstream
                         <div class="col-md-3"><span
                                 class="booking-item-price-from
                             small-hidden">дунджаар</span><span class="booking-item-price">{{res.min_rate}}₮</span><span>/өдөр</span><span class="small-left btn btn-primary" name="detail" id="{{res.objectId}}">Өрөө сонгох</span>
+=======
+                        <div class="col-md-3"><span class="booking-item-price-from small-hidden">дунджаар</span><span class="booking-item-price">{{res.average_rate}}₮</span><span>/өдөр</span><span class="small-left btn btn-primary" name="detail" id="{{res.objectId}}">Өрөө сонгох</span>
+                        {% if res.sold_out %}<div class='sold'>Sold out</div>{% endif %}
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </a>

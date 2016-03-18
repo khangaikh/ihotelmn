@@ -283,6 +283,18 @@
                     <input class='form-control' type='text' name='fax' id="fax" >
                 </div>
             </div>
+              <div class='col-md-4'>
+                <div class='form-group'>
+                    <label>Password</label>
+                    <input class='form-control' type='password' name='password' id="password" required>
+                </div>
+            </div>
+              <div class='col-md-4'>
+                <div class='form-group'>
+                    <label>Password Confirmation</label>
+                    <input class='form-control' type='password' name='password2' id="password2" required>
+                </div>
+            </div>
         </div>
         <div class='row row-wrap'>
             <div class='col-md-2'>
@@ -343,6 +355,9 @@ $(document).on('click', '#register', function(){
     $("#meeting_form").parsley().validate();
     validateFront();
     if($("#meeting_form").parsley().isValid()){
+      var $this = $(this);
+      $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+      $this.addClass('disabled');
         $.post("user.php", {
             email: $('#email').val(),
             username: $('#firstName').val(),    

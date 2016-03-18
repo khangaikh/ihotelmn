@@ -346,3 +346,7 @@ button:after{
 #asem_register table td:last-child{
 	text-align: center;
 }
+.sold{
+	color:red;
+	margin-top:10px;
+}
