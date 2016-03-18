@@ -847,7 +847,7 @@
         else if(isset($_GET['asem1'])){
             if ($_GET['type'] == 1) {
                 $template = $twig->loadTemplate('asem1.html');
-                echo $template->render(array('title' => 'Partnership', 'type' => $_GET['type']));
+                echo $template->render(array('title' => 'ASEP 9 Register', 'type' => $_GET['type']));
             }else{
                 $template = $twig->loadTemplate('asem_register.html');
                 echo $template->render(array('title' => 'Asem Login'));
