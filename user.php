@@ -31,7 +31,12 @@
             $user->set("email", $email);
             $user->set("password", $pass);
             $user->set("status", 0);
-            $user->set("asem", 0);
+            
+            if(isset($_POST['asem'])){
+                $user->set("asem", 1);
+            }else{
+                $user->set("asem", 0);
+            }
             $user->set("role", 1);
 
             if (isset($_POST['type'])) {

@@ -13,13 +13,13 @@
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>Last Name</label>
-                    <input class='form-control' type='text' id='lastName' name='lastName' required>
+                    <input class='form-control' type='text' id='lastName' name='lastName' required placeholder="Adam">
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>First Name</label>
-                    <input class='form-control' type='text' id='firstName' name='firstName' required>
+                    <input class='form-control' type='text' id='firstName' name='firstName' required placeholder="Smith">
                 </div>
             </div>
             <div class='col-md-4'>
@@ -262,37 +262,24 @@
                         <option value="ZM">Zambia</option>
                         <option value="ZW">Zimbabwe</option>
                     </select>
-
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>Telephone</label>
-                    <input class='form-control' type='text' id='telephone' name='telephone' required>
+                    <input class='form-control' type='text' id='telephone' name='telephone' required placeholder="+(976) 88021087">
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
                     <label>E-mail</label>
-                    <input class='form-control' type='email' name='email' id="email" required>
+                    <input class='form-control' type='email' name='email' id="email" required placeholder="@">
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
-                    <label>Fax</label>
-                    <input class='form-control' type='text' name='fax' id="fax" >
-                </div>
-            </div>
-              <div class='col-md-4'>
-                <div class='form-group'>
                     <label>Password</label>
-                    <input class='form-control' type='password' name='password' id="password" required>
-                </div>
-            </div>
-              <div class='col-md-4'>
-                <div class='form-group'>
-                    <label>Password Confirmation</label>
-                    <input class='form-control' type='password' name='password2' id="password2" required>
+                    <input class='form-control' type='password' name='password' id="password" required placeholder="********">
                 </div>
             </div>
         </div>
@@ -308,13 +295,13 @@
             <div class='col-md-1'>
                 <div class='form-group'>
                     <label>Time</label>
-                    <input class='form-control time' type='text' id='arrival_time' name='arrival_time' required>
+                    <input class='form-control time' type='text' id='arrival_time' name='arrival_time' required placeholder="13:00">
                 </div>
             </div>
             <div class='col-md-2'>
                 <div class='form-group'>
                     <label>Flight №</label>
-                    <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight' required>
+                    <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight' required placeholder="MN234">
                 </div>
             </div>
         </div>
@@ -352,82 +339,59 @@ var validateFront = function () {
     }
 };
 $(document).on('click', '#register', function(){
-    $("#meeting_form").parsley().validate();
-    validateFront();
-    if($("#meeting_form").parsley().isValid()){
-      var $this = $(this);
-      $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
-      $this.addClass('disabled');
-        $.post("user.php", {
-            email: $('#email').val(),
-            username: $('#firstName').val(),    
-            password: "123456",
-            type: {{type}},
-            g_recaptcha_response: $('#recaptcha').val()
-        }, function (result) {
-            if(result==1){
-                $.post("meeting.php", {
-                    section: 8,
-                    lastName: $('#lastName').val(),
-                    firstName: $('#firstName').val(),
-                    telephone: $('#telephone').val(),
-                    fax: $('#fax').val(),
-                    location: $('#location').val(),
-                    email: $('#email').val(),
-                    arrival_date: $('#arrival_date').val(),
-                    arrival_time: $('#arrival_time').val(),
-                    arrival_flight: $('#arrival_flight').val(),
-                    type: {{type}},
-                }, function (result) {
-                    if(result==1){
-                        window.location.replace('index.php?asem_login');
-                    }else{
-                    
-                    }
-                });
-            }
-            else if(result==2){
-                $('#login-alert1').fadeIn(500);
-                $('#login-alert1 p').text('reCaptcha error!');
-            }
-            else{
-                $('#login-alert1').fadeIn(500);
-                $('#login-alert1 p').text('Your login information is incorrect!');
-            }
-        });
-    }
-});
-$(document).on('click', '.add', function(){
-    var name = $('.name').val(),
-    title = $('.title').val(),
-    accompanied = $('.accompanied').val(),
-    arrival = $('.arrival').val(),
-    time = $('.time').val(),
-    flight = $('.flight').val(),
-    depart = $('.depart').val(),
-    time2 = $('.time2').val(),
-    flight2 = $('.flight2').val(),
-    count = 0,
-    table = '<tr><td>'+name+'</td>'+
-    '<td>'+title+'</td>'+
-    '<td>'+accompanied+'</td>'+
-    '<td>'+arrival+'</td>'+
-    '<td>'+time+'</td>'+
-    '<td>'+flight+'</td>'+
-    '<td>'+depart+'</td>'+
-    '<td>'+time2+'</td>'+
-    '<td>'+flight2+'</td>'+
-    '<td><button class="btn min">-</button></td></tr>';
+      $("#meeting_form").parsley().validate();
+      validateFront();
 
-    $('table').append(table);
+      if($("#meeting_form").parsley().isValid()){
+            var $this = $(this);
+            $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
+            $this.addClass('disabled');
+            $.post("user.php", {
+                  email: $('#email').val(),
+                  username: $('#firstName').val(),    
+                  password: $('#password').val(),
+                  asem: 1,
+                  type: {{type}},
+                  g_recaptcha_response: $('#recaptcha').val()
+            }, function (result) {
+                  if(result==1){
+                      $.post("meeting.php", {
+                        section: 8,
+                        lastName: $('#lastName').val(),
+                        firstName: $('#firstName').val(),
+                        telephone: $('#telephone').val(),
+                        location: $('#location').val(),
+                        email: $('#email').val(),
+                        arrival_date: $('#arrival_date').val(),
+                        arrival_time: $('#arrival_time').val(),
+                        arrival_flight: $('#arrival_flight').val(),
+                        type: {{type}},
+                        }, function (result) {
+                              if(result==1){
+                                    window.location.replace('index.php?asem_login');
+                              }else{
+                                
+                              }
+                        });
+                  }
+                  else if(result==2){
+                      $('#login-alert1').fadeIn(500);
+                      $('#login-alert1 p').text('reCaptcha error!');
+                  }
+                  else{
+                      $('#login-alert1').fadeIn(500);
+                      $('#login-alert1 p').text('Your login information is incorrect!');
+                  }
+            });
+      }
 });
-$(document).on('click', '.min', function(){
-    $(this).closest('tr').remove();
-});
+
 $(document).ready(function(){
     $('.input-daterange input').datepicker({
-        todayHighlight: true
+        todayHighlight: true,
     });
+    $('.input-daterange input').datepicker({ dateFormat: 'dd-mm-yy'}).datepicker("setDate", new Date());
+
 });
 //$("#location").geocomplete();
 </script>

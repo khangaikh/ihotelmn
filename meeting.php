@@ -14,7 +14,6 @@
         $meeting->set("lastname",$_POST['lastName']);
         $meeting->set("firstname",$_POST['firstName']);
         $meeting->set("telephone",$_POST['telephone']);
-        $meeting->set("fax",$_POST['fax']);
         $meeting->set("country",$_POST['location']);
         $meeting->set("email",$_POST['email']);
         $meeting->set("arrival_date",$_POST['arrival_date']);
