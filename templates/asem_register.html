@@ -104,7 +104,7 @@ $('#login').click(function(){
         $('#loading').remove();
         $this.removeClass('disabled');
         $('#login-alert').fadeIn(500);
-        $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
+        $('#login-alert p').text('Login information incorrect!');
     }
 });
 });
@@ -115,7 +115,7 @@ $('#forgot_password').click(function(){
 }, function (result) {
     if(result==1){
         $('#forget_success').fadeIn(100);
-        $('#forget_success p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
+        $('#forget_success p').text('Please check your email for reseting password!');
     }
     else if(result==2){
         $('#forget_danger').fadeIn(100);
