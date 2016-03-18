@@ -299,6 +299,7 @@
     var infoBubble;
     var infoBubble2; 
     var countinfo = 0; 
+    var currency = "";
     var marker;
     function initMap(resulst) {
         map = new google.maps.Map(document.getElementById('maps_hotel'), {
@@ -310,9 +311,16 @@
             marker = new google.maps.Marker({
                 position: {lat: results[i].lat, lng: results[i].lng},
             });
+
+            if(asem){
+                currency = "$ "+results[i].avg;
+            }else{
+                currency = results[i].avg+" ₮";
+            }
+
             infoBubble = new InfoBubble({
                 content: '<h5 id="'+results[i].id+'" onclick="help(this.id);"style="text-align: center; cursor: pointer; margin-bottom: 0px; color: #FFF;font-weight: bold;">'+
-                results[i].avg+' ₮</h5>',
+                currency+'</h5>',
                        arrowSize: 8,
                        maxWidth: 200,
                        minWidth: 100,
@@ -358,7 +366,7 @@
         contentString='<a href="index.php?detail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
             '&guests='+$("#guests").val()+'&rooms='+$("#rooms").val()+'"><div id="content">'+
             '<img style="width: 276px; overflow: hidden;"src="'+hotel['cover_image']+'"><h1></h1>'+
-            '<h4 style="margin: 0;">'+hotel['name']+'<br/>'+stars+'<span style="margin: 0; float:right" class="booking-item-price"><span style="margin: 0; font-size:13px" class="booking-item-price">from&nbsp;&nbsp;&nbsp;</span>'+hotel['average_rate']+'₮</span>'+
+            '<h4 style="margin: 0;">'+hotel['name']+'<br/>'+stars+'<span style="margin: 0; float:right" class="booking-item-price"><span style="margin: 0; font-size:13px" class="booking-item-price">from&nbsp;&nbsp;&nbsp;</span>'+hotel['average_rate']+currency+'</span>'+
             '</h4></div></a>';
 
         infoBubble2 = new InfoBubble({
