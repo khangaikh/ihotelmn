@@ -333,19 +333,6 @@ button:after{
 #asem2 .add{
 	font-size:13px;
 }
-#asem_register table, #asem_register th, #asem_register td{
-	border:1px solid #000;
-	border-collapse: collapse;
-}
-#asem_register table{
-	width:100%;
-}
-#asem_register th, #asem_register td{
-	padding:5px 10px;
-}
-#asem_register table td:last-child{
-	text-align: center;
-}
 .sold{
 	color:red;
 	margin-top:10px;

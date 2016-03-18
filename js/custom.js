@@ -516,12 +516,4 @@ $(document).ready(function(){
         $('#loading').remove();
         $('.disabled').removeClass('disabled');
     });
-    $(document).ajaxError(function(){
-        $('#loading').remove();
-        $('.disabled').removeClass('disabled');  
-    })
-    $('#hotels>li').click(function(){
-        $('#full-loader').remove();
-        $(this).append('<div id="full-loader"><div id="loading"></div></div>');
-    });
 });

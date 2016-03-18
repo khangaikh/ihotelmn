@@ -207,7 +207,11 @@
             <ul class="booking-list" id="hotels">
                 {% for res in results %}
                 <li>
-                    <a class="booking-item" id="{{res.objectId}}" asem="0" title="{{res.name}}"href="#" {% if res.sold_out %} name="detail" {% else %} name="" {%endif%}>
+                    {% if res.sold_out %}
+                    <a class="booking-item" id="{{res.objectId}}" asem="0" title="{{res.name}}">
+                    {% else %}
+                    <a class="booking-item" id="{{res.objectId}}" asem="0" title="{{res.name}}"href="#" name="detail">
+                    {% endif %}
 
                     <div class="row">
                         <div class="col-md-3">
@@ -234,14 +238,8 @@
 
                             <small class="booking-item-address"><i class="fa fa-map-marker"></i>{{res.address}}</small><br><br><small class="booking-item-address">{{res.short_desc}}</small>
                         </div>
-<<<<<<< Updated upstream
-                        <div class="col-md-3"><span
-                                class="booking-item-price-from
-                            small-hidden">дунджаар</span><span class="booking-item-price">{{res.min_rate}}₮</span><span>/өдөр</span><span class="small-left btn btn-primary" name="detail" id="{{res.objectId}}">Өрөө сонгох</span>
-=======
-                        <div class="col-md-3"><span class="booking-item-price-from small-hidden">дунджаар</span><span class="booking-item-price">{{res.average_rate}}₮</span><span>/өдөр</span><span class="small-left btn btn-primary" name="detail" id="{{res.objectId}}">Өрөө сонгох</span>
+                        <div class="col-md-3"><span class="booking-item-price-from small-hidden">дунджаар</span><span class="booking-item-price">{{res.average_rate}}₮</span><span>/өдөр</span><span class="small-left btn btn-primary" id="{{res.objectId}}">Өрөө сонгох</span>
                         {% if res.sold_out %}<div class='sold'>Sold out</div>{% endif %}
->>>>>>> Stashed changes
                         </div>
                     </div>
                 </a>
@@ -277,8 +275,7 @@
           }
           script += '.js"><' + '/script>';
           document.write(script);
-    </script>
-    <script type="text/javascript">
+
     var keyup = false;
     var asem = false;
     var tour = false;
@@ -592,6 +589,7 @@
                         string += '<i class="fa fa-star"></i></li>';
                     }
                     $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail" href="#"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden">from</span><span class="booking-item-price">'+obj.rate+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" name="detail" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+
                 });
                 initMap(results);
             //alert(data);
@@ -915,6 +913,11 @@
             }
             });
         }
+    });
+    $('#')
+    $('#hotels>a[name="detail"]').click(function(){
+        $('#full-loader').remove();
+        $(this).append('<div id="full-loader"><div id="loading"></div></div>');
     });
     </script>
 {% endblock %}
