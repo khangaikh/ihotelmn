@@ -273,14 +273,14 @@
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
-                    <label>Fax</label>
-                    <input class='form-control' type='text' name='fax' id="fax" required>
+                    <label>E-mail</label>
+                    <input class='form-control' type='email' name='email' id="email" required>
                 </div>
             </div>
             <div class='col-md-4'>
                 <div class='form-group'>
-                    <label>E-mail</label>
-                    <input class='form-control' type='email' name='email' id="email" required>
+                    <label>Fax</label>
+                    <input class='form-control' type='text' name='fax' id="fax" >
                 </div>
             </div>
         </div>
@@ -303,26 +303,6 @@
                 <div class='form-group'>
                     <label>Flight №</label>
                     <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight' required>
-                </div>
-            </div>
-            <div class='col-md-2'>
-                <div class='form-group'>
-                    <div class="input-daterange">
-                        <label>Depart date</label>
-                        <input class='form-control depart' type='text' name='depart_date' id='depart_date' required>
-                    </div>
-                </div>
-            </div>
-            <div class='col-md-1'>
-                <div class='form-group'>
-                    <label>Time</label>
-                    <input class='form-control time2' type='text' name='depart_time' id='depart_time' required>
-                </div>
-            </div>
-            <div class='col-md-2'>
-                <div class='form-group'>
-                    <label>Flight №</label>
-                    <input class='form-control flight2' type='text' name='depart_flight' id='depart_flight' required>
                 </div>
             </div>
         </div>
@@ -382,10 +362,7 @@ $(document).on('click', '#register', function(){
                     arrival_date: $('#arrival_date').val(),
                     arrival_time: $('#arrival_time').val(),
                     arrival_flight: $('#arrival_flight').val(),
-                    depart_date: $('#depart_date').val(),
-                    depart_time: $('#depart_time').val(),
                     type: {{type}},
-                    depart_flight: $('#depart_flight').val(),
                 }, function (result) {
                     if(result==1){
                         window.location.replace('index.php?asem_login');

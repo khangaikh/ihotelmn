@@ -20,9 +20,6 @@
         $meeting->set("arrival_date",$_POST['arrival_date']);
         $meeting->set("arrival_time",$_POST['arrival_time']);
         $meeting->set("arrival_flight",intval($_POST['arrival_flight']));
-        $meeting->set("depart_date",$_POST['depart_date']);
-        $meeting->set("depart_time",$_POST['depart_time']);
-        $meeting->set("depart_flight",intval($_POST['depart_flight']));
         $meeting->set("type",intval($_POST['type']));
 
         try {
