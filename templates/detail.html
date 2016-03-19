@@ -16,7 +16,7 @@
         <div class="booking-item-details">
             <header class="booking-item-header">
                 <div class="row" style="padding:10px">
-                        <div class="col-md-9" >
+                        <div class="col-md-8" >
                             <div class='flex middle'>
                                 <h2 class="lh1em" id="hotelname">{{hotel.name}}</h2>
                                 <div class="booking-item-meta">
@@ -36,10 +36,10 @@
                                 <li><i class="fa fa-phone"></i> {{hotel.phone}}</li>
                             </ul>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <p
                             class="booking-item-header-price"><small></small>
-                            <span class="text-lg">{{hotel.average_rate}}₮</span>/хоногийн</p>
+                            <span class="text-lg">{{hotel.min_rate |number_format}}₮</span>/ эхлэх үнэ</p>
                         </div>
                     </div>
             </header>
