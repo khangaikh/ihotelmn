@@ -839,6 +839,8 @@
                                 </div>
                             </div>
                             <div class="row address-row" style="padding: 15px;">
+                                <input id="pac-input" class="controls" style="z-index: 1; position: absolute; left: 114px; top: 488px;"type="text" 
+                                    placeholder="Хайх газраа оруулна уу.">
                                 <div id="map-geo" style="height: 290px;"></div>
                                 <input type="hidden" name="lat" id="m_lat" value="{{hotel.geolocation.latitude}}" />
                                 <input type="hidden" name="lng" id="m_lng" value="{{hotel.geolocation.longitude}}" />
@@ -4607,6 +4609,38 @@
             center: new google.maps.LatLng(47.912318, 106.913816),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+
+        var input = /** @type {!HTMLInputElement} */(
+                document.getElementById('pac-input'));
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+
+        autocomplete.addListener('place_changed', function() {
+          var place = autocomplete.getPlace();
+          if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+          }
+
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);  // Why 17? Because it looks good.
+          }
+
+          var address = '';
+          if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+          }
+        });
+
         google.maps.event.addListener(map, "click", function(event) {
             if(marker != null){
                 marker.setMap(null);
