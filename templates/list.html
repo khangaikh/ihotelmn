@@ -300,6 +300,7 @@
     var infoBubble2; 
     var countinfo = 0; 
     var currency = "";
+    var from = "";
     var marker;
     function initMap(resulst) {
         map = new google.maps.Map(document.getElementById('maps_hotel'), {
@@ -314,8 +315,10 @@
 
             if(asem){
                 currency = "$ "+results[i].avg;
+                from = "from";
             }else{
                 currency = results[i].avg+" ₮";
+                from = "эхлэх";
             }
 
             infoBubble = new InfoBubble({
@@ -366,7 +369,7 @@
         contentString='<a href="index.php?detail='+hotel['id']+'&depart='+$("#start_1").val()+'&end='+$("#end_1").val()+
             '&guests='+$("#guests").val()+'&rooms='+$("#rooms").val()+'"><div id="content">'+
             '<img style="width: 276px; overflow: hidden;"src="'+hotel['cover_image']+'"><h1></h1>'+
-            '<h4 style="margin: 0;">'+hotel['name']+'<br/>'+stars+'<span style="margin: 0; float:right" class="booking-item-price"><span style="margin: 0; font-size:13px" class="booking-item-price">from&nbsp;&nbsp;&nbsp;</span>'+hotel['average_rate']+currency+'</span>'+
+            '<h4 style="margin: 0;">'+hotel['name']+'<br/>'+stars+'<span style="margin: 0; float:right" class="booking-item-price"><span style="margin: 0; font-size:13px" class="booking-item-price">'+from+'&nbsp;&nbsp;&nbsp;</span>'+currency+'</span>'+
             '</h4></div></a>';
 
         infoBubble2 = new InfoBubble({

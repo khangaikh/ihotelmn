@@ -13,13 +13,13 @@
                         <div class='col-md-4'>
                               <div class='form-group'>
                                   <label>Last Name</label>
-                                  <input class='form-control' type='text' id='lastName' name='lastName' required placeholder="Adam">
+                                  <input class='form-control' type='text' id='lastName' name='lastName' required>
                               </div>
                         </div>
                         <div class='col-md-4'>
                               <div class='form-group'>
                                   <label>First Name</label>
-                                  <input class='form-control' type='text' id='firstName' name='firstName' required placeholder="Smith">
+                                  <input class='form-control' type='text' id='firstName' name='firstName' required>
                               </div>
                         </div>
                         <div class='col-md-4'>
@@ -267,19 +267,19 @@
                         <div class='col-md-4'>
                               <div class='form-group'>
                                     <label>Telephone</label>
-                                    <input class='form-control' type='text' id='telephone' name='telephone' required placeholder="+(976) 88021087">
+                                    <input class='form-control' type='text' id='telephone' name='telephone' required>
                               </div>
                         </div>
                         <div class='col-md-4'>
                               <div class='form-group'>
                                     <label>E-mail</label>
-                                    <input class='form-control' type='email' name='email' id="email" required placeholder="@">
+                                    <input class='form-control' type='email' name='email' id="email" required>
                               </div>
                         </div>
                         <div class='col-md-4'>
                               <div class='form-group'>
                                     <label>Password</label>
-                                    <input class='form-control' type='password' name='password' id="password" required placeholder="********">
+                                    <input class='form-control' type='password' name='password' id="password" required>
                               </div>
                         </div>
                   </div>
@@ -303,7 +303,7 @@
                         <div class='col-md-2'>
                               <div class='form-group'>
                                     <label>Flight#</label>
-                                    <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight' required placeholder="OM234">
+                                    <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight' required>
                               </div>
                         </div>
                   </div>
@@ -334,68 +334,74 @@
 {% endblock %}
 {% block scripting %}
 {{parent()}}
-      <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=en" async defer></script>
-      <script>
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=en" async defer></script>
+        <script>
+            var widgetId1;
             $('form').submit(function(e){
-                  e.preventDefault();
-                  var $this = $('#register');
-                  $this.after('<div id="loading"></div>');
-                  $this.addClass('disabled');
-                  $.post("user.php", {
-                        email: $('#email').val(),
-                        username: $('#firstName').val(),    
-                        password: $('#password').val(),
-                        asem: 1,
-                        type: {{type}},
-                        g_recaptcha_response: $('#recaptcha').val()
-                  }, function (result) {
-                        if(result==1){
-                              $.post("meeting.php", {
-                                    section: 8,
-                                    lastName: $('#lastName').val(),
-                                    firstName: $('#firstName').val(),
-                                    telephone: $('#telephone').val(),
-                                    location: $('#location').val(),
-                                    email: $('#email').val(),
-                                    arrival_date: $('#arrival_date').val(),
-                                    arrival_time: $('#arrival_time').val(),
-                                    arrival_flight: $('#arrival_flight').val(),
-                                    type: {{type}},
-                              }, function (result) {
-                                    if(result==1){
-                                          $('#register-success').fadeIn(500);
-                                          $('#asem_reg').hide();
-                                          $('#register-success').text('Please check your email for activation. Click on activation link .Then <a href="index.php?asem_login">click here</a> to login. If you having any trouble please call us: +976-88021087');
-                                    }else{
-                                          return false;
-                                    }
-                              });
-                        }
-                        else if(result==2){
-                              $('#login-alert1').fadeIn(500);
-                              $('#login-alert1 p').text('reCaptcha error!');
-                        }
-                        else{
-                              $('#login-alert1').fadeIn(500);
-                              $('#login-alert1 p').text('Please clear your browser history and try again');
-                        }
-                  });
+                e.preventDefault();
+                var $this = $('#register');
+                $this.after('<div id="loading"></div>');
+                $this.addClass('disabled');
+                $.post("user.php", {
+                    email: $('#email').val(),
+                    username: $('#firstName').val(),    
+                    password: $('#password').val(),
+                    asem: 1,
+                    type: {{type}},
+                    g_recaptcha_response: $('#recaptcha').val()
+                }, function (result) {
+                    if(result==1){
+                        $.post("meeting.php", {
+                            section: 8,
+                            lastName: $('#lastName').val(),
+                            firstName: $('#firstName').val(),
+                            telephone: $('#telephone').val(),
+                            location: $('#location').val(),
+                            email: $('#email').val(),
+                            arrival_date: $('#arrival_date').val(),
+                            arrival_time: $('#arrival_time').val(),
+                            arrival_flight: $('#arrival_flight').val(),
+                            type: {{type}},
+                        }, function (result) {
+                            if(result==1){
+                                $('#register-success').fadeIn(500);
+                                $('#asem_reg').hide();
+                                $('#register-success').html('<p>Please check your email for activation. Click on activation link .Then <a href="index.php?asem_login">click here</a> to login. If you having any trouble please call us: +976-88021087</p>');
+                            }else{
+                                return false;
+                            }
+                        });
+                    }
+                    else if(result==2){
+                        $('#login-alert1').fadeIn(500);
+                        $('#login-alert1 p').text('reCaptcha error!');
+                    }
+                    else if(result == 2020){
+                        $('#login-alert1').fadeIn(500);
+                        $('#login-alert1 p').text('Already register an email!');
+                        grecaptcha.reset(widgetId1);
+                    }
+                    else{
+                        $('#login-alert1').fadeIn(500);
+                        $('#login-alert1 p').text('Please clear your browser history and try again');
+                    }
+                });
             });
-
-            $(document).ready(function(){
-                  $('.input-daterange input').datepicker({todayHighlight: true,});
-                  $('.input-daterange input').datepicker({ dateFormat: 'dd-mm-yy'}).datepicker("setDate", new Date());
-            });
-            var verifyCallback = function(response) {
-                  $("#recaptcha").val(response);
-            };
 
             var onloadCallback = function() {
-                  grecaptcha.render('RecaptchaField', {
-                        'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
-                        'callback' : verifyCallback,
-                        'theme' : 'light'
-                  });
-            }
-      </script>
+                widgetId1 = grecaptcha.render('RecaptchaField', {
+                    'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+                          'callback' : verifyCallback,
+                          'theme' : 'light'
+                });
+            };
+            var verifyCallback = function(response) {
+                $("#recaptcha").val(response);
+            };
+
+            $(document).ready(function(){
+                $('.input-daterange input').datepicker({todayHighlight: true,});
+                $('.input-daterange input').datepicker({ dateFormat: 'dd-mm-yy'}).datepicker("setDate", new Date());
+            });
+        </script>
 {% endblock %}

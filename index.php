@@ -243,9 +243,17 @@
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
 
+            $query->ascending("min_rate");
+            $e = $query->first();
+            $min = $e->get('min_rate'); 
+
+            $query->descending("min_rate");
+            $e = $query->first();
+            $max = $e->get('min_rate'); 
+
             $template = $twig->loadTemplate('asem_list.html');
             //render a template
-            echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms));
+            echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms, 'user' => $user, 'max' => $max, 'min' => $min));
         }
         else if(isset($_GET['search'])){
             $template = $twig->loadTemplate('home.html');

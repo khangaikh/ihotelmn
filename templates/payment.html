@@ -189,6 +189,9 @@ async defer>
 {% block scripting %}
 {{parent()}}
 <script type="text/javascript">
+    var widgetId1;
+    var widgetId2;
+    var widgetId3;
     $('#login').click(function(){
         $('.alert').hide(0);
         var $this = $(this);
@@ -213,6 +216,7 @@ async defer>
                 $this.removeClass('disabled');
                 $('#login-alert').fadeIn(500);
                 $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
+                grecaptcha.reset(widgetId1);
             }
         });
     });
@@ -227,6 +231,7 @@ async defer>
             if(result==1){
                 $('#forget_success').fadeIn(100);
                 $('#forget_success p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
+                grecaptcha.reset(widgetId2);
             }
             else if(result==2){
                 $('#forget_danger').fadeIn(100);
@@ -235,6 +240,7 @@ async defer>
             else{
                 $('#forget_danger').fadeIn(100);
                 $('#forget_danger p').text('Incorrect an email');
+                grecaptcha.reset(widgetId2);
             }
 
             $('#loading').remove();
@@ -281,6 +287,7 @@ async defer>
                 $('#loading').remove();
                 $('#register-success').fadeIn(500);
                 $('#register-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
+                grecaptcha.reset(widgetId3);
             }
             else if(result==2){
                 $('#loading').remove();
@@ -288,11 +295,19 @@ async defer>
                 $('#login-alert').fadeIn(500);
                 $('#login-alert p').text('Капча-г заавал бөглөх ёстой!');
             }
+            else if(result == 2020){
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                $('#register-alert').fadeIn(500);
+                $('#register-alert p').text('Бүртгэлтэй имэйл хаяг байна!');
+                grecaptcha.reset(widgetId3);
+            }
             else{
                 $('#loading').remove();
                 $this.removeClass('disabled');
                 $('#register-alert').fadeIn(500);
                 $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
+                grecaptcha.reset(widgetId3);
             }
         });
     });
@@ -324,8 +339,6 @@ async defer>
       var verifyCallback2 = function(response) {
         $("#recaptcha3").val(response);
       };
-      var widgetId1;
-      var widgetId2;
       var onloadCallback = function() {
         widgetId1 = grecaptcha.render('RecaptchaField1', {
           'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
@@ -337,7 +350,7 @@ async defer>
           'callback' : verifyCallback2,
           'theme' : 'light'
         });
-        grecaptcha.render('RecaptchaField2', {
+        widgetId3 = grecaptcha.render('RecaptchaField2', {
           'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
           'callback' : verifyCallback1,
           'theme' : 'light'

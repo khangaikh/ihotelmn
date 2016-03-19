@@ -74,7 +74,7 @@
                 }
        */
             } catch (ParseException $ex) {
-                echo "Error: " . $ex->getCode() . " " . $ex->getMessage();
+                echo $ex->getCode();
             }
 
             if($result){
@@ -88,7 +88,7 @@
                 ParseUser::requestPasswordReset($_POST['forgot_password']);
                 $result=true;
             } catch (ParseException $ex) {
-                echo "Error: " . $ex->getCode() . " " . $ex->getMessage();
+                echo $ex->getCode();
             } 
             if($result){
                 echo 1;
