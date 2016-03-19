@@ -179,10 +179,10 @@
                                         <span class="booking-item-price-from">эхлэх үнэ</span>
                                         <br />
                                         {% if hotel.asem == 0 %}
-                                        <span class="booking-item-price">{{hotel.average_rate}} ₮</span>
+                                        <span class="booking-item-price">{{hotel.min_rate}} ₮</span>
                                         {% endif %}
                                         {% if hotel.asem == 1 %}
-                                        <span class="booking-item-price">$ {{hotel.average_rate}}</span>
+                                        <span class="booking-item-price">$ {{hotel.min_rate}}</span>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -215,10 +215,10 @@
                                     <div class="col-xs-2"><span class="booking-item-price-from">эхлэх үнэ</span>
                                         <br />
                                         {% if hotel2.asem == 0 %}
-                                        <span class="booking-item-price">{{hotel2.average_rate}} ₮</span>
+                                        <span class="booking-item-price">{{hotel2.min_rate}} ₮</span>
                                         {% endif %}
                                         {% if hotel2.asem == 1 %}
-                                        <span class="booking-item-price">$ {{hotel2.average_rate}}</span>
+                                        <span class="booking-item-price">$ {{hotel2.min_rate}}</span>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -271,7 +271,7 @@
         $("a[name=featured]").on("click", function(event) {
             event.preventDefault();
             var curId = $(this).attr("hotelid");
-            var url = "index.php?asemdetail=" + curId +"&depart=2016-06-01&end=2016-07-01&guests=1&rooms=1";
+            var url = "index.php?detail=" + curId +"&depart=2016-06-01&end=2016-07-01&guests=1&rooms=1";
             window.location.replace(url);
         });
         $("a[name=city]").on("click", function(e) {

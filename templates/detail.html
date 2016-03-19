@@ -39,7 +39,7 @@
                         <div class="col-md-4">
                             <p
                             class="booking-item-header-price"><small></small>
-                            <span class="text-lg">{{hotel.min_rate |number_format}}₮</span>/ эхлэх үнэ</p>
+                            <span class="text-lg">{%if hotel.asem == 1%}${%endif%} {{hotel.min_rate |number_format}}{%if hotel.asem == 0%}₮{%endif%}</span>/ эхлэх үнэ</p>
                         </div>
                     </div>
             </header>
