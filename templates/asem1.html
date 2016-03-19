@@ -296,13 +296,13 @@
                         </div>
                         <div class='col-md-2'>
                               <div class='form-group'>
-                                    <label>Time</label>
+                                    <label>Time of landing</label>
                                     <input class='form-control time' type='text' id='arrival_time' name='arrival_time' required placeholder="13:00">
                               </div>
                         </div>
                         <div class='col-md-2'>
                               <div class='form-group'>
-                                    <label>Flight №</label>
+                                    <label>Flight#</label>
                                     <input class='form-control flight' type='text' id='arrival_flight' name='arrival_flight' required placeholder="OM234">
                               </div>
                         </div>
@@ -365,7 +365,7 @@
                                     if(result==1){
                                           $('#register-success').fadeIn(500);
                                           $('#asem_reg').hide();
-                                          $('#register-success').text('Please check your email for activation. Then login.');
+                                          $('#register-success').text('Please check your email for activation. Click on activation link .Then <a href="index.php?asem_login">click here</a> to login. If you having any trouble please call us: +976-88021087');
                                     }else{
                                           return false;
                                     }
