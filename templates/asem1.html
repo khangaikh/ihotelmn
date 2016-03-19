@@ -312,13 +312,7 @@
         <label>&nbsp;</label>
         <button class='btn btn-primary' id="register" type='submit'>Register</button>
       </div>
-      <div class='col-md-4'>
-        <div class="alert alert-success" id='register-success'>
-          <button class="close" data-dismiss="alert"><span aria-hidden="true">×</span>
-          </button>
-          <p class="text-small"></p>
-        </div>
-      </div>
+      
     </div>
     <div class="alert alert-danger" id='login-alert1'>
       <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
@@ -328,6 +322,13 @@
     <input type="hidden" name="recaptcha" id="recaptcha" value="" />
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=en" async defer></script>
   </form>
+  <div class='col-md-4'>
+        <div class="alert alert-success" id='register-success'>
+          <button class="close" data-dismiss="alert"><span aria-hidden="true">×</span>
+          </button>
+          <p class="text-small"></p>
+        </div>
+      </div>
 </div>
 {% endblock %}
 {% block scripting %}
