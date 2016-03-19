@@ -192,20 +192,10 @@
                                     </li>
                                 </ul>
                                 <ul class="booking-item-features booking-item-features-small clearfix">
-                                    <li rel="tooltip" data-placement="top" title="Air Conditioning"><i class="im im-air"></i>
+                                    {% for fac in room.facilities %}
+                                    <li rel="tooltip" data-placement="top" title="{{fac}}"><i class="im im-{{fac}}"></i>
                                     </li>
-                                    <li rel="tooltip" data-placement="top" title="Flat Screen TV"><i class="fa fa-television"></i>
-                                    </li>
-                                    <li rel="tooltip" data-placement="top" title="Mini Bar"><i class="im im-bar"></i>
-                                    </li>
-                                    <li rel="tooltip" data-placement="top" title="Bathtub"><i class="im im-bathtub"></i>
-                                    </li>
-                                    <li rel="tooltip" data-placement="top" title="Kitchen"><i class="im im-kitchen"></i>
-                                    </li>
-                                    <li rel="tooltip" data-placement="top" title="Patio"><i class="im im-patio"></i>
-                                    </li>
-                                    <li rel="tooltip" data-placement="top" title="Washing Machine"><i class="im im-washing-machine"></i>
-                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <div class="col-md-3">
@@ -397,7 +387,7 @@
         </div>
     </div>
     <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="review-dialog">
-        <iframe id="write_review" src="https://localhost/ihotelmn" style="width:100%; height: 500px;" frameborder="0">
+        <iframe id="write_review" src="https://ihotel.mn/" style="width:100%; height: 500px;" frameborder="0">
         </iframe>
     </div>
 {% endblock %}
@@ -596,6 +586,7 @@
                     $(this).remove();   
                     var arr = roomid.split('--');
                     roomid = arr[0];
+                    });
                 }
  
 
