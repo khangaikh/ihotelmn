@@ -8,7 +8,7 @@
     <div>21-23 April 2016</div>
   </div>
   <div class="gap"></div>
-  <form>
+  <form id="asem_reg">
     <div class='row row-wrap'>
       <div class='col-md-4'>
         <div class='form-group'>
@@ -362,7 +362,8 @@ $('form').submit(function(e){
 
         if(result==1){
           $('#register-success').fadeIn(500);
-          $('#register-success').text('email');
+          $('#asem_reg').hide();
+          $('#register-success').text('Please check your email for activation. Then login.');
         }else{
           return false;
         }
@@ -374,7 +375,7 @@ $('form').submit(function(e){
     }
     else{
       $('#login-alert1').fadeIn(500);
-      $('#login-alert1 p').text('Your login information is incorrect!');
+      $('#login-alert1 p').text('Please clear your browser history and try again');
     }
   });
 
