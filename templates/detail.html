@@ -212,31 +212,38 @@
                                 </ul>
                             </div>
                             <div class="col-md-3">
-                                <span class="booking-item-price">{{room.night_price}}₮</span><span>/хоногийн</span>
+                                <p class="text-small">Өрөөний тоо сонгоно уу</p>
                                 <div class="form-group form-group-select-plus">
-                                    <label>Боломжит өрөөнүүд</label>
+                                    <span class="booking-item-price">{%if hotel.asem == 1%}${%endif%} {{room.night_price|number_format}}{%if hotel.asem == 0%}₮{%endif%}</span><span>/өдөр</span>
                                     <div class='flex select_room middle between'>
-                                    <div rel="tooltip" data-placement="top" title="Adults">
-                                        <i class='fa fa-male'></i> x 1
+                                        <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                            <i class='fa fa-male'></i>
+                                        </div>
+                                        <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" persons="1" > 
+                                            <option selected="selected">0</option>
+                                            {% for i in range(1, room.num_rooms) %}
+                                                <option value="{{i}}">{{i}} - {%if hotel.asem == 1%}${%endif%} {{i*room.night_price|number_format}}{%if hotel.asem == 0%}₮{%endif%}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
-                                    <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" > 
-                                        <option selected="selected">0</option>
-                                        {% for i in range(1, room.num_rooms) %}
-                                            <option value="{{i}}">{{i}} - {{ i*room.night_price }}₮</option>
-                                        {% endfor %}
-                                    </select>
+                                    {% if room.adult_occupancy > 1 %}
+                                    {% if room.night_price2 > 0 %}
+                                    {% if room.night_price2 != room.night_price %}
+                                    <span class="booking-item-price">{%if hotel.asem == 1%}${%endif%} {{room.night_price2 |number_format}}{%if hotel.asem == 0%}₮{%endif%}</span><span>/өдөр</span>
+                                    <div class='flex select_room between middle mrgn5'>
+                                        <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                            <i class='fa fa-male'></i><i class='fa fa-male'></i>
+                                        </div>
+                                        <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price2}}" roomid="{{room.objectId}}--2" persons="2" > 
+                                            <option selected="selected">0</option>
+                                            {% for i in range(1, room.num_rooms) %}
+                                                <option value="{{i}}">{{i}} - {%if hotel.asem == 1%}${%endif%} {{i*room.night_price2|number_format}}{%if hotel.asem == 0%}₮{%endif%}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
-                                          <div class='flex select_room between middle mrgn5'>
-                                    <div rel="tooltip" data-placement="top" title="Adults">
-                                        <i class='fa fa-male'></i> x 2
-                                    </div>
-                                    <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" > 
-                                        <option selected="selected">0</option>
-                                        {% for i in range(1, room.num_rooms) %}
-                                            <option value="{{i}}">{{i}} - {{ i*room.night_price2 }}₮</option>
-                                        {% endfor %}
-                                    </select>
-                                    </div>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -343,20 +350,20 @@
 
                                 <ul class="booking-item-payment-price">
                                     <li>
-                                    <p class="booking-item-payment-price-title">VAT</p>
+                                    <p class="booking-item-payment-price-title">НӨАТ</p>
                                     <p class="booking-item-payment-price-amount">(Багтсан)<small>/хоногийн</small>
                                     </p>
                                     </li>
                                 </ul>
                                 <br />
-                                <h5>Pickup</h5>
+                                <h5>Онгоцны буудлаас тосох</h5>
                                 <div>
                                     <div class="checkbox checkbox-small checkbox-border">
-                                        <label><input class="i-check" type="checkbox" name="pickup" value="vip"/>Vip <span><small>$200</small></span></label>
+                                        <label><input class="i-check" type="checkbox" name="pickup" value="vip"/>Vip <span><small> {%if hotel.asem == 1%}$200{%endif%} {%if hotel.asem == 0%}200000₮{%endif%}</small></span></label>
                                     </div>
                                     <div class="checkbox checkbox-small checkbox-border">
-                                        <label><input class="i-check" type="checkbox" name="pickup" value="budget"/>Budget
-                                        <span><small>$25</small></span></label>
+                                        <label><input class="i-check" type="checkbox" name="pickup" value="budget"/>Энгийн
+                                        <span><small>{%if hotel.asem == 1%}$25{%endif%} {%if hotel.asem == 0%}50000₮{%endif%}</small></span></label>
                                     </div>
                                 </div>
                                 <p class="booking-item-payment-total">Нийт дүн: <span id="total"> 4232</span>
@@ -427,8 +434,14 @@
             $('input[name="pickup"]').each(function(){
                 if(this == thisId){
                     if ($(this).is(":checked")) {
-                        $(this).val() == "budget" ? s=total+25 : s=total+200;
-                        $("#total").text(s+" ₮");
+                        {%if hotel.asem == 1%}
+                            $(this).val() == "budget" ? s=total+25 : s=total+200;
+                            $("#total").text(s+"$");
+                        {%else%}
+                            $(this).val() == "budget" ? s=total+50000 : s=total+200000;
+                            $("#total").text(s+"₮");
+                        {%endif%}
+                        
                     }
                 }
                 else{
@@ -517,6 +530,7 @@
                 var roomid = $(this).attr('roomid');
                 room_ids.push(roomid);
             });
+
             $('input[name="pickup"]').each(function(){
                 if ($(this).is(":checked")) {
                     pickup = $(this).val();
@@ -576,8 +590,23 @@
 
             if($(this).val()>0){
                 var roomid = $(this).attr('roomid');
-                $('ul[roomid='+roomid+']').remove();
+                var persons = $(this).attr('persons');
+
+                $('ul[roomid='+roomid+']').each(function(){
+                    $(this).remove();
+                });
+
                 $("#payment_info").show();
+
+                var found = roomid.indexOf("--");
+
+                if(found!=-1){
+                    $('ul[roomid='+roomid+']').each(function(){
+                        $(this).remove();
+                    });
+                    var arr = roomid.split('--');
+                    roomid = arr[0];
+                }
 
 
                 $("#checkin").text(start);
@@ -588,7 +617,7 @@
                 var price = $(this).attr('price');
                 var subtotal = $(this).val()* price;
 
-                $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'"class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/өрөө</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/хоногийн</small></p></li></ul>'
+                $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'"class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'('+persons+')</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/өрөө</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/хоногийн</small></p></li></ul>'
                         );
                 set_total(days);
             }else{

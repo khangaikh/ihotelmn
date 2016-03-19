@@ -6641,8 +6641,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   color: #626262;
   line-height: 1em;
   display: inline-block;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 .booking-item-number {
   position: absolute;

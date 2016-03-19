@@ -106,6 +106,7 @@ footer#main-footer .logo{
 	-webkit-justify-content:space-between;
 }
 .flex.middle{
+	margin-bottom: 8px;
 	align-items:center;
 	-webkit-align-items:center;
 }

@@ -209,31 +209,38 @@
                                 </ul>
                             </div>
                             <div class="col-md-3">
+                                <p class="text-small">Select room quantity</p>
                                 <div class="form-group form-group-select-plus">
                                     <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
-                                              <div class='flex select_room middle between'>
-                                    <div rel="tooltip" class='tool' data-placement="top" title="Adults">
-                                        <i class='fa fa-male'></i>
+                                    <div class='flex select_room middle between' >
+                                        <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                            <i class='fa fa-male'></i>
+                                        </div>
+                                        <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" persons="1" > 
+                                            <option selected="selected">0</option>
+                                            {% for i in range(1, room.num_rooms) %}
+                                                <option value="{{i}}">{{i}} - ${{ i*room.night_price }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
-                                    <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" > 
-                                        <option selected="selected">0</option>
-                                        {% for i in range(1, room.num_rooms) %}
-                                            <option value="{{i}}">{{i}} - {{ i*room.night_price }}₮</option>
-                                        {% endfor %}
-                                    </select>
-                                    </div>
+                                    {% if room.adult_occupancy > 1 %}
+                                    {% if room.night_price2 > 0 %}
+                                    {% if room.night_price2 != room.night_price %}
                                     <span class="booking-item-price">${{room.night_price2}}</span><span>/night</span>
-                                          <div class='flex select_room between middle mrgn5'>
-                                    <div rel="tooltip" class='tool' data-placement="top" title="Adults">
-                                        <i class='fa fa-male'></i><i class='fa fa-male'></i>
+                                    <div class='flex select_room between middle mrgn5'>
+                                        <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                            <i class='fa fa-male'></i><i class='fa fa-male'></i>
+                                        </div>
+                                        <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price2}}" roomid="{{room.objectId}}--2" persons="2" > 
+                                            <option selected="selected">0</option>
+                                            {% for i in range(1, room.num_rooms) %}
+                                                <option value="{{i}}">{{i}} - ${{ i*room.night_price2 }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
-                                    <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}2" > 
-                                        <option selected="selected">0</option>
-                                        {% for i in range(1, room.num_rooms) %}
-                                            <option value="{{i}}">{{i}} - {{ i*room.night_price2 }}₮</option>
-                                        {% endfor %}
-                                    </select>
-                                    </div>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endif %}
                                 </div>
 
                             </div>
@@ -383,7 +390,6 @@
                             <li><i class="im im-children"></i><span class="booking-item-feature-title">Kids room</span>
                             </li>
                         </ul>
-
                     </div>
                 </div>           
             </div>
@@ -391,22 +397,22 @@
         </div>
     </div>
     <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="review-dialog">
-        <iframe id="write_review" src="http://localhost/ihotelmn" style="width:100%; height: 500px;" frameborder="0">
+        <iframe id="write_review" src="https://localhost/ihotelmn" style="width:100%; height: 500px;" frameborder="0">
         </iframe>
     </div>
 {% endblock %}
 {% block scripting %}
 {{parent()}}
 <script type="text/javascript">
-      var script = '<script type="text/javascript" src="https://google-maps-' +
+    
+    var script = '<script type="text/javascript" src="https://google-maps-' +
           'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
-      if (document.location.search.indexOf('compiled') !== -1) {
+    if (document.location.search.indexOf('compiled') !== -1) {
         script += '-compiled';
-      }
-      script += '.js"><' + '/script>';
-      document.write(script);
-</script>
-<script type="text/javascript">
+    }
+    script += '.js"><' + '/script>';
+    document.write(script);
+
     var total=0;
     function set_total(d){
         total=0;
@@ -527,6 +533,7 @@
                 room_qtys.push(qty);
             });
 
+
             $('span[name=subtotal]').each(function(){
                 var sub = $(this).text();
                 room_subs.push(sub);
@@ -556,6 +563,7 @@
                 days:days
             },
             function (result) {
+                console.log(result);
                 if(result==1){
                     window.location.replace("index.php?asem_payment");  
                 }
@@ -576,8 +584,20 @@
 
             if($(this).val()>0){
                 var roomid = $(this).attr('roomid');
+                var persons = $(this).attr('persons');
+
                 $('ul[roomid='+roomid+']').remove();
                 $("#payment_info").show();
+
+                var found = roomid.indexOf("--");
+
+                if(found!=-1){
+                    $('ul[roomid='+roomid+']').each(function(){
+                    $(this).remove();   
+                    var arr = roomid.split('--');
+                    roomid = arr[0];
+                }
+ 
 
                 $("#checkin").text(start);
                 $("#checkout").text(end);
@@ -587,7 +607,7 @@
                 var price = $(this).attr('price');
                 var subtotal = $(this).val()* price;
 
-                $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
+                $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'('+persons+')</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
                         );
                 set_total(days);
             }else{
@@ -617,6 +637,7 @@
           window.location.replace(url);
           });*/
     }); 
+    
     var map = new google.maps.Map(document.getElementById('map-canvas1'), {
         zoom: 16,
         center: new google.maps.LatLng({{hotel.geolocation.latitude}}, {{hotel.geolocation.longitude}}),
