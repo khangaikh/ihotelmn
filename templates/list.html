@@ -285,7 +285,7 @@
     {% for res in results %}
         {% if res.geolocation %}
             results.push({lat: {{res.geolocation.latitude}}, lng:
-                    {{res.geolocation.longitude}}, id: '{{res.objectId}}', avg: '{{res.min_rate}}'});
+                    {{res.geolocation.longitude}}, id: '{{res.objectId}}', avg: '{{res.min_rate | number_format}}'});
         {% endif %}
     {% endfor %}
 
