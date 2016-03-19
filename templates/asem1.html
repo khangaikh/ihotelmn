@@ -284,6 +284,8 @@
                   </div>
             </div>
             <div class='row row-wrap'>
+                  <div class='col-md-3'>     
+                  </div>
                   <div class='col-md-2'>
                         <div class='form-group'>
                               <div class="input-daterange">
@@ -292,7 +294,7 @@
                               </div>
                         </div>
                   </div>
-                  <div class='col-md-1'>
+                  <div class='col-md-2'>
                         <div class='form-group'>
                               <label>Time</label>
                               <input class='form-control time' type='text' id='arrival_time' name='arrival_time' required placeholder="13:00">
@@ -306,10 +308,12 @@
                   </div>
             </div>
             <div class='row row-wrap'>
+                  <div class='col-md-3'>     
+                  </div>
                   <div class='col-md-4' id="RecaptchaField"></div>
                   <div class='col-md-2'>
                         <label>&nbsp;</label>
-                        <button class='btn btn-primary' id="register" type='submit'>Register</button>
+                        <button class='btn btn-primary' id="register" type='submit' style="width:100%">Register</button>
                   </div>
             </div>
             <div class="alert alert-danger" id='login-alert1'>
@@ -318,10 +322,12 @@
             </div>
             <input type="hidden" name="recaptcha" id="recaptcha" value="" />
       </form>
-      <div class='col-md-4'>
-            <div class="alert alert-success" id='register-success'>
-                  <button class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
-                  <p class="text-small"></p>
+      <div class='row row-wrap'>
+            <div class='col-md-12'>
+                  <div class="alert alert-success" id='register-success'>
+                        <button class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+                        <p class="text-small"></p>
+                  </div>
             </div>
       </div>
 </div>
@@ -345,16 +351,16 @@
             }, function (result) {
                   if(result==1){
                         $.post("meeting.php", {
-                          section: 8,
-                          lastName: $('#lastName').val(),
-                          firstName: $('#firstName').val(),
-                          telephone: $('#telephone').val(),
-                          location: $('#location').val(),
-                          email: $('#email').val(),
-                          arrival_date: $('#arrival_date').val(),
-                          arrival_time: $('#arrival_time').val(),
-                          arrival_flight: $('#arrival_flight').val(),
-                          type: {{type}},
+                              section: 8,
+                              lastName: $('#lastName').val(),
+                              firstName: $('#firstName').val(),
+                              telephone: $('#telephone').val(),
+                              location: $('#location').val(),
+                              email: $('#email').val(),
+                              arrival_date: $('#arrival_date').val(),
+                              arrival_time: $('#arrival_time').val(),
+                              arrival_flight: $('#arrival_flight').val(),
+                              type: {{type}},
                         }, function (result) {
                               if(result==1){
                                     $('#register-success').fadeIn(500);
