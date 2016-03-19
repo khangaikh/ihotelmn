@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn"
+async defer>
+</script>
 <div class="gap"></div>
 <div class="container">
     <div class="row" data-gutter="60">
@@ -83,9 +86,6 @@
     <input type="hidden" name="recaptcha1" id="recaptcha1" value="" />
     <input type="hidden" name="recaptcha2" id="recaptcha2" value="" />
     <input type="hidden" name="recaptcha3" id="recaptcha3" value="" />
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn"
-async defer>
-    </script>
 </div>
 {% endblock %}
 {% block scripting %}

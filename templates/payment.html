@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn"
+async defer>
+    </script>
     <input type="hidden" value="{{start}}" id="start_4" />
     <input type="hidden" value="{{end}}" id="end_4"/>
     <input type="hidden" value="{{location}}" id="location_4"/>
@@ -182,9 +185,6 @@
     <input type="hidden" name="recaptcha1" id="recaptcha1" value="" />
     <input type="hidden" name="recaptcha2" id="recaptcha2" value="" />
     <input type="hidden" name="recaptcha3" id="recaptcha3" value="" />
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn"
-async defer>
-    </script>
 {% endblock %}
 {% block scripting %}
 {{parent()}}
