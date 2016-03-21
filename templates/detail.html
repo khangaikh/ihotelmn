@@ -349,11 +349,11 @@
                                 <h5>Онгоцны буудлаас тосох</h5>
                                 <div>
                                     <div class="checkbox checkbox-small checkbox-border">
-                                        <label><input class="i-check" type="checkbox" name="pickup" value="vip"/>Vip <span><small> {%if hotel.asem == 1%}$200{%endif%} {%if hotel.asem == 0%}200000₮{%endif%}</small></span></label>
+                                        <label><input class="i-check" type="checkbox" name="pickup" value="vip"/>SIXT <span><small> {%if hotel.asem == 1%}$150{%endif%} {%if hotel.asem == 0%}40,000₮{%endif%}</small></span></label>
                                     </div>
                                     <div class="checkbox checkbox-small checkbox-border">
                                         <label><input class="i-check" type="checkbox" name="pickup" value="budget"/>Энгийн
-                                        <span><small>{%if hotel.asem == 1%}$25{%endif%} {%if hotel.asem == 0%}50000₮{%endif%}</small></span></label>
+                                        <span><small>{%if hotel.asem == 1%}$25{%endif%} {%if hotel.asem == 0%}50,000₮{%endif%}</small></span></label>
                                     </div>
                                 </div>
                                 <p class="booking-item-payment-total">Нийт дүн: <span id="total"> 4232</span>
@@ -425,10 +425,10 @@
                 if(this == thisId){
                     if ($(this).is(":checked")) {
                         {%if hotel.asem == 1%}
-                            $(this).val() == "budget" ? s=total+25 : s=total+200;
+                            $(this).val() == "budget" ? s=total+25 : s=total+150;
                             $("#total").text(s+"$");
                         {%else%}
-                            $(this).val() == "budget" ? s=total+50000 : s=total+200000;
+                            $(this).val() == "budget" ? s=total+50000 : s=total+40000;
                             $("#total").text(s+"₮");
                         {%endif%}
                         

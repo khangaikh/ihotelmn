@@ -854,7 +854,7 @@
             echo $template->render(array('title' => 'Асуулт хариулт', 'faqs'=>$faqs));
         }
         else if(isset($_GET['asem1'])){
-            if ($_GET['type'] == 1) {
+            if ($_GET['type'] < 11) {
                 $template = $twig->loadTemplate('asem1.html');
                 echo $template->render(array('title' => 'ASEP 9 Register', 'type' => $_GET['type']));
             }else{
