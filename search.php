@@ -51,6 +51,7 @@
             $e->rate = $row->get('min_rate');
             $e->latitude = $row->get('geolocation')->getLatitude();
             $e->longitude = $row->get('geolocation')->getLongitude();
+            $e->sold_out = $row->get('sold_out');
             $events[] = $e; 
         }
 
@@ -91,6 +92,7 @@
             $e->rate = $row->get('min_rate');
             $e->latitude = $row->get('geolocation')->getLatitude();
             $e->longitude = $row->get('geolocation')->getLongitude();
+            $e->sold_out = $row->get('sold_out');
             $events[] = $e; 
         }
         $data = array();
@@ -130,6 +132,7 @@
             $e->rate = $row->get('min_rate');
             $e->latitude = $row->get('geolocation')->getLatitude();
             $e->longitude = $row->get('geolocation')->getLongitude();
+            $e->sold_out = $row->get('sold_out');
             $events[] = $e; 
         }
         $data = array();
@@ -192,6 +195,7 @@
             $e->rate = $row->get('min_rate');
             $e->latitude = $row->get('geolocation')->getLatitude();
             $e->longitude = $row->get('geolocation')->getLongitude();
+            $e->sold_out = $row->get('sold_out');
             $events[] = $e; 
         }
         $data = array();
@@ -234,6 +238,7 @@
             $e->rate = $row->get('min_rate');
             $e->latitude = $row->get('geolocation')->getLatitude();
             $e->longitude = $row->get('geolocation')->getLongitude();
+            $e->sold_out = $row->get('sold_out');
             $events[] = $e; 
         }
         $data = array();

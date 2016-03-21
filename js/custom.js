@@ -496,7 +496,12 @@ $(document).ready(function(){
     return false;
 });
 });
-
+    function format(num){
+    var n = num.toString(), p = n.indexOf('.');
+    return n.replace(/\d(?=(?:\d{3})+(?:\.|$))/g, function($0, i){
+        return p<0 || i<p ? ($0+',') : $0;
+    });
+}
 $(document).ready(function(){
     $('.ajax-full-width').click(function(){
         var width = $(this).width();

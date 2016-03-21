@@ -362,6 +362,6 @@ button:after{
 	font-size:13px;
 }
 .sold{
-	color:red;
-	margin-top:10px;
+	background:red;
+	border:none;
 }
