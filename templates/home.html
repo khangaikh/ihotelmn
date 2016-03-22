@@ -179,10 +179,10 @@
                                         <span class="booking-item-price-from">эхлэх үнэ</span>
                                         <br />
                                         {% if hotel.asem == 0 %}
-                                        <span class="booking-item-price">{{hotel.min_rate}} ₮</span>
+                                        <span class="booking-item-price">{{hotel.min_rate | number_format}} ₮</span>
                                         {% endif %}
                                         {% if hotel.asem == 1 %}
-                                        <span class="booking-item-price">$ {{hotel.min_rate}}</span>
+                                        <span class="booking-item-price">$ {{hotel.min_rate | number_format}}</span>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -215,10 +215,10 @@
                                     <div class="col-xs-3"><span class="booking-item-price-from">эхлэх үнэ</span>
                                         <br />
                                         {% if hotel2.asem == 0 %}
-                                        <span class="booking-item-price">{{hotel2.min_rate}} ₮</span>
+                                        <span class="booking-item-price">{{hotel2.min_rate | number_format}} ₮</span>
                                         {% endif %}
                                         {% if hotel2.asem == 1 %}
-                                        <span class="booking-item-price">$ {{hotel2.min_rate}}</span>
+                                        <span class="booking-item-price">$ {{hotel2.min_rate | number_format}}</span>
                                         {% endif %}
                                     </div>
                                 </div>
