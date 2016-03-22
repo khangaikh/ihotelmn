@@ -261,7 +261,7 @@
                                     <small class="booking-item-address"><i class="fa fa-map-marker"></i> {{res.address}}</small><br><br><small class="booking-item-address">{{res.short_desc}}</small>
                                 </div>
                                 <div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px"> эхлэх үнэ</span><span
-                                        class="booking-item-price">{{res.min_rate | number_format }}₮</span><span>/өдөр</span><span class="small-left btn btn-primary {% if res.sold_out %} sold {%endif%}" id="{{res.objectId}}">{%if res.sold_out%} Sold out {%else%} Өрөө сонгох {%endif%}</span>
+                                        class="booking-item-price">{{res.min_rate | number_format }}{%if res.asem == 1%}${%else%}₮{%endif%}</span><span>/өдөр</span><span class="small-left btn btn-primary {% if res.sold_out %} sold {%endif%}" id="{{res.objectId}}">{%if res.sold_out%} Sold out {%else%} Өрөө сонгох {%endif%}</span>
                                 </div>
                             </div>
                         </a>
