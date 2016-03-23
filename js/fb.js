@@ -8,7 +8,7 @@ function fb_login(){
         } else {
             console.log("not internet");
         }
-    });
+    },{scope: 'email,user_likes,public_profile'});
 }
 function fb_logout(){
     FB.logout(function(response) {
@@ -22,7 +22,7 @@ function fb_sign_up(){
         } else if (response.status === 'not_authorized') {
         } else {
         }
-    },{scope: 'email,user_likes'});
+    },{scope: 'email,user_likes,public_profile'});
 }
 function sign_up() {//хэрэглэгчийн ID болон нэрээр нь бүртгэх функц
     FB.api('/me?fields=email,id,name', function(response) {
