@@ -1,230 +1,226 @@
 {% extends "base.html" %}
 {% block content %}
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn"
-async defer>
-</script>
-<div class="gap"></div>
-<div class="container">
-    <div class="row" data-gutter="60">
-        <div class="col-md-4">
-            <h3>Нэвтрэх</h3>
-            <form>
-                <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show"></i>
-                    <label>Цахим шуудан</label>
-                    <input class="form-control" placeholder="@" type="text" id="email"/>
-                </div>
-                <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
-                    <label>Нууц үг</label>
-                    <input class="form-control" type="password" placeholder="*****" id="password"/>
-                </div>
-                <div id="RecaptchaField1" class="form-group"></div>
-                <div class="alert alert-danger" id='login-alert'>
+    <div class="gap"></div>
+    <div class="container">
+        <div class="row" data-gutter="60">
+            <div class="col-md-4">
+                <h3>Нэвтрэх</h3>
+                <form>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show"></i>
+                        <label>Цахим шуудан</label>
+                        <input class="form-control" placeholder="@" type="text" id="email"/>
+                    </div>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show"></i>
+                        <label>Нууц үг</label>
+                        <input class="form-control" type="password" placeholder="*****" id="password"/>
+                    </div>
+                    <div id="RecaptchaField1" class="form-group"></div>
+                    <div class="alert alert-success" id='login-success'>
+                        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                        </button>
+                        <p class="text-small"></p>
+                    </div>
+                    <div class="alert alert-danger" id='login-alert'>
+                        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                        </button>
+                        <p class="text-small"></p>
+                    </div>
+                    <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
+                    <button class="btn btn-primary" id="fblogin" type="button" onclick="fb_login()"  style="background: #3B5998;  color: white;">
+                        <i class="fa fa-facebook" style="font-size: 1em;"></i> Log in
+                    </button>
+                    <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Нууц үг мартсан</a>
+                </form>
+                <br />
+                <div class="alert alert-success" id="register-success1">
                     <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
                     </button>
                     <p class="text-small"></p>
                 </div>
-                <input class="btn btn-primary" type="button" value="Нэвтрэх" id="login"/>
-                <a class="popup-text" id="forgot_text" href="#forgot-dialog" data-effect="mfp-zoom-out">Нууц үг мартсан</a>
-            </form>
-            <br />
-            <div class="alert alert-success" id="register-success1">
-                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                </button>
-                <p class="text-small"></p>
+                <div class="alert alert-danger" id='login-alert1'>
+                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                    </button>
+                    <p class="text-small"></p>
+                </div>
+                <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
+                    <form>
+                        <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
+                            <label>Цахим шуудан</label>
+                            <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
+                        </div>
+                        <div id="RecaptchaField3" class="form-group"></div>
+                        <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
+                    </form>
+                </div>
+
             </div>
-            <div class="alert alert-danger" id='login-alert1'>
-                <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                </button>
-                <p class="text-small"></p>
-            </div>
-            <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="forgot-dialog">
+            <div class="col-md-4 small-top">
+                <h3>Бүртгүүлэх үү?</h3>
                 <form>
                     <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                        <label>Цахим шуудан</label>
-                        <input class="form-control" placeholder="example@example.com" type="text" id="forgot_email"/>
+                        <label>Нэр</label>
+                        <input class="form-control" type="text" id="rusername" />
                     </div>
-                    <div id="RecaptchaField3" class="form-group"></div>
-                    <input class="btn btn-primary" type="button" value="илгээх" id="forgot_password"/>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show" ></i>
+                        <label>Цахим шуудан</label>
+                        <input class="form-control" placeholder="@" type="email" id="remail" />
+                    </div>
+                    <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
+                        <label>Нууц үг</label>
+                        <input class="form-control" type="password" placeholder="****" id="rpassword" />
+                    </div>
+                    <div id="RecaptchaField2" class="form-group"></div>
+                    <div class="alert alert-success" id='register-success'>
+                        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                        </button>
+                        <p class="text-small"></p>
+                    </div>
+                    <div class="alert alert-danger" id='register-alert'>
+                        <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                        </button>
+                        <p class="text-small"></p>
+                    </div>
+                    <input id="add" class="btn btn-primary" type="button" value="Бүртгүүлэх" />
                 </form>
             </div>
-            <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+            <div class='col-md-4 small-hidden'>
+                <a href="index.php?asem"><img src='img/asem.png' style="width:120%; margin-top:46px"></a>
+            </div>
         </div>
-        <div class="col-md-4 small-top">
-            <h3>Бүртгүүлэх үү?</h3>
-            <form>
-                <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon input-icon-show"></i>
-                    <label>Нэр</label>
-                    <input class="form-control" type="text" id="rusername" />
-                </div>
-                <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show" ></i>
-                    <label>Цахим шуудан</label>
-                    <input class="form-control" placeholder="@" type="email" id="remail" />
-                </div>
-                <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon input-icon-show" ></i>
-                    <label>Нууц үг</label>
-                    <input class="form-control" type="password" placeholder="****" id="rpassword" />
-                </div>
-                <div id="RecaptchaField2" class="form-group"></div>
-                <div class="alert alert-success" id='register-success'>
-                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                    </button>
-                    <p class="text-small"></p>
-                </div>
-                <div class="alert alert-danger" id='register-alert'>
-                    <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
-                    </button>
-                    <p class="text-small"></p>
-                </div>
-                <input id="add" class="btn btn-primary" type="button" value="Бүртгүүлэх" />
-            </form>
-        </div>
-        <div class='col-md-4 small-hidden'>
-            <a href="index.php?asem"><img src='img/asem.png' style="width:120%; margin-top:46px"></a>
-
-        </div>
+        <input type="hidden" name="recaptcha1" id="recaptcha1" value="" />
+        <input type="hidden" name="recaptcha2" id="recaptcha2" value="" />
+        <input type="hidden" name="recaptcha3" id="recaptcha3" value="" />
     </div>
-    <input type="hidden" name="recaptcha1" id="recaptcha1" value="" />
-    <input type="hidden" name="recaptcha2" id="recaptcha2" value="" />
-    <input type="hidden" name="recaptcha3" id="recaptcha3" value="" />
-</div>
 {% endblock %}
 {% block scripting %}
 {{parent()}}
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1546296545668775";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<script type="text/javascript">
-    var widgetId1;
-    var widgetId2;
-    var widgetId3;
-    $('#login').click(function(){
-        $('.alert').hide(0);
-        var $this = $(this);
-        $this.after('<div id="loading"></div>');
-        $this.addClass('disabled');
-        $.post("login.php", {
-            email: $('#email').val(),
-            password: $('#password').val(),
-            g_recaptcha_response: $('#recaptcha1').val()
-        },
-        function (result) {
-            if(result==1){
-                window.location.replace("index.php");
-            }
-            else if(result==2){
-                $('#loading').remove();
-                $this.removeClass('disabled');
-                $('#login-alert').fadeIn(500);
-                $('#login-alert p').text('Капча-г заавал бөглөх ёстой!');
-            }
-            else{
-                $('#loading').remove();
-                $this.removeClass('disabled');
-                $('#login-alert').fadeIn(500);
-                $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
-                grecaptcha.reset(widgetId1);
-            }
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn" async defer></script>
+    <script type="text/javascript">
+        var widgetId1;
+        var widgetId2;
+        var widgetId3;
+        $('#login').click(function(){
+            $('.alert').hide(0);
+            var $this = $(this);
+            $this.after('<div id="loading"></div>');
+            $this.addClass('disabled');
+            $.post("login.php", {
+                email: $('#email').val(),
+                password: $('#password').val(),
+                g_recaptcha_response: $('#recaptcha1').val()
+            },
+            function (result) {
+                if(result==1){
+                    window.location.replace("index.php");
+                }
+                else if(result==2){
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#login-alert').fadeIn(500);
+                    $('#login-alert p').text('Капча-г заавал бөглөх ёстой!');
+                }
+                else{
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#login-alert').fadeIn(500);
+                    $('#login-alert p').text('Нэвтрэх нэр эсвэл нууц үг буруу байна!');
+                    grecaptcha.reset(widgetId1);
+                }
+            });
         });
-    });
-    $('#add').click(function(){
-        $('#register-success').hide();
-        $('#register-alert').hide();
-        var $this = $(this);
-        $this.after('<div id="loading"></div>');
-        $this.addClass('disabled');
-        $.post("user.php", {
-            email: $('#remail').val(),
-            username: $('#rusername').val(),
-            password: $('#rpassword').val(),
-            g_recaptcha_response: $('#recaptcha2').val()
-        }, function (result) {
-            if(result==1){
-                $('#loading').remove();
-                $('#register-success').fadeIn(500);
-                $('#register-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
-                grecaptcha.reset(widgetId3);
-            }
-            else if(result==2){
-                $('#loading').remove();
-                $this.removeClass('disabled');
-                $('#login-alert').fadeIn(500);
-                $('#login-alert p').text('Капча-г заавал бөглөх ёстой!');
-            }
-            else if(result == 2020){
-                $('#loading').remove();
-                $this.removeClass('disabled');
-                $('#register-alert').fadeIn(500);
-                $('#register-alert p').text('Бүртгэлтэй имэйл хаяг байна!');
-                grecaptcha.reset(widgetId3);
-            }
-            else{
-                $('#loading').remove();
-                $this.removeClass('disabled');
-                $('#register-alert').fadeIn(500);
-                $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
-                grecaptcha.reset(widgetId3);
-            }
+        $('#add').click(function(){
+            $('#register-success').hide();
+            $('#register-alert').hide();
+            var $this = $(this);
+            $this.after('<div id="loading"></div>');
+            $this.addClass('disabled');
+            $.post("user.php", {
+                email: $('#remail').val(),
+                username: $('#rusername').val(),
+                password: $('#rpassword').val(),
+                g_recaptcha_response: $('#recaptcha2').val()
+            }, function (result) {
+                if(result==1){
+                    $('#loading').remove();
+                    $('#register-success').fadeIn(500);
+                    $('#register-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
+                    grecaptcha.reset(widgetId3);
+                }
+                else if(result==2){
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#login-alert').fadeIn(500);
+                    $('#login-alert p').text('Капча-г заавал бөглөх ёстой!');
+                }
+                else if(result == 2020){
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#register-alert').fadeIn(500);
+                    $('#register-alert p').text('Бүртгэлтэй имэйл хаяг байна!');
+                    grecaptcha.reset(widgetId3);
+                }
+                else{
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#register-alert').fadeIn(500);
+                    $('#register-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
+                    grecaptcha.reset(widgetId3);
+                }
+            });
         });
-    });
-    $('#forgot_password').click(function(){
-        $('#register-success1').hide();
-        $('#login-alert1').hide();
-        $.post("user.php", {
-            forgot_password: $('#forgot_email').val(),
-            g_recaptcha_response: $('#recaptcha3').val()
-        }, function (result) {
-            if(result==1){
-                $(".mfp-close").trigger('click');
-                $('#register-success1').fadeIn(500);
-                $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
-                grecaptcha.reset(widgetId2);
-            }
-            else if(result==2){
-                $(".mfp-close").trigger('click');
-                $('#login-alert1').fadeIn(500);
-                $('#login-alert1 p').text('reCaptche error!');
-            }
-            else{
-                $(".mfp-close").trigger('click');
-                $('#login-alert1').fadeIn(500);
-                $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
-                grecaptcha.reset(widgetId2);
-            }
+        $('#forgot_password').click(function(){
+            $('#register-success1').hide();
+            $('#login-alert1').hide();
+            $.post("user.php", {
+                forgot_password: $('#forgot_email').val(),
+                g_recaptcha_response: $('#recaptcha3').val()
+            }, function (result) {
+                if(result==1){
+                    $(".mfp-close").trigger('click');
+                    $('#register-success1').fadeIn(500);
+                    $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
+                    grecaptcha.reset(widgetId2);
+                }
+                else if(result==2){
+                    $(".mfp-close").trigger('click');
+                    $('#login-alert1').fadeIn(500);
+                    $('#login-alert1 p').text('reCaptche error!');
+                }
+                else{
+                    $(".mfp-close").trigger('click');
+                    $('#login-alert1').fadeIn(500);
+                    $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
+                    grecaptcha.reset(widgetId2);
+                }
+            });
         });
-    });
-</script>
-<script type="text/javascript">
-      var verifyCallback = function(response) {
-        $("#recaptcha1").val(response);
-      };
-      var verifyCallback1 = function(response) {
-        $("#recaptcha2").val(response);
-      };
-      var verifyCallback2 = function(response) {
-        $("#recaptcha3").val(response);
-      };
-      var onloadCallback = function() {
-        widgetId1 = grecaptcha.render('RecaptchaField1', {
-          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
-          'callback' : verifyCallback,
-          'theme' : 'light'
-        });
-        widgetId2 = grecaptcha.render('RecaptchaField3', {
-          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
-          'callback' : verifyCallback2,
-          'theme' : 'light'
-        });
-        widgetId3 = grecaptcha.render('RecaptchaField2', {
-          'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
-          'callback' : verifyCallback1,
-          'theme' : 'light'
-        });
-      };
-</script>
+    </script>
+    <script type="text/javascript">
+          var verifyCallback = function(response) {
+            $("#recaptcha1").val(response);
+          };
+          var verifyCallback1 = function(response) {
+            $("#recaptcha2").val(response);
+          };
+          var verifyCallback2 = function(response) {
+            $("#recaptcha3").val(response);
+          };
+          var onloadCallback = function() {
+            widgetId1 = grecaptcha.render('RecaptchaField1', {
+              'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+              'callback' : verifyCallback,
+              'theme' : 'light'
+            });
+            widgetId2 = grecaptcha.render('RecaptchaField3', {
+              'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+              'callback' : verifyCallback2,
+              'theme' : 'light'
+            });
+            widgetId3 = grecaptcha.render('RecaptchaField2', {
+              'sitekey' : '6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP',
+              'callback' : verifyCallback1,
+              'theme' : 'light'
+            });
+          };
+    </script>
 {% endblock %}

@@ -1,4 +1,5 @@
 <?php
+
     require 'js/parse/autoload.php';
     require_once "lib/recaptchalib.php";
     use Parse\ParseException;
@@ -31,7 +32,7 @@
             $_POST["g_recaptcha_response"]
         );
     }
-    if ($response != null && $response->success) {
+    if ($response != null && $response->success || isset($_POST['facebook'])) {
         try {
             $query = ParseUser::query();
             $query->equalTo("username", $_POST['email']); 
