@@ -46,11 +46,6 @@
                 $user->save();
                 $result = true;
             }
-            elseif($_POST['facebook'] == 1){
-                $user = ParseUser::logIn($_POST['email'], $_POST['password']);
-                $user->save();
-                $result = true;
-            }
         } catch (ParseException $error) {
             echo $error;
         }
