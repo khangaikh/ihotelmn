@@ -28,9 +28,6 @@ function sign_up() {//хэрэглэгчийн ID болон нэрээр нь �
     FB.api('/me?fields=email,id,name', function(response) {
         var username = response.name;
         if (response.email!=null) {
-            var $this = $("#fblogin");
-            $this.after('<div id="loading"></div>');
-            $this.addClass('disabled');
             $.post("user.php", {
                 email: response.email,
                 username: response.name,
@@ -39,8 +36,7 @@ function sign_up() {//хэрэглэгчийн ID болон нэрээр нь �
                 facebook: 1 
             }, function (result) {
                 if(result==1){
-                    $('#loading').remove();
-                    window.location.replace("index.php");
+                    sign_in();
                 }
                 else if(result == 2020){
                     $('#loading').remove();
@@ -110,7 +106,6 @@ window.fbAsyncInit = function() { //developers.facebook.com -д бүртгэлт
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
     });
-
 };
 
 (function(d, s, id) { //интернетэд холбогдсон эсэхийг шалгах.
