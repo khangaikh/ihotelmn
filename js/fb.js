@@ -15,13 +15,13 @@ function sign_up() {//хэрэглэгчийн ID болон нэрээр нь �
                 }
                 else if(result == 2020){
                     $('#loading').remove();
-                    $this.removeClass('disabled');
+                    $("fblogin").removeClass('disabled');
                     $('#login-alert').fadeIn(500);
                     $('#login-alert p').text('Бүртгэлтэй имэйл хаяг байна!');
                 }
                 else{
                     $('#loading').remove();
-                    $this.removeClass('disabled');
+                    $("fblogin").removeClass('disabled');
                     $('#login-alert').fadeIn(500);
                     $('#login-alert p').text('Та өмнө нь бүртгэгдсэн эсвэл бүртгэлийн мэдээллээ буруу бөглөсөн байна!');
                 }
@@ -29,7 +29,7 @@ function sign_up() {//хэрэглэгчийн ID болон нэрээр нь �
         }
         else{
             $('#loading').remove();
-            $this.removeClass('disabled');
+            $("fblogin").removeClass('disabled');
             $('#login-alert').fadeIn(500);
             $('#login-alert p').text('Таны фэйсбүүк хаяг заавал имэйл хаягтай байх ёстой!');
         }
