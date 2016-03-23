@@ -303,6 +303,8 @@
     var values1; var values2; var values3; var values4; var values5; var values6; var values7;
     var keyup = false;
     var asem = false;
+    var soldClass = "";
+    var innerHtml = "";
     var tour = false;
     var results = [];
 
@@ -319,8 +321,6 @@
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     var infoBubble; var infoBubble2; var countinfo = 0; var currency = ""; var from = ""; var marker;
-
-
 
     function initMap(resulst) {
         map = new google.maps.Map(document.getElementById('maps_hotel'), {
@@ -516,10 +516,10 @@
                         if(checkedValues1.length !=0 || checkedValues2.length !=0 
                                 || checkedValues3.length !=0 || checkedValues4.length !=0 
                                 || checkedValues5.length !=0 || checkedValues6.length !=0 || checkedValues7.length !=0){
-                                    checked(values1, values2, values3, values4, values5, values6, values7, location[0], type);
-                                }else{
-                                    not_checked(type);
-                                }
+                            checked(values1, values2, values3, values4, values5, values6, values7, location[0], type);
+                        }else{
+                            not_checked(type);
+                        }
                     }
                 }
                 else{
@@ -548,17 +548,16 @@
                     if(checkedValues1.length !=0 || checkedValues2.length !=0 
                             || checkedValues3.length !=0 || checkedValues4.length !=0 
                             || checkedValues5.length !=0 || checkedValues6.length !=0 || checkedValues7.length !=0){
-                                checked(values1, values2, values3, values4, values5, values6, values7, location[0], type);
-                            }else{
-                                not_checked(type);
-                            }
+                        checked(values1, values2, values3, values4, values5, values6, values7, location[0], type);
+                    }else{
+                        not_checked(type);
+                    }
                 }
             }
             else{
                 $('#full-loader').remove();
                 $('#hotels').append('<div id="full-loader"><div id="loading"></div></div>');
                 if(this.checked) {
-
                     asem = true;
                     tour = false;
                     $("#stars_filter").show();
@@ -587,10 +586,10 @@
                     if(checkedValues1.length !=0 || checkedValues2.length !=0 
                             || checkedValues3.length !=0 || checkedValues4.length !=0 
                             || checkedValues5.length !=0 || checkedValues6.length !=0 || checkedValues7.length !=0){
-                                checked(values1, values2, values3, values4, values5, values6, values7, location[0], type);
-                            }else{
-                                not_checked(type);
-                            }
+                        checked(values1, values2, values3, values4, values5, values6, values7, location[0], type);
+                    }else{
+                        not_checked(type);
+                    }
                 }
             }
         });
@@ -671,12 +670,13 @@
             for ($i=0; $i<obj.stars; $i++){
                 string += '<i class="fa fa-star"></i></li>';
             }
-            console.log(obj.sold_out);
+            if(asem){ currency = "$ "+obj.rate; }else{ currency = obj.rate+" ₮";}
             if(obj.sold_out == 1){
-                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span></div></div></a></li>');
+                innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
             }else{
-                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><mg src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+                innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
             }
+            $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
         });
         initMap(results);
         //alert(data);
@@ -735,11 +735,19 @@
                 for ($i=0; $i<obj.stars; $i++){
                     string += '<i class="fa fa-star"></i></li>';
                 }
-                if(obj.sold_out == 1){
-                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span></div></div></a></li>');
+                if(asem){
+                    currency = "$ "+obj.rate;
+                    from = "from";
                 }else{
-                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><mg src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+                    currency = obj.rate+" ₮";
+                    from = "эхлэх";
                 }
+                if(obj.sold_out == 1){
+                    innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
+                }else{
+                    innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
+                }
+                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
 
             });
             $( "#tags" ).autocomplete({
@@ -750,6 +758,7 @@
         });
     }
     function checked(values1, values2, values3, values4, values5, values6, values7, location, type){
+
         var data;
         if(asem){
             data={data:values1, filter:values2, entertainment:values3, food_drink:values4, pool_spa:values5, transport:values6, miscellaneous:values7, city:location, asem:1, type: type};
@@ -776,11 +785,19 @@
                 for ($i=0; $i<obj.stars; $i++){
                     string += '<i class="fa fa-star"></i></li>';
                 }
-                if(obj.sold_out == 1){
-                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span></div></div></a></li>');
+                if(asem){
+                    currency = "$ "+obj.rate;
+                    from = "from";
                 }else{
-                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><mg src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+                    currency = obj.rate+" ₮";
+                    from = "эхлэх";
                 }
+                if(obj.sold_out == 1){
+                    innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
+                }else{
+                    innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
+                }
+                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
 
             });
             $( "#tags" ).autocomplete({
@@ -831,11 +848,13 @@
                             for ($i=0; $i<obj.stars; $i++){
                                 string += '<i class="fa fa-star"></i></li>';
                             }
+                            if(asem){ currency = "$ "+obj.rate; }else{ currency = obj.rate+" ₮";}
                             if(obj.sold_out == 1){
-                                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span></div></div></a></li>');
+                                innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
                             }else{
-                                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><mg src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+                                innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
                             }
+                            $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
 
                         });
                         $( "#tags" ).autocomplete({
@@ -865,11 +884,13 @@
                             for ($i=0; $i<obj.stars; $i++){
                                 string += '<i class="fa fa-star"></i></li>';
                             }
+                            if(asem){ currency = "$ "+obj.rate; }else{ currency = obj.rate+" ₮";}
                             if(obj.sold_out == 1){
-                                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span></div></div></a></li>');
+                                innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
                             }else{
-                                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><mg src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+                                innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
                             }
+                            $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
 
                         });
                         $( "#tags" ).autocomplete({
@@ -903,11 +924,13 @@
                 for ($i=0; $i<obj.stars; $i++){
                     string += '<i class="fa fa-star"></i></li>';
                 }
+                if(asem){ currency = "$ "+obj.rate; }else{ currency = obj.rate+" ₮";}
                 if(obj.sold_out == 1){
-                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span></div></div></a></li>');
+                    innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
                 }else{
-                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><mg src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+format(obj.rate)+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+                    innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
                 }
+                $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
 
             });
             $( "#tags" ).autocomplete({
@@ -980,11 +1003,13 @@
                         for ($i=0; $i<obj.stars; $i++){
                             string += '<i class="fa fa-star"></i></li>';
                         }
+                        if(asem){ currency = "$ "+obj.rate; }else{ currency = obj.rate+" ₮";}
                         if(obj.sold_out == 1){
-                            $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+obj.rate+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span></div></div></a></li>');
+                            innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
                         }else{
-                            $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><mg src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+obj.rate+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+                            innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
                         }
+                        $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
 
                     });
                 }
@@ -1034,11 +1059,13 @@
                     for ($i=0; $i<obj.stars; $i++){
                         string += '<i class="fa fa-star"></i></li>';
                     }
+                    if(asem){ currency = "$ "+obj.rate; }else{ currency = obj.rate+" ₮";}
                     if(obj.sold_out == 1){
-                        $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+obj.rate+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span></div></div></a></li>');
+                        innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
                     }else{
-                        $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'" name="detail"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><mg src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+obj.rate+' ₮</span><span>/өдөр</span><span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span></div></div></a></li>');
+                        innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
                     }
+                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
 
                 });
                 $( "#tags" ).autocomplete({
