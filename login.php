@@ -41,7 +41,13 @@
             }
             $query->equalTo("emailVerified", true); 
             $results = $query->find();
+
             if ($results) {
+                $user = ParseUser::logIn($_POST['email'], $_POST['password']);
+                $user->save();
+                $result = true;
+            }
+            elseif(isset($_POST['facebook']) && $_POST['facebook'] == '1'){
                 $user = ParseUser::logIn($_POST['email'], $_POST['password']);
                 $user->save();
                 $result = true;
