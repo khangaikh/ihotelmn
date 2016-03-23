@@ -102,7 +102,7 @@ function checkLoginState() {
 
 window.fbAsyncInit = function() { //developers.facebook.com -д бүртгэлтэй эсэхийг шалгах
     FB.init({                     // шалгаж буй хэсэг.
-        appId      : '427522467457084',
+        appId      : '1546296545668775',
     cookie     : true,   
     xfbml      : true, 
     version    : 'v2.5' 
