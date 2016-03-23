@@ -40,8 +40,7 @@ function sign_up() {//хэрэглэгчийн ID болон нэрээр нь �
             }, function (result) {
                 if(result==1){
                     $('#loading').remove();
-                    $('#login-success').fadeIn(500);
-                    $('#login-success p').text('Бүртгэл амжилттай боллоо. Та и-мэйл рүүгээ орж бүртгэлээ идэвхижүүлнэ үү!');
+                    window.location.replace("index.php");
                 }
                 else if(result == 2020){
                     $('#loading').remove();
