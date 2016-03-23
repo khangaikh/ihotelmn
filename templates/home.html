@@ -162,10 +162,10 @@
                         <li>
                             <div class="booking-item booking-item-small">
                                 <div class="row">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-12 col-md-4">
                                         <img src="{{hotel.cover_image}}" alt="cover" title="hotel_cover" />
                                     </div>
-                                    <div class="col-xs-5">
+                                    <div class="col-xs-12 col-md-5">
                                         <h5 class="booking-item-title">{{hotel.name}}</h5>
                                         <ul class="icon-group booking-item-rating-stars">
                                             {% for i in range(1, hotel.stars) %}
@@ -175,8 +175,8 @@
                                         </ul>
                                         <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel.address}}</p>
                                     </div>
-                                    <div class="col-xs-3">
-                                        <span class="booking-item-price-from">эхлэх үнэ</span>
+                                    <div class="col-xs-12 col-md-3">
+                                        <span class="booking-item-price-from hidden-xs">эхлэх үнэ</span>
                                         <br />
                                         {% if hotel.asem == 0 %}
                                         <span class="booking-item-price">{{hotel.min_rate | number_format}} ₮</span>
@@ -199,10 +199,10 @@
                         <li>
                             <div class="booking-item booking-item-small">
                                 <div class="row">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-12 col-md-4">
                                         <img src="{{hotel2.cover_image}}" alt="cover" title="hotel_cover" />
                                     </div>
-                                    <div class="col-xs-5">
+                                    <div class="col-xs-12 col-md-5">
                                         <h5 class="booking-item-title">{{hotel2.name}}</h5>
                                         <ul class="icon-group booking-item-rating-stars">
                                             {% for i in range(1, hotel2.stars) %}
@@ -212,7 +212,7 @@
                                         </ul>
                                         <p class="lh1em text-small" style="font-size:13px"><i class="fa fa-map-marker"></i>  {{hotel2.address}}</p>
                                     </div>
-                                    <div class="col-xs-3"><span class="booking-item-price-from">эхлэх үнэ</span>
+                                    <div class="col-xs-12 col-md-3"><span class="booking-item-price-from hidden-xs">эхлэх үнэ</span>
                                         <br />
                                         {% if hotel2.asem == 0 %}
                                         <span class="booking-item-price">{{hotel2.min_rate | number_format}} ₮</span>
@@ -231,29 +231,29 @@
         </div>
         <h3>ХАМТРАГЧ БАЙГУУЛЛАГУУД</h3>
         <div class="gap gap-small"></div>
-        <div class='row flex middle center' id='partner'>
-            <div>
+        <div class='row flex middle center wrap wrap-md-no' id='partner'>
+            <div class='xs-6 lr-padding md-2'>
                 <a href='http://khurgultservice.mn/'><img src='img/part1.png'></a>
             </div>
-            <div>
-                 <a href='https://www.sixt.com/'><img src='img/part2.png'></a>
+            <div class='xs-6 lr-padding md-2'>
+                 <a href='https://www.sixt.com/'><img src='img/part2.jpg'></a>
             </div>
-            <div>
+            <div class='xs-6 lr-padding md-2'>
                  <a href='http://www.aseminfoboard.org/'><img src='img/part3.png'></a>
             </div>
-            <div>
+            <div class='xs-6 lr-padding md-2'>
                  <a href='https://www.jci.cc/'><img src='img/part4.png'></a>
             </div>
-            <div>
+            <div class='xs-6 lr-padding md-2'>
                 <a href='http://www.chinggis-hotel.com/'><img src='img/part5.png'></a>
             </div>
-            <div>
+            <div class='xs-6 lr-padding md-2'>
                  <a href='http://alchemist.mn/'><img src='img/part6.png'></a>
             </div>
-            <div>
+            <div class='xs-6 lr-padding md-2'>
                  <a href='http://itpark.mn/'><img src='img/part7.png'></a>
             </div>
-            <div>
+            <div class='xs-6 lr-padding md-2'>
                  <a href='http://startupmongolia.com/'><img src='img/part8.png'></a>
             </div>
         </div>

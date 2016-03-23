@@ -123,36 +123,6 @@ footer#main-footer .flex>div{
 footer#main-footer .logo{
 	margin-bottom:0;
 }
-.flex{
-	display:flex;
-	display: -webkit-flex;
-	flex-wrap:wrap;
-}
-.flex.between{
-	justify-content:space-between;
-	-webkit-justify-content:space-between;
-}
-.flex.middle{
-	margin-bottom: 8px;
-	align-items:center;
-	-webkit-align-items:center;
-}
-.flex.center{
-	justify-content:center;
-	-webkit-justify-content:center;
-}
-.flex-col{
-	flex-direction:column;
-	-webkit-flex-direction:column;
-}
-.flex.end{
-	justify-content:flex-end;
-	-webkit-justify-content:flex-end;
-}
-.flex.bottom{
-	align-items:flex-end;
-	-webkit-align-items:flex-end;
-}
 dl .fa{
 	margin-right:10px;
 }
@@ -231,16 +201,11 @@ button:after{
 .alert{
 	display: none;
 }
-#partner>div{
-	width:12.5%;
-	padding:0 10px;
-}
 #partner img{
 	-webkit-filter: grayscale(1);
 	filter: grayscale(1);
 	transition:0.5s;
 	-webkit-transition:0.5s;
-	max-height:100px;
 }
 #partner img:hover{
 	-webkit-filter: grayscale(0);
