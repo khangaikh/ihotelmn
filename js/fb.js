@@ -1,29 +1,4 @@
 var username; //хэрэглэгчийн нэрийг хадаглах хувьсагч
-function fb_login(){
-    FB.login(function(response) {
-        checkLoginState();
-        if (response.status === 'connected') {
-            sign_in(response.authResponse.userID);// fb ээс хэрэглэгчийн дугаарыг аваад нэвтрэх фунцыг дуудах.
-        } else if (response.status === 'not_authorized') {
-        } else {
-            console.log("not internet");
-        }
-    },{scope: 'email,public_profile'});
-}
-function fb_logout(){
-    FB.logout(function(response) {
-    });
-}
-function fb_sign_up(){
-    FB.login(function(response) {
-        checkLoginState();
-        if (response.status === 'connected') {
-            sign_up(response.authResponse.userID);// Бүртгүүлэх функц
-        } else if (response.status === 'not_authorized') {
-        } else {
-        }
-    },{scope: 'email,public_profile'});
-}
 function sign_up() {//хэрэглэгчийн ID болон нэрээр нь бүртгэх функц
     FB.api('/me?fields=email,id,name', function(response) {
         var username = response.name;
@@ -36,7 +11,7 @@ function sign_up() {//хэрэглэгчийн ID болон нэрээр нь �
                 facebook: 1 
             }, function (result) {
                 if(result==1){
-                    sign_in();
+                    fb_login();
                 }
                 else if(result == 2020){
                     $('#loading').remove();
@@ -60,7 +35,7 @@ function sign_up() {//хэрэглэгчийн ID болон нэрээр нь �
         }
     });
 }
-function sign_in(social_id) {
+function fb_login() {
     FB.api('/me?fields=email,id,name', function(response) { //хэрэглэгчийн нэр болон ID ийгаар нэвтрэх функц
         $('.alert').hide(0);
         var $this = $("#fblogin");
@@ -97,7 +72,7 @@ function checkLoginState() {
 
 window.fbAsyncInit = function() { //developers.facebook.com -д бүртгэлтэй эсэхийг шалгах
     FB.init({                     // шалгаж буй хэсэг.
-        appId      : '1546296545668775',
+        appId      : '427522467457084',
     cookie     : true,   
     xfbml      : true, 
     version    : 'v2.5' 
@@ -106,6 +81,7 @@ window.fbAsyncInit = function() { //developers.facebook.com -д бүртгэлт
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
     });
+
 };
 
 (function(d, s, id) { //интернетэд холбогдсон эсэхийг шалгах.
