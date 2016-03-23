@@ -4,14 +4,14 @@
 {% if hotels %}
 <a href="index.php?add_general" class="btn btn-primary" value="">Шинэ буудал оруулах</a>
 <div class="gap-small"></div>
-<table class="table table-bordered table-striped table-booking-history">
+<table>
     <thead>
         <tr>
             <th></th>
             <th>Нэр</th>
             <th>Байршил</th>
             <th>Өрөөний тоо</th>
-            <th>Бүртэгсэн</th>
+            <th>Бүртэгдсэн</th>
             <th></th>
             <th></th>
         </tr>
@@ -19,14 +19,14 @@
     <tbody id="orders">
         {% for hotel in hotels %}
         <tr>
-            <td class="text-center">
+            <td class="text-center" data-name='№'>
                 {{loop.index}}
             </td>
-            <td class="booking-history-title">{{hotel.name}}</td>
-            <td>{{hotel.city}}</td>
-            <td>{{hotel.num_rooms}}</td>
-            <td>{{hotel.createdAt | date("Y-m-d")}}</td>
-            <td>{% if hotel.status==1 %}
+            <td data-name='Нэр'>{{hotel.name}}</td>
+            <td data-name='Байршил'>{{hotel.city}}</td>
+            <td data-name='Өрөөний тоо'>{{hotel.num_rooms}}</td>
+            <td data-name='Бүртгэгдсэн'>{{hotel.createdAt | date("Y-m-d")}}</td>
+            <td data-name='Статус'>{% if hotel.status==1 %}
                 <i class="fa fa-check" name="{{hotel.objectId}}"></i>
                 {%elseif hotel.status == 2%}
                 <i class="fa fa-check-circle" name="{{hotel.objectId}}"></i>

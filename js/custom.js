@@ -521,4 +521,5 @@ $(document).ready(function(){
         $('#loading').remove();
         $('.disabled').removeClass('disabled');
     });
+
 });
