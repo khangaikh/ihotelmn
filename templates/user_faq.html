@@ -11,7 +11,7 @@
     <a class="popup-text btn btn-primary" href="#add-faq-asem" data-effect="mfp-zoom-out">Add question</a>
     <div class="gap-small"></div>
 {% if faqs %}
-    <table class="table table-bordered table-striped table-booking-history">
+    <table>
         <thead>
             <tr>
                 <th></th>
@@ -23,11 +23,11 @@
         <tbody id="orders">
         {% for faq in faqs %}
         <tr>
-            <td class="text-center">
+            <td data-name='№' class="text-center">
                 {{loop.index}}
             </td>
-            <td class="booking-history-title">{{faq.header_mn}}</td>
-            <td>{{faq.content_mn}}</td>
+            <td data-name='Асуулт'>{{faq.header_mn}}</td>
+            <td data-name='Хариулт'>{{faq.content_mn}}</td>
             <td id="operations">
                 <a name="{{faq.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq('{{faq.objectId}}')" >Засах</a>
                 <a name="{{faq.objectId}}" class="btn btn-default" onclick="delete_faq('{{faq.objectId}}');">Устгах</a>
@@ -38,7 +38,7 @@
     </table>
 {% endif %}
 {% if faqs_en %}
-    <table class="table table-bordered table-striped table-booking-history">
+    <table>
         <thead>
             <tr>
                 <th></th>
@@ -50,11 +50,11 @@
         <tbody id="orders">
         {% for faq in faqs_en %}
         <tr>
-            <td class="text-center">
+            <td  data-name='№' class="text-center">
                 {{loop.index}}
             </td>
-            <td class="booking-history-title">{{faq.header_en}}</td>
-            <td>{{faq.content_en}}</td>
+            <td data-name='Асуулт'>{{faq.header_en}}</td>
+            <td data-name='Хариулт'>{{faq.content_en}}</td>
             <td id="operations">
                 <a name="{{faq.objectId}}" class="popup-text btn btn-primary" data-effect="mfp-zoom-out" onclick="edit_faq_asem('{{faq.objectId}}')">Засах</a>
                 <a name="{{faq.objectId}}" class="btn btn-default" onclick="delete_faq_asem('{{faq.objectId}}');">Устгах</a>
