@@ -394,7 +394,6 @@
 {% block scripting %}
 {{parent()}}
 <script type="text/javascript">
-    
     var script = '<script type="text/javascript" src="https://google-maps-' +
           'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
     if (document.location.search.indexOf('compiled') !== -1) {
@@ -465,7 +464,11 @@
                                 $("#raiting_pr").text(data.review_rating_count[4]);
                                 $("#raiting_tr_w").attr('style','width:'+(data.review_rating_count[5]*100/max)+ '%;');
                                 $("#raiting_tr").text(data.review_rating_count[5]);
-                                $("#write_review").attr('src',data.write_review);
+                                var str = "https://"
+                                var arr = data.write_review.split('//');
+                                var new_url = str+arr[1];
+                                console.log();
+                                $("#write_review").attr('src',new_url);
                                 $("#rt_location").html('<li><img src="'+data.subratings[0].rating_image_url+'" alt="" /></li>');
                                 $("#rt_sleep").html('<li><img src="'+data.subratings[1].rating_image_url+'" alt="" /></li>');
                                 $("#rt_rooms").html('<li><img src="'+data.subratings[2].rating_image_url+'" alt="" /></li>');
