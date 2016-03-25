@@ -451,12 +451,17 @@
 
         $('#example tbody').on('click', 'tr', function () {
             var data = table.row( this ).data();
+            var $this = $(this);
+            $('#full-loader').remove();
+            $this.append('<div id="full-loader"><div id="loading"></div></div>');
+         
             $.ajax({
                 type: "POST",
                 url: "order.php",
                 data: {order_update_form: data[0]},
                 success: function(data, textStatus, jqXHR)
             {
+                $('#full-loader').remove();
                 var order = $.parseJSON( data );
                 $("#view_username").val(order['user_name']);
                 $("#view_hotel").val(order['hotel']);
