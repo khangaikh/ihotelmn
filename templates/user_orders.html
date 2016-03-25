@@ -1,10 +1,10 @@
 {% extends "user.html" %}
 {% block user_content %}
-    <table id="example" class="table table-bordered table-striped table-booking-history display" cellspacing="0" width="100%"> 
+    <table id="example" class="display" cellspacing="0" width="100%"> 
         <thead>
             <tr>
-                <th style="display: none"></th>
                 <th></th>
+                <th style="display: none"></th>
                 <th>Hotel</th>
                 <th>Room type</th>
                 <th>Username</th>
@@ -16,28 +16,28 @@
                 <th>Payment</th>
                 <th>Status</th>
             </tr>
-            <tfoot style="display: table-header-group">
-                <tr>
-                    <th style="display: none"></th>
-                    <th></th>
-                    <th>Hotel</th>
-                    <th>Room type</th>
-                    <th>Username</th>
-                    <th>Country</th>
-                    <th>o/date</th>
-                    <th>Date start</th>
-                    <th>Date end</th>
-                    <th>Days</th>
-                    <th>Payment</th>
-                    <th>Status</th>
-                </tr>
-            </tfoot>
         </thead>
+        <tfoot style="display: table-header-group">
+            <tr>
+                <th></th>
+                <th style="display: none"></th>
+                <th>Hotel</th>
+                <th>Room type</th>
+                <th>Username</th>
+                <th>Country</th>
+                <th>o/date</th>
+                <th>Date start</th>
+                <th>Date end</th>
+                <th>Days</th>
+                <th>Payment</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
         <tbody id="orders">
         {% for order in orders %}
         <tr>
-            <td style="display: none;">{{ order.objectId }}</td>
             <td>{{ loop.index }}</td>
+            <td style="display: none;">{{ order.objectId }}</td>
             <td>{{order.hotel.name}}</td>
             <td>{{order.room.room_type}}</td>
             <td>{{order.user.name}}</td>
@@ -46,7 +46,7 @@
             <td>{{order.start}}</td>
             <td>{{order.end}}</td>
             <td>{{order.days}}</td>
-            <td>${{order.total}}</td>
+            <td>{{order.total}}</td>
             <td class="text-center">{%if order.status==-1%}Under bank control{% elseif order.status==-2%} Deleted {%else%}Confirmed{%endif%}</td>
         </tr>
         {% endfor %}
