@@ -1,6 +1,6 @@
 {% extends "user.html" %}
 {% block user_content %}
-    <table id="example" class="display"> 
+    <table id="example" class="display" cellspacing="0" width="100%"> 
         <thead>
             <tr>
                 <th></th>
@@ -16,37 +16,38 @@
                 <th>Payment</th>
                 <th>Status</th>
             </tr>
-            <tfoot style="display: table-header-group">
-                <tr class='hidden-xs'>
-                    <th style="display: none"></th>
-                    <th></th>
-                    <th>Hotel</th>
-                    <th>Room type</th>
-                    <th><input type="text" class="form-control"/></th>
-                    <th>Country</th>
-                    <th><input type="text" class="form-control date-pick"/></th>
-                    <th><input type="text" class="form-control date-pick"/></th>
-                    <th><input type="text" class="form-control date-pick"/></th>
-                    <th><input type="text" class="form-control"/></th>
-                    <th><input type="text" class="form-control"/></th>
-                    <th>Status</th>
-                </tr>
-            </tfoot>
         </thead>
+        <tfoot style="display: table-header-group">
+            <tr>
+                <th></th>
+                <th style="display: none"></th>
+                <th>Hotel</th>
+                <th>Room type</th>
+                <th>Username</th>
+                <th>Country</th>
+                <th>o/date</th>
+                <th>Date start</th>
+                <th>Date end</th>
+                <th>Days</th>
+                <th>Payment</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
         <tbody id="orders">
         {% for order in orders %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td data-name='Hotel'>{{order.hotel.name}}</td>
-            <td data-name='Room Type'>{{order.room.room_type}}</td>
-            <td data-name='Username'>{{order.user.name}}</td>
-            <td data-name='Country'>{{order.user.country}}</td>
-            <td data-name='o/date'>{{order.createdAt | date("Y-m-d")}}</td>
-            <td data-name='Date start'>{{order.start}}</td>
-            <td data-name='Date end'>{{order.end}}</td>
-            <td data-name='Days'>{{order.days}}</td>
-            <td data-name='Payment'>${{order.total}}</td>
-            <td data-name='Status' class="text-center">{%if order.status==-1%}Under bank control{%else%}Confirmed{%endif%}</td>
+            <td style="display: none;">{{ order.objectId }}</td>
+            <td>{{order.hotel.name}}</td>
+            <td>{{order.room.room_type}}</td>
+            <td>{{order.user.name}}</td>
+            <td>{{order.user.country}}</td>
+            <td>{{order.createdAt | date("Y-m-d")}}</td>
+            <td>{{order.start}}</td>
+            <td>{{order.end}}</td>
+            <td>{{order.days}}</td>
+            <td>{{order.total}}</td>
+            <td class="text-center">{%if order.status==-1%}Under bank control{% elseif order.status==-2%} Deleted {%else%}Confirmed{%endif%}</td>
         </tr>
         {% endfor %}
         </tbody>
@@ -391,21 +392,34 @@
             </div>
         </form>
     </div>
-
+    <div class='gap'></div>
     <a id="show-order-edit" class="popup-text" href="#update-dialog" data-effect="mfp-zoom-out" style="display: none;"/>
 {% endblock %}
 {% block scripting %}
     {{parent()}}
-    <script>
+    <script type="text/javascript" charset="utf-8">
+    var f = false;
     $(document).ready(function() {
-        $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
-            todayHighlight: true
-        });
-        $('#user-sidebar').remove();
-        $('#user-main').removeClass('col-md-9').addClass('col-md-12');
+        if(!f){
+            $("tbody").after('<div id="tft"></div>');
+            f=true;
+        }
+        
+        $('.col-md-3').hide();
+        $('.col-md-9').css('width','111%');
+        $('.col-md-9').css('padding','0');
+        $('.col-md-9').css('left','-60px');
         $('#example tfoot th').each( function () {
             var title = $(this).text();
-
+            if(title!=''){
+                $(this).html( '<input type="text" class="form-control"/>' );
+            }
+            if(title == "Date start"){
+                $(this).html('<input type="date" style="width:90%" class="form-control"/>');
+            }
+            if(title == "Date end"){
+                $(this).html('<input type="date" style="width:90%" class="form-control"/>');
+            }
             $(this).attr('id', title);
         } );
         // DataTable
@@ -432,7 +446,38 @@
                 } );
                     }
                 } );
-            }
+            },
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 10 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 10, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $("#tft").html(pageTotal);
+        }
+
         } );
         var table = $('#example').DataTable();
 
@@ -451,17 +496,12 @@
 
         $('#example tbody').on('click', 'tr', function () {
             var data = table.row( this ).data();
-            var $this = $(this);
-            $('#full-loader').remove();
-            $this.append('<div id="full-loader"><div id="loading"></div></div>');
-         
             $.ajax({
                 type: "POST",
                 url: "order.php",
-                data: {order_update_form: data[0]},
+                data: {order_update_form: data[1]},
                 success: function(data, textStatus, jqXHR)
             {
-                $('#full-loader').remove();
                 var order = $.parseJSON( data );
                 $("#view_username").val(order['user_name']);
                 $("#view_hotel").val(order['hotel']);
