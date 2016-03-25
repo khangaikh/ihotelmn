@@ -6,6 +6,7 @@
     use Parse\ParseQuery;
 
     session_start();
+
     if (isset($_SESSION['user'])){
         $user = $_SESSION['user'];
 
@@ -35,8 +36,8 @@
             }
         }
     }
-    if(isset($_POST['order_update_form'])){
 
+    if(isset($_POST['order_update_form'])){
         $query = new ParseQuery("orders");
         $query->equalTo("objectId",$_POST['order_update_form']);
         $query->includeKey("room");
@@ -53,7 +54,39 @@
         $e['days'] = $orders->get('days');
         $e['total'] = $orders->get('total');
         $e['status'] = $orders->get('status');
+        $e['order_id'] = $orders->get('order_id');
         $e['country'] = $orders->get('user')->get('country');
         echo json_encode($e);
+    }
+
+    if(isset($_POST['delete_order'])){
+        $query = new ParseQuery("orders");
+        $query->equalTo("objectId",$_POST['delete_order']);
+        $order = $query->first();
+        $order->set('status',-2);
+        $order->save();
+    }
+
+    if(isset($_POST['update_order_id'])){
+        $query = new ParseQuery("orders");
+        $query->equalTo("objectId",$_POST['update_order_id']);
+        $query->includeKey("user");
+        $orders = $query->first();
+        $orders->set('status', intval($_POST['view_status']));
+        $orders->save();
+        $result = false;
+
+        try {
+            $orders->save();
+            $result = true;
+        } catch (ParseException $ex) {  
+            echo 'Failed to create new object, with error message: ' . $ex->getMessage();
+        }
+
+        if($result){
+            echo 1;
+        }else{
+            echo 0;
+        }
     }
 ?>

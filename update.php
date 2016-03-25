@@ -20,6 +20,4 @@
         $news = $query->first();
         $_SESSION['news'] = $news;
     }
-
-
 ?>
