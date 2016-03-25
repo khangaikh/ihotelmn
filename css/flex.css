@@ -161,8 +161,8 @@ td, th{
         display: block; 
     }
     td{
-        padding-left:50%;
-        border:none;
+        padding-left:50% !important;
+        border:none !important;
         position: relative;
         text-align:left !important;
     }
