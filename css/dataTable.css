@@ -481,3 +481,30 @@ table.dataTable tfoot th.ui-state-default:first-child {
 .dataTables_wrapper .dataTables_paginate {
     color: inherit
 }
+@media (max-width:760px){
+    thead tr{
+        display: none;
+    }
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+    td{
+        padding-left:50%;
+        border:none;
+        position: relative;
+        text-align:left !important;
+    }
+    tr{
+        border:1px solid #ccc;
+    }
+    td:before{
+        position: absolute;
+        left:5px;
+        width:45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+    td:before{
+        content: attr(data-name);
+    }
+}
