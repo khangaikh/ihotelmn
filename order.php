@@ -35,4 +35,25 @@
             }
         }
     }
+    if(isset($_POST['order_update_form'])){
+
+        $query = new ParseQuery("orders");
+        $query->equalTo("objectId",$_POST['order_update_form']);
+        $query->includeKey("room");
+        $query->includeKey("user");
+        $query->includeKey("hotel");
+        $orders = $query->first();
+        $e['id'] = $orders->getObjectId();
+        $e['hotel'] = $orders->get('hotel')->get('name');
+        $e['room'] = $orders->get('room')->get('room_type');
+        $e['user_name'] = $orders->get('user')->get('name');
+        $e['createAt'] = $orders->getCreatedAt()->format('Y-m-d');
+        $e['start'] = $orders->get('start');
+        $e['end'] = $orders->get('end');
+        $e['days'] = $orders->get('days');
+        $e['total'] = $orders->get('total');
+        $e['status'] = $orders->get('status');
+        $e['country'] = $orders->get('user')->get('country');
+        echo json_encode($e);
+    }
 ?>

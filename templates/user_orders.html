@@ -1,0 +1,239 @@
+{% extends "user.html" %}
+{% block user_content %}
+    <h5>Reservations</h5> 
+    <table id="example" class="table table-bordered table-striped table-booking-history display" cellspacing="0" width="100%"> 
+        <thead>
+            <tr>
+                <th style="display: none"></th>
+                <th></th>
+                <th>Hotel</th>
+                <th>Room type</th>
+                <th>Username</th>
+                <th>Country</th>
+                <th>o/date</th>
+                <th>Date start</th>
+                <th>Date end</th>
+                <th>Days</th>
+                <th>Payment</th>
+                <th>Status</th>
+            </tr>
+            <tfoot style="display: table-header-group">
+                <tr>
+                    <th style="display: none"></th>
+                    <th></th>
+                    <th>Hotel</th>
+                    <th>Room type</th>
+                    <th>Username</th>
+                    <th>Country</th>
+                    <th>o/date</th>
+                    <th>Date start</th>
+                    <th>Date end</th>
+                    <th>Days</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                </tr>
+            </tfoot>
+        </thead>
+        <tbody id="orders">
+        {% for order in orders %}
+        <tr>
+            <td style="display: none;">{{ order.objectId }}</td>
+            <td>{{ loop.index }}</td>
+            <td>{{order.hotel.name}}</td>
+            <td>{{order.room.room_type}}</td>
+            <td>{{order.user.name}}</td>
+            <td>{{order.user.country}}</td>
+            <td>{{order.createdAt | date("Y-m-d")}}</td>
+            <td>{{order.start}}</td>
+            <td>{{order.end}}</td>
+            <td>{{order.days}}</td>
+            <td>${{order.total}}</td>
+            <td class="text-center">{%if order.status==-1%}Under bank control{%else%}Confirmed{%endif%}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a id="show-order-edit" class="popup-text" href="#update-dialog" data-effect="mfp-zoom-out" style="display: none;"/>
+    <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="update-dialog">
+        <form id="news_form" class="" action="news.php" name="update_news_form" data-parsley-validate method="POST">
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="news_name_label">Захиалга харах</span>
+                    <input type="hidden" id="update_news_id" name="update_news_id" value="" class="form-control" required>
+                </legend>
+                <div class="row">
+                    <div class="is-block">
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Username</label>
+                            <input type="text" class="form-control" name="view_username" id="view_username" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Country</label>
+                            <input type="text"  class="form-control" name="view_country" id="view_country" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Hotel</label>
+                            <input type="text" class="form-control" name="view_hotel" id="view_hotel" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Room type</label>
+                            <input type="text" class="form-control" name="view_room_type" id="view_room_type" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="room_name_label"></span>
+                </legend>
+                <div class="row">
+                    <div class="is-block">
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Order date</label>
+                            <input type="date" class="form-control" name="" id="view_order_date" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Date start</label>
+                            <input type="date" class="form-control" name="view_start" id="view_start" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Date end</label>
+                            <input type="date" class="form-control" name="view_end" id="view_end" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Days</label>
+                            <input type="number" class="form-control" name="view_days" id="view_days" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="room_name_label"></span>
+                </legend>
+                <div class="row">
+                    <div class="is-block">
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label for="news_catogry">Payment</label>
+                            <input type="text" class="form-control" name="view_payment" id="view_payment" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label for="news_catogry">Status</label>
+                            <input type="text" class="form-control"  name="view_status" id="view_status" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row no-return" id="room-cta">
+                <div class="col-md-12 col-sm-12 col-xs-12 continue">
+                    <input type="submit" class="btn btn-block btn-primary btn-lg" value="Өөрчлөх" />
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block scripting %}
+    {{parent()}}
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('.col-md-3').hide();
+        $('.col-md-9').css('width','111%');
+        $('.col-md-9').css('padding','0');
+        $('.col-md-9').css('left','-60px');
+        $('#example tfoot th').each( function () {
+            var title = $(this).text();
+            if(title!=''){
+                $(this).html( '<input type="text" class="form-control"/>' );
+            }
+            if(title == "Date start"){
+                $(this).html('<input type="date" style="width:90%" class="form-control"/>');
+            }
+            if(title == "Date end"){
+                $(this).html('<input type="date" style="width:90%" class="form-control"/>');
+            }
+            $(this).attr('id', title);
+        } );
+        // DataTable
+        $('#example').DataTable( {
+                initComplete: function () {
+                    this.api().columns().every( function () {
+                        var column = this;
+                        var header = column.footer().id;
+                        if(header == "Hotel" || header == "Room type" || header == "Country" || header == "Status"){
+                            var select = $('<select class="form-control" style="width:90%;"><option></option></select>')
+                                .appendTo( $(column.footer()).empty() )
+                                .on( 'change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                    );
+             
+                                    column
+                                        .search( val ? '^'+val+'$' : '', true, false )
+                                        .draw();
+                                } );
+             
+                            column.data().unique().sort().each( function ( d, j ) {
+                                select.append( '<option value="'+d+'">'+d+'</option>' )
+                            } );
+                        }
+                    } );
+                }
+            } );
+        var table = $('#example').DataTable();
+     
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+        var table = $('#example').DataTable();
+
+        $('#example tbody').on('click', 'tr', function () {
+            var data = table.row( this ).data();
+            $.ajax({
+                type: "POST",
+            url: "order.php",
+            data: {order_update_form: data[0]},
+            success: function(data, textStatus, jqXHR)
+            {
+                var order = $.parseJSON( data );
+                console.log(order);
+                $("#view_username").val(order['user_name']);
+                $("#view_hotel").val(order['hotel']);
+                $("#view_room_type").val(order['room']);
+                $("#view_status").val(order['status']);
+                $("#view_order_date").val(order['createAt']);
+                $("#view_start").val(order['start']);
+                $("#view_end").val(order['end']);
+                $("#view_days").val(order['days']);
+                $("#view_country").val(order['country']);
+                $("#view_payment").val(order['total']);
+                $('#show-order-edit').trigger('click');
+            },
+            error: function(xhr, textStatus, errorThrown){
+                alert(textStatus);
+            }
+            }); 
+        } );
+    } );
+    </script>
+{% endblock %}

@@ -158,6 +158,16 @@
             //render a template
             echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'news'=>$news, 'user' => $user, 'nav' => 8));
         }
+        else if(isset($_GET['orders'])){
+            $template = $twig->loadTemplate('user_orders.html');
+            $query = new ParseQuery("orders");
+            $query->includeKey("room");
+            $query->includeKey("user");
+            $query->includeKey("hotel");
+            $orders = $query->find();
+
+            echo $template->render(array('title' => 'Захиалагууд', 'orders'=>$orders, 'user' => $user, 'nav' => 9));
+        }
         else if(isset($_GET['faq_admin'])){
             $template = $twig->loadTemplate('user_faq.html');
             $query = new ParseQuery("faq");
@@ -532,7 +542,7 @@
                 $day_end = date('l', strtotime( $end));
                 $orders = $_SESSION['orders'];
                 class Event {}
-                $rooms = array();
+                    $rooms = array();
                 $total = 0;
                 for ($i = 0; $i < count($orders); ++$i){
                     $e = new Event();

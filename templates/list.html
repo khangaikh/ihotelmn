@@ -273,12 +273,12 @@
                             <p><small> {{location}}-т {{count}} буудал олдлоо.</small></p>
                             <ul class="pagination">
                                 {% for i in range(0, pages) %}
-                                {% if i == 0 %}
-                                {% set j=i+1 %}
-                                <li class="active"><a href="#">{{j}}</a></li>
-                                {% else %}
-                                <li><a href="#">{{i}}</a></li>
-                                {% endif %}
+                                    {% if i == 0 %}
+                                    {% set j = i+1 %}
+                                        <li class="active"><a href="#">{{j}}</a></li>
+                                    {% else %}
+                                        <li><a href="#">{{i}}</a></li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
