@@ -255,20 +255,7 @@
                     </li>
                     {% endfor %}
                 </ul>
-                <div class="row">
-                    <div class="col-md-6">
-                        <ul class="pagination">
-                            {% for i in range(0, pages) %}
-                            {% if i == 0 %}
-                            {% set j=i+1 %}
-                            <li class="active"><a href="#">{{j}}</a></li>
-                            {% else %}
-                            <li><a href="#">{{i}}</a></li>
-                            {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
+                <div id="loadmoreajaxloader" style="display:none;"><center><img style="width: 20px;" src="img/ajax-loader.gif" /></center></div>
             </div>
         </div>
     </div>
@@ -290,6 +277,8 @@
     var values1; var values2; var values3; var values4; var values5; var values6; var values7;
 
     var keyup = false;
+    var loadSkip = 0;
+    var checkSkip = true;
     var results = [];
 
     {% for res in results %}
@@ -643,6 +632,67 @@
                 initMap(results);
             }
             });
+        }
+    });
+    $(window).scroll(function()
+    {
+        if($(window).scrollTop() == $(document).height() - $(window).height())
+        {
+            if(checkSkip){
+                $('div#loadmoreajaxloader').show();
+                checkSkip = false;
+                loadSkip++;
+                checkedValues1 = $(' input[name="stars"]:checkbox:checked').map(function() {return this.value;}).get();
+                checkedValues2 = $(' input[name="others"]:checkbox:checked').map(function() {return this.value;}).get();
+                checkedValues3 = $(' input[name="entertainment"]:checkbox:checked').map(function() {return this.value;}).get();
+                checkedValues4 = $(' input[name="food_drink"]:checkbox:checked').map(function() {return this.value;}).get();
+                checkedValues5 = $(' input[name="pool_spa"]:checkbox:checked').map(function() {return this.value;}).get();
+                checkedValues6 = $(' input[name="transport"]:checkbox:checked').map(function() {return this.value;}).get();
+                checkedValues7 = $(' input[name="miscellaneous"]:checkbox:checked').map(function() {return this.value;}).get();
+
+                values1 = checkedValues1.toString();values2 = checkedValues2.toString();values3 = checkedValues3.toString();
+                values4 = checkedValues4.toString();values5 = checkedValues5.toString();values6 = checkedValues6.toString();
+                values7 = checkedValues7.toString();
+
+                var location = $("#location_1").val();
+
+                var data;
+                data = {skip:loadSkip, filter1:values1, filter2:values2, entertainment:values3, food_drink:values4, pool_spa:values5, transport:values6,
+                    miscellaneous:values7, city:location, asem:1, type: "Hotel"};
+                $.ajax({
+                    type: "POST",
+                    url: "loadmore.php",
+                    data: data,
+                    success: function(data, textStatus, jqXHR)
+                {
+                    $('div#loadmoreajaxloader').hide();
+                    var events = data['events'];
+                    var pages = data['pages'];
+                    results=[];
+                    if(events.length == 0){
+                        loadSkip--;
+                    }
+                $.each(events, function(idx, obj) {
+                    var index = idx+1;
+                    var string = "";
+                    results.push({lat: obj.latitude, lng:obj.longitude, id: ''+obj.id, avg: ''+obj.rate});
+                    for ($i=0; $i<obj.stars; $i++){
+                        string += '<i class="fa fa-star"></i></li>';
+                    }
+                    if(asem){ currency = "$ "+obj.rate; }else{ currency = obj.rate+" ₮";}
+                    if(obj.sold_out == 1){
+                        innerHtml ='<span class="btn btn-primary small-left sold" id="'+obj.id+'">Sold out</span>';
+                    }else{
+                        innerHtml ='<span class="btn btn-primary small-left" id="'+obj.id+'">Өрөө сонгох</span>';
+                    }
+                    $("#hotels").append('<li><a asem="0" class="booking-item" id="'+obj.id+'"><div class="row"><div class="col-md-3"><div class="booking-item-img-wrap"><img src="'+obj.cover+'" alt="Image Alternative text" title="LHOTEL PORTO BAY SAO PAULO suite lhotel living room" /><div class="booking-item-img-num"><i class="fa fa-picture-o"></i>29</div></div></div><div class="col-md-6"> <div class="flex"><div><h5 class="booking-item-title">'+obj.name+'</h5></div><div><div class="booking-item-rating mrg-left"><ul class="icon-group booking-item-rating-stars">'+string+'</ul></div></div></div><small class="booking-item-address"><i class="fa fa-map-marker"></i>'+ obj.address +'</small><br><br><small class="booking-item-address">'+obj.short_desc+'</small></div><div class="col-md-3"><span class="booking-item-price-from small-hidden" style="margin-bottom:8px">эхлэх үнэ</span><span class="booking-item-price">'+currency+'</span><span>/өдөр</span>'+innerHtml+'</div></div></a></li>');
+                });
+                initMap(results);
+                //alert(data);
+                checkSkip = true;
+                }
+                });
+            }
         }
     });
     </script>

@@ -8,7 +8,7 @@
 
     $query = new ParseQuery("hotel");
     
-    $sort = $_POST['data'];
+    $skip = $_POST['skip'];
 
     if ($_POST['filter1']!=null) {
         $datas = $_POST['filter1'];
@@ -34,28 +34,17 @@
     
     $query->equalTo("status",1);
 
-    if($sort=='starup'){
-        $query->descending("stars");
-    }
-    if($sort=='stardown'){
-        $query->ascending("stars");
-    }
-    if($sort=='priceup'){
-        $query->descending("min_rate");
-    }
-    if($sort=='pricedown'){
-        $query->ascending("min_rate");
-    }
+    $query->skip(intval($skip)*25);
+    $query->limit(25);
+
     $results = $query->find();
     $count = $query->count();
-    $_SESSION['sort'] =$sort;
     class Event {}
         $events = array();
    
     $checkArr = false;
 
     foreach ($results as $row) {
-
         $filterOthers = 0;
         $filterFood = 0;
         $filterTransport = 0;
