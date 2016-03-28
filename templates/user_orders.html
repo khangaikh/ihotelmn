@@ -401,14 +401,15 @@
     var f = false;
     $(document).ready(function() {
         if(!f){
-            $("tbody").after('<div id="tft"></div>');
+            $("tbody").after('<tr role="row" class="even"><td colspan="10" id="tft"></td><td></td></tr>');
             f=true;
         }
         
-        $('.col-md-3').hide();
+/*        $('.col-md-3').hide();
         $('.col-md-9').css('width','111%');
         $('.col-md-9').css('padding','0');
         $('.col-md-9').css('left','-60px');
+        */
         $('#example tfoot th').each( function () {
             var title = $(this).text();
             if(title!=''){
@@ -475,7 +476,7 @@
                 }, 0 );
  
             // Update footer
-            $("#tft").html(pageTotal);
+            $("#tft").html("<h5>Нийт дүн: $"+pageTotal+" </h5>");
         }
 
         } );

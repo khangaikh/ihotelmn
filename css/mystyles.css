@@ -327,3 +327,6 @@ button:after{
 	background:red;
 	border:none;
 }
+#tft{
+    text-align: right;
+}
