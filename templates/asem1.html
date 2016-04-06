@@ -324,10 +324,12 @@
                               </div>
                         </div>
                         <div class='col-md-2'>
-                              <div class='form-group'>
+                            <div class='form-group'>
+                                <div class="input-timerange">
                                     <label>Time of landing</label>
                                     <input class='form-control time' type='text' id='arrival_time' name='arrival_time' placeholder="13:00">
-                              </div>
+                                </div>
+                            </div>
                         </div>
                         <div class='col-md-2'>
                               <div class='form-group'>
@@ -379,6 +381,7 @@
                     email: $('#email').val(),
                     username: $('#firstName').val(),    
                     password: $('#password').val(),
+                    location: $('#location :selected').text(),
                     asem: 1,
                     type: {{type}},
                     g_recaptcha_response: $('#recaptcha').val()
@@ -435,6 +438,7 @@
             $(document).ready(function(){
                 $('.input-daterange input').datepicker({todayHighlight: true,});
                 $('.input-daterange input').datepicker({ dateFormat: 'dd-mm-yy'}).datepicker("setDate", new Date());
+                $('.input-timerange input').timepicker();
             });
         </script>
 {% endblock %}

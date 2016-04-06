@@ -24,12 +24,14 @@
             $email =  $_POST['email'];
             $pass = $_POST['password'];
             $username = $_POST['username'];
+            $country = $_POST['location'];
 
             $user = new ParseUser();
             $user->set("username", $email);
             $user->set("name", $username);
             $user->set("email", $email);
             $user->set("password", $pass);
+            $user->set("country", $country);
             $user->set("status", 0);
 
             if(isset($_POST['asem'])){

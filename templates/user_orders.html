@@ -47,7 +47,7 @@
             <td>{{order.end}}</td>
             <td>{{order.days}}</td>
             <td>{{order.total}}</td>
-            <td class="text-center">{%if order.status==-1%}Under bank control{% elseif order.status==-2%} Deleted {%else%}Confirmed{%endif%}</td>
+            <td class="text-center">{%if order.status==-1%}Under bank control{% elseif order.status==-2%} Deleted {%elseif order.status== 1%}Confirmed{%endif%}</td>
         </tr>
         {% endfor %}
         </tbody>
@@ -404,12 +404,7 @@
             $("tbody").after('<tr role="row" class="even"><td colspan="10" id="tft"></td><td></td></tr>');
             f=true;
         }
-        
-/*        $('.col-md-3').hide();
-        $('.col-md-9').css('width','111%');
-        $('.col-md-9').css('padding','0');
-        $('.col-md-9').css('left','-60px');
-        */
+
         $('#example tfoot th').each( function () {
             var title = $(this).text();
             if(title!=''){
@@ -425,6 +420,7 @@
         } );
         // DataTable
         $('#example').DataTable( {
+            "order": [[ 6, "desc" ]],
             initComplete: function () {
                 this.api().columns().every( function () {
                     var column = this;
