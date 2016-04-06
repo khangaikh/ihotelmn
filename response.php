@@ -68,7 +68,7 @@
                     $orders[$i]->save();
                 }
                 sendmail($user, $orders);
-                rs_api_create_res();
+                //                rs_api_create_res();
 
                 unset($_SESSION['orders']);
                 unset($_SESSION['start']);
@@ -151,88 +151,73 @@
         $query->equalTo("order_id",$_GET['trans_number']);
         $query->includeKey('hotel');
         $order = $query->find();
-        $content = '
-            <header style="padding: 10px 15px;background: #f7f7f7;">
-            <h5 style="font-size: 14px; margin-bottom: 0; float: right; margin-right: 80%;">
-            <a style="color: #03629a;text-decoration: none;"href="#">'.$order[0]->get('hotel')->get('name').'</a></h5>
-            <a style="booking-item-payment-img" href="#">
-            <img src="'.$order[0]->get('hotel')->get('cover_image').'" style="width:10%" alt="Image Alternative text" title="hotel 1" />
-            </a>
-            </header>
+        $content = '<div style="margin-right: 13%; margin-left: 13%; padding: 1%; border: 1px solid #d9d9d9;">
+            <header style="padding: 5px;background: #f7f7f7;"><a style="booking-item-payment-img" href="https://ihotel.mn/index.php?register">
+            <img src="https:ihotel.mn/'.$order[0]->get('hotel')->get('cover_image').'" style="width:15%" alt="Image Alternative text" title="hotel 1" />
+            </a></header><h2><a href="https://ihotel.mn/index.php?register"style="text-decoration: none; color:#5a6b77;">'
+            .$order[0]->get('hotel')->get('name').'</a></h2><p>Thank you for choosing us. Your order has confirmed</p>
             <ul style="list-style: none;margin: 0; padding: 15px; border-top: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9;">
-
-            <h5 style="margin: 0 0 12px; margin-bottom: 8px; font-size: 18.2px; font-weight: 300;line-height: 1em;
-        color: #565656;">Order number: '.$order[0]->getObjectId().'</h5>
-            <li style="margin-bottom: 20px;
-        overflow: hidden;
-        display: list-item;
-        list-style: none;
-        margin: 0;
-        padding: 15px;">
-            <h5 style="margin: 0 0 12px; margin-bottom: 8px;
-        font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Total days of stay: '.$order[0]->get('days').'</h5>
-            <div style="float: left;">
-            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.$order[0]->get('start').'</p>
-            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order[0]->get('start'))).'</p>
-            </div>
-            <div style="float: left; font-size: 50px;">&rarr;</div>
-            <div style="float: left;">
+            <h5 style="margin: 0 0 12px; margin-bottom: 8px; font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Order number: '
+            .$order[0]->getObjectId().'</h5><li style="margin-bottom: 20px;overflow: hidden;display: list-item;list-style: none;margin: 0;padding: 15px;">
+            <h5 style="margin: 0 0 12px; margin-bottom: 8px;font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Total days of stay: '
+            .$order[0]->get('days').'</h5><div style="float: left;"><p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'
+            .$order[0]->get('start').'</p><p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'
+            .date('l', strtotime($order[0]->get('start'))).'</p></div><div style="float: left; font-size: 50px;">&rarr;</div><div style="float: left;">
             <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.$order[0]->get('end').'</p>
-            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order[0]->get('end'))).'</p>
-            </div>
-            </li>
-            ';
-        for ($i = 0; $i < count($order); $i++) {
-            $content .='
-                <ul style="list-style: none;margin: 0; padding: 15px; border-top: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9;">
-                <li style="margin-bottom: 20px;
-            overflow: hidden;
-            display: list-item;
-            list-style: none;
-            margin: 0;
-            padding: 15px;">
+            <p style="margin-bottom: 5px; line-height: 1em; color: #686868;">'.date('l', strtotime($order[0]->get('end'))).'</p></div></li>';
 
+        for ($i = 0; $i < count($order); $i++) {
+            if ($order[$i]->get('pickup') == "vip") {
+                $pickup = "Vip";
+                $pickupcur = "$150";
+            }
+            elseif($order[$i]->get('pickup') == "budget"){
+                $pickup = "Budget";
+                $pickupcur = "$25";
+            }
+            elseif($order[$i]->get('pickup') == "empty"){
+                $pickup = "";
+                $pickupcur = "";
+            }
+            $content .='<ul style="list-style: none;margin: 0; padding: 15px; border-top: 1px solid #d9d9d9; border-bottom: 1px solid #d9d9d9;">
+                <li style="margin-bottom: 20px;overflow: hidden;display: list-item;list-style: none;margin: 0;padding: 15px;">
                 <h5 style="margin: 0 0 12px; font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Room</h5>
-                <ul style="margin: 0; padding: 0; list-style: none;">
-                <li style="width: 78%; overflow: hidden;
-            font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;">
-                <p style="float: left; margin: 5px;">'.$order[$i]->get('days').' Nights</p>
-                <p style="float: right; line-height: 0;">$'.$order[$i]->get('total').'<small>/per day</small>
-                </p>
-                </li>
-                <li style="width: 78%; overflow: hidden;
-            font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;">
-                <p style="float: left; margin: 5px;">Taxes</p>
-                <p style="float: right; line-height: 0;">(incluled)<small>/per day</small>
-                </p>
-                </li>
-                </ul>
-                </li>
-                </ul>
-                </div>
-                ';
+                <ul style="margin: 0; padding: 0; list-style: none;"><li style="width: 78%; overflow: hidden;
+            font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;"><p style="float: left; margin: 5px;">'.$order[$i]->get('days').' Nights</p>
+                <p style="float: right; line-height: 0;">$'.$order[$i]->get('total').'<small>/per day</small></p></li><li style="width:78%; overflow: hidden;
+            font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;"><p style="float: left; margin: 5px;">Taxes</p>
+                <p style="float: right; line-height: 0;">(incluled)<small>/per day</small></p></li></ul><br />
+                <h5 style="margin: 0 0 12px; font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Pickup</h5>
+                <ul style="margin: 0; padding: 0; list-style: none;"><li style="width: 78%; overflow: hidden;
+            font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;"><p style="float: left; margin: 5px;">'.$pickup.
+                '</p><p style="float: right; line-height: 0;">'.$pickupcur.'<small></small></p></li></ul></li></ul>';
+
             $total +=intval($order[$i]->get('total'));
         }
         $content .= '<p style="margin: 0 0 0; padding: 8px 30px 8px 15px; font-size: 12px;">
             Total amount: <span style="font-size: 24px; color: #686868; font-weight: 400;letter-spacing: -2px;">US$ '
             .$total*intval($order[0]->get('days')).'</span></p>';
 
+        $content .= '<br/><div style="padding:10px 15px;background:#f7f7f7"><p style="margin: 0 0 0; padding: 8px 30px 8px 15px; font-size: 12px;">
+            Please contact us +976-88021087</p></div></div>';
+
         require 'lib/Mailer/PHPMailerAutoload.php';
         $body = $content;
         date_default_timezone_set('Etc/UTC');
         $mail = new PHPMailer;
         $mail->isSMTP();
-        //$mail->SMTPDebug = 2;
+        //        $mail->SMTPDebug = 2;
         $mail->Debugoutput = 'html';
-        $mail->Host = 'smtp.gmail.com';
-        $mail->Port = 587;
-        $mail->SMTPSecure = 'tsl';
+        $mail->Host = 'us2.smtp.mailhostbox.com';
+        //        $mail->Host = 'smtp.ihotel.mn';
+        $mail->Port = 25;
+        $mail->SMTPSecure = '';
         $mail->SMTPAuth = true;
-        $mail->Username = "ihotelmn@gmail.com";
-        $mail->Password = "99095102";
-        $mail->setFrom('ihotelmn@gmail.com', 'iHotel.mn');
-        $mail->addAddress($user->getEmail(), 'Customer');
-        $mail->Subject = 'iHotel order email!';
+        $mail->Username = "sales@ihotel.mn";
+        $mail->Password = "UWALWpaz8";
+        $mail->setFrom('sales@ihotel.mn', 'iHotel.mn');
+        $mail->addAddress('soninod@gmail.com', 'Customer');
+        $mail->Subject = 'Order confirm';
         $mail->msgHTML($body);
         $mail->AltBody = '';
         if (!$mail->send()) {
