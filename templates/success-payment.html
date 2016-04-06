@@ -28,40 +28,78 @@ function post(path, params, method) {
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            {% if mtype == 1 %}
-            <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>	
-            <h2 class="text-center">{{user.username}}, таны гүйлгээ амжилттай!</h2>
-            <h5 class="text-center mb30">Booking details has been send to {{user.email}}</h5>
-            <ul class="order-payment-list list mb30">
-            </ul>
-            <h4 class="text-center">Таньд зөвлөх</h4>
-            <ul class="list list-inline list-center">
-                <li><a class="btn btn-primary" href="index.php"><i class="fa fa-building-o"></i>Захиалга</a>
-                </li>
-                <li><a class="btn btn-primary" href="index.php?card"><i class="fa fa-home"></i> Картууд</a>
-                </li>
-                <li><a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Cars</a>
-                </li>
-                <li><a class="btn btn-primary" href="index.php?city=Ulaanbaatar"><i class="fa fa-bolt"></i> Буудлууд</a>
-                </li>
-            </ul>
-            {% else %}
-            <i class="fa fa-close round box-icon-large box-icon-center box-icon-danger mb30"></i>	
-            <h2 class="text-center">{{user.username}}, таны гүйлгээ амжилтгүй!</h2>
-            <ul class="order-payment-list list mb30">
-                <li>{{message}}</li>
-            </ul>
-            <h4 class="text-center">Таньд зөвлөх</h4>
-            <ul class="list list-inline list-center">
-                <li><a class="btn btn-primary" href="index.php"><i class="fa fa-check"></i>Захиалга</a>
-                </li>
-                <li><a class="btn btn-primary" href="index.php?card"><i class="fa fa-credit-card"></i> Картууд</a>
-                </li>
-                <li><a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Cars</a>
-                </li>
-                <li><a class="btn btn-primary" href="index.php?city=Ulaanbaatar"><i class="fa fa-hotel"></i> Буудлууд</a>
-                </li>
-            </ul>
+            {% if user.asem == 1 %}
+                {% if mtype == 1 %}
+                <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>	
+                <h2 class="text-center">{{user.username}}, your payment successfull!</h2>
+                <h5 class="text-center mb30">Booking details has been send to {{user.email}}</h5>
+                <ul class="order-payment-list list mb30">
+                </ul>
+                <h4 class="text-center">Advice</h4>
+                <ul class="list list-inline list-center">
+                    <li><a class="btn btn-primary" href="index.php"><i class="fa fa-check"></i>Order</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="index.php?card"><i class="fa fa-credit-card"></i> Card</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Cars</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="index.php?city=Ulaanbaatar"><i class="fa fa-hotel"></i> Hotels</a>
+                    </li>
+                </ul>
+                {% else %}
+                <i class="fa fa-close round box-icon-large box-icon-center box-icon-danger mb30"></i>	
+                <h2 class="text-center">{{user.username}}, your payment unsuccessfull!</h2>
+                <ul class="order-payment-list list mb30">
+                    <li style="text-align: center">{{message}}</li>
+                </ul>
+                <h4 class="text-center">Advise</h4>
+                <ul class="list list-inline list-center">
+                    <li><a class="btn btn-primary" href="index.php"><i class="fa fa-check"></i>Order</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="index.php?card"><i class="fa fa-credit-card"></i> Card</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Cars</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="index.php?city=Ulaanbaatar"><i class="fa fa-hotel"></i> Hotels</a>
+                    </li>
+                </ul>
+                {% endif %}
+                {% else %}
+                {% if mtype == 1 %}
+                <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>	
+                <h2 class="text-center">{{user.username}}, таны гүйлгээ амжилттай!</h2>
+                <h5 class="text-center mb30">Booking details has been send to {{user.email}}</h5>
+                <ul class="order-payment-list list mb30">
+                </ul>
+                <h4 class="text-center">Таньд зөвлөх</h4>
+                <ul class="list list-inline list-center">
+                    <li><a class="btn btn-primary" href="index.php"><i class="fa fa-building-o"></i>Захиалга</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="index.php?card"><i class="fa fa-home"></i> Картууд</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Cars</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="index.php?city=Ulaanbaatar"><i class="fa fa-bolt"></i> Буудлууд</a>
+                    </li>
+                </ul>
+                {% else %}
+                <i class="fa fa-close round box-icon-large box-icon-center box-icon-danger mb30"></i>	
+                <h2 class="text-center">{{user.username}}, таны гүйлгээ амжилтгүй!</h2>
+                <ul class="order-payment-list list mb30">
+                    <li style="text-align: center">{{message}}</li>
+                </ul>
+                <h4 class="text-center">Таньд зөвлөх</h4>
+                <ul class="list list-inline list-center">
+                    <li><a class="btn btn-primary" href="index.php"><i class="fa fa-check"></i>Захиалга</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="index.php?card"><i class="fa fa-credit-card"></i> Картууд</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="#"><i class="fa fa-dashboard"></i> Cars</a>
+                    </li>
+                    <li><a class="btn btn-primary" href="index.php?city=Ulaanbaatar"><i class="fa fa-hotel"></i> Буудлууд</a>
+                    </li>
+                </ul>
+                {% endif %}
             {% endif %}
         </div>
     </div>

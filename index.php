@@ -166,7 +166,7 @@
             $query->includeKey("hotel");
             $orders = $query->find();
 
-            echo $template->render(array('title' => 'Захиалагууд', 'orders'=>$orders, 'user' => $user, 'nav' => 9));
+            echo $template->render(array('title' => 'Захиалагууд', 'orders'=>$orders, 'user' => $user, 'nav' => 3));
         }
         else if(isset($_GET['faq_admin'])){
             $template = $twig->loadTemplate('user_faq.html');

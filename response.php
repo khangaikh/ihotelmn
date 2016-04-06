@@ -8,13 +8,16 @@
     use Parse\ParseUser;
 
     session_start();
+
     Twig_Autoloader::register();
     $loader = new Twig_Loader_Filesystem('templates');
     $twig = new Twig_Environment($loader, array(
         'cache' => 'cache',
     ));
+
     $twig->setCache(false);
     $total = 0;
+
     if(isset($_GET)){
         $query = new ParseQuery("orders");
         $query->equalTo("objectId",$_GET['trans_number']);
@@ -81,44 +84,61 @@
                 $query->includeKey('hotel');
                 $orders = $query->find();
 
-                echo $template->render(array('title' => 'iHotel', 'user' => $user,
-                    'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
+                if ($user->get('asem') == 0) {
+                    echo $template->render(array('title' => 'iHotel', 'user' => $user,
+                        'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
+                }
+                else{
+                    echo $template->render(array('title' => 'iHotel', 'user' => $user,
+                        'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Approved, balances available', 'mtype'=> 1)); 
+                }
             }
             elseif($_GET["success"] == 1)
             {
                 $log_msg = "";
                 if ($_GET["error_code"]==202) {
                     $log_msg = "И код буруу байна.";
+                    $log_msg_en = "Pin code incorrect .";
                 }
                 if ($_GET["error_code"]=='203') {
                     $log_msg = "Карт гаргагч банкнаас гүйлгээг цуцалсан.";
+                    $log_msg_en = "Administrative transactions not supported.";
                 }
                 if ($_GET["error_code"]=='300-05') {
                     $log_msg = "Гүйлгээ хийх эрхгүй карт";
+                    $log_msg_en = "Card not supported";
                 }
                 if ($_GET["error_code"]=='300-12') {
                     $log_msg = "Картын мэдээлэл буруу";
+                    $log_msg_en = "Invalid card";
                 }
                 if ($_GET["error_code"]=='300-14') {
                     $log_msg = "Ийм карт байхгүй байна.";
+                    $log_msg_en = "Lost or stolen card";
                 }
                 if ($_GET["error_code"]=='300-51') {
                     $log_msg = "Үлдэгдэл хүрэлцэхгүй байна.";
+                    $log_msg_en = "Invalid advance amount";
                 }
                 if ($_GET["error_code"]=='300-54') {
                     $log_msg = "Картын хугаа дууссан/Буруу оруулсан";
+                    $log_msg_en = "Expired card";
                 }
                 if ($_GET["error_code"]=='300-58') {
                     $log_msg = "Зөвшөөрөгдөөгүй гүйлгээ байна.";
+                    $log_msg_en = "Зөвшөөрөгдөөгүй гүйлгээ байна.";
                 }
                 if ($responseCode == 2) {
                     $log_msg.="Гүйлгээ амжилтгүй болсон байна.";
+                    $log_msg_en.="Approved, no balances available";
                 }
                 if ($responseCode == 0) {
                     $log_msg.="Ийм дугаар болон гүйлгээний дүнтэй гүйлгээ баазад бүртгээгүй байна.";
+                    $log_msg_en.="Approved, no balances available";
                 }
                 if ($responseCode == 3) {
                     $log_msg.="Hereglegchiin ner esvel nuuts ug buruu baina";
+                    $log_msg_en.="Incorrect username or password";
                 }
                 $log_msg .= $_GET['error_desc'];
 
@@ -140,8 +160,15 @@
                 $query->equalTo("user",$user);
                 $query->includeKey('hotel');
                 $orders = $query->find();
-                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
-                    'result'=>1, 'message'=> $log_msg, 'mtype'=> 0)); 
+
+                if ("".$user->get('asem') == "1") {
+                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
+                        'result'=>1, 'message'=> $log_msg_en, 'mtype'=> 0)); 
+                }
+                else{
+                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
+                        'result'=>1, 'message'=> $log_msg, 'mtype'=> 0)); 
+                }
             }
         }
     }
