@@ -216,7 +216,7 @@
         $mail->Username = "sales@ihotel.mn";
         $mail->Password = "UWALWpaz8";
         $mail->setFrom('sales@ihotel.mn', 'iHotel.mn');
-        $mail->addAddress('soninod@gmail.com', 'Customer');
+        $mail->addAddress($user->get('email'), 'Customer');
         $mail->Subject = 'Order confirm';
         $mail->msgHTML($body);
         $mail->AltBody = '';
