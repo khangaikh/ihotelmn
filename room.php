@@ -32,6 +32,7 @@
         $arr = $room->get('images');
         $i = $_POST['order'];
         unset($arr[$i]);
+        $arr = array_values($arr);
         $room->setArray('images',$arr);
 
         try {
