@@ -898,6 +898,54 @@
             $template = $twig->loadTemplate('asem-faq.html');
             echo $template->render(array('title' => 'FAQ', 'nav' => 3, 'faqs'=>$faqs));
         }
+        else if(isset($_GET['asem_acc'])){
+
+            if(isset($_GET['email']) && isset($_GET['key']) && isset($_GET['name'])){
+                
+                $iv = "ihotelmnasem2016";
+                $pass = 'ihotelMongolia123$';
+                $method = 'aes-128-cbc';
+
+                $key = $_GET['key'];
+                $name = $_GET['name'];
+
+                $decrypted = openssl_decrypt (hexToStr($key), $method , $pass, true , $iv);
+
+                if($decrypted == $name){
+
+                   $ipaddress = '';
+
+                    if (isset($_SERVER['HTTP_CLIENT_IP']))
+                        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+                    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+                        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+                        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+                    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+                        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+                    else if(isset($_SERVER['HTTP_FORWARDED']))
+                        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+                    else if(isset($_SERVER['REMOTE_ADDR']))
+                        $ipaddress = $_SERVER['REMOTE_ADDR'];
+                    else
+                        $ipaddress = 'UNKNOWN';
+
+                        echo $ipaddress;
+
+                }else{
+                    echo "Error: Mismatch";
+                    $template = $twig->loadTemplate('asem_register.html');
+                    //render a template
+                    echo $template->render(array('title' => 'Asem Login'));
+                }
+
+            }else{
+                echo "Error: 02, Insufficient data";
+                $template = $twig->loadTemplate('asem_register.html');
+                //render a template
+                echo $template->render(array('title' => 'Asem Login'));
+            }
+        }
         else 
             if(isset($_GET['payment'])){
                 if(isset($_SESSION['orders'])){
