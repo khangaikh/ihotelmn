@@ -932,22 +932,21 @@
 
                     if($ipaddress=="93.42.66.116" || $ipaddress=="95.211.159.172" ){
                         echo "Success";
+                        $template = $twig->loadTemplate('asem_register.html');
+                        //render a template
+                        echo $template->render(array('title' => 'Asem Login'));
                     }else{
                         echo "Error 04: Restricted IP";
                     }
 
                 }else{
                     echo "Error 03: Mismatch";
-                    $template = $twig->loadTemplate('asem_register.html');
-                    //render a template
-                    echo $template->render(array('title' => 'Asem Login'));
+                   
                 }
 
             }else{
                 echo "Error: 02, Insufficient data";
-                $template = $twig->loadTemplate('asem_register.html');
-                //render a template
-                echo $template->render(array('title' => 'Asem Login'));
+                
             }
         }
         else 
