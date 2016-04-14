@@ -18,7 +18,7 @@
 
     $encrypted = openssl_encrypt ($source, $method, $pass, true, $iv);
 
-    echo (string)$encrypted;
+    echo strtohex($encrypted);
     echo "<br />";
 
     $decrypted = openssl_decrypt ($encrypted, $method , $pass, true , $iv);
