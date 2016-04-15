@@ -902,8 +902,12 @@
 
             if(isset($_GET['email']) && isset($_GET['key']) && isset($_GET['name'])){
                 
+                $query = new ParseQuery("general");
+                $query->equalTo("objectId","hLnoaR9C1J");
+                $general = $query->first();
+
                 $iv = "ihotelmnasem2016";
-                $pass = 'ihotelMongolia123$';
+                $pass = (string)$general->get('openssl_pass');
                 $method = 'aes-128-cbc';
 
                 $key = $_GET['key'];
@@ -930,8 +934,48 @@
                     else
                         $ipaddress = 'UNKNOWN';
 
-                    if($ipaddress=="93.42.66.116" || $ipaddress=="95.211.159.172" ){
+                    if($ipaddress=="93.42.66.116" || $ipaddress=="95.211.159.172" || $ipaddress=="::1" ){
                         echo "Success";
+
+                        $query = new ParseQuery("_User");
+                        $query->equalTo("username",$_GET['email']);
+                        $exists = $query->count();
+
+                        if($exists>0){
+                            $user = ParseUser::logIn($_GET['email'], "ihotel123$");
+                            $_SESSION['user'] = $user;
+                            $user->save();
+                            echo "OK";
+                            return;
+                        }else{
+                            // singup user
+                            $email =  $_GET['email'];
+                            $pass = "ihotel123$";
+                            $username = $_GET['email'];
+                            $country = $_GET['country'];
+
+                            $user = new ParseUser();
+                            $user->set("username", $email);
+                            $user->set("name", $username);
+                            $user->set("email", $email);
+                            $user->set("password", $pass);
+                            $user->set("country", $country);
+                            $user->set("emailVerified", true);
+                            $user->set("status", 1);
+                            $user->set("asem", 1);
+                            $user->set("role", 1);
+                            $user->set("meeting_type", intval($_GET['meeting_type']));
+                            
+                            try {
+                                $user->signUp();
+                                echo $user->getObjectId();
+                            } catch (ParseException $ex) {
+                                echo $ex->getCode();
+                            }
+                        }
+
+                        
+                        return;
                         $template = $twig->loadTemplate('asem_register.html');
                         //render a template
                         echo $template->render(array('title' => 'Asem Login'));

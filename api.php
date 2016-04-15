@@ -1,5 +1,6 @@
 <?php
     require_once "config.php";
+    use Parse\ParseQuery;
     
     session_start();
 
@@ -10,10 +11,14 @@
         return($s);
     }
 
-    $source = 'Khangai';
+    $query = new ParseQuery("general");
+    $query->equalTo("objectId","hLnoaR9C1J");
+    $general = $query->first();
+
+    $source = 'Alchemist';
 
     $iv = "ihotelmnasem2016";
-    $pass = 'ihotelMongolia123$';
+    $pass = $general->get("openssl_pass");
     $method = 'aes-128-cbc';
 
     $encrypted = openssl_encrypt ($source, $method, $pass, true, $iv);
