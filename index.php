@@ -902,6 +902,18 @@
 
             if(isset($_GET['email']) && isset($_GET['key']) && isset($_GET['name'])){
                 
+                $email = $_GET['email'];
+
+                if($email == ""){
+                    echo "Error 05: Email is required";
+                    return;
+                }
+                if (strpos($email, '@') == FALSE)
+                {
+                    echo "Error 06: Email is not recognized";
+                    return;
+                }
+
                 $query = new ParseQuery("general");
                 $query->equalTo("objectId","hLnoaR9C1J");
                 $general = $query->first();
@@ -944,23 +956,57 @@
                         if($exists>0){
                             $user = ParseUser::logIn($_GET['email'], "ihotel123$");
                             $_SESSION['user'] = $user;
-                            $user->save();
-                            echo "OK";
-                            return;
+                            $template = $twig->loadTemplate('user_dashboard.html');
+                            $query = new ParseQuery("orders");
+                            $query->descending("createdAt");
+                            $query->equalTo("user",$user);
+                            $query->notEqualTo("status",0);
+                            $query->includeKey('hotel');
+                            $old_orders = $query->find();
+
+                            if(isset($_SESSION['orders'])){
+                                $start = $_SESSION['start'];
+                                $end = $_SESSION['end'];
+                                $days = $_SESSION['days'];
+                                $hotel = $_SESSION['hotel'];
+                                $day_start = date('l', strtotime( $start));
+                                $day_end = date('l', strtotime( $end));
+                                $orders = $_SESSION['orders'];
+                                class Event {}
+                                    $rooms = array();
+                                $total = 0;
+                                for ($i = 0; $i < count($orders); ++$i){
+                                    $e = new Event();
+                                    $order_id = $orders[$i];
+                                    $query = new ParseQuery("orders");
+                                    $query->equalTo("objectId",$order_id);
+                                    $query->includeKey("room");
+                                    $order = $query->first();
+                                    $room = $order->get('room');
+                                    $e->name = $room->get('room_type');
+                                    $e->qty = $order->get('qty');
+                                    $e->sub = $order->get('total');
+                                    $total = $total + (int)$order->get('total');
+                                    array_push($rooms,$e);
+                                }
+                                $total= $total * $days;
+                                //render a template
+                                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
+                            }else{
+                                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
+                            }
                         }else{
                             // singup user
                             $email =  $_GET['email'];
                             $pass = "ihotel123$";
-                            $username = $_GET['email'];
                             $country = $_GET['country'];
 
                             $user = new ParseUser();
                             $user->set("username", $email);
-                            $user->set("name", $username);
+                            $user->set("name", $name);
                             $user->set("email", $email);
                             $user->set("password", $pass);
                             $user->set("country", $country);
-                            $user->set("emailVerified", true);
                             $user->set("status", 1);
                             $user->set("asem", 1);
                             $user->set("role", 1);
@@ -968,7 +1014,46 @@
                             
                             try {
                                 $user->signUp();
-                                echo $user->getObjectId();
+                                $_SESSION['user'] = $user;
+                                $template = $twig->loadTemplate('user_dashboard.html');
+                                $query = new ParseQuery("orders");
+                                $query->descending("createdAt");
+                                $query->equalTo("user",$user);
+                                $query->notEqualTo("status",0);
+                                $query->includeKey('hotel');
+                                $old_orders = $query->find();
+
+                                if(isset($_SESSION['orders'])){
+                                    $start = $_SESSION['start'];
+                                    $end = $_SESSION['end'];
+                                    $days = $_SESSION['days'];
+                                    $hotel = $_SESSION['hotel'];
+                                    $day_start = date('l', strtotime( $start));
+                                    $day_end = date('l', strtotime( $end));
+                                    $orders = $_SESSION['orders'];
+                                    class Event {}
+                                        $rooms = array();
+                                    $total = 0;
+                                    for ($i = 0; $i < count($orders); ++$i){
+                                        $e = new Event();
+                                        $order_id = $orders[$i];
+                                        $query = new ParseQuery("orders");
+                                        $query->equalTo("objectId",$order_id);
+                                        $query->includeKey("room");
+                                        $order = $query->first();
+                                        $room = $order->get('room');
+                                        $e->name = $room->get('room_type');
+                                        $e->qty = $order->get('qty');
+                                        $e->sub = $order->get('total');
+                                        $total = $total + (int)$order->get('total');
+                                        array_push($rooms,$e);
+                                    }
+                                    $total= $total * $days;
+                                    //render a template
+                                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
+                                }else{
+                                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
+                                }
                             } catch (ParseException $ex) {
                                 echo $ex->getCode();
                             }
@@ -982,7 +1067,6 @@
                     }else{
                         echo "Error 04: Restricted IP";
                     }
-
                 }else{
                     echo "Error 03: Mismatch";
                    
