@@ -932,7 +932,7 @@
                     $ipaddress = '';
 
 
-                    /*if (isset($_SERVER['HTTP_CLIENT_IP'])){
+                    if (isset($_SERVER['HTTP_CLIENT_IP'])){
                         $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
                         echo $ipaddress;
                     }
@@ -951,23 +951,77 @@
                     if(isset($_SERVER['HTTP_FORWARDED'])){
                         $ipaddress = $_SERVER['HTTP_FORWARDED'];
                         echo $ipaddress;
-                    }*/
+                    }
                     if(isset($_SERVER['REMOTE_ADDR'])){
                         $ipaddress = $_SERVER['REMOTE_ADDR'];
                         echo $ipaddress;
                     }
             
-                    echo "<br />";
-                    echo "Error 07: Under constuction";
-                    return;
-                    if($ipaddress=="93.42.66.116" || $ipaddress=="95.211.159.172" || $ipaddress=="::1" || $ipaddress =="192.241.253.70"){
-                        
-                        $query = new ParseQuery("_User");
-                        $query->equalTo("username",$_GET['email']);
-                        $exists = $query->count();
+                    $query = new ParseQuery("_User");
+                    $query->equalTo("username",$_GET['email']);
+                    $exists = $query->count();
 
-                        if($exists>0){
-                            $user = ParseUser::logIn($_GET['email'], "ihotel123$");
+                    if($exists>0){
+                        $user = ParseUser::logIn($_GET['email'], "ihotel123$");
+                        $_SESSION['user'] = $user;
+                        $template = $twig->loadTemplate('user_dashboard.html');
+                        $query = new ParseQuery("orders");
+                        $query->descending("createdAt");
+                        $query->equalTo("user",$user);
+                        $query->notEqualTo("status",0);
+                        $query->includeKey('hotel');
+                        $old_orders = $query->find();
+
+                        if(isset($_SESSION['orders'])){
+                            $start = $_SESSION['start'];
+                            $end = $_SESSION['end'];
+                            $days = $_SESSION['days'];
+                            $hotel = $_SESSION['hotel'];
+                            $day_start = date('l', strtotime( $start));
+                            $day_end = date('l', strtotime( $end));
+                            $orders = $_SESSION['orders'];
+                            class Event {}
+                                $rooms = array();
+                            $total = 0;
+                            for ($i = 0; $i < count($orders); ++$i){
+                                $e = new Event();
+                                $order_id = $orders[$i];
+                                $query = new ParseQuery("orders");
+                                $query->equalTo("objectId",$order_id);
+                                $query->includeKey("room");
+                                $order = $query->first();
+                                $room = $order->get('room');
+                                $e->name = $room->get('room_type');
+                                $e->qty = $order->get('qty');
+                                $e->sub = $order->get('total');
+                                $total = $total + (int)$order->get('total');
+                                array_push($rooms,$e);
+                            }
+                            $total= $total * $days;
+                            //render a template
+                            echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
+                        }else{
+                            echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
+                        }
+                    }else{
+                        // singup user
+                        $email =  $_GET['email'];
+                        $pass = "ihotel123$";
+                        $country = $_GET['country'];
+
+                        $user = new ParseUser();
+                        $user->set("username", $email);
+                        $user->set("name", $name);
+                        $user->set("email", $email);
+                        $user->set("password", $pass);
+                        $user->set("country", $country);
+                        $user->set("status", 1);
+                        $user->set("asem", 1);
+                        $user->set("role", 1);
+                        $user->set("meeting_type", intval($_GET['meeting_type']));
+                        
+                        try {
+                            $user->signUp();
                             $_SESSION['user'] = $user;
                             $template = $twig->loadTemplate('user_dashboard.html');
                             $query = new ParseQuery("orders");
@@ -1008,83 +1062,15 @@
                             }else{
                                 echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
                             }
-                        }else{
-                            // singup user
-                            $email =  $_GET['email'];
-                            $pass = "ihotel123$";
-                            $country = $_GET['country'];
-
-                            $user = new ParseUser();
-                            $user->set("username", $email);
-                            $user->set("name", $name);
-                            $user->set("email", $email);
-                            $user->set("password", $pass);
-                            $user->set("country", $country);
-                            $user->set("status", 1);
-                            $user->set("asem", 1);
-                            $user->set("role", 1);
-                            $user->set("meeting_type", intval($_GET['meeting_type']));
-                            
-                            try {
-                                $user->signUp();
-                                $_SESSION['user'] = $user;
-                                $template = $twig->loadTemplate('user_dashboard.html');
-                                $query = new ParseQuery("orders");
-                                $query->descending("createdAt");
-                                $query->equalTo("user",$user);
-                                $query->notEqualTo("status",0);
-                                $query->includeKey('hotel');
-                                $old_orders = $query->find();
-
-                                if(isset($_SESSION['orders'])){
-                                    $start = $_SESSION['start'];
-                                    $end = $_SESSION['end'];
-                                    $days = $_SESSION['days'];
-                                    $hotel = $_SESSION['hotel'];
-                                    $day_start = date('l', strtotime( $start));
-                                    $day_end = date('l', strtotime( $end));
-                                    $orders = $_SESSION['orders'];
-                                    class Event {}
-                                        $rooms = array();
-                                    $total = 0;
-                                    for ($i = 0; $i < count($orders); ++$i){
-                                        $e = new Event();
-                                        $order_id = $orders[$i];
-                                        $query = new ParseQuery("orders");
-                                        $query->equalTo("objectId",$order_id);
-                                        $query->includeKey("room");
-                                        $order = $query->first();
-                                        $room = $order->get('room');
-                                        $e->name = $room->get('room_type');
-                                        $e->qty = $order->get('qty');
-                                        $e->sub = $order->get('total');
-                                        $total = $total + (int)$order->get('total');
-                                        array_push($rooms,$e);
-                                    }
-                                    $total= $total * $days;
-                                    //render a template
-                                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
-                                }else{
-                                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
-                                }
-                            } catch (ParseException $ex) {
-                                echo $ex->getCode();
-                            }
+                        } catch (ParseException $ex) {
+                            echo $ex->getCode();
+                            return;
                         }
-
-                        
-                        return;
-                        $template = $twig->loadTemplate('asem_register.html');
-                        //render a template
-                        echo $template->render(array('title' => 'Asem Login'));
-                    }else{
-                        echo "Error 04: Restricted IP";
                     }
-                }else{
-                    echo "Error 03: Mismatch";
-                   
-                }
 
+                }else{
+                    echo "Error 03: Mismatch"; 
+                }
             }else{
                 echo "Error: 02, Insufficient data";
                 
