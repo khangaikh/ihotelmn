@@ -16,7 +16,7 @@
                         <div class="form-group col-sm-4 col-xs-4">
                             <label for="room_details_roomtype_id">Room type</label>
                             <select class="form-control" name="room_details_roomtype_id" id="room_details_roomtype_id" required>
-                                <option value="" data-roomtype-label="Room type" data-roomnumber-label="Number of rooms (of this type)">Please select</option>
+                                <option value="0" data-roomtype-label="Room type" data-roomnumber-label="Number of rooms (of this type)">Please select</option>
                                 <option value="Single Room" data-roomtype-label="Room type" data-roomname-label="Room name" data-roomnumber-label="Number of rooms (of this type)">Single Room</option>
                                 <option value="Double Room" data-roomtype-label="Room type" data-roomname-label="Room name" data-roomnumber-label="Number of rooms (of this type)">Double Room</option>
                                 <option value="Twin" data-roomtype-label="Room type" data-roomname-label="Room name" data-roomnumber-label="Number of rooms (of this type)">Twin</option>
@@ -49,15 +49,21 @@
                             <span class="help-block"></span>
                         </div>
                         <div class="form-group col-sm-4 ">
+                            <label for="room_details_roomtype_custom">Other type</label>
+                            <input type="text" id="room_details_roomtype_custom" name="room_details_roomtype_custom" value="" class="form-control" placeholder="Deluxe Room">
+                            <span class="help-block"></span> 
+                        </div>
+                        <div class="form-group col-sm-2 ">
                             <label for="room_details_roomtype_id">Number of this type room</label>
                             <input type="text" id="room_details_room_number" name="room_details_room_number" value="" class="form-control" data-parsley-type="number" required="" placeholder="15" />
                             <span class="help-block"></span> 
                         </div>
-                        <div class="form-group col-sm-3 ">
+                        <div class="form-group col-sm-2 ">
                             <label for="room_details_roomtype_id">Room size</label>
-                            <input type="text" id="room_details_room_size" name="room_details_room_size" value="" class="form-control" data-parsley-type="number" required="" placeholder="45m2">
+                            <input type="text" id="room_details_room_size" name="room_details_room_size" value="" class="form-control" data-parsley-type="number" required="" placeholder="45">
                             <span class="help-block"></span> 
                         </div>
+                         
                     </div>
                 </div>
             </fieldset>
@@ -298,12 +304,17 @@
                             </select>
                             <span class="help-block"></span>
                         </div>
-                        <div class="form-group col-sm-4 ">
+                         <div class="form-group col-sm-4 ">
+                            <label for="room_details_roomtype_custom">Other type</label>
+                            <input type="text" id="room_details_roomtype_custom" name="room_details_roomtype_custom"  class="form-control" placeholder="Deluxe Room">
+                            <span class="help-block"></span> 
+                        </div>
+                        <div class="form-group col-sm-2 ">
                             <label for="room_detail_edit_roomtype_id">Number of this type room</label>
                             <input type="text" id="room_details_room_number" name="room_details_room_number" value="{{hotel.num_rooms}}" class="form-control" data-parsley-type="number" required="" placeholder="15" />
                             <span class="help-block"></span> 
                         </div>
-                        <div class="form-group col-sm-3 ">
+                        <div class="form-group col-sm-2 ">
                             <label for="room_detail_edit_roomtype_id">Room size</label>
                             <input id="room_detail_edit_room_size" name="room_detail_edit_room_size" type="text" class="form-control" data-parsley-type="number" required="" />
                             <span class="help-block"></span> 
@@ -4804,6 +4815,7 @@
             var room = $.parseJSON( data );
             $("#edit_room_id").val(room['id']);
             $("#room_detail_edit_roomtype_id").val(room['type']);
+            $("#room_detail_edit_roomtype_custom").val(room['type']);
             $("#room_detail_edit_room_number").val(room['num_rooms']);
             $("#room_detail_edit_room_size").val(room['size']);
             $("#room_detail_edit_room_desc").text(room['desc']);
@@ -5215,7 +5227,6 @@
                     }
                 });
             }
-
         });
         $('a[name="activate_hotel_btn"]').click(function(){ 
             if (confirm('Are you sure ?')) {

@@ -74,7 +74,11 @@
     if($_POST['section']==3){
         $room = new ParseObject("rooms");
         $room->set("hotel",$hotel);
-        $room->set("room_type",$data['room_details_roomtype_id']);
+        if($data['room_details_roomtype_id']=="0" || $data['room_details_roomtype_id']==0){
+            $room->set("room_type",$data['room_details_roomtype_custom']);
+        }else{
+           $room->set("room_type",$data['room_details_roomtype_id']); 
+        }
         $room->set("short_desc", $data['room_details_room_decs']);
         $room->set("num_beds", (int)$data['room_details_bed_number_SINGLE_1']);
         $room->set("adult_occupancy", (int)$data['room_details_num_guests']);
