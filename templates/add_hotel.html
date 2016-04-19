@@ -15,7 +15,7 @@
                     <div class="is-block">
                         <div class="form-group col-sm-4 col-xs-4">
                             <label for="room_details_roomtype_id">Room type</label>
-                            <select class="form-control" name="room_details_roomtype_id" id="room_details_roomtype_id" required>
+                            <select class="form-control" name="room_details_roomtype_id" id="room_details_roomtype_id">
                                 <option value="0" data-roomtype-label="Room type" data-roomnumber-label="Number of rooms (of this type)">Please select</option>
                                 <option value="Single Room" data-roomtype-label="Room type" data-roomname-label="Room name" data-roomnumber-label="Number of rooms (of this type)">Single Room</option>
                                 <option value="Double Room" data-roomtype-label="Room type" data-roomname-label="Room name" data-roomnumber-label="Number of rooms (of this type)">Double Room</option>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group col-sm-3 ">
                             <label for="room_details_roomtype_custom">Other type</label>
-                            <input type="text" id="room_details_roomtype_custom" name="room_details_roomtype_custom" value="" class="form-control" placeholder="Deluxe Room">
+                            <input type="text" id="room_details_roomtype_custom" name="room_details_roomtype_custom" value="Deluxe Single" class="form-control" placeholder="Deluxe Room">
                             <span class="help-block"></span> 
                         </div>
                         <div class="form-group col-sm-2 ">
@@ -268,6 +268,26 @@
             <fieldset id="main-room-form" class="active">
                 <div id="error_header" class="alert alert-danger hidden"></div>
                 <legend>
+                    <span id="room_name_label">Өрөөний хаалт</span>
+                </legend>
+                <div class="row">
+                    <div class="is-block">
+                        <div class="form-group col-sm-6 col-xs-4">
+                            <label for="room_detail_edit_roomtype_id">Эхлэх </label>
+                            <input id="room_detail_close_room_start" name="room_detail_close_room_start" class="col-sm-12" data-date-format="yyyy-mm-dd"/>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-4">
+                            <label for="room_detail_edit_roomtype_id">Дуусах</label>
+                            <input id="room_detail_close_room_end" name="room_detail_close_room_end" class="col-sm-12" data-date-format="yyyy-mm-dd" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
                     <span id="room_name_label">Өрөө засварлах</span>
                 </legend>
                 <div class="row">
@@ -409,7 +429,7 @@
                 </div>
             </fieldset>
             <fieldset class="bedding-options">
-                <legend>Bed Options</legend>
+                <legend>Орны мэдээлэл</legend>
                 <div id="room_detail_edit_single_room_bedding" class="bed_group">
                     <div class="row ">
                         <div class="is-block">
@@ -465,7 +485,7 @@
                 </div>
             </fieldset>
             <fieldset>
-                <legend>Prices</legend>
+                <legend>Үнэ</legend>
                 <div class="row">
                     <div class="is-block form-group">
                         <label for="room_detail_edit_room_price_x_persons" id="room_detail_edit_sb_room_detail_edit_price_for_x_people" class="col-lg-12 col-sm-12">Price for 1 person</label>
@@ -489,7 +509,7 @@
                 </div>
             </fieldset>
             <fieldset class="thumbnails-wrapper js-thumbnails-readiness active">
-                <legend>Photo gallery</legend>
+                <legend>Зураг</legend>
                 <div class="row">
                     <div class="photos-content">
                         <div id="edit_imagePreview" class="col-sm-12">
@@ -3763,6 +3783,10 @@
         }
     }
     $(document).ready(function(){ 
+
+        $('input.date-pick, .input-daterange input[name="room_detail_close_room_start"]').datepicker('setDate', 'today');
+        $('.input-daterange input[name="room_detail_close_room_end"]').datepicker('setDate', '+5d');
+
         check_checked();
         initMap();
         $("#general").hover(function(){
