@@ -932,7 +932,7 @@
                     $ipaddress = '';
 
 
-                    if (isset($_SERVER['HTTP_CLIENT_IP'])){
+                    /*if (isset($_SERVER['HTTP_CLIENT_IP'])){
                         $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
                         echo $ipaddress;
                     }
@@ -951,12 +951,14 @@
                     if(isset($_SERVER['HTTP_FORWARDED'])){
                         $ipaddress = $_SERVER['HTTP_FORWARDED'];
                         echo $ipaddress;
-                    }
+                    }*/
                     if(isset($_SERVER['REMOTE_ADDR'])){
                         $ipaddress = $_SERVER['REMOTE_ADDR'];
                         echo $ipaddress;
                     }
-                    echo "Error 06: Under constuction";
+                    $ipaddress = $_SERVER['REMOTE_ADDR'];
+                    echo $ipaddress;
+                    echo "Error 07: Under constuction";
                     return;
                     if($ipaddress=="93.42.66.116" || $ipaddress=="95.211.159.172" || $ipaddress=="::1" || $ipaddress =="192.241.253.70"){
                         
