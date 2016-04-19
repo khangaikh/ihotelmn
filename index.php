@@ -929,7 +929,7 @@
 
                 if($decrypted == $name){
 
-                   $ipaddress = '';
+                    $ipaddress = '';
 
                     if (isset($_SERVER['HTTP_CLIENT_IP']))
                         $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
@@ -946,9 +946,8 @@
                     else
                         $ipaddress = 'UNKNOWN';
 
-                    if($ipaddress=="93.42.66.116" || $ipaddress=="95.211.159.172" || $ipaddress=="::1" ){
-                        echo "Success";
-
+                    if($ipaddress=="93.42.66.116" || $ipaddress=="95.211.159.172" || $ipaddress=="::1" || $ipaddress =="192.241.253.70"){
+                        
                         $query = new ParseQuery("_User");
                         $query->equalTo("username",$_GET['email']);
                         $exists = $query->count();
