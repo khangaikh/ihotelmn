@@ -956,8 +956,8 @@
                         $ipaddress = $_SERVER['REMOTE_ADDR'];
                         echo $ipaddress;
                     }
-                    $ipaddress = $_SERVER['REMOTE_ADDR'];
-                    echo $ipaddress;
+            
+                    echo "<br />";
                     echo "Error 07: Under constuction";
                     return;
                     if($ipaddress=="93.42.66.116" || $ipaddress=="95.211.159.172" || $ipaddress=="::1" || $ipaddress =="192.241.253.70"){
