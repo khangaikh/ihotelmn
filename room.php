@@ -46,7 +46,13 @@
     }  
     if($_POST['action']==3) {
         $data = $_POST['values'];
-        $room->set("room_type",$data['room_detail_edit_roomtype_id']);
+       
+        if($data['room_detail_edit_roomtype_custom']!=""){
+            $room->set("room_type",$data['room_detail_edit_roomtype_custom']);
+        }else{
+           $room->set("room_type",$data['room_detail_edit_roomtype_id']); 
+        }
+
         $room->set("short_desc", $data['room_detail_edit_room_decs']);
         $room->set("num_beds", (int)$data['room_detail_edit_bed_number_SINGLE_1']);
         $room->set("adult_occupancy", (int)$data['room_detail_edit_num_guests']);
