@@ -59,7 +59,7 @@
         $room->set("roomt_size", $data['room_detail_edit_room_size']);
         $room->set("bed_size", $data['room_detail_edit_bedtype_id_SINGLE_1']);
         $room->set("num_of_guest", (int)$data['room_detail_edit_num_guests']);
-        $room->set("num_rooms", (int)$data['room_details_room_number']);
+        $room->set("num_rooms", (int)$data['room_detail_edit_room_number']);
         if(isset($_POST['facilities'])){
             $room->setArray('facilities',$_POST['facilities']);  
         }
