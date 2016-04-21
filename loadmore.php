@@ -44,6 +44,7 @@
    
     $checkArr = false;
 
+    $array = array();
     foreach ($results as $row) {
         $filterOthers = 0;
         $filterFood = 0;
@@ -54,11 +55,13 @@
 
         if ($_POST['miscellaneous']) {
             $nullCheck++;
-            for ($i = 0; $i < count($row->get('others')); $i++) {
-                $filter = $_POST['miscellaneous'];
-                $filter_ = explode(',', $filter);
+            $array = $row->get('others');
+            $filter = $_POST['miscellaneous'];
+            $filter_ = explode(',', $filter);
+            if($array){
                 for ($j = 0; $j < count($filter_); $j++) {
-                    if(strcmp($row->get('others')[$i],$filter_[$j])===0) {
+                    $key = array_search($filter_[$j], $row->get('others'));
+                    if(gettype($key)=="integer") {
                         $filterOthers++;
                     }
                 }
@@ -66,11 +69,13 @@
         }
         if ($_POST['transport']) {
             $nullCheck++;
-            for ($i = 0; $i < count($row->get('transportation')); $i++) {
-                $filter = $_POST['transport'];
-                $filter_ = explode(',', $filter);
+            $array = $row->get('transportation');
+            $filter = $_POST['transport'];
+            $filter_ = explode(',', $filter);
+            if ($array) {
                 for ($j = 0; $j < count($filter_); $j++) {
-                    if(strcmp($row->get('transportation')[$i],$filter_[$j])===0) {
+                    $key = array_search($filter_[$j], $array);
+                    if(gettype($key)=="integer") {
                         $filterTransport++;
                     }
                 }
@@ -78,11 +83,13 @@
         }
         if ($_POST['pool_spa']) {
             $nullCheck++;
-            for ($i = 0; $i < count($row->get('pool_spa')); $i++) {
-                $filter = $_POST['pool_spa'];
-                $filter_ = explode(',', $filter);
+            $array = $row->get('pool_spa');
+            $filter = $_POST['pool_spa'];
+            $filter_ = explode(',', $filter);
+            if ($array) {
                 for ($j = 0; $j < count($filter_); $j++) {
-                    if(strcmp($row->get('pool_spa')[$i],$filter_[$j])===0) {
+                    $key = array_search($filter_[$j], $array);
+                    if(gettype($key)=="integer") {
                         $filterPool++;
                     }
                 }
@@ -90,11 +97,13 @@
         }
         if ($_POST['entertainment']) {
             $nullCheck++;
-            for ($i = 0; $i < count($row->get('entertainment')); $i++) {
-                $filter = $_POST['entertainment'];
-                $filter_ = explode(',', $filter);
+            $array = $row->get('entertainment');
+            $filter = $_POST['entertainment'];
+            $filter_ = explode(',', $filter);
+            if ($array) {
                 for ($j = 0; $j < count($filter_); $j++) {
-                    if(strcmp($row->get('entertainment')[$i],$filter_[$j])===0) {
+                    $key = array_search($filter_[$j], $array);
+                    if(gettype($key)=="integer") {
                         $filterEntertainment++;
                     }
                 }
@@ -102,11 +111,13 @@
         }
         if ($_POST['food_drink']) {
             $nullCheck++;
-            for ($i = 0; $i < count($row->get('food_drink')); $i++) {
-                $filter = $_POST['food_drink'];
-                $filter_ = explode(',', $filter);
+            $array = $row->get('food_drink');
+            $filter = $_POST['food_drink'];
+            $filter_ = explode(',', $filter);
+            if ($array) {
                 for ($j = 0; $j < count($filter_); $j++) {
-                    if(strcmp($row->get('food_drink')[$i],$filter_[$j])===0) {
+                    $key = array_search($filter_[$j], $array);
+                    if(gettype($key)=="integer") {
                         $filterFood++;
                     }
                 }
