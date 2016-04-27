@@ -272,17 +272,40 @@
                 </legend>
                 <div class="row">
                     <div class="is-block">
-                        <div class="form-group col-sm-6 col-xs-4">
+                        <div class="form-group col-sm-4 col-xs-4">
                             <label for="room_detail_edit_roomtype_id">Эхлэх </label>
-                            <input id="room_detail_close_room_start" name="room_detail_close_room_start" class="col-sm-12" data-date-format="yyyy-mm-dd"/>
+                            <input id="room_detail_close_room_start" name="room_detail_close_room_start" class="form-control col-sm-12" data-date-format="yyyy-mm-dd"/>
                             <span class="help-block"></span>
                         </div>
-                        <div class="form-group col-sm-6 col-xs-4">
+                        <div class="form-group col-sm-4 col-xs-4">
                             <label for="room_detail_edit_roomtype_id">Дуусах</label>
-                            <input id="room_detail_close_room_end" name="room_detail_close_room_end" class="col-sm-12" data-date-format="yyyy-mm-dd" />
+                            <input id="room_detail_close_room_end" name="room_detail_close_room_end" class="form-control col-sm-12" data-date-format="yyyy-mm-dd" />
                             <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-4" style="padding-top:25px">
+                            <a id="room_edit_detail_edit_continue_btn" class="btn btn-primary btn-sm">Хаалт оруулах </a>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th>Эхлэх</th>
+                                    <th >Дуусах</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="rooms">
+                                <tr>
+                                    <td>2016-07-15<br></td>
+                                    <td>2016-07-23<br></td>
+                                    <td><a href="#" onclick="delete_room('{{room.objectId}}')"><i class="fa fa-trash"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                 </div>
             </fieldset>
             <fieldset id="main-room-form" class="active">
@@ -3784,8 +3807,8 @@
     }
     $(document).ready(function(){ 
 
-        $('input.date-pick, .input-daterange input[name="room_detail_close_room_start"]').datepicker('setDate', 'today');
-        $('.input-daterange input[name="room_detail_close_room_end"]').datepicker('setDate', '+5d');
+        $('input[name="room_detail_close_room_start"]').datepicker('setDate', 'today');
+        $('input[name="room_detail_close_room_end"]').datepicker('setDate', '+5d');
 
         check_checked();
         initMap();
