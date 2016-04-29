@@ -931,7 +931,6 @@
 
                     $ipaddress = '';
 
-
                     if (isset($_SERVER['HTTP_CLIENT_IP'])){
                         $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
                         
@@ -964,45 +963,31 @@
                     if($exists>0){
                         $user = ParseUser::logIn($_GET['email'], "ihotel123$");
                         $_SESSION['user'] = $user;
-                        $template = $twig->loadTemplate('user_dashboard.html');
-                        $query = new ParseQuery("orders");
-                        $query->descending("createdAt");
-                        $query->equalTo("user",$user);
-                        $query->notEqualTo("status",0);
-                        $query->includeKey('hotel');
-                        $old_orders = $query->find();
+                        //$template = $twig->loadTemplate('user_dashboard.html');
+                        $template = $twig->loadTemplate('asem_list.html');
+                        $query = new ParseQuery("hotel");
+                        $query->equalTo("type","Hotel");
+                        $query->equalTo("status",1);
+                        $query->equalTo("asem",1);
 
-                        if(isset($_SESSION['orders'])){
-                            $start = $_SESSION['start'];
-                            $end = $_SESSION['end'];
-                            $days = $_SESSION['days'];
-                            $hotel = $_SESSION['hotel'];
-                            $day_start = date('l', strtotime( $start));
-                            $day_end = date('l', strtotime( $end));
-                            $orders = $_SESSION['orders'];
-                            class Event {}
-                                $rooms = array();
-                            $total = 0;
-                            for ($i = 0; $i < count($orders); ++$i){
-                                $e = new Event();
-                                $order_id = $orders[$i];
-                                $query = new ParseQuery("orders");
-                                $query->equalTo("objectId",$order_id);
-                                $query->includeKey("room");
-                                $order = $query->first();
-                                $room = $order->get('room');
-                                $e->name = $room->get('room_type');
-                                $e->qty = $order->get('qty');
-                                $e->sub = $order->get('total');
-                                $total = $total + (int)$order->get('total');
-                                array_push($rooms,$e);
-                            }
-                            $total= $total * $days;
-                            //render a template
-                            echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
-                        }else{
-                            echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
-                        }
+                        $query->descending("stars");
+
+                        $query->equalTo("city",'Ulaanbaatar');
+                        $results = $query->find();
+                        $count = $query->count();
+
+                        $template = $twig->loadTemplate('asem_list.html');
+
+                        $query->ascending("min_rate");
+                        $e = $query->first();
+                        $min = $e->get('min_rate'); 
+
+                        $query->descending("min_rate");
+                        $e = $query->first();
+                        $max = $e->get('min_rate'); 
+
+                        //render a template
+                        echo $template->render(array('title' => 'Search', 'nav' => 1, 'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
                     }else{
                         // singup user
                         $email =  $_GET['email'];
@@ -1023,7 +1008,8 @@
                         try {
                             $user->signUp();
                             $_SESSION['user'] = $user;
-                            $template = $twig->loadTemplate('user_dashboard.html');
+                            $template = $twig->loadTemplate('asem_list.html');
+                            //$template = $twig->loadTemplate('user_dashboard.html');
                             $query = new ParseQuery("orders");
                             $query->descending("createdAt");
                             $query->equalTo("user",$user);
@@ -1031,37 +1017,29 @@
                             $query->includeKey('hotel');
                             $old_orders = $query->find();
 
-                            if(isset($_SESSION['orders'])){
-                                $start = $_SESSION['start'];
-                                $end = $_SESSION['end'];
-                                $days = $_SESSION['days'];
-                                $hotel = $_SESSION['hotel'];
-                                $day_start = date('l', strtotime( $start));
-                                $day_end = date('l', strtotime( $end));
-                                $orders = $_SESSION['orders'];
-                                class Event {}
-                                    $rooms = array();
-                                $total = 0;
-                                for ($i = 0; $i < count($orders); ++$i){
-                                    $e = new Event();
-                                    $order_id = $orders[$i];
-                                    $query = new ParseQuery("orders");
-                                    $query->equalTo("objectId",$order_id);
-                                    $query->includeKey("room");
-                                    $order = $query->first();
-                                    $room = $order->get('room');
-                                    $e->name = $room->get('room_type');
-                                    $e->qty = $order->get('qty');
-                                    $e->sub = $order->get('total');
-                                    $total = $total + (int)$order->get('total');
-                                    array_push($rooms,$e);
-                                }
-                                $total= $total * $days;
-                                //render a template
-                                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'hotel' =>$hotel, 'day_end' => $day_end,'nav' => 2, 'orders'=>$old_orders));
-                            }else{
-                                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$old_orders));
-                            }
+                            $query = new ParseQuery("hotel");
+                            $query->equalTo("type","Hotel");
+                            $query->equalTo("status",1);
+                            $query->equalTo("asem",1);
+
+                            $query->descending("stars");
+
+                            $query->equalTo("city",'Ulaanbaatar');
+                            $results = $query->find();
+                            $count = $query->count();
+
+                            $template = $twig->loadTemplate('asem_list.html');
+
+                            $query->ascending("min_rate");
+                            $e = $query->first();
+                            $min = $e->get('min_rate'); 
+
+                            $query->descending("min_rate");
+                            $e = $query->first();
+                            $max = $e->get('min_rate'); 
+
+                            //render a template
+                            echo $template->render(array('title' => 'Search', 'nav' => 1, 'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
                         } catch (ParseException $ex) {
                             echo $ex->getCode();
                             return;
