@@ -1003,7 +1003,12 @@
                         $user->set("status", 1);
                         $user->set("asem", 1);
                         $user->set("role", 1);
-                        $user->set("meeting_type", intval($_GET['meeting_type']));
+                        
+                        if(isset($_GET['meeting_type'])){
+                            $user->set("meeting_type", intval($_GET['meeting_type']));
+                        }else{
+                            $user->set("meeting_type", 11);
+                        }
                         
                         try {
                             $user->signUp();
