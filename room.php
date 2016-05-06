@@ -68,21 +68,15 @@
         $paths= $room->get('images');
         if(isset($_POST['images'])){
             foreach ($_POST['images'] as $key=>$value){
-            $parts = split (",", $value);
-            $random = substr( md5(rand()), 0, 7);
-            $data = base64_decode($parts[1]);
-            $im = imagecreatefromstring($data);
-            if ($im !== false) {
-                header('Content-Type: image/png');
-                $path = 'img/room/'.date('YmdHis').$key.'.png';
-                $resp = imagepng($im, $path);
+
+                $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+                $path = 'img/room/'.date('YmdHis').$key.'.jpg';
+                file_put_contents($path, $data);
+                $imagick = new \Imagick(realpath($path));
+                $imagick->setImageCompressionQuality(23);
+                $imagick->writeImage($path);
                 array_push($paths, $path);
-                imagedestroy($im);
             }
-            else {
-                echo 'An error occurred.';
-            }
-        }
         }
         $room->setArray('images',$paths);
 

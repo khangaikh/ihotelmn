@@ -30,18 +30,13 @@
 
             $news = new ParseObject("news");
             $news->set("category", $category);
-            $parts = split (",", $_POST['news_image1']);
             $random = substr( md5(rand()), 0, 7);
-            $data = base64_decode($parts[1]);
-            $im = imagecreatefromstring($data);
-            if ($im !== false) {
-                $path = 'img/news/'.$random.'.png';
-                imagepng($im, $path);
-                imagedestroy($im);
-            }
-            else {
-                echo 'An error occurred.';
-            }
+            $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['news_image1']));
+            $path = 'img/news/'.$random.'.jpg';
+            file_put_contents($path, $data);
+            $imagick = new \Imagick(realpath($path));
+            $imagick->setImageCompressionQuality(23);
+            $imagick->writeImage($path);
             $news->set('header_image',$path);
             $news->set("user", $user);
             $news->set("short_desc", $short_desc);
@@ -89,20 +84,13 @@
             $news = $query->first();
             $news->set("category", $category);
             if ($_POST['update_news_image1']!=NULL) {
-                $parts = split (",", $_POST['update_news_image1']);
                 $random = substr( md5(rand()), 0, 7);
-                $data = base64_decode($parts[1]);
-                $im = imagecreatefromstring($data);
-                if ($im !== false) {
-                    $path = 'img/news/'.$random.'.png';
-                    imagepng($im, $path);
-                    imagedestroy($im);
-                }
-                else {
-                    echo 'An error occurred.';
-                    echo $_POST['update_news_image1'];
-                    die();
-                }
+                $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['update_news_image1']));
+                $path = 'img/news/'.date('YmdHis').$random.'.jpg';
+                file_put_contents($path, $data);
+                $imagick = new \Imagick(realpath($path));
+                $imagick->setImageCompressionQuality(23);
+                $imagick->writeImage($path);
                 exec('rm -rf '.$news->get('header_image'));
                 $news->set('header_image',$path);
             }

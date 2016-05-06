@@ -95,20 +95,13 @@
         $paths=array();
 
         foreach ($_POST['images'] as $key=>$value){
-            $parts = split (",", $value);
-            $data = base64_decode($parts[1]);
-            $im = imagecreatefromstring($data);
-            if ($im !== false) {
-                header('Content-Type: image/png');
-                $random = substr( md5(rand()), 0, 7);
-                $path = 'img/room/'.date('YmdHis').$random.'.png';
-                $resp = imagepng($im, $path);
+                $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+                $path = 'img/room/'.date('YmdHis').$key.'.jpg';
+                file_put_contents($path, $data);
+                $imagick = new \Imagick(realpath($path));
+                $imagick->setImageCompressionQuality(23);
+                $imagick->writeImage($path);
                 array_push($paths, $path);
-                imagedestroy($im);
-            }
-            else {
-                echo 'An error occurred.';
-            }
         }
         $room->setArray('images',$paths);
 
@@ -141,38 +134,23 @@
         $paths=array();
 
         foreach ($_POST['hotel_images'] as $key=>$value){
-            $parts = split (",", $value);
-            $random = substr( md5(rand()), 0, 7);
-            $data = base64_decode($parts[1]);
-            $im = imagecreatefromstring($data);
-            if ($im !== false) {
-                header('Content-Type: image/png');
-                $path = 'img/hotel/'.$random.$key.'.png';
-                $resp = imagepng($im, $path);
+                $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+                $path = 'img/hotel/'.date('YmdHis').$key.'.jpg';
+                file_put_contents($path, $data);
+                $imagick = new \Imagick(realpath($path));
+                $imagick->setImageCompressionQuality(23);
+                $imagick->writeImage($path);
                 array_push($paths, $path);
-                imagedestroy($im);
-            }
-            else {
-                echo 'An error occurred.';
-            }
         }
         $hotel->setArray('images',$paths);
-
-
-        $parts = split (",", $_POST['cover_images'][0]);
         $random = substr( md5(rand()), 0, 7);
-        $data = base64_decode($parts[1]);
-        $im = imagecreatefromstring($data);
-        if ($im !== false) {
-            header('Content-Type: image/png');
-            $path = 'img/hotel/'.$random.$key.'.png';
-            $resp = imagepng($im, $path);
-            array_push($paths, $path);
-            imagedestroy($im);
-        }
-        else {
-            echo 'An error occurred.';
-        }
+        $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['cover_images'][0]));
+        $path = 'img/hotel/'.date('YmdHis').$random.'.jpg';
+        file_put_contents($path, $data);
+        $imagick = new \Imagick(realpath($path));
+        $imagick->setImageCompressionQuality(23);
+        $imagick->writeImage($path);
+        array_push($paths, $path);
         $hotel->set('cover_image',$path);
     }
     if($_POST['section']==5){
