@@ -98,9 +98,11 @@
             $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
             $path = 'img/room/'.date('YmdHis').$key.'.jpg';
             file_put_contents($path, $data);
-            $imagick = new \Imagick(realpath($path));
-            $imagick->setImageCompressionQuality(23);
-            $imagick->writeImage($path);
+            if (filesize($path) > 204800) {
+                $imagick = new \Imagick(realpath($path));
+                $imagick->setImageCompressionQuality(23);
+                $imagick->writeImage($path);
+            }
             array_push($paths, $path);
         }
         $room->setArray('images',$paths);
@@ -162,7 +164,39 @@
              */
     }
     if($_POST['section']==5){
-        /*Payment part todo*/
+
+        /*Add hotel part todo*/
+
+        $paths=array();
+
+        foreach ($_POST['hotel_images'] as $key=>$value){
+            $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+            $path = 'img/hotel/'.date('YmdHis').$key.'.jpg';
+            file_put_contents($path, $data);
+            if (filesize($path) > 204800) {
+                $imagick = new \Imagick(realpath($path));
+                $imagick->setImageCompressionQuality(23);
+                $imagick->writeImage($path);
+            }
+            array_push($paths, $path);
+        }
+        $hotel->setArray('images',$paths);
+        $random = substr( md5(rand()), 0, 7);
+        $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['cover_images'][0]));
+        $path = 'img/hotel/'.date('YmdHis').$random.'.jpg';
+        file_put_contents($path, $data);
+        if (filesize($path) > 204800) {
+            $imagick = new \Imagick(realpath($path));
+            $imagick->setImageCompressionQuality(23);
+            $imagick->writeImage($path);
+        }
+        array_push($paths, $path);
+        try {
+            $hotel->set('cover_image',$path);
+        } catch (Exception $e) {
+            echo $e;
+            die();
+        }
     }
     if($_POST['section']==6){
         /*Agreement part todo*/

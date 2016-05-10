@@ -1100,7 +1100,7 @@ $(document).ready(function(){
             $.ajax({
                 type: "POST",
                 url: "create.php",
-                data: {data:1, hotel_images:hotel_images, cover_images:cover_images, section:4},
+                data: {data:1, hotel_images:hotel_images, cover_images:cover_images, section:5},
                 success: function(data, textStatus, jqXHR){
                     $('#loading').remove();
                     $this.removeClass('disabled');

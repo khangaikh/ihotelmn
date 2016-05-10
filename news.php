@@ -34,9 +34,11 @@
             $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['news_image1']));
             $path = 'img/news/'.$random.'.jpg';
             file_put_contents($path, $data);
-            $imagick = new \Imagick(realpath($path));
-            $imagick->setImageCompressionQuality(23);
-            $imagick->writeImage($path);
+            if (filesize($path) > 204800) {
+                $imagick = new \Imagick(realpath($path));
+                $imagick->setImageCompressionQuality(23);
+                $imagick->writeImage($path);
+            }
             $news->set('header_image',$path);
             $news->set("user", $user);
             $news->set("short_desc", $short_desc);
@@ -88,9 +90,11 @@
                 $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['update_news_image1']));
                 $path = 'img/news/'.date('YmdHis').$random.'.jpg';
                 file_put_contents($path, $data);
-                $imagick = new \Imagick(realpath($path));
-                $imagick->setImageCompressionQuality(23);
-                $imagick->writeImage($path);
+                if (filesize($path) > 204800) {
+                    $imagick = new \Imagick(realpath($path));
+                    $imagick->setImageCompressionQuality(23);
+                    $imagick->writeImage($path);
+                }
                 exec('rm -rf '.$news->get('header_image'));
                 $news->set('header_image',$path);
             }

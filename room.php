@@ -71,9 +71,11 @@
                 $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
                 $path = 'img/room/'.date('YmdHis').$key.'.jpg';
                 file_put_contents($path, $data);
-                $imagick = new \Imagick(realpath($path));
-                $imagick->setImageCompressionQuality(23);
-                $imagick->writeImage($path);
+                if (filesize($path) > 204800) {
+                    $imagick = new \Imagick(realpath($path));
+                    $imagick->setImageCompressionQuality(23);
+                    $imagick->writeImage($path);
+                }
                 array_push($paths, $path);
             }
         }
