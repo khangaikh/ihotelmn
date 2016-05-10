@@ -1078,7 +1078,6 @@ $(document).ready(function(){
 
                 if(data == 1 ){
                     /*enable next tab*/
-                    alert("Success");
                     $('#navLeftMenu li.active').next('li').removeClass('disabled');
                     $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
                     $('#navLeftMenu li.active').next('li').find('a').tab('show');    
@@ -1174,7 +1173,5 @@ $(document).ready(function(){
         console.log(start);
         console.log(end);
         var d = new Date();
-
-
     });
 });

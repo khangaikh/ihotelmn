@@ -5,7 +5,7 @@
     use Parse\ParseQuery;
     use Parse\ParseGeoPoint;
     use Parse\ParseFile;
-    
+
     session_start();
     $hotel = $_SESSION['hotel'];
     $data = $_POST['data'];
@@ -77,7 +77,7 @@
         if($data['room_details_roomtype_id']=="0" || $data['room_details_roomtype_id']==0){
             $room->set("room_type",$data['room_details_roomtype_custom']);
         }else{
-           $room->set("room_type",$data['room_details_roomtype_id']); 
+            $room->set("room_type",$data['room_details_roomtype_id']); 
         }
         $room->set("short_desc", $data['room_details_room_decs']);
         $room->set("num_beds", (int)$data['room_details_bed_number_SINGLE_1']);
@@ -95,13 +95,13 @@
         $paths=array();
 
         foreach ($_POST['images'] as $key=>$value){
-                $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
-                $path = 'img/room/'.date('YmdHis').$key.'.jpg';
-                file_put_contents($path, $data);
-                $imagick = new \Imagick(realpath($path));
-                $imagick->setImageCompressionQuality(23);
-                $imagick->writeImage($path);
-                array_push($paths, $path);
+            $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+            $path = 'img/room/'.date('YmdHis').$key.'.png';
+            file_put_contents($path, $data);
+            $imagick = new \Imagick(realpath($path));
+            $imagick->setImageCompressionQuality(23);
+            $imagick->writeImage($path);
+            array_push($paths, $path);
         }
         $room->setArray('images',$paths);
 
@@ -130,36 +130,36 @@
         }
     }   
     if($_POST['section']==4){
-        
-        /*
-        $paths=array();
 
-        foreach ($_POST['hotel_images'] as $key=>$value){
-                $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
-                $path = 'img/hotel/'.date('YmdHis').$key.'.jpg';
-                file_put_contents($path, $data);
-                $imagick = new \Imagick(realpath($path));
-                $imagick->setImageCompressionQuality(23);
-                $imagick->writeImage($path);
-                array_push($paths, $path);
-        }
-        $hotel->setArray('images',$paths);
-        $random = substr( md5(rand()), 0, 7);
-        $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['cover_images'][0]));
-        $path = 'img/hotel/'.date('YmdHis').$random.'.jpg';
-        file_put_contents($path, $data);
-        $imagick = new \Imagick(realpath($path));
-        $imagick->setImageCompressionQuality(23);
-        $imagick->writeImage($path);
-        array_push($paths, $path);
-        try {
-            $hotel->set('cover_image',$path);
-            die();
-            echo 1;
-        } catch (Exception $e) {
-            echo $e;
-        }
-*/
+            /*
+            $paths=array();
+
+            foreach ($_POST['hotel_images'] as $key=>$value){
+                    $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+                    $path = 'img/hotel/'.date('YmdHis').$key.'.jpg';
+                    file_put_contents($path, $data);
+                    $imagick = new \Imagick(realpath($path));
+                    $imagick->setImageCompressionQuality(23);
+                    $imagick->writeImage($path);
+                    array_push($paths, $path);
+            }
+            $hotel->setArray('images',$paths);
+            $random = substr( md5(rand()), 0, 7);
+            $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['cover_images'][0]));
+            $path = 'img/hotel/'.date('YmdHis').$random.'.jpg';
+            file_put_contents($path, $data);
+            $imagick = new \Imagick(realpath($path));
+            $imagick->setImageCompressionQuality(23);
+            $imagick->writeImage($path);
+            array_push($paths, $path);
+            try {
+                $hotel->set('cover_image',$path);
+                die();
+                echo 1;
+            } catch (Exception $e) {
+                echo $e;
+            }
+             */
     }
     if($_POST['section']==5){
         /*Payment part todo*/
@@ -171,14 +171,14 @@
         $hotel->set('status',1);
     }
     $sec = $hotel->get('section');
-    
+
     if($sec!=7){
         $hotel->set('section',(int)$_POST['section']);
         $_SESSION['section'] = (int)$_POST['section'];
     }else{
         $_SESSION['section']=7;
     }
-    
+
     try {
         $hotel->save();
     } catch (ParseException $ex) {  
