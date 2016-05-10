@@ -71,7 +71,7 @@
                 $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
                 $path = 'img/room/'.date('YmdHis').$key.'.jpg';
                 file_put_contents($path, $data);
-                if (filesize($path) > 204800) {
+                if (filesize($path) > 184320) {
                     $imagick = new \Imagick(realpath($path));
                     $imagick->setImageCompressionQuality(23);
                     $imagick->writeImage($path);

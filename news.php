@@ -34,7 +34,7 @@
             $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['news_image1']));
             $path = 'img/news/'.$random.'.jpg';
             file_put_contents($path, $data);
-            if (filesize($path) > 204800) {
+            if (filesize($path) > 184320) {
                 $imagick = new \Imagick(realpath($path));
                 $imagick->setImageCompressionQuality(23);
                 $imagick->writeImage($path);
@@ -90,7 +90,7 @@
                 $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['update_news_image1']));
                 $path = 'img/news/'.date('YmdHis').$random.'.jpg';
                 file_put_contents($path, $data);
-                if (filesize($path) > 204800) {
+                if (filesize($path) > 184320) {
                     $imagick = new \Imagick(realpath($path));
                     $imagick->setImageCompressionQuality(23);
                     $imagick->writeImage($path);
