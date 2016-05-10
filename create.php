@@ -131,6 +131,7 @@
     }   
     if($_POST['section']==4){
         
+        /*
         $paths=array();
 
         foreach ($_POST['hotel_images'] as $key=>$value){
@@ -151,7 +152,14 @@
         $imagick->setImageCompressionQuality(23);
         $imagick->writeImage($path);
         array_push($paths, $path);
-        $hotel->set('cover_image',$path);
+        try {
+            $hotel->set('cover_image',$path);
+            die();
+            echo 1;
+        } catch (Exception $e) {
+            echo $e;
+        }
+*/
     }
     if($_POST['section']==5){
         /*Payment part todo*/
