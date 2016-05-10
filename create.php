@@ -201,6 +201,9 @@
     if($_POST['section']==6){
         /*Agreement part todo*/
     }
+    if($_POST['section']==9){
+        /*Payment part todo*/
+    }
     if($_POST['section']==7){
         $hotel->set('status',1);
     }

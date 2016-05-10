@@ -1118,7 +1118,7 @@ $(document).ready(function(){
         $.ajax({
             type: "POST",
             url: "create.php",
-            data: {data:1, section:5},
+            data: {data:1, section:9},
             success: function(data, textStatus, jqXHR){
                 if(data == 1 ){
                     $('#navLeftMenu li.active').next('li').removeClass('disabled');
