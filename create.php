@@ -96,7 +96,7 @@
 
         foreach ($_POST['images'] as $key=>$value){
             $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
-            $path = 'img/room/'.date('YmdHis').$key.'.png';
+            $path = 'img/room/'.date('YmdHis').$key.'.jpg';
             file_put_contents($path, $data);
             $imagick = new \Imagick(realpath($path));
             $imagick->setImageCompressionQuality(23);
