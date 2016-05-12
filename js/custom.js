@@ -723,47 +723,71 @@ function removeImage(o,i,j){
 
     }
 }
+
+function delete_room_closing(j){
+    if (confirm('Are you sure ?')) {
+        $.ajax({
+            type: "POST",
+            url: "room.php",
+            data: {data:j, action:6},
+            success: function(data, textStatus, jqXHR){
+                window.location.reload();
+            }
+        }); 
+    }
+}
 function edit_room(j){
     $.ajax({
         type: "POST",
-    url: "room.php",
-    data: {data:j, action:1},
-    success: function(data, textStatus, jqXHR){
-        var room = $.parseJSON( data );
-        $("#edit_room_id").val(room['id']);
-        $("#room_detail_edit_roomtype_id").val(room['type']);
-        $("#room_detail_edit_roomtype_custom").val(room['type']);
-        $("#room_detail_edit_room_number").val(room['num_rooms']);
-        $("#room_detail_edit_room_size").val(room['size']);
-        $("#room_detail_edit_room_desc").text(room['desc']);
+        url: "room.php",
+        data: {data:j, action:1},
+        success: function(data, textStatus, jqXHR){
+            var room = $.parseJSON( data );
+            console.log(room);
+            $("#edit_room_id").val(room['id']);
+            $("#room_detail_edit_roomtype_id").val(room['type']);
+            $("#room_detail_edit_roomtype_custom").val(room['type']);
+            $("#room_detail_edit_room_number").val(room['num_rooms']);
+            $("#room_detail_edit_room_size").val(room['size']);
+            $("#room_detail_edit_room_desc").text(room['desc']);
 
-        for(var i=0; i<room['fac'].length; i++){
-            var element ='#edit_'+room['fac'][i];
-            $(element).iCheck('check');
+            for(var i=0; i<room['fac'].length; i++){
+                var element ='#edit_'+room['fac'][i];
+                $(element).iCheck('check');
+            }
+            $("#room_detail_edit_bedtype_id_SINGLE_1").val(room['bed_size']);
+            $("#room_detail_edit_bed_number_SINGLE_1").val(room['beds']);
+            $("#room_detail_edit_num_guests").val(room['num_of_guest']);
+            $("#room_detail_edit_room_price_x_persons").val(room['price']);
+            $("#room_detail_edit_room_price_2x_persons").val(room['price2']);
+
+            for(var i=0; i<room['images'].length; i++){
+                var url = room['images'][i];
+                var div = $('<div id="'+i+'" class="col-md-4">');
+                var add = $('<a name="remove" class="btn btn-lg" style="margin-left:70px" onClick="removeImage(this,'+i+',\''+room['id']+'\');"><i class="fa fa-times-circle"></a>');
+                var img = $('<img>'); 
+                img.attr('src', url);
+                img.attr('name', 'room-images');
+                img.attr('class', "img-thumbnail");
+                img.appendTo(div);
+                add.appendTo(div);
+                div.appendTo('#edit_imagePreview');
+            }
+
+           for(var i=0; i<room['starts'].length; i++){
+                var id = room['ids'][i];
+                var start = room['starts'][i];
+                var end = room['ends'][i];
+                console.log(id);
+                var add = '<tr><td>'+start+'<br></td><td>'+end+'<br></td><td><a href="#" onclick="delete_room_closing(\''+id+'\')"><i class="fa fa-trash"></i></a></td></tr>';
+                $('#closings').append(add);
+            }
+
+            $('#show-edit').trigger('click');
         }
-        $("#room_detail_edit_bedtype_id_SINGLE_1").val(room['bed_size']);
-        $("#room_detail_edit_bed_number_SINGLE_1").val(room['beds']);
-        $("#room_detail_edit_num_guests").val(room['num_of_guest']);
-        $("#room_detail_edit_room_price_x_persons").val(room['price']);
-        $("#room_detail_edit_room_price_2x_persons").val(room['price2']);
-
-        for(var i=0; i<room['images'].length; i++){
-            var url = room['images'][i];
-            var div = $('<div id="'+i+'" class="col-md-4">');
-            var add = $('<a name="remove" class="btn btn-lg" style="margin-left:70px" onClick="removeImage(this,'+i+',\''+room['id']+'\');"><i class="fa fa-times-circle"></a>');
-            var img = $('<img>'); 
-            img.attr('src', url);
-            img.attr('name', 'room-images');
-            img.attr('class', "img-thumbnail");
-            img.appendTo(div);
-            add.appendTo(div);
-            div.appendTo('#edit_imagePreview');
-        }
-
-        $('#show-edit').trigger('click');
-    }
     }); 
 }
+
 function delete_room(j){
     if (confirm('Are you sure ?')) {
         $.ajax({
@@ -999,6 +1023,31 @@ $(document).ready(function(){
             });
         }
     });
+    
+    $("#room_edit_close_btn").click(function(){
+        var start = $('#room_detail_close_room_start').val();
+        var end = $('#room_detail_close_room_end').val();
+        if(new Date(start) < new Date(end)){
+            var room_id = $("#edit_room_id").val();
+            console.log(room_id);
+            var $this = $(this);
+            $this.after('<div id="loading"></div>');
+            $.ajax({
+                type: "POST",
+                url: "room.php",
+                data: {data:room_id, action:5, start: start, end:end},
+                success: function(data, textStatus, jqXHR){
+                    console.log(data);
+                    var add = '<tr><td>'+start+'<br></td><td>'+end+'<br></td><td><a href="#" onclick="delete_room_closing(\''+data+'\')"><i class="fa fa-trash"></i></a></td></tr>';
+                    $('#closings').append(add);
+                    $("#loading").remove();
+                }
+            });       
+        }else{
+            alert('Дуусах хугацаа буруу байна');
+        }
+    });
+
     $("#property_details_continue_btn").click(function(){
 
         $("#create_property_details_form").parsley().validate();
@@ -1166,12 +1215,5 @@ $(document).ready(function(){
                 }
             });
         }
-    });
-    $("#room_edit_close_btn").click(function(){
-        var start = new Date($("#room_detail_close_room_start").val());
-        var end = new Date($("#room_detail_close_room_end").val());
-        console.log(start);
-        console.log(end);
-        var d = new Date();
     });
 });

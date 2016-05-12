@@ -14,6 +14,13 @@
     $room = $query->first();
 
     if($_POST['action']==1){
+
+        $query = new ParseQuery("room_closing");
+        $query->equalTo("room",$room);
+        $closings = $query->find();
+        $starts = array();
+        $ends = array();
+        $ids = array();
         $e->id = $room->getObjectId();
         $e->num_of_guest = $room->get('num_of_guest');
         $e->price = $room->get('night_price');
@@ -26,6 +33,15 @@
         $e->num_rooms = $room->get('num_rooms');
         $e->beds = $room->get('num_beds');
         $e->images = $room->get('images');
+        foreach ($closings as $closing) {
+            array_push($starts,$closing->get("start"));
+            array_push($ends,$closing->get("end"));
+            array_push($ids,$closing->getObjectId());
+        }
+
+        $e->starts = $starts;
+        $e->ends = $ends;
+        $e->ids = $ids;
         echo json_encode($e);
     } 
     if($_POST['action']==2){
@@ -106,7 +122,6 @@
             // error is a ParseException object with an error code and message.
             echo  $ex;
         }
-
     }
     if($_POST['action']==4) {
         $room->destroy();
@@ -129,6 +144,36 @@
         try {
             $hotel->save();
             echo 1;
+        } catch (ParseException $ex) {  
+            // Execute any logic that should take place if the save fails.
+            // error is a ParseException object with an error code and message.
+            echo  $ex;
+        }
+    }
+    if($_POST['action']==5) {
+
+        $closing = new ParseObject("room_closing");
+        $closing->set('room',$room);
+        $closing->set('start',$_POST['start']);
+        $closing->set('end',$_POST['end']);
+        
+        try {
+            $closing->save();
+            echo $closing->getObjectId();
+        } catch (ParseException $ex) {  
+            // Execute any logic that should take place if the save fails.
+            // error is a ParseException object with an error code and message.
+            echo  $ex;
+        }
+    }
+    if($_POST['action']==6) {
+
+        $query = new ParseQuery("room_closing");
+        $query->equalTo("objectId",$id);
+        $closing = $query->first();;
+        
+        try {
+            $closing->destroy();
         } catch (ParseException $ex) {  
             // Execute any logic that should take place if the save fails.
             // error is a ParseException object with an error code and message.
