@@ -498,10 +498,11 @@
             $query->greaterThanOrEqualTo("end", $date1); // 24 - 1
             $query->includeKey('room');
             $closed_rooms = $query->find();
+            $closed_rooms_count = $query->count();
 
             $template = $twig->loadTemplate('asem_detail.html');
             //render a template
-            echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_rooms));
+            echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_rooms, 'count' => $closed_rooms_count));
         }
         else if(isset($_POST['contact_us'])){
             require 'lib/Mailer/PHPMailerAutoload.php';

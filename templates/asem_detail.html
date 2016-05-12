@@ -198,36 +198,8 @@
                                             {% endfor %}
                                         </ul>
                                     </div>
-                                    {% for closed in closed_rooms %}
-                                        {% if closed.room.objectId == room.objectId %}
-                                            <div class="col-md-3">
-                                                <p  class="text-small" style="color:red">Room sold out</p>
-                                                <div class="form-group form-group-select-plus">
-                                                    <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
-                                                    <div class='flex select_room middle between' >
-                                                        <div rel="tooltip" class='tool' data-placement="top" title="Adults">
-                                                            <i class='fa fa-male'></i>
-                                                        </div>
-                                                       
-                                                    </div>
-                                                    {% if room.adult_occupancy > 1 %}
-                                                    {% if room.night_price2 > 0 %}
-                                                    {% if room.night_price2 != room.night_price %}
-                                                    <span class="booking-item-price">${{room.night_price2}}</span><span>/night</span>
-                                                    <div class='flex select_room between middle mrgn5'>
-                                                        <div rel="tooltip" class='tool' data-placement="top" title="Adults">
-                                                            <i class='fa fa-male'></i><i class='fa fa-male'></i>
-                                                        </div>
-                                                       
-                                                    </div>
-                                                    {% endif %}
-                                                    {% endif %}
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        {% else %}
-                                            {% if closed.room.hotel.objectId == hotel.objectId %}
-                                            <div class="col-md-3">
+                                    {% if count == 0  %}
+                                         <div class="col-md-3">
                                                 <p  class="text-small">Select room quantity</p>
                                                 <div class="form-group form-group-select-plus">
                                                     <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
@@ -262,9 +234,75 @@
                                                     {% endif %}
                                                 </div>
                                             </div>
+                                    {%else%}
+                                        {% for closed in closed_rooms %}
+                                            {% if closed.room.objectId == room.objectId %}
+                                                <div class="col-md-3">
+                                                    <p  class="text-small" style="color:red">Room sold out</p>
+                                                    <div class="form-group form-group-select-plus">
+                                                        <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
+                                                        <div class='flex select_room middle between' >
+                                                            <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                                                <i class='fa fa-male'></i>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                        {% if room.adult_occupancy > 1 %}
+                                                        {% if room.night_price2 > 0 %}
+                                                        {% if room.night_price2 != room.night_price %}
+                                                        <span class="booking-item-price">${{room.night_price2}}</span><span>/night</span>
+                                                        <div class='flex select_room between middle mrgn5'>
+                                                            <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                                                <i class='fa fa-male'></i><i class='fa fa-male'></i>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                        {% endif %}
+                                                        {% endif %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                {% if closed.room.hotel.objectId == hotel.objectId %}
+                                                <div class="col-md-3">
+                                                    <p  class="text-small">Select room quantity</p>
+                                                    <div class="form-group form-group-select-plus">
+                                                        <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
+                                                        <div class='flex select_room middle between' >
+                                                            <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                                                <i class='fa fa-male'></i>
+                                                            </div>
+                                                            <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" persons="1" > 
+                                                                <option selected="selected">0</option>
+                                                                {% for i in range(1, room.num_rooms) %}
+                                                                    <option value="{{i}}">{{i}} - ${{ i*room.night_price }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        {% if room.adult_occupancy > 1 %}
+                                                        {% if room.night_price2 > 0 %}
+                                                        {% if room.night_price2 != room.night_price %}
+                                                        <span class="booking-item-price">${{room.night_price2}}</span><span>/night</span>
+                                                        <div class='flex select_room between middle mrgn5'>
+                                                            <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                                                <i class='fa fa-male'></i><i class='fa fa-male'></i>
+                                                            </div>
+                                                            <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price2}}" roomid="{{room.objectId}}--2" persons="2" > 
+                                                                <option selected="selected">0</option>
+                                                                {% for i in range(1, room.num_rooms) %}
+                                                                    <option value="{{i}}">{{i}} - ${{ i*room.night_price2 }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        {% endif %}
+                                                        {% endif %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                {% endif %}
                                             {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
+                                        {% endfor %}
+                                    {%endif%}
                                 </div>
                             </div>
                         </li>
