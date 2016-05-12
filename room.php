@@ -33,9 +33,10 @@
         $e->num_rooms = $room->get('num_rooms');
         $e->beds = $room->get('num_beds');
         $e->images = $room->get('images');
+        
         foreach ($closings as $closing) {
-            array_push($starts,$closing->get("start"));
-            array_push($ends,$closing->get("end"));
+            array_push($starts,$closing->get("start")->format('Y-m-d'));
+            array_push($ends,$closing->get("end")->format('Y-m-d'));
             array_push($ids,$closing->getObjectId());
         }
 
@@ -154,8 +155,9 @@
 
         $closing = new ParseObject("room_closing");
         $closing->set('room',$room);
-        $closing->set('start',$_POST['start']);
-        $closing->set('end',$_POST['end']);
+
+        $closing->set('start',new DateTime($_POST['start']));
+        $closing->set('end',new DateTime($_POST['end']));
         
         try {
             $closing->save();

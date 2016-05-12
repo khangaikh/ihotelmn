@@ -245,9 +245,11 @@
             $rooms = $_GET['rooms'];
 
             $date = new DateTime($start);
+            $date1 = new DateTime($start);
             $checkin = $date->format('Y-m-d');
 
             $date = new DateTime($end);
+            $date2 = new DateTime($end);
             $checkout = $date->format('Y-m-d');
 
             $query->equalTo("city",'Ulaanbaatar');
@@ -488,9 +490,18 @@
             $guests = $_GET['guests'];
             $rooms_1 = $_GET['rooms'];
 
+            $date1 = new DateTime($start);
+            $date2 = new DateTime($end);
+
+            $query = new ParseQuery("room_closing");
+            $query->lessThanOrEqualTo("start", $date2); //2 -16 
+            $query->greaterThanOrEqualTo("end", $date1); // 24 - 1
+            $query->includeKey('room');
+            $closed_rooms = $query->find();
+
             $template = $twig->loadTemplate('asem_detail.html');
             //render a template
-            echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
+            echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_rooms));
         }
         else if(isset($_POST['contact_us'])){
             require 'lib/Mailer/PHPMailerAutoload.php';

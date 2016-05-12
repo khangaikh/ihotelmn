@@ -742,6 +742,7 @@ function edit_room(j){
         url: "room.php",
         data: {data:j, action:1},
         success: function(data, textStatus, jqXHR){
+            console.log(data);
             var room = $.parseJSON( data );
             console.log(room);
             $("#edit_room_id").val(room['id']);
@@ -774,7 +775,7 @@ function edit_room(j){
                 div.appendTo('#edit_imagePreview');
             }
 
-           for(var i=0; i<room['starts'].length; i++){
+           for(var i=0; i<room['ids'].length; i++){
                 var id = room['ids'][i];
                 var start = room['starts'][i];
                 var end = room['ends'][i];
@@ -1038,7 +1039,7 @@ $(document).ready(function(){
                 data: {data:room_id, action:5, start: start, end:end},
                 success: function(data, textStatus, jqXHR){
                     console.log(data);
-                    var add = '<tr><td>'+start+'<br></td><td>'+end+'<br></td><td><a href="#" onclick="delete_room_closing(\''+data+'\')"><i class="fa fa-trash"></i></a></td></tr>';
+                    var add = '<tr><td>'+start+'<br></td><td>'+end+'<br></td><td><a href="#" onclick="delete_room_closing()"><i class="fa fa-trash"></i></a></td></tr>';
                     $('#closings').append(add);
                     $("#loading").remove();
                 }
