@@ -311,6 +311,7 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         for(var i = 0; i<results.length; i++){
+            
             marker = new google.maps.Marker({
                 position: {lat: results[i].lat, lng: results[i].lng},
             });
