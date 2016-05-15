@@ -276,14 +276,8 @@
 {% endblock %} 
 {% block scripting %}
     {{parent()}}
+    <script type="text/javascript" src="js/infobubble.js" charset="utf-8"></script>
     <script type="text/javascript">
-    var script = '<script type="text/javascript" src="https://google-maps-' +
-    'utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble';
-    if (document.location.search.indexOf('compiled') !== -1) {
-        script += '-compiled';
-    }
-    script += '.js"><' + '/script>';
-    document.write(script);
 
     var checkedValues1; var checkedValues2; var checkedValues3; var checkedValues4; var checkedValues5; var checkedValues6; var checkedValues7;
     var values1; var values2; var values3; var values4; var values5; var values6; var values7;
