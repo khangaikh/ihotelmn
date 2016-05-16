@@ -1,4 +1,5 @@
 <?php
+
     require_once "config.php";
     use Parse\ParseException;
     use Parse\ParseObject;
@@ -48,6 +49,7 @@
     if($_POST['action']==2){
         $arr = $room->get('images');
         $i = $_POST['order'];
+        exec('rm -rf '.$i);
         unset($arr[$i]);
         $arr = array_values($arr);
         $room->setArray('images',$arr);
@@ -182,4 +184,5 @@
             echo  $ex;
         }
     }
+
 ?>
