@@ -5,7 +5,7 @@
     use Parse\ParseUser;
 
 
-    $secret = "6LfSXhoTAAAAAPaw-YLaAtKdmrI-amR_xNS6RFmf";
+    $secret = "6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP";
 
     // empty response
     $response = null;
@@ -73,7 +73,7 @@
                 echo 0;
             }
         }
-    } else {
+    }else {
         echo 2;
     }
 ?>
