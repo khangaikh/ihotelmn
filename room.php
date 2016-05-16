@@ -49,7 +49,13 @@
     if($_POST['action']==2){
         $arr = $room->get('images');
         $i = $_POST['order'];
-        exec('rm -rf '.$i);
+        try {
+
+            exec('rm -rf '.$arr[$i]);
+
+        } catch (Exception $e) {
+            die();
+        }
         unset($arr[$i]);
         $arr = array_values($arr);
         $room->setArray('images',$arr);

@@ -1,4 +1,5 @@
 <?php
+
     require_once 'includes/Twig/Autoloader.php';
     require_once "config.php";
     use Parse\ParseObject;
@@ -133,4 +134,5 @@
         $template = $twig->loadTemplate('user_news.html');
         echo $template->render(array('title' => 'Мэдээ мэдээлэл', 'nav' => 6, 'result'=> 1));
     }
+
 ?>
