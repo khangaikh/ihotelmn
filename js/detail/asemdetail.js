@@ -130,6 +130,8 @@ $(document).ready(function() {
         var qty_str = room_qtys.toString();
         var sub_str = room_subs.toString();
 
+        console.log(room_str);
+
         $.post("payment.php", {
             start: start,
             end: end,

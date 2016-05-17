@@ -1223,8 +1223,9 @@
                 $template = $twig->loadTemplate('asem_register.html');
                 echo $template->render(array('title' => 'Asem Login', 'list' => 1));
             }
+            
             else{
-                $country = ip_info("Visitor", "Country");
+               $country = ip_info("Visitor", "Country");
                 if($country == 'Mongolia'){
                     $template = $twig->loadTemplate('home.html');
                     $query = new ParseQuery("hotel");
