@@ -94,8 +94,8 @@ $(document).ready(function() {
 
     $("span[name=ordernow]").click(function( event ) {
         var room_ids = [];
-        var room_qtys = ['1'];
-        var room_subs = ['1'];
+        var room_qtys = [];
+        var room_subs = [];
         var pickup = "empty";
 
         $('ul[name=order_room]').each(function(){
@@ -112,11 +112,12 @@ $(document).ready(function() {
             room_qtys.push(qty);
         });
 
-
         $('span[name=subtotal]').each(function(){
             var sub = $(this).text();
             room_subs.push(sub);
         });
+
+        console.log(room_ids);
 
         var start = $("#start").val();
         var end = $("#end").val();
@@ -135,7 +136,7 @@ $(document).ready(function() {
             start: start,
             end: end,
             hotel: hotel,
-            rooms : room_ids,
+            rooms : room_str,
             qtys: qty_str,
             subs:sub_str,
             pickup: pickup,
@@ -159,7 +160,6 @@ $(document).ready(function() {
         var enda   = new Date(end);
         var diff = new Date(enda - starta);
 
-
         // get days
         var days = diff/1000/60/60/24;
 
@@ -173,11 +173,8 @@ $(document).ready(function() {
             var found = roomid.indexOf("--");
 
             if(found!=-1){
-                $('ul[roomid='+roomid+']').each(function(){
-                    $(this).remove();   
-                    var arr = roomid.split('--');
-                    roomid = arr[0];
-                });
+                var arr = roomid.split('--');
+                roomid = arr[0];
             }
 
 

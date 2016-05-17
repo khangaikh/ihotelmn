@@ -15,7 +15,7 @@
      $pickup = $_POST["pickup"];
 
      //$rooms = explode(',', $_POST["rooms"]);
-     $rooms = $_POST["rooms"];
+     $rooms = explode(',', $_POST["rooms"]);
      $qtys = array_map('intval', explode(',', $_POST["qtys"]));
      $subs = array_map('intval', explode(',', $_POST["subs"]));
 
@@ -24,7 +24,9 @@
      if (isset($_SESSION['user'])){
          $user = $_SESSION['user'];
          $result = true;
-         for ($i = 1; $i < count($rooms); $i++) {
+         $c = count($rooms);
+
+         for ($i = 0; $i <$c; $i++) {
              $room_id = explode('-', $rooms[$i])[0];
              $qty = $qtys[$i];
              $subtotal = $subs[$i];
@@ -68,9 +70,12 @@
          }
      }
      else{
-         
+         $c = count($rooms);
          $result = true;
-         for ($i = 1; $i < count($rooms); $i++) {
+        
+
+         for ($i = 0; $i < $c; $i++) {
+
              $room_id = $rooms[$i];
              $qty = $qtys[$i];
              $subtotal = $subs[$i];
@@ -104,6 +109,8 @@
                  // error is a ParseException object with an error code and message.
                  echo $ex;
              }
+             $room = null;
+
          }
          $_SESSION['orders'] = $order_ids;
          if($result){
