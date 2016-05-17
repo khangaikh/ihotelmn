@@ -5,7 +5,7 @@
     use Parse\ParseUser;
 
 
-    $secret = "6LfSXhoTAAAAAC9V-mDsf7yQr2-wOxmnZHKo7nMP";
+    $secret = "6LfSXhoTAAAAAPaw-YLaAtKdmrI-amR_xNS6RFmf";
 
     // empty response
     $response = null;
@@ -52,6 +52,7 @@
                 $result =true;
             } catch (ParseException $ex) {
                 echo $ex->getCode();
+                print_r($ex);
             }
 
             if($result){
