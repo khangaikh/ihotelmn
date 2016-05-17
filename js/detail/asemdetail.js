@@ -158,6 +158,10 @@ $(document).ready(function() {
         var starta = new Date(start);
         var enda   = new Date(end);
         var diff = new Date(enda - starta);
+
+        var t = $(this).attr('roomid');
+        $('select[roomid=t'+'--2'+']').hide();
+
         // get days
         var days = diff/1000/60/60/24;
 
