@@ -1247,6 +1247,7 @@
                     $template = $twig->loadTemplate('asem_register.html');
                     echo $template->render(array('title' => 'Asem Login', 'list' => 1));
                 }
+                
             } 
     }
 ?>

@@ -117,8 +117,6 @@ $(document).ready(function() {
             room_subs.push(sub);
         });
 
-        console.log(room_ids);
-
         var start = $("#start").val();
         var end = $("#end").val();
         var starta = new Date(start);
