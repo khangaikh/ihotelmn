@@ -357,7 +357,7 @@
 
                 $_SESSION['total'] = $total;
                 $template = $twig->loadTemplate('payment.html');
-                echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user));
+                echo $template->render(array('title' => 'Payment Page', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user));
             }else{
 
             }
@@ -396,7 +396,7 @@
                 $_SESSION['total'] = $total;
                 $template = $twig->loadTemplate('asem_payment.html');
                 //render a template
-                echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user));
+                echo $template->render(array('title' => 'Payment Page', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user));
             }else{
 
             }
