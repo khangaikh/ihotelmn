@@ -15,7 +15,9 @@
      $pickup = $_POST["pickup"];
 
      //$rooms = explode(',', $_POST["rooms"]);
-     $rooms = explode(',', $_POST["rooms"]);
+
+     //$rooms = explode(',', $_POST["rooms"]);
+     $rooms = $_POST['rooms'];
      $qtys = array_map('intval', explode(',', $_POST["qtys"]));
      $subs = array_map('intval', explode(',', $_POST["subs"]));
 
