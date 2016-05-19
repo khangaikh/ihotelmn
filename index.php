@@ -391,7 +391,7 @@
                 }
                 $total= $total * $days;
 
-                if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 200; }
+                if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 75; }
 
                 $_SESSION['total'] = $total;
                 $template = $twig->loadTemplate('asem_payment.html');
