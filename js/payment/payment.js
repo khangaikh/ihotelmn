@@ -10,10 +10,9 @@ $('#login').click(function(){
         email: $('#email').val(),
         password: $('#password').val(),
         g_recaptcha_response: $('#recaptcha1').val()
-    },
-    function (result) {
+    }, function (result) {
         if(result==1){
-            window.location.replace("index.php");
+            window.location.replace(window.location.href);   
         }
         else if(result==2){
             $('#loading').remove();
@@ -30,6 +29,57 @@ $('#login').click(function(){
         }
     });
 });
+$('#forgot_password').click(function(){
+    var $this = $(this);
+    $this.after('<div id="loading"></div>');
+    $this.addClass('disabled');
+    $.post("user.php", {
+        forgot_password: $('#forgot_email').val(),
+        g_recaptcha_response: $('#recaptcha3').val()
+    }, function (result) {
+        if(result==1){
+            $('#forget_success').fadeIn(100);
+            $('#forget_success p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
+            grecaptcha.reset(widgetId2);
+        }
+        else if(result==2){
+            $('#forget_danger').fadeIn(100);
+            $('#forget_danger p').text('ReCaptcha required');
+        }
+        else{
+            $('#forget_danger').fadeIn(100);
+            $('#forget_danger p').text('Incorrect an email');
+            grecaptcha.reset(widgetId2);
+        }
+
+    $('#loading').remove();
+    $this.removeClass('disabled');
+    });
+});
+$("#golomt_pay").submit(function( event ) {
+    if (checkuser) {
+        event.preventDefault();
+        $.post("order.php", {
+            end: $('#end_4').val(),
+        }, function (result) {
+            if(result!=0){
+                var orderID = result;  
+                post('https://m.egolomt.mn/billingnew/cardinfo.aspx', {key_number: '254251235225252244203251255231202171168165162162182164175',
+                    trans_number: orderID, 
+                    trans_amount: $('#total_4').val(), lang_ind: '1',
+                    customer_id: '',
+                    subID: '1'
+                    });
+            }
+            else{
+                $('#loading').remove();
+                $this.removeClass('disabled');
+                alert(result);
+            }
+        });
+    }
+});
+
 $('#add').click(function(){
     $('#register-success').hide();
     $('#register-alert').hide();
@@ -40,7 +90,6 @@ $('#add').click(function(){
         email: $('#remail').val(),
         username: $('#rusername').val(),
         password: $('#rpassword').val(),
-        location: 'Mongolia',
         g_recaptcha_response: $('#recaptcha2').val()
     }, function (result) {
         if(result==1){
@@ -71,32 +120,25 @@ $('#add').click(function(){
         }
     });
 });
-$('#forgot_password').click(function(){
-    $('#register-success1').hide();
-    $('#login-alert1').hide();
-    $.post("user.php", {
-        forgot_password: $('#forgot_email').val(),
-        g_recaptcha_response: $('#recaptcha3').val()
-    }, function (result) {
-        if(result==1){
-            $(".mfp-close").trigger('click');
-            $('#register-success1').fadeIn(500);
-            $('#register-success1 p').text('Та и-мэйл рүүгээ орж нууц үгээ сэргээнэ үү!');
-            grecaptcha.reset(widgetId2);
+function post(path, params, method) {
+    method = method || "post"; 
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
         }
-        else if(result==2){
-            $(".mfp-close").trigger('click');
-            $('#login-alert1').fadeIn(500);
-            $('#login-alert1 p').text('reCaptche error!');
-        }
-        else{
-            $(".mfp-close").trigger('click');
-            $('#login-alert1').fadeIn(500);
-            $('#login-alert1 p').text('Таны и-мэйл хаяг буруу байна!');
-            grecaptcha.reset(widgetId2);
-        }
-    });
-});
+    }
+    document.body.appendChild(form);
+    form.submit();
+
+};
 var verifyCallback = function(response) {
     $("#recaptcha1").val(response);
 };
