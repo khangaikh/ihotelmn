@@ -163,7 +163,7 @@
                             <div class="booking-item booking-item-small">
                                 <div class="row">
                                     <div class="col-xs-12 col-md-4">
-                                        <img src="{{hotel.cover_image}}" alt="cover" title="hotel_cover" />
+                                        <img src="{{hotel.cover_image}}" alt="cover" title="{{hotel.name}}" />
                                     </div>
                                     <div class="col-xs-12 col-md-5">
                                         <h5 class="booking-item-title">{{hotel.name}}</h5>
@@ -200,7 +200,7 @@
                             <div class="booking-item booking-item-small">
                                 <div class="row">
                                     <div class="col-xs-12 col-md-4">
-                                        <img src="{{hotel2.cover_image}}" alt="cover" title="hotel_cover" />
+                                        <img src="{{hotel2.cover_image}}" alt="cover" title="{{hotel.name}}" />
                                     </div>
                                     <div class="col-xs-12 col-md-5">
                                         <h5 class="booking-item-title">{{hotel2.name}}</h5>
@@ -262,7 +262,6 @@
 {% block scripting %}
 {{parent()}}
 <script type="text/javascript">
-
     $(document).ready(function() {
         $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
             todayHighlight: true

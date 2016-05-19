@@ -1,4 +1,5 @@
 <?php
+
     require_once "config.php";
     use Parse\ParseException;
     use Parse\ParseObject;
@@ -95,8 +96,10 @@
         $paths=array();
 
         foreach ($_POST['images'] as $key=>$value){
+
+            $random = substr( md5(rand()), 0, 7);
             $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
-            $path = 'img/room/'.date('YmdHis').$key.'.jpg';
+            $path = 'img/room/'.$random.'.jpg';
             file_put_contents($path, $data);
             if (filesize($path) > 184320) {
                 $imagick = new \Imagick(realpath($path));
@@ -170,8 +173,9 @@
         $paths=array();
 
         foreach ($_POST['hotel_images'] as $key=>$value){
+            $random = substr( md5(rand()), 0, 7);
             $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
-            $path = 'img/hotel/'.date('YmdHis').$key.'.jpg';
+            $path = 'img/hotel/'.$random.'.jpg';
             file_put_contents($path, $data);
             if (filesize($path) > 184320) {
                 $imagick = new \Imagick(realpath($path));
@@ -183,7 +187,7 @@
         $hotel->setArray('images',$paths);
         $random = substr( md5(rand()), 0, 7);
         $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['cover_images'][0]));
-        $path = 'img/hotel/'.date('YmdHis').$random.'.jpg';
+        $path = 'img/hotel/'.$random.'.jpg';
         file_put_contents($path, $data);
         if (filesize($path) > 184320) {
             $imagick = new \Imagick(realpath($path));
@@ -225,4 +229,5 @@
     }
 
     echo 1;
+
 ?>

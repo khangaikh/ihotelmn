@@ -93,8 +93,9 @@
         $paths= $room->get('images');
         if(isset($_POST['images'])){
             foreach ($_POST['images'] as $key=>$value){
+                $random = substr( md5(rand()), 0, 7);
                 $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
-                $path = 'img/room/'.date('YmdHis').$key.'.jpg';
+                $path = 'img/room/'.$random.'.jpg';
                 file_put_contents($path, $data);
                 if (filesize($path) > 184320) {
                     $imagick = new \Imagick(realpath($path));

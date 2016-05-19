@@ -89,7 +89,7 @@
             if ($_POST['update_news_image1']!=NULL) {
                 $random = substr( md5(rand()), 0, 7);
                 $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['update_news_image1']));
-                $path = 'img/news/'.date('YmdHis').$random.'.jpg';
+                $path = 'img/news/'.$random.'.jpg';
                 file_put_contents($path, $data);
                 if (filesize($path) > 184320) {
                     $imagick = new \Imagick(realpath($path));
