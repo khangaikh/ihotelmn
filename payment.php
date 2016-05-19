@@ -25,7 +25,6 @@
          $user = $_SESSION['user'];
          $result = true;
          $c = count($rooms);
-
          for ($i = 0; $i <$c; $i++) {
              $room_id = explode('-', $rooms[$i])[0];
              $qty = $qtys[$i];

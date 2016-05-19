@@ -80,8 +80,8 @@ $(document).ready(function() {
 
     $("span[name=ordernow]").click(function( event ) {
         var room_ids = [];
-        var room_qtys = ['1'];
-        var room_subs = ['1'];
+        var room_qtys = [];
+        var room_subs = [];
         var pickup = "empty";
 
         $('ul[name=order_room]').each(function(){
@@ -121,7 +121,7 @@ $(document).ready(function() {
             start: start,
             end: end,
             hotel: hotel,
-            rooms : room_ids,
+            rooms : room_str,
             qtys: qty_str,
             subs:sub_str,
             pickup: pickup,
