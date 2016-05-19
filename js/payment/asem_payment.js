@@ -139,3 +139,6 @@ var onloadCallback = function() {
               'theme' : 'light'
     });
 };
+$(document).ready(function(){
+    onloadCallback();
+});
