@@ -20,6 +20,12 @@ $(document).on("ifChanged",'input[name=pickup]', function( event ) {
 });
 
 $(document).ready(function() {
+    $('a[data-toggle="tooltip"]').tooltip({
+        animated: 'fade',
+        placement: 'bottom',
+        container:'body',   
+        html: true
+    });
     initMap();
     $.ajax({
         type: "get",
