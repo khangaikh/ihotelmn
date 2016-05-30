@@ -219,7 +219,7 @@ $('.booking-item-review-expand').click(function(event) {
 });
 
 $('#handbook').click(function(event) {
-    window.open('Hotel_Reservation_Guideline.pdf');
+    window.open('https://ihotel.mn/Hotel_Reservation_Guideline.pdf');
 });
 
 
