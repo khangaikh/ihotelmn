@@ -8,8 +8,66 @@ $(document).on("ifChanged",'input[name=pickup]', function( event ) {
     $('input[name="pickup"]').each(function(){
         if(this == thisId){
             if ($(this).is(":checked")) {
-                $(this).val() == "budget" ? s=total+25 : s=total+75;
-                $("#total").text("US$ "+s);
+                
+                if($(this).val()== "budget"){
+                    total=total+20;
+                }
+                if($(this).val()== "vip"){
+                    total=total+75;
+                }
+                $("#total").text("US$ "+total);
+            }else{
+                if($(this).val()== "budget"){
+                    total=total-20;
+                }
+                if($(this).val()== "vip"){
+                    total=total-75;
+                }
+
+                $("#total").text("US$ "+total);
+            }
+        }
+        else{
+            $(this).attr("checked", false);
+            $(this).parent().attr("class", "i-check");
+        }
+    });
+});
+
+$(document).on("ifChanged",'input[name=sim]', function( event ) {
+    var s = 0;
+    var checkedValues1 = $(' input[name="sim"]:checkbox:checked').map(function() {return this.value;}).get();
+    if(checkedValues1.length ==0){
+        $("#total").text("US$ "+total);
+    } 
+    var thisId = this;
+    $('input[name="sim"]').each(function(){
+        if(this == thisId){
+            if ($(this).is(":checked")) {
+                
+                if($(this).val()== "sim1"){
+                    total=total+20;
+                }
+                if($(this).val()== "sim2"){
+                    total=total+30;
+                }
+                if($(this).val()== "sim3"){
+                    total=total+50;
+                }
+                
+                $("#total").text("US$ "+total);
+            }else{
+                if($(this).val()== "sim1"){
+                    total=total-20;
+                }
+                if($(this).val()== "sim2"){
+                    total=total-30;
+                }
+                if($(this).val()== "sim3"){
+                    total=total-50;
+                }
+                
+                $("#total").text("US$ "+total);
             }
         }
         else{
@@ -103,6 +161,7 @@ $(document).ready(function() {
         var room_qtys = [];
         var room_subs = [];
         var pickup = "empty";
+        var sim = "empty";
 
         $('ul[name=order_room]').each(function(){
             var roomid = $(this).attr('roomid');
@@ -113,6 +172,13 @@ $(document).ready(function() {
                 pickup = $(this).val();
             }
         });
+
+        $('input[name="sim"]').each(function(){
+            if ($(this).is(":checked")) {
+                sim = $(this).val();
+            }
+        });
+
         $('span[name=qtys]').each(function(){
             var qty = parseInt($(this).text());
             room_qtys.push(qty);
@@ -146,6 +212,7 @@ $(document).ready(function() {
             qtys: qty_str,
             subs:sub_str,
             pickup: pickup,
+            sim: sim,
             days:days
         },
         function (result) {

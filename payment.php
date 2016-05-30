@@ -13,6 +13,8 @@
      $end=$_POST["end"];
 
      $pickup = $_POST["pickup"];
+     $sim = $_POST["sim"];
+
 
      //$rooms = explode(',', $_POST["rooms"]);
      $rooms = explode(',', $_POST["rooms"]);
@@ -48,6 +50,7 @@
              $order->set("qty", (int)$qty);
              $order->set("total", (string)$subtotal);
              $order->set("pickup", (string)$pickup);
+             $order->set("sim", (string)$sim);
              $order->set("status", 0);
 
              try {
@@ -63,7 +66,12 @@
          }
          $_SESSION['orders'] = $order_ids;
          if($result){
-             echo 1;
+            $_SESSION['days'] = $days;
+            $_SESSION['start'] = $start;
+            $_SESSION['end'] = $end;
+            $_SESSION['pickup'] = $pickup;
+            $_SESSION['sim'] = $sim;
+            echo 1;
          }else{
              echo -2;
          }
@@ -72,7 +80,6 @@
          $c = count($rooms);
          $result = true;
         
-
          for ($i = 0; $i < $c; $i++) {
 
              $room_id = $rooms[$i];
@@ -96,6 +103,7 @@
              $order->set("qty", (int)$qty);
              $order->set("total", (string)$subtotal);
              $order->set("pickup", (string)$pickup);
+             $order->set("sim", (string)$sim);
              $order->set("status", 0);
 
              try {
@@ -113,15 +121,16 @@
          }
          $_SESSION['orders'] = $order_ids;
          if($result){
+            $_SESSION['days'] = $days;
+            $_SESSION['start'] = $start;
+            $_SESSION['end'] = $end;
+            $_SESSION['pickup'] = $pickup;
+            $_SESSION['sims'] = $sim;
              echo 1;
          }else{
              echo -3;
          }
 
      }
-     $_SESSION['days'] = $days;
-     $_SESSION['start'] = $start;
-     $_SESSION['end'] = $end;
-     $_SESSION['pickup'] = $pickup;
-
+     
 ?>
