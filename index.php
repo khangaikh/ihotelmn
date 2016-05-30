@@ -92,6 +92,10 @@
             $query->equalTo("status",1);
             $query->equalTo("asem",1);
 
+            if($user->get('meeting_type')==10){
+                $query->equalTo("is_journalist",1);
+            }
+
             $query->descending("stars");
 
             $query->equalTo("city",'Ulaanbaatar');
