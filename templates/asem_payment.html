@@ -144,6 +144,38 @@
                         </ul>
                         {% endif %}
                         </li>
+                        <li>
+                            {% if sim == "sim1" %}
+                            <h5>Tour SIM</h5>
+                            <ul class="booking-item-payment-price">
+                                <li>
+                                <p class="booking-item-payment-price-title"></p>
+                                <p class="booking-item-payment-price-title" style="margin-left:10px"><small>Single SIM</small></p>
+                                <p class="booking-item-payment-price-amount">$<small>20</small></p>
+                                </li>
+                            </ul>
+                            {% endif %}
+                            {% if sim == "sim2" %}
+                            <h5>Tour SIM</h5>
+                            <ul class="booking-item-payment-price">
+                                <li>
+                                <p class="booking-item-payment-price-title"></p>
+                                <p class="booking-item-payment-price-title" style="margin-left:10px"><small>Single PLUS SIM</small></p>
+                                <p class="booking-item-payment-price-amount">$<small>30</small></p>
+                                </li>
+                            </ul>
+                            {% endif %}
+                            {% if sim == "sim3" %}
+                            <h5>Tour SIM</h5>
+                            <ul class="booking-item-payment-price">
+                                <li>
+                                <p class="booking-item-payment-price-title"></p>
+                                <p class="booking-item-payment-price-title" style="margin-left:10px"><small>Double SIM</small></p>
+                                <p class="booking-item-payment-price-amount">$<small>50</small></p>
+                                </li>
+                            </ul>
+                            {% endif %}
+                        </li>
                     </ul>
                     <p class="booking-item-payment-total">Total amount: <span>US$ {{total}}</span>
                     </p>

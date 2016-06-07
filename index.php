@@ -86,10 +86,15 @@
             echo $template->render(array('title' => 'FAQ','nav' => 3,'user' => $user, 'faqs'=>$faqs));
         }
         else if(isset($_GET['asem'])){
+
             $query = new ParseQuery("hotel");
             $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
             $query->equalTo("asem",1);
+
+            if($user->get('meeting_type')==10){
+                $query->equalTo("is_journalist",1);
+            }
 
             $query->descending("stars");
 
@@ -368,6 +373,7 @@
                 $end = $_SESSION['end'];
                 $days = $_SESSION['days'];
                 $pickup = $_SESSION['pickup'];
+                $sim = $_SESSION['sim'];
                 $hotel = $_SESSION['hotel'];
                 $day_start = date('l', strtotime( $start));
                 $day_end = date('l', strtotime( $end));
@@ -392,11 +398,21 @@
                 $total= $total * $days;
 
                 if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 75; }
+                
+                if($sim=="sim1"){
+                    $total += 20;
+                }
+                if($sim=="sim2"){
+                    $total += 30;
+                }
+                if($sim=="sim3"){
+                    $total += 50;
+                }
 
                 $_SESSION['total'] = $total;
                 $template = $twig->loadTemplate('asem_payment.html');
                 //render a template
-                echo $template->render(array('title' => 'Payment Page', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user));
+                echo $template->render(array('title' => 'Payment Page', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user, 'sim' =>$sim));
             }else{
 
             }
@@ -747,8 +763,7 @@
             //render a template
             echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
         }
-        /*else if(isset($_GET['asemdetail'])){
-
+        else if(isset($_GET['asemdetail'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['asemdetail']);
             $hotel = $query->first();
@@ -765,7 +780,6 @@
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",0);
-
             $images = $query->find();
 
             $start = $_GET['depart'];
@@ -773,10 +787,20 @@
             $guests = $_GET['guests'];
             $rooms_1 = $_GET['rooms'];
 
+            $date1 = new DateTime($start);
+            $date2 = new DateTime($end);
+
+            $query = new ParseQuery("room_closing");
+            $query->lessThanOrEqualTo("start", $date2); //2 -16 
+            $query->greaterThanOrEqualTo("end", $date1); // 24 - 1
+            $query->includeKey('room');
+            $closed_rooms = $query->find();
+            $closed_rooms_count = $query->count();
+
             $template = $twig->loadTemplate('asem_detail.html');
             //render a template
-            echo $template->render(array('title' => 'Choose room', 'nav' => 1,  'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
-        }*/
+            echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => 'Test', 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_rooms, 'count' => $closed_rooms_count));
+        }
         else if(isset($_GET['tour'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
@@ -981,6 +1005,9 @@
                         $query->equalTo("type","Hotel");
                         $query->equalTo("status",1);
                         $query->equalTo("asem",1);
+                        if($_GET['meeting_type']==10){
+                            $query->equalTo("is_journalist",1);
+                        }
 
                         $query->descending("stars");
 
@@ -1038,7 +1065,9 @@
                             $query->equalTo("type","Hotel");
                             $query->equalTo("status",1);
                             $query->equalTo("asem",1);
-
+                            if($_GET['meeting_type']==10){
+                                $query->equalTo("is_journalist",1);
+                            }
                             $query->descending("stars");
 
                             $query->equalTo("city",'Ulaanbaatar');
@@ -1079,6 +1108,7 @@
                     $days = $_SESSION['days'];
                     $hotel = $_SESSION['hotel'];
                     $pickup = $_SESSION['pickup'];
+                    $sim = $_SESSION['sim'];
                     $day_start = date('l', strtotime( $start));
                     $day_end = date('l', strtotime( $end));
                     $orders = $_SESSION['orders'];
@@ -1101,12 +1131,22 @@
                     }
                     $total= $total * $days;
 
-                    if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 200; }
+                    if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 75; }
+
+                    if($sim=="sim1"){
+                        $total += 20;
+                    }
+                    if($sim=="sim2"){
+                        $total += 30;
+                    }
+                    if($sim=="sim3"){
+                        $total += 50;
+                    }
 
                     $_SESSION['total'] = $total;
                     $template = $twig->loadTemplate('payment.html');
                     //render a template
-                    echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'pickup' => $pickup, 'day_end' => $day_end));
+                    echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'pickup' => $pickup, 'day_end' => $day_end, 'sim' => $sim));
                 }else{
 
                 }
@@ -1119,6 +1159,7 @@
                     $days = $_SESSION['days'];
                     $hotel = $_SESSION['hotel'];
                     $pickup = $_SESSION['pickup'];
+                    $sim = $_SESSION['sim'];
                     $day_start = date('l', strtotime( $start));
                     $day_end = date('l', strtotime( $end));
                     $orders = $_SESSION['orders'];
@@ -1141,11 +1182,20 @@
                     }
                     $total= $total * $days;
 
-                    if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 200; }
+                    if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 75; }
+                    if($sim=="sim1"){
+                        $total += 20;
+                    }
+                    if($sim=="sim2"){
+                        $total += 30;
+                    }
+                    if($sim=="sim3"){
+                        $total += 50;
+                    }
 
                     $template = $twig->loadTemplate('asem_payment.html');
                     //render a template
-                    echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup));
+                    echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'sim' =>$sim));
                 }else{
 
                 }
@@ -1223,10 +1273,65 @@
                 $template = $twig->loadTemplate('asem_register.html');
                 echo $template->render(array('title' => 'Asem Login', 'list' => 1));
             }
-            
+            else if(isset($_GET['asemdetail'])){
+                $query = new ParseQuery("hotel");
+                $query->equalTo("objectId",$_GET['asemdetail']);
+                $hotel = $query->first();
+
+                $query = new ParseQuery("rooms");
+                $query->equalTo("hotel",$hotel);
+                $rooms = $query->find();
+
+                $query = new ParseQuery("hotel_images");
+                $query->equalTo("hotel",$hotel);
+                $query->equalTo("main",1);
+                $main = $query->first();
+
+                $query = new ParseQuery("hotel_images");
+                $query->equalTo("hotel",$hotel);
+                $query->equalTo("main",0);
+                $images = $query->find();
+
+                $start = $_GET['depart'];
+                $end = $_GET['end'];
+                $guests = $_GET['guests'];
+                $rooms_1 = $_GET['rooms'];
+
+                $date1 = new DateTime($start);
+                $date2 = new DateTime($end);
+
+                $query = new ParseQuery("room_closing");
+                $query->lessThanOrEqualTo("start", $date2); //2 -16 
+                $query->greaterThanOrEqualTo("end", $date1); // 24 - 1
+                $query->includeKey('room');
+                $closed_rooms = $query->find();
+                $closed_rooms_count = $query->count();
+
+                $template = $twig->loadTemplate('asem_detail.html');
+                //render a template
+                echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => 'Hello', 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_rooms, 'count' => $closed_rooms_count));
+            }
             else{
-               $country = ip_info("Visitor", "Country");
-                //if($country == 'Mongolia'){
+                
+                $template = $twig->loadTemplate('home.html');
+                $query = new ParseQuery("hotel");
+                $query->equalTo("status",1);
+                $query->equalTo("homepage",1);
+                $query->equalTo("city","Ulaanbaatar");
+                $query->descending("name");
+                $query->limit(2);
+                $hotels = $query->find();
+
+                $query = new ParseQuery("hotel");
+                $query->equalTo("status",1);
+                $query->equalTo("homepage",1);
+                $query->equalTo("city","Ulaanbaatar");
+                $query->ascending("name");
+                $query->limit(2);
+                $hotels2 = $query->find();
+                echo $template->render(array('title' => 'iHotel', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
+               /* $country = ip_info("Visitor", "Country");
+                if($country == 'Mongolia'){
                     $template = $twig->loadTemplate('home.html');
                     $query = new ParseQuery("hotel");
                     $query->equalTo("status",1);
