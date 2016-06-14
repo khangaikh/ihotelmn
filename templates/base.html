@@ -2,6 +2,19 @@
 <html>
 <head>
     {% block head %}
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/575f98a1eb544cb33e8c5c07/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
     <title>{% block title %} {% endblock %} {{ title }} </title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta name="keywords" content="hotel, Booking, Mongolia, iHotel" />
@@ -40,8 +53,6 @@
             a.appendChild(r);
         })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
-
-
 </head>
 <body>
 <div class="global-wrap">

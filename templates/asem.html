@@ -1,127 +1,140 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        {% block head %}
-        <title>{% block title %} {% endblock %} {{ title }} </title>
-        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-        <meta name="keywords" content="hotel, Booking, Mongolia, iHotel" />
-        <meta name="description" content="iHotel.mn">
-        <meta name="author" content="iHotel.mn">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="img/favicon.ico">
-        <!-- GOOGLE FONTS -->
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css'>
+<head>
+    {% block head %}
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+     s1.async=true;
+     s1.src='https://embed.tawk.to/575f98a1eb544cb33e8c5c07/default';
+     s1.charset='UTF-8';
+     s1.setAttribute('crossorigin','*');
+     s0.parentNode.insertBefore(s1,s0);
+     })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <title>{% block title %} {% endblock %} {{ title }} </title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="keywords" content="hotel, Booking, Mongolia, iHotel" />
+    <meta name="description" content="iHotel.mn">
+    <meta name="author" content="iHotel.mn">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/favicon.ico">
+    <!-- GOOGLE FONTS -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css'>
 
-        <!-- CUSTOM ICONS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- CUSTOM ICONS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-        <!-- DEFAULT CSS -->
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="css/font-awesome.css">
-        <link rel="stylesheet" href="css/icomoon.css">
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="css/flex.css">
-        <link rel="stylesheet" href="css/asem.css">
-        <link rel="stylesheet" href="css/mystyles.css">
-        <link rel="stylesheet" href="css/asem_mystyle.css">
-        <script src="js/modernizr.js"></script>
-        {% endblock %}
-    </head>
+    <!-- DEFAULT CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/flex.css">
+    <link rel="stylesheet" href="css/asem.css">
+    <link rel="stylesheet" href="css/mystyles.css">
+    <link rel="stylesheet" href="css/asem_mystyle.css">
+    <script src="js/modernizr.js"></script>
+    {% endblock %}
+</head>
 <body> 
-    <div class="global-wrap">
-        <header id="main-header">
-            <div class="header-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a class="logo" href="index.php">
-                                <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
-                            </a>
-                        </div>
-                        <div class=" col-md-offset-5 col-md-4">
-                            <div class="top-user-area clearfix">
-                                <ul class="top-user-area-list list list-horizontal list-border">
-                                    {% if user %}
-                                    <li class="top-user-area-avatar">
-                                    <a href="index.php">{{user.name}}</a>
-                                    </li>
-
-                                    <li><a href="index.php?logout">Logout</a>
-                                    </li>
-                                    {% else %}
-                                    <li><a href='index.php?asem_login'>ASEM Login</a></li>
-                                    {% endif %}
-                                    <li class="top-user-area-lang ">
-                                    <a title="Mongolian" href="index.php">
-                                        <img src="img/flags/32/mn.png" alt="Image Alternative text" title="Image Title" /><span class="right">MGL</span>
-                                    </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id='nav-container'>
-                <div class="container">
-                    <div class="nav">
-                        <ul class="slimmenu" id="slimmenu">
-                            <li {% if nav==1 %}  class="active" {%endif%}><a href="index.php?asem">ASEM ULAANBAATAR HOTELS</a></li>
-                            <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">CAR RENTAL</a></li>
-                            <li ><a href="http://www.asem11.mn/">ASEM 2016 NEWS</a></li>
-                            <li {% if nav==3 %}  class="active" {%endif%}><a href="index.php?asem-faq">FAQ</a></li>
-                            <li ><a href="#" id="handbook">HANDBOOK</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
-        {% block content %}
-
-        {% endblock %}
-        <div class="gap"></div>
-        <footer id="main-footer">
+<div class="global-wrap">
+    <header id="main-header">
+        <div class="header-top">
             <div class="container">
-                <div class="flex between middle wrap">
-                    <div>
+                <div class="row">
+                    <div class="col-md-3">
                         <a class="logo" href="index.php">
                             <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
                         </a>
                     </div>
-                    <div>
-                        <ul class="list list-horizontal list-space" id="footer-link">
-                            <li><a href='index.php?asem_terms'>Terms in Uses</a></li>
-                            <li><a href='index.php?asem-faq'>FAQ</a></li>
-                            <li><a href='http://www.asem11.mn/?page_id=15&lang=en'>Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class='flex between middle wrap'>
-                    <div>
-                        <p>National Information Technology Park , Room 206, Ulaanbaatar, Mongolia, info@ihotel.mn</p>
-                        <p>&copy 2016 iHotel.mn</p>
-                    </div>
-                    <div>
-                        <ul class="list list-horizontal list-space">
-                            <li>
-                            <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="https://www.facebook.com/ihotel.mn/"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="https://twitter.com/iHotelmn"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="https://plus.google.com/114743746404564984742"></a>
-                            </li>
-                            <li>
-                            <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="https://www.linkedin.com/in/khangaikh"></a>
-                            </li>
-                        </ul>
+                    <div class=" col-md-offset-5 col-md-4">
+                        <div class="top-user-area clearfix">
+                            <ul class="top-user-area-list list list-horizontal list-border">
+                                {% if user %}
+                                <li class="top-user-area-avatar">
+                                <a href="index.php">{{user.name}}</a>
+                                </li>
+
+                                <li><a href="index.php?logout">Logout</a>
+                                </li>
+                                {% else %}
+                                <li><a href='index.php?asem_login'>ASEM Login</a></li>
+                                {% endif %}
+                                <li class="top-user-area-lang ">
+                                <a title="Mongolian" href="index.php">
+                                    <img src="img/flags/32/mn.png" alt="Image Alternative text" title="Image Title" /><span class="right">MGL</span>
+                                </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
-    </div>
+        </div>
+        <div id='nav-container'>
+            <div class="container">
+                <div class="nav">
+                    <ul class="slimmenu" id="slimmenu">
+                        <li {% if nav==1 %}  class="active" {%endif%}><a href="index.php?asem">ASEM ULAANBAATAR HOTELS</a></li>
+                        <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">CAR RENTAL</a></li>
+                        <li ><a href="http://www.asem11.mn/">ASEM 2016 NEWS</a></li>
+                        <li {% if nav==3 %}  class="active" {%endif%}><a href="index.php?asem-faq">FAQ</a></li>
+                        <li ><a href="#" id="handbook">HANDBOOK</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% block content %}
+
+    {% endblock %}
+    <div class="gap"></div>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="flex between middle wrap">
+                <div>
+                    <a class="logo" href="index.php">
+                        <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
+                    </a>
+                </div>
+                <div>
+                    <ul class="list list-horizontal list-space" id="footer-link">
+                        <li><a href='index.php?asem_terms'>Terms in Uses</a></li>
+                        <li><a href='index.php?asem-faq'>FAQ</a></li>
+                        <li><a href='http://www.asem11.mn/?page_id=15&lang=en'>Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class='flex between middle wrap'>
+                <div>
+                    <p>National Information Technology Park , Room 206, Ulaanbaatar, Mongolia, info@ihotel.mn</p>
+                    <p>&copy 2016 iHotel.mn</p>
+                </div>
+                <div>
+                    <ul class="list list-horizontal list-space">
+                        <li>
+                        <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="https://www.facebook.com/ihotel.mn/"></a>
+                        </li>
+                        <li>
+                        <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="https://twitter.com/iHotelmn"></a>
+                        </li>
+                        <li>
+                        <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="https://plus.google.com/114743746404564984742"></a>
+                        </li>
+                        <li>
+                        <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="https://www.linkedin.com/in/khangaikh"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
 {% block scripting %}
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
