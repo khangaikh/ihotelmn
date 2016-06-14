@@ -12,8 +12,13 @@
      $start=$_POST["start"];
      $end=$_POST["end"];
 
+
      $pickup = $_POST["pickup"];
-     $sim = $_POST["sim"];
+     $sim = "";
+
+     if (isset($_POST["sim"]) ) {
+         $sim = $_POST["sim"];
+     }
 
 
      //$rooms = explode(',', $_POST["rooms"]);
@@ -24,6 +29,7 @@
      $order_ids = [];
 
      if (isset($_SESSION['user'])){
+
          $user = $_SESSION['user'];
          $result = true;
          $c = count($rooms);
@@ -75,8 +81,9 @@
          }else{
              echo -2;
          }
-     }
-     else{
+
+     }else{
+
          $c = count($rooms);
          $result = true;
         

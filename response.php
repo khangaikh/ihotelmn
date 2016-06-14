@@ -213,7 +213,7 @@
             font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;"><p style="float: left; margin: 5px;">'.$order[$i]->get('days').' Nights</p>
                 <p style="float: right; line-height: 0;">$'.$order[$i]->get('total').'<small>/per day</small></p></li><li style="width:78%; overflow: hidden;
             font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;"><p style="float: left; margin: 5px;">Taxes</p>
-                <p style="float: right; line-height: 0;">(incluled)<small>/per day</small></p></li></ul><br />
+                <p style="float: right; line-height: 0;">(taxes)<small>/per day</small></p></li></ul><br />
                 <h5 style="margin: 0 0 12px; font-size: 18.2px; font-weight: 300;line-height: 1em;color: #565656;">Pickup</h5>
                 <ul style="margin: 0; padding: 0; list-style: none;"><li style="width: 78%; overflow: hidden;
             font-size: 12px; border-bottom: 1px dashed #d9d9d9; margin:0;"><p style="float: left; margin: 5px;">'.$pickup.
