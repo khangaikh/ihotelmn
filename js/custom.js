@@ -222,7 +222,6 @@ $('#handbook').click(function(event) {
     window.open('https://ihotel.mn/Hotel_Reservation_Guideline.pdf');
 });
 
-
 $('.stats-list-select > li > .booking-item-rating-stars > li').each(function() {
     var list = $(this).parent(),
     listItems = list.children(),
