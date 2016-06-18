@@ -112,8 +112,15 @@
             $e = $query->first();
             $max = $e->get('min_rate'); 
 
-            //render a template
-            echo $template->render(array('title' => 'Search', 'nav' => 1, 'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
+            $date1 = new DateTime();
+            $checkin = $date1->format('Y-m-d');
+
+            $date2 = new DateTime();
+            $date2->modify('+5 day');
+            $checkout = $date2->format('Y-m-d');
+
+            echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
+                'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
         }
         else if(isset($_GET['logout'])){
             session_unset();
