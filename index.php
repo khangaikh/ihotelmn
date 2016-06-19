@@ -638,24 +638,35 @@
                     'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
             }
             else{
-                $template = $twig->loadTemplate('home.html');
                 $query = new ParseQuery("hotel");
+                $query->equalTo("type","Hotel");
                 $query->equalTo("status",1);
-                $query->equalTo("homepage",1);
-                $query->equalTo("city","Ulaanbaatar");
-                $query->descending("name");
-                $query->limit(2);
-                $hotels = $query->find();
 
-                $query = new ParseQuery("hotel");
-                $query->equalTo("status",1);
-                $query->equalTo("homepage",1);
-                $query->equalTo("city","Ulaanbaatar");
-                $query->ascending("name");
-                $query->limit(2);
-                $hotels2 = $query->find();
-                echo $template->render(array('title' => 'iHotel', 'user' =>
-                    $user, 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
+                $query->descending("stars");
+
+                $query->equalTo("city",'Ulaanbaatar');
+                $results = $query->find();
+                $count = $query->count();
+
+                $template = $twig->loadTemplate('list.html');
+
+                $query->ascending("min_rate");
+                $e = $query->first();
+                $min = $e->get('min_rate'); 
+
+                $query->descending("min_rate");
+                $e = $query->first();
+                $max = $e->get('min_rate'); 
+
+                $date1 = new DateTime();
+                $checkin = $date1->format('Y-m-d');
+
+                $date2 = new DateTime();
+                $date2->modify('+5 day');
+                $checkout = $date2->format('Y-m-d');
+
+                echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
+                    'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
             }
         }
     }else{
