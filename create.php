@@ -173,6 +173,7 @@
         $paths=array();
 
         if (isset($_POST['hotel_images'])) {
+            $paths = $hotel->get("images");
             foreach ($_POST['hotel_images'] as $key=>$value){
                 $random = substr( md5(rand()), 0, 7);
                 $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));

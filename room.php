@@ -191,5 +191,38 @@
             echo  $ex;
         }
     }
+    if($_POST['action']==7) {
+
+        $a = new Event();
+        $id = (string)$_POST['data'];
+        $query = new ParseQuery("hotel");
+        $query->equalTo("objectId",$id);
+        $hotel = $query->first();
+        $arr = $hotel->get('images');
+        $index = array_search($_POST["name"], $arr);
+        try {
+            exec('rm -rf '.$arr[$index]);
+
+        } catch (Exception $e) {
+            die();
+        }
+        if (gettype($index) == "integer") {
+            unset($arr[$index]);
+            $arr = array_values($arr);
+        }
+
+        $hotel->setArray('images',$arr);
+
+        try {
+            $hotel->save();
+            $_SESSION['hotel'] = $hotel;
+            $_SESSION['section'] = $hotel->get("section");
+            echo 1;
+        } catch (ParseException $ex) {  
+            // Execute any logic that should take place if the save fails.
+            // error is a ParseException object with an error code and message.
+            echo  $ex;
+        }
+    }
 
 ?>

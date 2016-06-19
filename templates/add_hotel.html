@@ -2875,7 +2875,17 @@
                                             <p class="photo-requirement">Your photos will have the greatest impact with guests if they're at least 1024x768 pixels.</p>
                                         </div>
                                         <div id="hotel_imagePreview" class="col-sm-6">
-
+                                            {% for h in hotel.images %}
+                                            <div id="{{hotel.objectId}}_{{loop.index}}" class="col-md-6">
+                                                <img src="{{h}}" class="img-thumbnail">
+                                                <a name="remove" class="btn
+                                                    btn-lg"
+                                                    style="margin-left:40px"
+                                                    onclick="delImageDiv('{{hotel.objectId}}_{{loop.index}}','{{hotel.objectId}}','{{h}}');">
+                                                    <i class="fa fa-times-circle"></i>
+                                                </a>
+                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -2884,7 +2894,7 @@
                     </div>
                     <div class="gap gap-medium"></div>
                     <div class="col-xs-12">
-                        <a class="btn btn-primary btn-block btn-lg" id="photo_continue_btn" href="#">Үргэлжлүүлэх</a>
+                        <a class="btn btn-primary btn-block btn-lg" id="photo_continue_btn">Үргэлжлүүлэх</a>
                     </div>
                     <div class="gap gap-small"></div>
                 </div>
@@ -3206,7 +3216,7 @@
                                         </ul>
                                     </fieldset>
                                 </div>
-                                <a class="btn btn-primary btn-block btn-lg" id="payment_continue_btn" href="#" >Үргэлжлүүлэх</a>
+                                <a class="btn btn-primary btn-block btn-lg" id="payment_continue_btn">Үргэлжлүүлэх</a>
                             </form>
                         </div>
                     </div>
@@ -3319,7 +3329,7 @@
                                         </div>
                                     </div>
                                     <div class="gap gap-small"></div>
-                                    <a class="btn btn-primary btn-block btn-lg" id="agreement_continue_btn" href="#" >Үргэлжлүүлэх</a>
+                                    <a class="btn btn-primary btn-block btn-lg" id="agreement_continue_btn">Үргэлжлүүлэх</a>
                                     <div class="gap gap-small"></div>
                                 </form>
                             </div>

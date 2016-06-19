@@ -727,6 +727,25 @@ function removeImage(o,i,j){
     }
 }
 
+function delImageDiv(l, h_id, name){
+    if (confirm('Are you sure ?')) {
+        $.ajax({
+            type: "POST",
+            url: "room.php",
+            data: {data:h_id, name:name, action:7},
+            success: function(data, textStatus, jqXHR){
+                if(data==1){
+                    alert("Амжилттай");
+                    $("#"+l).hide();
+                }else{
+                    alert("Амжилтгүй дахин оролдоно уу");
+                }
+            }
+        }); 
+
+    }
+}
+
 function delete_room_closing(j){
     if (confirm('Are you sure ?')) {
         $.ajax({
