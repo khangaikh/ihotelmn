@@ -706,7 +706,9 @@ $.fn.serializeObject = function(){
     return o;
 };
 function removeDiv(i){
-    $(i).parent().hide();
+//    document.getElementById(i).remove();
+    console.log(i);
+    $('#'+i).remove();
 }
 function removeImage(o,i,j){
     if (confirm('Are you sure ?')) {
@@ -726,7 +728,6 @@ function removeImage(o,i,j){
 
     }
 }
-
 function delImageDiv(l, h_id, name){
     if (confirm('Are you sure ?')) {
         $.ajax({
@@ -742,7 +743,6 @@ function delImageDiv(l, h_id, name){
                 }
             }
         }); 
-
     }
 }
 
@@ -825,6 +825,16 @@ function delete_room(j){
         }); 
     }
 }
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
 $(document).ready(function(){ 
 
     $('input[name="room_detail_close_room_start"]').datepicker('setDate', 'today');
@@ -836,8 +846,7 @@ $(document).ready(function(){
         initMap();
     });
     $("#general").click(function(){
-        initMap();
-    });
+        initMap(); });
     $('.nav li').not('.active').addClass('disabled');
     $('.nav li').not('.active').find('a').removeAttr("data-toggle");
 
@@ -980,8 +989,11 @@ $(document).ready(function(){
                 reader.readAsDataURL(files[key]); // read the local file
                 reader.onloadend = function(){ 
                     // set image data as background of div
-                    var div = $('<div id="'+key+'" class="col-md-6">');
-                    var add = $('<a name="remove" class="btn btn-lg" style="margin-left:40px" onClick="removeDiv(this);"><i class="fa fa-times-circle"></a>');
+                    var makeId = makeid();
+                    var div = $('<div id="'+makeId+'" class="col-md-6">');
+                    var id ="'"+makeId+"'";
+                    var add = $('<a name="remove" class="btn btn-lg" style="margin-left:40px" onClick="removeDiv('+id
+                                +');"><i class="fa fa-times-circle"></a>');
                     var img = $('<img>'); //Equivalent: $(document.createElement('img'))
                     img.attr('src', this.result);
                     img.attr('name', 'hotel-images');
@@ -1240,3 +1252,4 @@ $(document).ready(function(){
         }
     });
 });
+
