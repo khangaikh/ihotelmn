@@ -559,7 +559,9 @@
             }
 
             if($result){ echo 1; }else{ echo 0; }
-        }else if(isset($_POST['dashboard'])){
+
+        }else if(isset($_GET['dashboard'])){
+            echo "asd";
 
             $template = $twig->loadTemplate('user_dashboard.html');
             $query = new ParseQuery("orders");
