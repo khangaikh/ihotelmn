@@ -24,7 +24,11 @@
             $email =  $_POST['email'];
             $pass = $_POST['password'];
             $username = $_POST['username'];
-            $country = $_POST['location'];
+            $country = "Mongolia";
+
+            if (isset($_POST['location'])) {
+                $country = $_POST['location'];
+            }
 
             $user = new ParseUser();
             $user->set("username", $email);
