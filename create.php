@@ -172,9 +172,29 @@
 
         $paths=array();
 
-        foreach ($_POST['hotel_images'] as $key=>$value){
+        if (isset($_POST['hotel_images'])) {
+            foreach ($_POST['hotel_images'] as $key=>$value){
+                $random = substr( md5(rand()), 0, 7);
+                $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+                $path = 'img/hotel/'.$random.'.jpg';
+                file_put_contents($path, $data);
+                if (filesize($path) > 184320) {
+                    $imagick = new \Imagick(realpath($path));
+                    $imagick->setImageCompressionQuality(23);
+                    $imagick->writeImage($path);
+                }
+                array_push($paths, $path);
+            }
+            try {
+                $hotel->setArray('images',$path);
+            } catch (Exception $e) {
+                echo $e;
+                die();
+            }
+        }
+        if (isset($_POST['cover_images'])) {
             $random = substr( md5(rand()), 0, 7);
-            $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+            $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['cover_images'][0]));
             $path = 'img/hotel/'.$random.'.jpg';
             file_put_contents($path, $data);
             if (filesize($path) > 184320) {
@@ -183,23 +203,12 @@
                 $imagick->writeImage($path);
             }
             array_push($paths, $path);
-        }
-        $hotel->setArray('images',$paths);
-        $random = substr( md5(rand()), 0, 7);
-        $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['cover_images'][0]));
-        $path = 'img/hotel/'.$random.'.jpg';
-        file_put_contents($path, $data);
-        if (filesize($path) > 184320) {
-            $imagick = new \Imagick(realpath($path));
-            $imagick->setImageCompressionQuality(23);
-            $imagick->writeImage($path);
-        }
-        array_push($paths, $path);
-        try {
-            $hotel->set('cover_image',$path);
-        } catch (Exception $e) {
-            echo $e;
-            die();
+            try {
+                $hotel->set('cover_image',$path);
+            } catch (Exception $e) {
+                echo $e;
+                die();
+            }
         }
     }
     if($_POST['section']==6){
