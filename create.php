@@ -186,7 +186,7 @@
                 array_push($paths, $path);
             }
             try {
-                $hotel->setArray('images',$path);
+                $hotel->setArray('images',$paths);
             } catch (Exception $e) {
                 echo $e;
                 die();
