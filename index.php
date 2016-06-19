@@ -642,6 +642,7 @@
                 $query = new ParseQuery("hotel");
                 $query->equalTo("type","Hotel");
                 $query->equalTo("status",1);
+                $query->equalTo("asem",0);
 
                 $query->descending("stars");
 
