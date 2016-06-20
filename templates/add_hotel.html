@@ -2794,11 +2794,11 @@
                                     {%if rooms != null%}
                                     {% for room in rooms %}
                                     <tr>
-                                        <td><a href="#" onclick="edit_room('{{room.objectId}}')">{{room.room_type}}</a></td>
+                                        <td><a style="cursor: pointer" onclick="edit_room('{{room.objectId}}')">{{room.room_type}}</a></td>
                                         <td>{{room.num_rooms}}<br></td>
                                         <td>{{room.night_price}}<br></td>
                                         <td>{{room.num_of_guest}}<br></td>
-                                        <td><a href="#" onclick="delete_room('{{room.objectId}}')"><i class="fa fa-trash"></i></a></td>
+                                        <td><a style="cursor: pointer" onclick="delete_room('{{room.objectId}}')"><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                     {%endfor%}
                                     {%endif%}

@@ -15,7 +15,6 @@
     $room = $query->first();
 
     if($_POST['action']==1){
-
         $query = new ParseQuery("room_closing");
         $query->equalTo("room",$room);
         $closings = $query->find();

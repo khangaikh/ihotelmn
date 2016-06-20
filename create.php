@@ -91,6 +91,9 @@
         if(isset($_POST['facilities'])){
             $room->setArray('facilities',$_POST['facilities']);  
         }
+        else{
+            $room->setArray('facilities',[]);  
+        }
         $room->set("night_price", (int)$data['room_details_room_price_x_persons']);
         $room->set("night_price2", (int)$data['room_details_room_price_2x_persons']);
         $paths=array();
