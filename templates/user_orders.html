@@ -5,6 +5,7 @@
             <tr>
                 <th></th>
                 <th style="display: none"></th>
+                <th>Order id</th>
                 <th>Hotel</th>
                 <th>Room type</th>
                 <th>Username</th>
@@ -21,6 +22,7 @@
             <tr>
                 <th></th>
                 <th style="display: none"></th>
+                <th>Order id</th>
                 <th>Hotel</th>
                 <th>Room type</th>
                 <th>Username</th>
@@ -38,6 +40,7 @@
         <tr>
             <td>{{ loop.index }}</td>
             <td style="display: none;">{{ order.objectId }}</td>
+            <td>{{ order.order_id }}</td>
             <td>{{order.hotel.name}}</td>
             <td>{{order.room.room_type}}</td>
             <td>{{order.user.name}}</td>
