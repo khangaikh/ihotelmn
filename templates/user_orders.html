@@ -414,7 +414,7 @@
     var f = false;
     $(document).ready(function() {
         if(!f){
-            $("tbody").after('<tr role="row" class="even"><td colspan="10" id="tft"></td><td></td></tr>');
+            $("tbody").after('<tr role="row" class="even"><td colspan="11" id="tft"></td><td></td></tr>');
             f=true;
         }
 
@@ -433,7 +433,7 @@
         } );
         // DataTable
         $('#example').DataTable( {
-            "order": [[ 6, "desc" ]],
+            "order": [[ 7, "desc" ]],
             initComplete: function () {
                 this.api().columns().every( function () {
                     var column = this;
@@ -470,7 +470,7 @@
  
             // Total over all pages
             total = api
-                .column( 10 )
+                .column( 11 )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
@@ -478,7 +478,7 @@
  
             // Total over this page
             pageTotal = api
-                .column( 10, { page: 'current'} )
+                .column( 11, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
