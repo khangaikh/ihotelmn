@@ -37,21 +37,31 @@
         </tfoot>
         <tbody id="orders">
         {% for order in orders %}
-        <tr>
-            <td>{{ loop.index }}</td>
-            <td style="display: none;">{{ order.objectId }}</td>
-            <td>{{ order.order_id }}</td>
-            <td>{{order.hotel.name}}</td>
-            <td>{{order.room.room_type}}</td>
-            <td>{{order.user.name}}</td>
-            <td>{{order.user.country}}</td>
-            <td>{{order.createdAt | date("Y-m-d")}}</td>
-            <td>{{order.start}}</td>
-            <td>{{order.end}}</td>
-            <td>{{order.days}}</td>
-            <td>{{order.total}}</td>
-            <td class="text-center">{%if order.status==-1%}Under bank control{% elseif order.status==-2%} Deleted {%elseif order.status== 1%}Confirmed{%endif%}</td>
-        </tr>
+            {% if order.status != 0 %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td style="display: none;">{{ order.objectId }}</td>
+                <td>{{ order.order_id }}</td>
+                <td>{{order.hotel.name}}</td>
+                <td>{{order.room.room_type}}</td>
+                <td>{{order.user.name}}</td>
+                <td>{{order.user.country}}</td>
+                <td>{{order.createdAt | date("Y-m-d")}}</td>
+                <td>{{order.start}}</td>
+                <td>{{order.end}}</td>
+                <td>{{order.days}}</td>
+                <td>{{order.total}}</td>
+                <td class="text-center">
+                    {%if order.status==-1%}
+                            Under bank control
+                        {% elseif order.status==-2%} 
+                            Deleted 
+                        {%elseif order.status== 1%}
+                            Confirmed
+                    {%endif%}
+                </td>
+            </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
