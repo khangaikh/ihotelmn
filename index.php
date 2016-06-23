@@ -1117,6 +1117,8 @@
                         $user->set("email", $email);
                         $user->set("password", $pass);
                         $user->set("country", $country);
+                        $user->set("emailVerified", true);
+
                         $user->set("status", 1);
                         $user->set("asem", 1);
                         $user->set("role", 1);
