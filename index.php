@@ -305,6 +305,7 @@
 
             $query = new ParseQuery("rooms");
             $query->equalTo("hotel",$hotel);
+            $query->ascending("night_price");
             $rooms = $query->find();
 
             $query = new ParseQuery("hotel_images");
@@ -820,6 +821,7 @@
 
             $query = new ParseQuery("rooms");
             $query->equalTo("hotel",$hotel);
+            $query->ascending("night_price");
             $rooms = $query->find();
 
             $query = new ParseQuery("hotel_images");
