@@ -784,6 +784,8 @@ function edit_room(j){
             $("#room_detail_edit_room_price_x_persons").val(room['price']);
             $("#room_detail_edit_room_price_2x_persons").val(room['price2']);
 
+            $('#edit_imagePreview').empty();
+            
             for(var i=0; i<room['images'].length; i++){
                 var url = room['images'][i];
                 var div = $('<div id="'+i+'" class="col-md-4">');
@@ -796,8 +798,10 @@ function edit_room(j){
                 add.appendTo(div);
                 div.appendTo('#edit_imagePreview');
             }
+            $('#closings').empty();
 
            for(var i=0; i<room['ids'].length; i++){
+
                 var id = room['ids'][i];
                 var start = room['starts'][i];
                 var end = room['ends'][i];
