@@ -286,12 +286,6 @@
                                             <div rel="tooltip" class='tool' data-placement="top" title="Adults">
                                                 <i class='fa fa-male'></i><i class='fa fa-male'></i>
                                             </div>
-                                            <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price2}}" roomid="{{room.objectId}}--2" persons="2" > 
-                                                <option selected="selected">0</option>
-                                                {% for i in range(1, room.num_rooms) %}
-                                                <option value="{{i}}">{{i}} - ${{ i*room.night_price2 }}</option>
-                                                {% endfor %}
-                                            </select>
                                         </div>
                                         {% endif %}
                                         {% endif %}
