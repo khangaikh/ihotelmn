@@ -1389,7 +1389,7 @@
                 $template = $twig->loadTemplate('asem_register.html');
                 echo $template->render(array('title' => 'Asem Login', 'list' => 1));
             }
-            else if(isset($_GET['asemdetail'])){
+            /*else if(isset($_GET['asemdetail'])){
                 $query = new ParseQuery("hotel");
                 $query->equalTo("objectId",$_GET['asemdetail']);
                 $hotel = $query->first();
@@ -1426,7 +1426,7 @@
                 $template = $twig->loadTemplate('asem_detail.html');
                 //render a template
                 echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => 'Hello', 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_rooms, 'count' => $closed_rooms_count));
-            }
+            }*/
             else{
 
                 $template = $twig->loadTemplate('home.html');
