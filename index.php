@@ -251,7 +251,7 @@
             $query->equalTo("asem",1);
             $query->descending("stars");
 
-            if($user->get('meeting_type')==10){
+            pif($user->get('meeting_type')==10){
                 $query->equalTo("is_journalist",1);
             }
 
