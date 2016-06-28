@@ -167,85 +167,51 @@
                 <div class="gap gap-small"></div>
                 <ul id="rooms" class="booking-list">
                     {% for room in rooms %}
-                    <li>
-                    <div name="order" class="booking-item" id="{{room.objectId}}">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
-                                    {% for image in room.images %}
-                                    <img src="{{image}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />  
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4 class="booking-item-title">{{room.room_type}}</h4>
-                                <h5 class="booking-item-title">{{room.name}}</h5>
-                                <p class="text-small">{{room.short_desc}}</p>
-                                <ul class="booking-item-features booking-item-features-sign clearfix">
-                                    <li rel="tooltip" data-placement="top" title="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x {{room.adult_occupancy}}</span>
-                                    </li>
-                                    <li rel="tooltip" data-placement="top" title="Children Occupancy"><i class="fa fa-child"></i><span class="booking-item-feature-sign">x {{room.child_occupancy}}</span>
-                                    </li>
-                                    <li rel="tooltip" data-placement="top" title="Beds"><i class="fa fa-bed"></i><span class="booking-item-feature-sign">x {{room.num_beds}}</span>
-                                    </li>
-                                    <li rel="tooltip" data-placement="top" title="Room footage (square feet)"><i class="fa fa-expand"></i><span class="booking-item-feature-sign">{{room.roomt_size}} m2</span>
-                                    </li>
-                                </ul>
-                                <ul class="booking-item-features booking-item-features-small clearfix">
-                                    {% for fac in room.facilities %}
-                                    <li rel="tooltip" data-placement="top" title="{{fac}}"><i class="im im-{{fac}}"></i>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            {% if count == 0  %}
-                            <div class="col-md-3">
-                                <p  class="text-small">Select room quantity</p>
-                                <div class="form-group form-group-select-plus">
-                                    <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
-                                    <div class='flex select_room middle between' >
-                                        <div rel="tooltip" class='tool' data-placement="top" title="Adults">
-                                            <i class='fa fa-male'></i>
-                                        </div>
-                                        <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" persons="1" > 
-                                            <option selected="selected">0</option>
-                                            {% for i in range(1, room.num_rooms) %}
-                                            <option value="{{i}}">{{i}} - ${{ i*room.night_price }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    {% if room.adult_occupancy > 1 %}
-                                    {% if room.night_price2 > 0 %}
-                                    {% if room.night_price2 != room.night_price %}
-                                    <span class="booking-item-price">${{room.night_price2}}</span><span>/night</span>
-                                    <div class='flex select_room between middle mrgn5'>
-                                        <div rel="tooltip" class='tool' data-placement="top" title="Adults">
-                                            <i class='fa fa-male'></i><i class='fa fa-male'></i>
-                                        </div>
-                                        <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price2}}" roomid="{{room.objectId}}--2" persons="2" > 
-                                            <option selected="selected">0</option>
-                                            {% for i in range(1, room.num_rooms) %}
-                                            <option value="{{i}}">{{i}} - ${{ i*room.night_price2 }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {%else%}
-                            {% for closed in closed_rooms %}
-                                {% if closed.room.objectId == room.objectId %}
+                        <li>
+                        <div name="order" class="booking-item" id="{{room.objectId}}">
+                            <div class="row">
                                 <div class="col-md-3">
-                                    <p  class="text-small" style="color:red">Room sold out</p>
+                                    <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
+                                        {% for image in room.images %}
+                                        <img src="{{image}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />  
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="booking-item-title">{{room.room_type}}</h4>
+                                    <h5 class="booking-item-title">{{room.name}}</h5>
+                                    <p class="text-small">{{room.short_desc}}</p>
+                                    <ul class="booking-item-features booking-item-features-sign clearfix">
+                                        <li rel="tooltip" data-placement="top" title="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x {{room.adult_occupancy}}</span>
+                                        </li>
+                                        <li rel="tooltip" data-placement="top" title="Children Occupancy"><i class="fa fa-child"></i><span class="booking-item-feature-sign">x {{room.child_occupancy}}</span>
+                                        </li>
+                                        <li rel="tooltip" data-placement="top" title="Beds"><i class="fa fa-bed"></i><span class="booking-item-feature-sign">x {{room.num_beds}}</span>
+                                        </li>
+                                        <li rel="tooltip" data-placement="top" title="Room footage (square feet)"><i class="fa fa-expand"></i><span class="booking-item-feature-sign">{{room.roomt_size}} m2</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="booking-item-features booking-item-features-small clearfix">
+                                        {% for fac in room.facilities %}
+                                        <li rel="tooltip" data-placement="top" title="{{fac}}"><i class="im im-{{fac}}"></i>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <p  class="text-small">Select room quantity</p>
                                     <div class="form-group form-group-select-plus">
                                         <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
                                         <div class='flex select_room middle between' >
                                             <div rel="tooltip" class='tool' data-placement="top" title="Adults">
                                                 <i class='fa fa-male'></i>
                                             </div>
-
+                                            <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" persons="1" > 
+                                                <option selected="selected">0</option>
+                                                {% for i in range(1, room.num_rooms) %}
+                                                <option value="{{i}}">{{i}} - ${{ i*room.night_price }}</option>
+                                                {% endfor %}
+                                            </select>
                                         </div>
                                         {% if room.adult_occupancy > 1 %}
                                         {% if room.night_price2 > 0 %}
@@ -255,57 +221,86 @@
                                             <div rel="tooltip" class='tool' data-placement="top" title="Adults">
                                                 <i class='fa fa-male'></i><i class='fa fa-male'></i>
                                             </div>
-
+                                            <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price2}}" roomid="{{room.objectId}}--2" persons="2" > 
+                                                <option selected="selected">0</option>
+                                                {% for i in range(1, room.num_rooms) %}
+                                                <option value="{{i}}">{{i}} - ${{ i*room.night_price2 }}</option>
+                                                {% endfor %}
+                                            </select>
                                         </div>
                                         {% endif %}
                                         {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>
-                                {% else %}
-                                    {% if closed.room.hotel.objectId == hotel.objectId %}
-                                    <div class="col-md-3">
-                                        <p  class="text-small">Select room quantity</p>
-                                        <div class="form-group form-group-select-plus">
-                                            <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
-                                            <div class='flex select_room middle between' >
-                                                <div rel="tooltip" class='tool' data-placement="top" title="Adults">
-                                                    <i class='fa fa-male'></i>
-                                                </div>
-                                                <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price}}" roomid="{{room.objectId}}" persons="1" > 
-                                                    <option selected="selected">0</option>
-                                                    {% for i in range(1, room.num_rooms) %}
-                                                    <option value="{{i}}">{{i}} - ${{ i*room.night_price }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            {% if room.adult_occupancy > 1 %}
-                                            {% if room.night_price2 > 0 %}
-                                            {% if room.night_price2 != room.night_price %}
-                                            <span class="booking-item-price">${{room.night_price2}}</span><span>/night</span>
-                                            <div class='flex select_room between middle mrgn5'>
-                                                <div rel="tooltip" class='tool' data-placement="top" title="Adults">
-                                                    <i class='fa fa-male'></i><i class='fa fa-male'></i>
-                                                </div>
-                                                <select class="form-control form-group-select-plus" name="qty2" room="{{room.room_type}}" price="{{room.night_price2}}" roomid="{{room.objectId}}--2" persons="2" > 
-                                                    <option selected="selected">0</option>
-                                                    {% for i in range(1, room.num_rooms) %}
-                                                    <option value="{{i}}">{{i}} - ${{ i*room.night_price2 }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            {% endif %}
-                                            {% endif %}
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {%endif%}
+                            </div>
                         </div>
-                    </div>
-                    </li>
+                        </li>
+                    {% endfor %}
+                    {% for room in closed_rooms %}
+                        <li>
+                        <div name="order" class="booking-item" id="{{room.objectId}}">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs">
+                                        {% for image in room.images %}
+                                        <img src="{{image}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />  
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="booking-item-title">{{room.room_type}}</h4>
+                                    <h5 class="booking-item-title">{{room.name}}</h5>
+                                    <p class="text-small">{{room.short_desc}}</p>
+                                    <ul class="booking-item-features booking-item-features-sign clearfix">
+                                        <li rel="tooltip" data-placement="top" title="Adults Occupancy"><i class="fa fa-male"></i><span class="booking-item-feature-sign">x {{room.adult_occupancy}}</span>
+                                        </li>
+                                        <li rel="tooltip" data-placement="top" title="Children Occupancy"><i class="fa fa-child"></i><span class="booking-item-feature-sign">x {{room.child_occupancy}}</span>
+                                        </li>
+                                        <li rel="tooltip" data-placement="top" title="Beds"><i class="fa fa-bed"></i><span class="booking-item-feature-sign">x {{room.num_beds}}</span>
+                                        </li>
+                                        <li rel="tooltip" data-placement="top" title="Room footage (square feet)"><i class="fa fa-expand"></i><span class="booking-item-feature-sign">{{room.roomt_size}} m2</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="booking-item-features booking-item-features-small clearfix">
+                                        {% for fac in room.facilities %}
+                                        <li rel="tooltip" data-placement="top" title="{{fac}}"><i class="im im-{{fac}}"></i>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <p  class="text-small" style="color:red">Soldout</p>
+                                    <div class="form-group form-group-select-plus">
+                                        <span class="booking-item-price">${{room.night_price}}</span><span>/night</span>
+                                        <div class='flex select_room middle between' >
+                                            <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                                <i class='fa fa-male'></i>
+                                            </div>
+                                        </div>
+                                        {% if room.adult_occupancy > 1 %}
+                                        {% if room.night_price2 > 0 %}
+                                        {% if room.night_price2 != room.night_price %}
+                                        <span class="booking-item-price">${{room.night_price2}}</span><span>/night</span>
+                                        <div class='flex select_room between middle mrgn5'>
+                                            <div rel="tooltip" class='tool' data-placement="top" title="Adults">
+                                                <i class='fa fa-male'></i><i class='fa fa-male'></i>
+                                            </div>
+                                            <select class="form-control form-group-select-plus" name="qty" room="{{room.room_type}}" price="{{room.night_price2}}" roomid="{{room.objectId}}--2" persons="2" > 
+                                                <option selected="selected">0</option>
+                                                {% for i in range(1, room.num_rooms) %}
+                                                <option value="{{i}}">{{i}} - ${{ i*room.night_price2 }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </li>
                     {% endfor %}
                 </ul>
                 <div id="rating_div" class="row">
