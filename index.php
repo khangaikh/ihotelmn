@@ -246,21 +246,30 @@
         }
         else if(isset($_GET['start_1'])){
             $query = new ParseQuery("hotel");
-            $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
+            $query->equalTo("type", "Hotel");
             $query->equalTo("asem",1);
+            $query->descending("stars");
 
             if($user->get('meeting_type')==10){
                 $query->equalTo("is_journalist",1);
             }
 
-            $query->descending("stars");
+            $start = $_GET['start_1'];
+            $end = $_GET['end_1'];
+            $guests = $_GET['guests'];
+            $rooms = $_GET['rooms'];
+
+            $date = new DateTime($start);
+            $date1 = new DateTime($start);
+            $checkin = $date->format('Y-m-d');
+
+            $date = new DateTime($end);
+            $date2 = new DateTime($end);
+            $checkout = $date->format('Y-m-d');
 
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
-            $count = $query->count();
-
-            $template = $twig->loadTemplate('asem_list.html');
 
             $query->ascending("min_rate");
             $e = $query->first();
@@ -270,14 +279,9 @@
             $e = $query->first();
             $max = $e->get('min_rate'); 
 
-            $date1 = new DateTime();
-            $checkin = $date1->format('Y-m-d');
-
-            $date2 = new DateTime();
-            $date2->modify('+5 day');
-            $checkout = $date2->format('Y-m-d');
-
-            echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
+            $template = $twig->loadTemplate('asem_list.html');
+            //render a template
+            echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms, 'user' => $user, 'max' => $max, 'min' => $min));
         }
         else if(isset($_GET['search'])){
             $template = $twig->loadTemplate('home.html');
