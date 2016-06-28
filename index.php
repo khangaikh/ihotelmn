@@ -1182,6 +1182,40 @@
 
             }
         }
+        else if(isset($_GET['asem'])){
+
+            $query = new ParseQuery("hotel");
+            $query->equalTo("type","Hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("asem",1);
+
+            $query->descending("stars");
+
+            $query->equalTo("city",'Ulaanbaatar');
+            $results = $query->find();
+            $count = $query->count();
+
+            $template = $twig->loadTemplate('asem_list.html');
+
+            $query->ascending("min_rate");
+            $e = $query->first();
+            $min = $e->get('min_rate'); 
+
+            $query->descending("min_rate");
+            $e = $query->first();
+            $max = $e->get('min_rate'); 
+
+            $date1 = new DateTime();
+            $checkin = $date1->format('Y-m-d');
+
+            $date2 = new DateTime();
+            $date2->modify('+5 day');
+            $checkout = $date2->format('Y-m-d');
+
+            echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
+                'user' => 'Khan', 'results' =>$results, 'max' => $max, 'min' => $min));
+        }
+
         else 
             if(isset($_GET['payment'])){
                 if(isset($_SESSION['orders'])){
