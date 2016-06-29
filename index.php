@@ -1358,63 +1358,7 @@
             $template = $twig->loadTemplate('asem_register.html');
             echo $template->render(array('title' => 'Asem Login', 'list' => 1));
         }
-/*        else if(isset($_GET['asemdetail'])){
-            $query = new ParseQuery("hotel");
-            $query->equalTo("objectId",$_GET['asemdetail']);
-            $hotel = $query->first();
-
-            $query = new ParseQuery("rooms");
-            $query->equalTo("hotel",$hotel);
-            $rooms = $query->find();
-
-            $query = new ParseQuery("hotel_images");
-            $query->equalTo("hotel",$hotel);
-            $query->equalTo("main",1);
-            $main = $query->first();
-
-            $query = new ParseQuery("hotel_images");
-            $query->equalTo("hotel",$hotel);
-            $query->equalTo("main",0);
-            $images = $query->find();
-
-            $start = $_GET['depart'];
-            $end = $_GET['end'];
-            $guests = $_GET['guests'];
-            $rooms_1 = $_GET['rooms'];
-
-            $date1 = new DateTime($start);
-            $date2 = new DateTime($end);
-
-            $query = new ParseQuery("room_closing");
-            $query->lessThanOrEqualTo("start", $date2); //2 -16 
-            $query->greaterThanOrEqualTo("end", $date1); // 24 - 1
-            $query->includeKey('room');
-            $closed_rooms = $query->find();
-            $closed_rooms_count = $query->count();
-
-            $template = $twig->loadTemplate('asem_detail.html');
-
-            $not_closed_room = [];
-            $closed_room = [];
-            $closed_room_ids = [];
-
-            foreach ($closed_rooms as $closed) {
-                $temp = $closed->get("room");
-                $a = $temp->getObjectId();
-                array_push($closed_room_ids,$a);
-            }
-                  
-
-            foreach ($rooms as $room) {
-                $b = $room->getObjectId();
-                if (in_array($b, $closed_room_ids)) {
-                    array_push($closed_room,$room);
-                }else{
-                    array_push($not_closed_room,$room);
-                }
-            }
-
-            echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => 'Hello', 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $not_closed_room, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_room, 'count' => $closed_rooms_count));
+        /*else if(isset($_GET['asemdetail'])){
 
         }*/
         else{
