@@ -1177,10 +1177,12 @@ $(document).ready(function(){
         $("#create_photo_upload_form").parsley().validate();
         $("#cover_photo_upload_form").parsley().validate();
         validateFront();
+        console.log("HI");
         if($("#create_photo_upload_form").parsley().isValid() && $("#cover_photo_upload_form").parsley().isValid() ){
             var hotel_images = $('img[name="hotel-images"]').map(function() {return $(this).attr('src');}).get();
             var cover_images = $('img[name="cover-images"]').map(function() {return $(this).attr('src');}).get();
             var $this = $(this);
+            console.log(cover_images);
 
             $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
             $this.addClass('disabled');
