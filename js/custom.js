@@ -1192,6 +1192,7 @@ $(document).ready(function(){
                 success: function(data, textStatus, jqXHR){
                     $('#loading').remove();
                     $this.removeClass('disabled');
+                    console.log(data);
                     if(data == 1 ){
                         $('#navLeftMenu li.active').next('li').removeClass('disabled');
                         $('#navLeftMenu li.active').next('li').find('a').attr("data-toggle","tab");
@@ -1201,6 +1202,7 @@ $(document).ready(function(){
             }); 
         }
     });
+
     $("#payment_continue_btn").click(function(){
         var $this = $(this);
         $.ajax({
@@ -1216,6 +1218,7 @@ $(document).ready(function(){
             }
         }); 
     });
+
     $("#agreement_continue_btn").click(function(){
         $("#create_agreement_form").parsley().validate();
         validateFront();
