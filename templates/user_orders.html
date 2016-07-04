@@ -382,6 +382,28 @@
                             <span class="help-block"></span>
                         </div>
                         <div class="form-group col-sm-3 col-xs-3">
+                            <label for="card_number">Card number</label>
+                            <input type="text" class="form-control"
+                            name="card_number" readonly id="card_number" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">CVC</label>
+                            <input type="text" class="form-control" name="cvc"
+                            readonly id="cvc" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="room_name_label"></span>
+                </legend>
+                <div class="row">
+                    <div class="is-block">
+                        <div class="form-group col-sm-3 col-xs-3">
                             <label for="news_catogry">Status</label>
                             <select class="form-control" name="view_status" id="view_status" required="">
                                 <option value="0">Confirm</option>
@@ -522,11 +544,13 @@
                 $("#view_end").val(order['end']);
                 $("#view_days").val(order['days']);
                 $("#view_country > option").each(function(){
-                    if($(this).text() == order['country']){
+                    if($(this).text().toLowerCase() == order['country'].toLowerCase()){
                        $("#view_country option[value="+$(this).val()+"]").attr('selected','selected');
                     }
                 });
                 $("#view_payment").val(order['total']);
+                $("#card_number").val(order['card_number']);
+                $("#cvc").val(order['cvc']);
                 $("#view_id").val(order['order_id']);
                 $("#update_order_id").val(order['id']);
                 $('#show-order-edit').trigger('click');

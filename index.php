@@ -176,6 +176,7 @@
             $query->includeKey("room");
             $query->includeKey("user");
             $query->includeKey("hotel");
+            $query->limit(1000);
             $orders = $query->find();
 
             echo $template->render(array('title' => 'Захиалагууд', 'orders'=>$orders, 'user' => $user, 'nav' => 3));
@@ -1176,7 +1177,7 @@
                     $days = $_SESSION['days'];
                     $hotel = $_SESSION['hotel'];
                     $pickup = $_SESSION['pickup'];
-                    $sim = $_SESSION['sim'];
+                    $sim = 0;
                     $day_start = date('l', strtotime( $start));
                     $day_end = date('l', strtotime( $end));
                     $orders = $_SESSION['orders'];

@@ -15,15 +15,53 @@
                 {% if user %}
                 <div class="row">
                     <div class="col-md-6">
-                         <a href="http://asem11.mn/"><img src='img/asem.png' style="width:100%;"></a>
+                        <a href="http://asem11.mn/"><img src='img/asem.png' style="width:100%;"></a>
                     </div>
                     <div class="col-md-6">
-                        <img src="img/golomt-header.jpg" alt="Image Alternative text" title="Image Title" />
-                        <img src="img/mastervisa.jpg" alt="Image Alternative text" title="Image Title" />
-                        <form id="golomt_pay">
-                            <input style="width:100%" type="submit" value="Төлбөр хийх" class="btn btn-primary ajax-full-width" />
+                        <br/>
+                        <img src="img/stripe-secure.png" alt="Image Alternative text" title="Image Title" />
+                        <br/>
+                        <br/>
+                        <form>
+                            <a style="width: 100%" id="show-news-edit" class="popup-text btn btn-primary" href="#update-dialog"
+                                data-effect="mfp-zoom-out">Pay with card</a>
                         </form>
                     </div>
+                </div>
+                <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="update-dialog">
+                    <form action="response.php" id="card_payment_form" method="POST" accept-charset="utf-8">
+                        <div class="clearfix">
+                            <div class="form-group form-group-cc-number">
+                                <label>Card number</label>
+                                <input id="card" name="card_number" class="form-control" placeholder="xxxx xxxx xxxx xxxx" required type="text" />
+                                <span class="cc-card-icon"></span>
+                            </div>
+                            <div class="form-group form-group-cc-cvc">
+                                <label>CVC</label>
+                                <input id="{{card.objectId}}" name="cvc" class="form-control" required placeholder="xxxx" type="text"  />
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group form-group-cc-name">
+                                <label>Card holder name</label>
+                                <input id="card_name" class="form-control"
+                                name="card_holder_name" required type="text" />
+                            </div>
+                            <div class="form-group form-group-cc-date">
+                                <label> Expiration date	 </label>
+                                <input id="valid" class="form-control"
+                                name="expired_date" required placeholder="mm/yy" type="text" />
+                            </div>
+                        </div>
+                        <div class="alert alert-warning" id="alert_3">
+                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                            </button>
+                            <p class="text-small" id="alert_text_2">Invalid expired date</p>
+                        </div>
+                        <div>
+                            <input type="submit" value="Төлбөр хийх" class="btn btn-primary" />
+                        </div>
+                    </form>
                 </div>
                 {% else %}
                 <div class="col-md-6">
@@ -48,7 +86,7 @@
                             <i class="fa fa-facebook" style="font-size: 1em;"></i> Log in
                         </button>
                         <a class="popup-text" id="forgot_text"
-                        href="#forgot-dialog" data-effect="mfp-zoom-out">Нууц үг мартсан?</a>
+                            href="#forgot-dialog" data-effect="mfp-zoom-out">Нууц үг мартсан?</a>
                     </form>
                     <br />
                     <div class="alert alert-success hidden" id="register-success1">
@@ -129,49 +167,49 @@
                     </header>
                     <ul class="booking-item-payment-details">
                         <li>
-                            <h5>Нийт хоногийн тоо: {{days}}</h5>
-                            <div class="booking-item-payment-date">
-                                <p class="booking-item-payment-date-day">{{start}}</p>
-                                <p class="booking-item-payment-date-weekday">{{day_start}}</p>
-                            </div><i class="fa fa-arrow-right booking-item-payment-date-separator"></i>
-                            <div class="booking-item-payment-date">
-                                <p class="booking-item-payment-date-day">{{end}}</p>
-                                <p class="booking-item-payment-date-weekday">{{day_end}}</p>
-                            </div>
+                        <h5>Нийт хоногийн тоо: {{days}}</h5>
+                        <div class="booking-item-payment-date">
+                            <p class="booking-item-payment-date-day">{{start}}</p>
+                            <p class="booking-item-payment-date-weekday">{{day_start}}</p>
+                        </div><i class="fa fa-arrow-right booking-item-payment-date-separator"></i>
+                        <div class="booking-item-payment-date">
+                            <p class="booking-item-payment-date-day">{{end}}</p>
+                            <p class="booking-item-payment-date-weekday">{{day_end}}</p>
+                        </div>
                         </li>
                         <li>
-                            <h5>Өрөө</h5>
-                            <ul class="booking-item-payment-price">
-                                {%for room in rooms%}
-                                    <li>
-                                        <p class="booking-item-payment-price-title">{{room.name}}</p>
-                                        <p
-                                        class="booking-item-payment-price-title" style="margin-left:10px">{{room.qty}}<small>/өрөө</small></p>
-                                        <p class="booking-item-payment-price-amount">${{room.sub}}<small>/хоногийн</small></p>
-                                    </li>
-                                {%endfor%}
-                            </ul>
+                        <h5>Өрөө</h5>
+                        <ul class="booking-item-payment-price">
+                            {%for room in rooms%}
+                            <li>
+                            <p class="booking-item-payment-price-title">{{room.name}}</p>
+                            <p
+                            class="booking-item-payment-price-title" style="margin-left:10px">{{room.qty}}<small>/өрөө</small></p>
+                            <p class="booking-item-payment-price-amount">${{room.sub}}<small>/хоногийн</small></p>
+                            </li>
+                            {%endfor%}
+                        </ul>
                         </li>
                         <li>
                         {% if pickup == "budget" %}
-                            <h5>Pickup</h5>
-                            <ul class="booking-item-payment-price">
-                                    <li>
-                                        <p class="booking-item-payment-price-title"></p>
-                                        <p class="booking-item-payment-price-title"><small>BUDGET</small></p>
-                                        <p class="booking-item-payment-price-amount">$<small>25</small></p>
-                                    </li>
-                            </ul>
+                        <h5>Pickup</h5>
+                        <ul class="booking-item-payment-price">
+                            <li>
+                            <p class="booking-item-payment-price-title"></p>
+                            <p class="booking-item-payment-price-title"><small>BUDGET</small></p>
+                            <p class="booking-item-payment-price-amount">$<small>25</small></p>
+                            </li>
+                        </ul>
                         {% endif %}
                         {% if pickup == "vip" %}
-                            <h5>Pickup</h5>
-                            <ul class="booking-item-payment-price">
-                                    <li>
-                                        <p class="booking-item-payment-price-title"></p>
-                                        <p class="booking-item-payment-price-title" style="margin-left:10px"><small>VIP</small></p>
-                                        <p class="booking-item-payment-price-amount">$<small>200</small></p>
-                                    </li>
-                            </ul>
+                        <h5>Pickup</h5>
+                        <ul class="booking-item-payment-price">
+                            <li>
+                            <p class="booking-item-payment-price-title"></p>
+                            <p class="booking-item-payment-price-title" style="margin-left:10px"><small>VIP</small></p>
+                            <p class="booking-item-payment-price-amount">$<small>200</small></p>
+                            </li>
+                        </ul>
                         {% endif %}
                         </li>
                     </ul>
@@ -190,10 +228,22 @@
     {{parent()}}
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit&hl=mn" async defer></script>
     <script type="text/javascript">
-    var checkuser = false;
-    {% if user %}
+        var checkuser = false;
+        {% if user %}
         checkuser = true;
-    {% endif %}
+        {% endif %}
+        $("#card_payment_form").submit(function(event){
+                var d = new Date();
+                var y = d.getFullYear();
+                var m = d.getMonth();
+                var res  = $("#valid").val().split("/");
+
+                if(res[1] <= y && res[0] <= m){
+                    event.preventDefault();
+                }else{
+                    
+                } 
+        });
     </script>
     <script type="text/javascript" src="js/payment/payment.js" charset="utf-8"></script>
 {% endblock %}
