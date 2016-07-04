@@ -66,9 +66,15 @@
                         $transStatus = 0;
                     }
                 }
+
+                if ($transStatus == 1) {
+                    sendmail($user, $trans_num);
+                }
             }
 
             if ($transStatus == 1) {
+
+                
 
                 unset($_SESSION['orders']);
                 unset($_SESSION['start']);
@@ -81,6 +87,7 @@
                 $query->includeKey('hotel');
                 $orders = $query->find();
 
+                
                 if ($user->get('asem') == 0) {
                     echo $template->render(array('title' => 'iHotel', 'user' => $user,
                         'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
@@ -123,17 +130,19 @@
                 }
             }
         }
+        else{
+
+        }
 
     }
-    if(isset($_GET)){
+ 
+    /*if(isset($_GET)){
         $query = new ParseQuery("orders");
         $query->equalTo("objectId",$_GET['trans_number']);
         $order = $query->first();
         $createdAt = $order->getCreatedAt();
-
         if(isset($_SESSION['user'])){
             $user = $_SESSION['user']; 
-
             $success = $_GET['success'];
             $trans_number = $_GET['trans_number'];
             $Usernamesoap = "70972";
@@ -171,7 +180,6 @@
                 $query = new ParseQuery("orders");
                 $query->equalTo("order_id",$_GET['trans_number']);
                 $orders = $query->find();
-
                 for ($i = 0; $i < count($orders); $i++) {
                     $orders[$i]->set('user',$user);
                     $orders[$i]->set('status',-1);
@@ -179,18 +187,15 @@
                 }
                 sendmail($user, $orders);
                 //                rs_api_create_res();
-
                 unset($_SESSION['orders']);
                 unset($_SESSION['start']);
                 unset($_SESSION['end']);
-
                 $template = $twig->loadTemplate('success-payment.html');
                 $query = new ParseQuery("orders");
                 $query->descending("createdAt");
                 $query->equalTo("user",$user);
                 $query->includeKey('hotel');
                 $orders = $query->find();
-
                 if ($user->get('asem') == 0) {
                     echo $template->render(array('title' => 'iHotel', 'user' => $user,
                         'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
@@ -248,26 +253,22 @@
                     $log_msg_en.="Incorrect username or password";
                 }
                 $log_msg .= $_GET['error_desc'];
-
                 $query = new ParseQuery("orders");
                 $query->descending("createdAt");
                 $query->equalTo("order_id",$_GET['trans_number']);
                 $orders = $query->find();
-
                 for ($i = 0; $i < count($orders); $i++) {
                     $orders[$i]->destroy();
                 }
                 unset($_SESSION['orders']);
                 unset($_SESSION['start']);
                 unset($_SESSION['end']);
-
                 $template = $twig->loadTemplate('success-payment.html');
                 $query = new ParseQuery("orders");
                 $query->descending("createdAt");
                 $query->equalTo("user",$user);
                 $query->includeKey('hotel');
                 $orders = $query->find();
-
                 if ("".$user->get('asem') == "1") {
                     echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
                         'result'=>1, 'message'=> $log_msg_en, 'mtype'=> 0)); 
@@ -278,11 +279,10 @@
                 }
             }
         }
-    }
-
-    function sendmail($user, $orders){
+    }*/
+    function sendmail($user, $trans_number){
         $query = new ParseQuery("orders");
-        $query->equalTo("order_id",$_GET['trans_number']);
+        $query->equalTo("order_id",$trans_number);
         $query->includeKey('hotel');
         $order = $query->find();
         $content = '<div style="margin-right: 13%; margin-left: 13%; padding: 1%; border: 1px solid #d9d9d9;">
