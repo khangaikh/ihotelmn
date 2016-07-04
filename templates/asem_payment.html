@@ -59,7 +59,7 @@
                             <p class="text-small" id="alert_text_2">Invalid expired date</p>
                         </div>
                         <div>
-                            <input type="submit" value="Төлбөр хийх" class="btn btn-primary" />
+                            <input type="submit" value="Төлбөр хийх" class="btn btn-primary" id="asempay"  />
                         </div>
                     </form>
                 </div>
@@ -236,6 +236,8 @@
         checkuser = true;
     {% endif %}
     $("#card_payment_form").submit(function(event){
+            $("#asempay").after('<div id="loading"></div>');
+            $("#asempay").addClass('disabled');
             var d = new Date();
             var y = d.getFullYear();
             var m = d.getMonth();
