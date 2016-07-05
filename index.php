@@ -95,6 +95,9 @@
             if($user->get('meeting_type')==10){
                 $query->equalTo("is_journalist",1);
             }
+            if($user->get('meeting_type')==9){
+                $query->notEqualTo("is_journalist",1);
+            }
 
             $query->descending("stars");
 
@@ -255,6 +258,11 @@
             if($user->get('meeting_type')==10){
                 $query->equalTo("is_journalist",1);
             }
+
+            if($user->get('meeting_type')==9){
+                $query->notEqualTo("is_journalist",1);
+            }
+
 
             $start = $_GET['start_1'];
             $end = $_GET['end_1'];
