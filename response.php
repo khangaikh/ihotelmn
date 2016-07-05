@@ -23,6 +23,7 @@
 
         $transStatus = 0;
         $trans_num = 0;
+        $user_card = 0;
 
         $user = $_SESSION['user'];
         $query = new ParseQuery("user_cards");
@@ -32,110 +33,111 @@
         $card = $query->first();
 
         if ($count == 0) {
+
             $user_card = new ParseObject("user_cards");
-            $user_card->set('card', $_POST['card_number']);
-            $user_card->set('card_name', $_POST['card_holder_name']);
-            $user_card->set('cvc', $_POST['cvc']);
-            $user_card->set('user', $user);
-            $user_card->set('valid', $_POST['expired_date']);
-            $user_card->save();
 
-            if(isset($_SESSION['orders'])){
-                $orders = $_SESSION['orders'];
-                class Event {}
-                $rooms = array();
-                $total = 0;
-                for ($i = 0; $i < count($orders); ++$i){
-                    $e = new Event();
-                    $order_id = $orders[$i];
-                    if ($i == 0) {
-                        $trans_num = $order_id;
-                    }
-                    $query = new ParseQuery("orders");
-                    $query->equalTo("objectId",$order_id);
-                    $query->includeKey("room");
-                    $order = $query->first();
-                    $order->set('order_id', $trans_num);
-                    $order->set('card', $user_card);
-                    $order->set('status',-1);
-                    $order->set('user',$user);
-                    try {
-                        $order->save();
-                        $transStatus = 1;
-                    } catch (Exception $e) {
-                        $transStatus = 0;
-                    }
+        }
+        else{
+
+            $user_card = $card;
+
+        }
+        $user_card->set('card', $_POST['card_number']);
+        $user_card->set('card_name', $_POST['card_holder_name']);
+        $user_card->set('cvc', $_POST['cvc']);
+        $user_card->set('user', $user);
+        $user_card->set('valid', $_POST['expired_date']);
+        $user_card->save();
+
+        if(isset($_SESSION['orders'])){
+            $orders = $_SESSION['orders'];
+            class Event {}
+            $rooms = array();
+            $total = 0;
+            for ($i = 0; $i < count($orders); ++$i){
+                $e = new Event();
+                $order_id = $orders[$i];
+                if ($i == 0) {
+                    $trans_num = $order_id;
                 }
-
-                if ($transStatus == 1) {
-                    sendmail($user, $trans_num);
+                $query = new ParseQuery("orders");
+                $query->equalTo("objectId",$order_id);
+                $query->includeKey("room");
+                $order = $query->first();
+                $order->set('order_id', $trans_num);
+                $order->set('card', $user_card);
+                $order->set('status',-1);
+                $order->set('user',$user);
+                try {
+                    $order->save();
+                    $transStatus = 1;
+                } catch (Exception $e) {
+                    $transStatus = 0;
                 }
             }
 
             if ($transStatus == 1) {
-
-                
-
-                unset($_SESSION['orders']);
-                unset($_SESSION['start']);
-                unset($_SESSION['end']);
-
-                $template = $twig->loadTemplate('success-payment.html');
-                $query = new ParseQuery("orders");
-                $query->descending("createdAt");
-                $query->equalTo("user",$user);
-                $query->includeKey('hotel');
-                $orders = $query->find();
-
-                
-                if ($user->get('asem') == 0) {
-                    echo $template->render(array('title' => 'iHotel', 'user' => $user,
-                        'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
-                }
-                else{
-                    echo $template->render(array('title' => 'iHotel', 'user' => $user,
-                        'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Approved, balances available', 'mtype'=> 1)); 
-                }
-
-            }else{
-                $query = new ParseQuery("orders");
-                $query->descending("createdAt");
-                $query->equalTo("order_id",$trans_num);
-                $orders = $query->find();
-
-                for ($i = 0; $i < count($orders); $i++) {
-                    $orders[$i]->destroy();
-                }
-                unset($_SESSION['orders']);
-                unset($_SESSION['start']);
-                unset($_SESSION['end']);
-
-                $template = $twig->loadTemplate('success-payment.html');
-                $query = new ParseQuery("orders");
-                $query->descending("createdAt");
-                $query->equalTo("user",$user);
-                $query->includeKey('hotel');
-                $orders = $query->find();
-
-                $log_msg.="Гүйлгээ амжилтгүй болсон байна.";
-                $log_msg_en.="Approved, no balances available";
-
-                if ("".$user->get('asem') == "1") {
-                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
-                        'result'=>1, 'message'=> $log_msg_en, 'mtype'=> 0)); 
-                }
-                else{
-                    echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
-                        'result'=>1, 'message'=> $log_msg, 'mtype'=> 0)); 
-                }
+                sendmail($user, $trans_num);
             }
         }
-        else{
 
+        if ($transStatus == 1) {
+
+            unset($_SESSION['orders']);
+            unset($_SESSION['start']);
+            unset($_SESSION['end']);
+
+            $template = $twig->loadTemplate('success-payment.html');
+            $query = new ParseQuery("orders");
+            $query->descending("createdAt");
+            $query->equalTo("user",$user);
+            $query->includeKey('hotel');
+            $orders = $query->find();
+
+            if ($user->get('asem') == 0) {
+                echo $template->render(array('title' => 'iHotel', 'user' => $user,
+                    'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Гүйлэгээ амжилттай боллоо.', 'mtype'=> 1)); 
+            }
+            else{
+                echo $template->render(array('title' => 'iHotel', 'user' => $user,
+                    'nav' => 2, 'result'=> 1, 'orders'=>$orders, 'message'=> 'Approved, balances available', 'mtype'=> 1)); 
+            }
+
+        }else{
+            $query = new ParseQuery("orders");
+            $query->descending("createdAt");
+            $query->equalTo("order_id",$trans_num);
+            $orders = $query->find();
+
+            for ($i = 0; $i < count($orders); $i++) {
+                $orders[$i]->destroy();
+            }
+            unset($_SESSION['orders']);
+            unset($_SESSION['start']);
+            unset($_SESSION['end']);
+
+            $template = $twig->loadTemplate('success-payment.html');
+            $query = new ParseQuery("orders");
+            $query->descending("createdAt");
+            $query->equalTo("user",$user);
+            $query->includeKey('hotel');
+            $orders = $query->find();
+
+            $log_msg.="Гүйлгээ амжилтгүй болсон байна.";
+            $log_msg_en.="Approved, no balances available";
+
+            if ("".$user->get('asem') == "1") {
+                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
+                    'result'=>1, 'message'=> $log_msg_en, 'mtype'=> 0)); 
+            }
+            else{
+                echo $template->render(array('title' => 'iHotel', 'user' => $user, 'nav' => 2, 'orders'=>$orders, 
+                    'result'=>1, 'message'=> $log_msg, 'mtype'=> 0)); 
+            }
         }
 
     }
- 
+
     /*if(isset($_GET)){
         $query = new ParseQuery("orders");
         $query->equalTo("objectId",$_GET['trans_number']);
@@ -280,7 +282,11 @@
             }
         }
     }*/
+
     function sendmail($user, $trans_number){
+
+        $total = 0;
+        $total = 0;
         $query = new ParseQuery("orders");
         $query->equalTo("order_id",$trans_number);
         $query->includeKey('hotel');
@@ -359,6 +365,7 @@
         } else {
             echo "Message sent!";
         }
+
     }
 
 ?>
