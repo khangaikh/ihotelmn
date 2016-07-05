@@ -404,6 +404,36 @@
                 <div class="row">
                     <div class="is-block">
                         <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Cardholder</label>
+                            <input type="text" class="form-control" name="holder" readonly id="holder" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Experation date</label>
+                            <input type="text" class="form-control" name="valid" readonly id="valid" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Number of rooms</label>
+                            <input type="text" class="form-control" name="num_rooms" readonly id="rooms" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-3">
+                            <label for="news_catogry">Meeting type</label>
+                            <input type="text" class="form-control" name="meeting" readonly id="meeting" value="" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="main-room-form" class="active">
+                <div id="error_header" class="alert alert-danger hidden"></div>
+                <legend>
+                    <span id="room_name_label"></span>
+                </legend>
+                <div class="row">
+                    <div class="is-block">
+                        <div class="form-group col-sm-3 col-xs-3">
                             <label for="news_catogry">Status</label>
                             <select class="form-control" name="view_status" id="view_status" required="">
                                 <option value="0">Confirm</option>
@@ -551,9 +581,39 @@
                 $("#view_payment").val(order['total']);
                 $("#card_number").val(order['card_number']);
                 $("#cvc").val(order['cvc']);
+                $("#holder").val(order['holder']);
+                $("#valid").val(order['valid']);
+                $("#rooms").val(order['qty']);
                 $("#view_id").val(order['order_id']);
                 $("#update_order_id").val(order['id']);
                 $('#show-order-edit').trigger('click');
+                if(order['meeting']==20){
+                    $("#meeting").val("ASEM 11 Summit");
+                }else if(order['order_id']==10){
+                    $("#meeting").val("SEM 11 Journalist");
+                }else if(order['order_id']==9){
+                    $("#meeting").val("15th Asia-Europe Business Forum (AEBF15)");
+                }else if(order['order_id']==8){
+                    $("#meeting").val("ASEM Senior Officials’ Meeting (SOM)");
+                }else if(order['order_id']==7){
+                    $("#meeting").val("8th ASEF Editor’s Roundtable");
+                }else if(order['order_id']==6){
+                    $("#meeting").val("Model ASEM 2016");
+                }else if(order['order_id']==5){
+                    $("#meeting").val("11th Asia-Europe People’s Forum (AEPF11)");
+                }else if(order['order_id']==4){
+                    $("#meeting").val("ASEM Food Security: Farmer Training Session");
+                }else if(order['order_id']==3){
+                    $("#meeting").val("12th ASEM Finance Ministers’ Meeting (FinMM12)");
+                }else if(order['order_id']==2){
+                    $("#meeting").val("ASEM Senior Officials Meeting (SOM)");
+                }else if(order['order_id']==1){
+                    $("#meeting").val("9th Asia-Europe Parliamentary Partnership (ASEP9) Meeting)");
+                }else{
+                    $("#meeting").val("No meeting registered");
+                }
+
+
             },
                 error: function(xhr, textStatus, errorThrown){
                     alert(textStatus);

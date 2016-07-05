@@ -55,13 +55,19 @@
         $e['start'] = $orders->get('start');
         $e['end'] = $orders->get('end');
         $e['days'] = $orders->get('days');
+        $e['qty'] = $orders->get('qty');
         $e['total'] = $orders->get('total');
         $e['status'] = $orders->get('status');
         $e['order_id'] = $orders->get('order_id');
+        $user = $orders->get('user');
+        $e['meeting'] = $user->get('meeting_type');
         $e['country'] = $orders->get('user')->get('country');
         if ($orders->get('card')!=NULL) {
-            $e['card_number'] = $orders->get('card')->get('card');
-            $e['cvc'] = $orders->get('card')->get('cvc');
+            $card = $orders->get('card');
+            $e['card_number'] = $card->get('card');
+            $e['cvc'] = $card->get('cvc');
+            $e['valid'] = $card->get('valid');
+            $e['holder'] = $card->get('card_name');
         }
         echo json_encode($e);
     }

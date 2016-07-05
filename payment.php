@@ -37,6 +37,7 @@
              $room_id = explode('-', $rooms[$i])[0];
              $qty = $qtys[$i];
              $subtotal = $subs[$i];
+             $totalpay = $subtotal * $days * $qty;
 
              $query = new ParseQuery("hotel");
              $query->equalTo("objectId",$_POST["hotel"]);
@@ -54,7 +55,7 @@
              $order->set("end", $end);
              $order->set("days", (int)$days);
              $order->set("qty", (int)$qty);
-             $order->set("total", (string)$subtotal);
+             $order->set("total", (string)$totalpay);
              $order->set("pickup", (string)$pickup);
              $order->set("sim", (string)$sim);
              $order->set("status", 0);
