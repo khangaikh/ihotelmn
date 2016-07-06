@@ -1,6 +1,6 @@
 {% extends "user.html" %}
 {% block user_content %}
-    <table id="example" class="display" cellspacing="0" width="100%" style="font-size:9px"> 
+    <table id="example" class="display" cellspacing="0" width="100%" style="font-size:8px"> 
         <thead>
             <tr>
                 <th></th>
@@ -13,7 +13,6 @@
                 <th>o/date</th>
                 <th>Date start</th>
                 <th>Date end</th>
-                <th>Days</th>
                 <th>Payment</th>
                 <th>Status</th>
             </tr>
@@ -30,14 +29,12 @@
                 <th>o/date</th>
                 <th>Date start</th>
                 <th>Date end</th>
-                <th>Days</th>
                 <th>Payment</th>
                 <th>Status</th>
             </tr>
         </tfoot>
         <tbody id="orders">
         {% for order in orders %}
-            {% if order.status != 0 %}
             <tr>
                 <td>{{ loop.index }}</td>
                 <td style="display: none;">{{ order.objectId }}</td>
@@ -49,7 +46,6 @@
                 <td>{{order.createdAt | date("Y-m-d")}}</td>
                 <td>{{order.start}}</td>
                 <td>{{order.end}}</td>
-                <td>{{order.days}}</td>
                 <td>{{order.total}}</td>
                 <td class="text-center">
                     {%if order.status==-1%}
@@ -61,7 +57,6 @@
                     {%endif%}
                 </td>
             </tr>
-            {% endif %}
         {% endfor %}
         </tbody>
     </table>

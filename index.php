@@ -176,6 +176,7 @@
         else if(isset($_GET['orders'])){
             $template = $twig->loadTemplate('user_orders.html');
             $query = new ParseQuery("orders");
+            $query->notEqualTo("status",0);
             $query->includeKey("room");
             $query->includeKey("user");
             $query->includeKey("hotel");
