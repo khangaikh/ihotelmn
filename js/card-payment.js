@@ -427,6 +427,7 @@
     };
 
     $.payment.validateCardExpiry = function(month, year) {
+        console.log("asd");
         var currentTime, expiry, prefix, _ref;
         if (typeof month === 'object' && 'month' in month) {
             _ref = month, month = _ref.month, year = _ref.year;
