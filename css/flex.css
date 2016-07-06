@@ -149,8 +149,7 @@ tr:nth-of-type(odd){
     background:#eee;
 }
 td, th{
-    padding:5px;
-    border:1px solid #ccc;
+    padding:2px;
     text-align:left;
 }
 @media (max-width:760px){

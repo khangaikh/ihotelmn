@@ -1,18 +1,17 @@
 {% extends "user.html" %}
 {% block user_content %}
-    <table id="example" class="display" cellspacing="0" width="100%" style="font-size:8px"> 
+    <table id="example" class="display" cellspacing="0" width="100%" style="font-size:10px"> 
         <thead>
             <tr>
-                <th></th>
                 <th style="display: none"></th>
-                <th>Order id</th>
+                <th>Order</th>
                 <th>Hotel</th>
-                <th>Room type</th>
-                <th>Username</th>
+                <th>Room</th>
+                <th>User</th>
                 <th>Country</th>
                 <th>o/date</th>
-                <th>Date start</th>
-                <th>Date end</th>
+                <th>Arrive</th>
+                <th>Checkout</th>
                 <th>Days</th>
                 <th>Payment</th>
                 <th>Status</th>
@@ -20,16 +19,15 @@
         </thead>
         <tfoot style="display: table-header-group">
             <tr>
-                <th></th>
                 <th style="display: none"></th>
-                <th>Order id</th>
+                <th>Order</th>
                 <th>Hotel</th>
-                <th>Room type</th>
-                <th>Username</th>
+                <th>Room</th>
+                <th>User</th>
                 <th>Country</th>
                 <th>o/date</th>
-                <th>Date start</th>
-                <th>Date end</th>
+                <th>Arrive</th>
+                <th>Checkout</th>
                 <th>Days</th>
                 <th>Payment</th>
                 <th>Status</th>
@@ -38,7 +36,6 @@
         <tbody id="orders">
         {% for order in orders %}
             <tr>
-                <td>{{ loop.index }}</td>
                 <td style="display: none;">{{ order.objectId }}</td>
                 <td>{{ order.order_id }}</td>
                 <td>{{order.hotel.name}}</td>
@@ -520,7 +517,7 @@
  
             // Total over all pages
             total = api
-                .column( 11 )
+                .column( 10 )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
@@ -528,7 +525,7 @@
  
             // Total over this page
             pageTotal = api
-                .column( 11, { page: 'current'} )
+                .column( 10, { page: 'current'} )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
@@ -587,25 +584,25 @@
                 $('#show-order-edit').trigger('click');
                 if(order['meeting']==20){
                     $("#meeting").val("ASEM 11 Summit");
-                }else if(order['order_id']==10){
-                    $("#meeting").val("SEM 11 Journalist");
-                }else if(order['order_id']==9){
+                }else if(order['meeting']==10){
+                    $("#meeting").val("ASEM 11 Journalist");
+                }else if(order['meeting']==9){
                     $("#meeting").val("15th Asia-Europe Business Forum (AEBF15)");
-                }else if(order['order_id']==8){
+                }else if(order['meeting']==8){
                     $("#meeting").val("ASEM Senior Officials’ Meeting (SOM)");
-                }else if(order['order_id']==7){
+                }else if(order['meeting']==7){
                     $("#meeting").val("8th ASEF Editor’s Roundtable");
-                }else if(order['order_id']==6){
+                }else if(order['meeting']==6){
                     $("#meeting").val("Model ASEM 2016");
-                }else if(order['order_id']==5){
+                }else if(order['meeting']==5){
                     $("#meeting").val("11th Asia-Europe People’s Forum (AEPF11)");
-                }else if(order['order_id']==4){
+                }else if(order['meeting']==4){
                     $("#meeting").val("ASEM Food Security: Farmer Training Session");
-                }else if(order['order_id']==3){
+                }else if(order['meeting']==3){
                     $("#meeting").val("12th ASEM Finance Ministers’ Meeting (FinMM12)");
-                }else if(order['order_id']==2){
+                }else if(order['meeting']==2){
                     $("#meeting").val("ASEM Senior Officials Meeting (SOM)");
-                }else if(order['order_id']==1){
+                }else if(order['meeting']==1){
                     $("#meeting").val("9th Asia-Europe Parliamentary Partnership (ASEP9) Meeting)");
                 }else{
                     $("#meeting").val("No meeting registered");
