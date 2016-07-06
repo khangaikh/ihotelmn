@@ -433,7 +433,7 @@ table.dataTable thead th div.DataTables_sort_wrapper span {
     position: absolute;
     top: 50%;
     margin-top: -8px;
-    right: 0px;
+    right: 0px !important;
 }
 table.dataTable thead th.ui-state-default,
 table.dataTable tfoot th.ui-state-default {
