@@ -76,7 +76,7 @@
         $query = new ParseQuery("orders");
         $query->equalTo("objectId",$_POST['delete_order']);
         $order = $query->first();
-        $order->set('status',-2);
+        $order->set('status',0);
         $order->save();
     }
 
