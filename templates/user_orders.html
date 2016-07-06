@@ -429,7 +429,6 @@
                 <div class="row">
                     <div class="is-block">
                         <div class="form-group col-sm-3 col-xs-3">
-                            <label for="news_catogry">Status</label>
                             <select class="form-control" name="view_status" id="view_status" required="">
                                 <option value="1">Confirm</option>
                                 <option value="-1">Under bank control</option>
@@ -503,38 +502,42 @@
                     }
                 } );
             },
-        "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
- 
-            // Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
- 
-            // Total over all pages
-            total = api
-                .column( 10 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
- 
-            // Total over this page
-            pageTotal = api
-                .column( 10, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
- 
-            // Update footer
-            $("#tft").html("<h5>Нийт дүн: $"+pageTotal+" </h5>");
-        }
+            "footerCallback": function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+     
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+     
+                // Total over all pages
+                total = api
+                    .column( 10 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+     
+                // Total over this page
+                pageTotal = api
+                    .column( 10, { page: 'current'} )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+     
+                // Update footer
+                $("#tft").html("<h5>Нийт дүн: $"+pageTotal+" </h5>");
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
 
-        } );
         var table = $('#example').DataTable();
 
         // Apply the search
