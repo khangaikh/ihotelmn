@@ -61,6 +61,7 @@
         $e['order_id'] = $orders->get('order_id');
         $user = $orders->get('user');
         $e['meeting'] = $user->get('meeting_type');
+        $e['email'] = $user->get('email');
         $e['sim'] = $orders->get('sim');
         $e['pickup'] = $orders->get('pickup');
         $e['country'] = $orders->get('user')->get('country');
