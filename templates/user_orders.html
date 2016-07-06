@@ -51,7 +51,7 @@
                     {%if order.status==-1%}
                             Under bank control
                         {% elseif order.status==-2%} 
-                            Deleted 
+                            Unsuccesfull 
                         {%elseif order.status== 1%}
                             Confirmed
                     {%endif%}
@@ -433,13 +433,13 @@
                             <select class="form-control" name="view_status" id="view_status" required="">
                                 <option value="1">Confirm</option>
                                 <option value="-1">Under bank control</option>
-                                <option value="-2">Deleted</option>
+                                <option value="-2">Unsuccesfull</option>
                             </select>
                             <span class="help-block"></span>
                         </div>
                         <div class="form-group col-sm-3 col-xs-3">
-                            <label for="news_catogry">Delete Order</label>
-                            <input type="button" class="btn btn-block btn-primary" id="delete_order" value="Delete order" />
+                            <label for="news_catogry">Payment unsuccessfull</label>
+                            <input type="button" class="btn btn-block btn-primary" id="delete_order" value="Unsuccessfull order" />
                             <span class="help-block"></span>
                         </div>
                     </div>
