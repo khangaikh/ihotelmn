@@ -61,8 +61,8 @@
         $e['order_id'] = $orders->get('order_id');
         $user = $orders->get('user');
         $e['meeting'] = $user->get('meeting_type');
-        $e['sim'] = $user->get('sim');
-        $e['pickup'] = $user->get('pickup');
+        $e['sim'] = $orders->get('sim');
+        $e['pickup'] = $orders->get('pickup');
         $e['country'] = $orders->get('user')->get('country');
         if ($orders->get('card')!=NULL) {
             $card = $orders->get('card');
