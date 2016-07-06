@@ -1,4 +1,5 @@
 (function() {
+
     var $, cardFromNumber, cardFromType, cards, defaultFormat, formatBackCardNumber, formatBackExpiry, formatCardNumber, formatExpiry, formatForwardExpiry, formatForwardSlash, hasTextSelected, luhnCheck, reFormatCardNumber, restrictCVC, restrictCardNumber, restrictExpiry, restrictNumeric, setCardType,
         __slice = [].slice,
         __indexOf = [].indexOf || function(item) {
@@ -355,6 +356,7 @@
             $target.removeClass(allTypes.join(' '));
             $target.addClass(cardType);
             $target.toggleClass('identified', cardType !== 'unknown');
+            $("#card_type").val(cardType);
             return $target.trigger('payment.cardType', cardType);
         }
     };
