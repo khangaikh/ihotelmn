@@ -13,6 +13,7 @@
                 <th>o/date</th>
                 <th>Date start</th>
                 <th>Date end</th>
+                <th>Days</th>
                 <th>Payment</th>
                 <th>Status</th>
             </tr>
@@ -29,6 +30,7 @@
                 <th>o/date</th>
                 <th>Date start</th>
                 <th>Date end</th>
+                <th>Days</th>
                 <th>Payment</th>
                 <th>Status</th>
             </tr>
@@ -46,6 +48,7 @@
                 <td>{{order.createdAt | date("Y-m-d")}}</td>
                 <td>{{order.start}}</td>
                 <td>{{order.end}}</td>
+                <td>{{order.days}}</td>
                 <td>{{order.total}}</td>
                 <td class="text-center">
                     {%if order.status==-1%}
