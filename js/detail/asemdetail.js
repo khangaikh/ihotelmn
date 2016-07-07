@@ -239,7 +239,7 @@ $(document).ready(function() {
         if($(this).val()>0){
             var roomid = $(this).attr('roomid');
             var persons = $(this).attr('persons');
-
+ 
             $('ul[roomid='+roomid+']').remove();
             $("#payment_info").show();
 
