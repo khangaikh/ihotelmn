@@ -29,16 +29,18 @@
                     </div>
                 </div>
                 <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="update-dialog">
-                    <form action="response.php" id="card_payment_form" method="POST" accept-charset="utf-8">
+                    <form action="response.php" class="cc-form" id="card_payment_form" method="POST" accept-charset="utf-8">
                         <div class="clearfix">
                             <div class="form-group form-group-cc-number">
                                 <label>Card number</label>
-                                <input id="card" name="card_number" class="form-control" placeholder="xxxx xxxx xxxx xxxx" required type="text" />
+                                <input id="card" name="card_number" minlength=19 class="form-control" placeholder="xxxx xxxx xxxx xxxx" required type="text" />
                                 <span class="cc-card-icon"></span>
+                                <input id="card_type" min="19" name="card_type" type="hidden" />
                             </div>
                             <div class="form-group form-group-cc-cvc">
                                 <label>CVC</label>
-                                <input id="{{card.objectId}}" name="cvc" class="form-control" required placeholder="xxxx" type="text"  />
+                                <input id="{{card.objectId}}"
+                                name="cvc" minlength=3 class="form-control" required placeholder="xxxx" type="text"  />
                             </div>
                         </div>
                         <div class="clearfix">
@@ -59,7 +61,7 @@
                             <p class="text-small" id="alert_text_2">Invalid expired date</p>
                         </div>
                         <div>
-                            <input type="submit" value="Pay now" class="btn btn-primary" id="asempay"  />
+                            <input type="submit" value="Check out" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>
@@ -244,6 +246,7 @@
             var res  = $("#valid").val().split("/");
 
             if(res[1] <= y && res[0] <= m){
+                $("#alert_3").show();
                 event.preventDefault();
             }else{
                 

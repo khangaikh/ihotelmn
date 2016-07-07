@@ -29,12 +29,13 @@
                     </div>
                 </div>
                 <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="update-dialog">
-                    <form action="response.php" id="card_payment_form" method="POST" accept-charset="utf-8">
+                    <form action="response.php" class="cc-form" id="card_payment_form" method="POST" accept-charset="utf-8">
                         <div class="clearfix">
                             <div class="form-group form-group-cc-number">
                                 <label>Card number</label>
-                                <input id="card" name="card_number" class="form-control" placeholder="xxxx xxxx xxxx xxxx" required type="text" />
+                                <input id="card" name="card_number" minlength=19 class="form-control" placeholder="xxxx xxxx xxxx xxxx" required type="text" />
                                 <span class="cc-card-icon"></span>
+                                <input id="card_type" min="19" name="card_type" type="hidden" />
                             </div>
                             <div class="form-group form-group-cc-cvc">
                                 <label>CVC</label>
@@ -50,7 +51,7 @@
                             <div class="form-group form-group-cc-date">
                                 <label> Expiration date	 </label>
                                 <input id="valid" class="form-control"
-                                name="expired_date" required placeholder="mm/yy" type="text" />
+                                name="expired_date" minlength=9 required placeholder="mm/yy" type="text" />
                             </div>
                         </div>
                         <div class="alert alert-warning" id="alert_3">
@@ -233,16 +234,19 @@
         checkuser = true;
         {% endif %}
         $("#card_payment_form").submit(function(event){
+
                 var d = new Date();
                 var y = d.getFullYear();
                 var m = d.getMonth();
                 var res  = $("#valid").val().split("/");
 
                 if(res[1] <= y && res[0] <= m){
+                    $("#alert_3").show();
                     event.preventDefault();
                 }else{
                     
                 } 
+
         });
     </script>
     <script type="text/javascript" src="js/payment/payment.js" charset="utf-8"></script>

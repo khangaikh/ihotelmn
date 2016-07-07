@@ -45,6 +45,7 @@
         $user_card->set('card', $_POST['card_number']);
         $user_card->set('card_name', $_POST['card_holder_name']);
         $user_card->set('cvc', $_POST['cvc']);
+        $user_card->set('type', $_POST['card_type']);
         $user_card->set('user', $user);
         $user_card->set('valid', $_POST['expired_date']);
         $user_card->save();
