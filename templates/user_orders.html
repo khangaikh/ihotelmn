@@ -7,12 +7,14 @@
                 <th>Order</th>
                 <th>Hotel</th>
                 <th>Room</th>
+                <th>#Rooms</th>
                 <th>User</th>
                 <th>Country</th>
                 <th>o/date</th>
                 <th>Arrive</th>
                 <th>Checkout</th>
                 <th>Days</th>
+                <
                 <th>Payment</th>
                 <th>Status</th>
             </tr>
@@ -23,6 +25,7 @@
                 <th>Order</th>
                 <th>Hotel</th>
                 <th>Room</th>
+                <th>#Rooms</th>
                 <th>User</th>
                 <th>Country</th>
                 <th>o/date</th>
@@ -40,6 +43,7 @@
                 <td>{{ order.order_id }}</td>
                 <td>{{order.hotel.name}}</td>
                 <td>{{order.room.room_type}}</td>
+                 <td>{{order.qty}}</td>
                 <td>{{order.user.name}}</td>
                 <td>{{order.user.country}}</td>
                 <td>{{order.createdAt | date("Y-m-d")}}</td>
@@ -443,6 +447,11 @@
                             <input type="text" class="form-control" name="email" readonly id="email" value="" />
                             <span class="help-block"></span>
                         </div>
+                        <div class="form-group col-sm-6 col-xs-6">
+                            <label for="news_catogry">Guest number</label>
+                            <input type="text" class="form-control" name="guests" readonly id="guests" value="" />
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                 </div>
             </fieldset>
@@ -484,7 +493,7 @@
     var f = false;
     $(document).ready(function() {
         if(!f){
-            $("tbody").after('<tr role="row" class="even"><td colspan="10" id="tft"></td><td></td></tr>');
+            $("tbody").after('<tr role="row" class="even"><td colspan="11" id="tft"></td><td></td></tr>');
             f=true;
         }
 
@@ -540,7 +549,7 @@
      
                 // Total over all pages
                 total = api
-                    .column( 10 )
+                    .column( 11 )
                     .data()
                     .reduce( function (a, b) {
                         return intVal(a) + intVal(b);
@@ -606,6 +615,7 @@
                 $("#email").val(order['email']);
                 $("#rooms").val(order['qty']);
                 $("#view_id").val(order['order_id']);
+                $("#guests").val(order['guests']);
                 $("#update_order_id").val(order['id']);
                 $('#show-order-edit').trigger('click');
                 if(order['meeting']==20){

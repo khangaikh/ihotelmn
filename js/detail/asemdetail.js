@@ -257,9 +257,9 @@ $(document).ready(function() {
 
             var room_name = $(this).attr('room');
             var price = $(this).attr('price');
-            var subtotal = $(this).val()* price;
+            //var subtotal = $(this).val()* price;
 
-            $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'('+persons+')</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+subtotal+'</span><small>/per day</small></p></li></ul>'
+            $("#payment_rooms").append('<ul name="order_room" roomid="'+roomid+'" class="booking-item-payment-price"><li><p class="booking-item-payment-price-title">'+room_name+'('+persons+')</p><p class="booking-item-payment-price-title" style="margin-left:10px"><span name="qtys">'+$(this).val()+'</span><small>/rooms</small></p><p class="booking-item-payment-price-amount">$<span name="subtotal">'+price+'</span><small>/per day</small></p></li></ul>'
                 );
             set_total(days);
         }else{

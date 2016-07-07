@@ -64,6 +64,7 @@
         $e['email'] = $user->get('email');
         $e['sim'] = $orders->get('sim');
         $e['pickup'] = $orders->get('pickup');
+        $e['guests'] = $room->get('adult_occupancy');
         $e['country'] = $orders->get('user')->get('country');
         if ($orders->get('card')!=NULL) {
             $card = $orders->get('card');
