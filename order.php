@@ -60,6 +60,7 @@
         $e['status'] = $orders->get('status');
         $e['order_id'] = $orders->get('order_id');
         $user = $orders->get('user');
+        $room = $orders->get('room');
         $e['meeting'] = $user->get('meeting_type');
         $e['email'] = $user->get('email');
         $e['sim'] = $orders->get('sim');

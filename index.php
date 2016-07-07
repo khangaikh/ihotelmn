@@ -1335,7 +1335,7 @@
             $template = $twig->loadTemplate('asem_register.html');
             echo $template->render(array('title' => 'Asem Login', 'list' => 1));
         }
-        else if(isset($_GET['asemdetail'])){
+        /*else if(isset($_GET['asemdetail'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['asemdetail']);
             $hotel = $query->first();
@@ -1392,7 +1392,19 @@
             }
             $user="Hello";
             echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $not_closed_room, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_room, 'count' => $closed_rooms_count));
-        }
+        }*/
+        /*else if(isset($_GET['orders'])){
+            $template = $twig->loadTemplate('user_orders.html');
+            $query = new ParseQuery("orders");
+            $query->notEqualTo("status",0);
+            $query->includeKey("room");
+            $query->includeKey("user");
+            $query->includeKey("hotel");
+            $query->limit(1000);
+            $orders = $query->find();
+            $user = "Hello";
+            echo $template->render(array('title' => 'Захиалагууд', 'orders'=>$orders, 'user' => $user, 'nav' => 3));
+        }*/
         else{
 
             $template = $twig->loadTemplate('home.html');
