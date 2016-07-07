@@ -272,13 +272,12 @@ $(document).ready(function() {
     });
 
     $("#search_a").click(function( event ) {
-        
         var start = $("#start").val();
         var end = $("#end").val();
         var hotel = $("#hotel_3").val();
         var adult = $("#adult").val();
 
-        var url = "https://ihotel.mn/index.php?asemdetail="+hotel+"&depart="+start+"&end="+end+"guests="+adult+"&rooms=1";
+        var url = "https://ihotel.mn/index.php?asemdetail="+hotel+"&depart="+start+"&end="+end+"&guests="+adult+"&rooms=1";
         window.location.replace(url);
 
         //ajax lisr available rooms  
