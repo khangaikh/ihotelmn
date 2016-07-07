@@ -55,7 +55,7 @@
              $order->set("end", $end);
              $order->set("days", (int)$days);
              $order->set("qty", (int)$qty);
-             $order->set("total", (string)$subtotal);
+             $order->set("total", (string)$totalpay);
              $order->set("pickup", (string)$pickup);
              $order->set("sim", (string)$sim);
              $order->set("status", 0);
@@ -71,6 +71,7 @@
                  echo $ex;
              }
          }
+         
          $_SESSION['orders'] = $order_ids;
          if($result){
             $_SESSION['days'] = $days;

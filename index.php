@@ -417,7 +417,8 @@
                     $total = $total + (int)$order->get('total');
                     array_push($rooms,$e);
                 }
-                $total= $total * $days;
+
+                //$total= $total * $days;
 
                 if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 75; }
 
@@ -1330,10 +1331,6 @@
                 $max = $e->get('min_rate'); 
                 //render a template
                 echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'max' => $max, 'min' => $min));   
-        }
-        else if(isset($_GET['asem'])){
-            $template = $twig->loadTemplate('asem_register.html');
-            echo $template->render(array('title' => 'Asem Login', 'list' => 1));
         }
         /*else if(isset($_GET['asemdetail'])){
             $query = new ParseQuery("hotel");
