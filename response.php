@@ -337,7 +337,7 @@
         }
         $content .= '<p style="margin: 0 0 0; padding: 8px 30px 8px 15px; font-size: 12px;">
             Total amount: <span style="font-size: 24px; color: #686868; font-weight: 400;letter-spacing: -2px;">US$ '
-            .$total*intval($order[0]->get('days')).'</span></p>';
+            .$total.'</span></p>';
 
         $content .= '<br/><div style="padding:10px 15px;background:#f7f7f7"><p style="margin: 0 0 0; padding: 8px 30px 8px 15px; font-size: 12px;">
             Please contact us +976-88021087</p></div></div>';
