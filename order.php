@@ -83,6 +83,7 @@
         $order = $query->first();
         $order->set('status',0);
         $order->save();
+        echo 1;
     }
 
     if(isset($_POST['update_order_id'])){
