@@ -243,7 +243,7 @@
             });
         });
         function cancel(i){
-            if (confirm('Are you sure to cancel this reservation? This operation cannot undo')) {
+            if (confirm('Are you sure to cancel this reservation? This operation cannot undo. You will be charged one night price if you cancel it with in 3 days before the checkin in date.')) {
                 $.ajax({
                     type: "POST",
                     url: "cancel.php",
