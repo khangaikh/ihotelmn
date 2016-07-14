@@ -9,7 +9,7 @@
     $query->equalTo("objectId",$_POST['data']);
     $order = $query->first();
     
-    $order->set('status',0);
+    $order->set('status',-3);
 
     $result = false;
     try {

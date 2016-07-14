@@ -57,6 +57,8 @@
                             Unsuccesfull 
                         {%elseif order.status== 1%}
                             Confirmed
+                        {%elseif order.status== -3%}
+                            Cancelled
                     {%endif%}
                 </td>
             </tr>
@@ -466,6 +468,7 @@
                                 <option value="1">Confirm</option>
                                 <option value="-1">Under bank control</option>
                                 <option value="-2">Unsuccesfull</option>
+                                <option value="-3">Cancelled</option>
                             </select>
                             <span class="help-block"></span>
                         </div>
