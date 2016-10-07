@@ -14,6 +14,15 @@
     ));
     $twig->setCache(false);
 
+    
+    $template = $twig->loadTemplate('cs.html');
+    echo $template->render(array('title' => 'Asem Login', 'list' => 1));
+
+    //Comiing soon page
+
+
+
+    /*
     if(isset($_SESSION['user'])){
         $user = $_SESSION['user'];
         $username = $user->get("username");
@@ -1406,7 +1415,7 @@
             $orders = $query->find();
             $user = "Hello";
             echo $template->render(array('title' => 'Захиалагууд', 'orders'=>$orders, 'user' => $user, 'nav' => 3));
-        }*/
+        }
         else{
 
             $template = $twig->loadTemplate('home.html');
@@ -1448,7 +1457,7 @@
                     /*}else{
                         $template = $twig->loadTemplate('asem_register.html');
                         echo $template->render(array('title' => 'Asem Login', 'list' => 1));
-                   }*/
+                   }
         } 
-    }
+    }*/
 ?>
