@@ -48,7 +48,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-                        <a class="logo" href="index.php">
+                        <a class="logo" href="index.php?asem">
                             <img src="img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
                         </a>
                     </div>
@@ -63,7 +63,7 @@
                                 <li><a href="index.php?logout">Logout</a>
                                 </li>
                                 {% else %}
-                                <li><a href='index.php?asem_login'>ASEM Login</a></li>
+                                <li><a href='index.php?asem_login'>Login | Register </a></li>
                                 {% endif %}
                                 <li class="top-user-area-lang ">
                                 <a title="Mongolian" href="index.php">
@@ -80,9 +80,8 @@
             <div class="container">
                 <div class="nav">
                     <ul class="slimmenu" id="slimmenu">
-                        <li {% if nav==1 %}  class="active" {%endif%}><a href="index.php?asem">ASEM ULAANBAATAR HOTELS</a></li>
+                        <li {% if nav==1 %}  class="active" {%endif%}><a href="index.php?asem"> HOTELS</a></li>
                         <li><a href="https://www.sixt.com/php/reservation/agent_rateselection?tab_identifier=1456130987&context=&">CAR RENTAL</a></li>
-                        <li ><a href="http://www.asem11.mn/">ASEM 2016 NEWS</a></li>
                         <li {% if nav==3 %}  class="active" {%endif%}><a href="index.php?asem-faq">FAQ</a></li>
                         <li ><a href="#" id="handbook">HANDBOOK</a></li>
                         <li><a href="http://www.booking.com/index.html?aid=806377">iHotel on Booking.com</a></li>
@@ -107,7 +106,7 @@
                     <ul class="list list-horizontal list-space" id="footer-link">
                         <li><a href='index.php?asem_terms'>Terms in Uses</a></li>
                         <li><a href='index.php?asem-faq'>FAQ</a></li>
-                        <li><a href='http://www.asem11.mn/?page_id=15&lang=en'>Contact</a></li>
+                        <li><a href='index.php?asem-contact'>Contact</a></li>
                     </ul>
                 </div>
             </div>

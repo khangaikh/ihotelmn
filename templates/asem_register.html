@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row" data-gutter="60" id='asem2'>
             <div class="col-md-4">
-                <h3>ASEM 11 Login</h3>
+                <h3>Login</h3>
                 <form>
                     <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon input-icon-show"></i>
                         <label>Email</label>
@@ -56,14 +56,14 @@
                 </div>
             </div>
             <div class='col-md-8' style="border-left: 1px solid #cccccc">
-                <h3>ASEM 11 Register</h3>
+                <h3>Register</h3>
                 <form id="asem_reg">
                     <div class='row row-wrap'>
-                        <div class='col-md-8'>
+                        <div class='col-md-8' style="display: none">
                             <div class='form-group'>
                                 <label>Attending type</label>
-                                <select name="meeting_type" id="meeting_type" class='form-control' required>
-                                    <option value="20">ASEM 11 Summit</option>
+                                <select name="meeting_type" id="meeting_type" class='form-control' required >
+                                    <option value="20" selected>ASEM 11 Summit</option>
                                     <option value="10">ASEM 11 Journalist</option>
                                     <option value="1">9th Asia-Europe Parliamentary Partnership (ASEP9) Meeting</option>
                                     <option value="2">ASEM Senior Officials Meeting (SOM)</option>
@@ -352,7 +352,7 @@
                               </div>
                         </div>
                     </div>
-                    <div class='row row-wrap'>
+                    <div class='row row-wrap' style="display: none">
                         <div id="close">
                             <div class='col-md-3'>
                                   <div class='form-group'>

@@ -5,7 +5,6 @@
     use Parse\ParseClient;
     use Parse\ParseQuery;
     use Parse\ParseUser;
-
     session_start();
     Twig_Autoloader::register();
     $loader = new Twig_Loader_Filesystem('templates');
@@ -13,20 +12,9 @@
         'cache' => 'cache',
     ));
     $twig->setCache(false);
-
-    
-    $template = $twig->loadTemplate('cs.html');
-    echo $template->render(array('title' => 'Asem Login', 'list' => 1));
-
-    //Comiing soon page
-
-
-
-    /*
     if(isset($_SESSION['user'])){
         $user = $_SESSION['user'];
         $username = $user->get("username");
-
         if(isset($_GET['tour'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
@@ -95,42 +83,32 @@
             echo $template->render(array('title' => 'FAQ','nav' => 3,'user' => $user, 'faqs'=>$faqs));
         }
         else if(isset($_GET['asem'])){
-
             $query = new ParseQuery("hotel");
             $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
             $query->equalTo("asem",1);
-
             if($user->get('meeting_type')==10){
                 $query->equalTo("is_journalist",1);
             }
             if($user->get('meeting_type')==9){
                 $query->notEqualTo("is_journalist",1);
             }
-
             $query->descending("stars");
-
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
             $count = $query->count();
-
             $template = $twig->loadTemplate('asem_list.html');
-
             $query->ascending("min_rate");
             $e = $query->first();
             $min = $e->get('min_rate'); 
-
             $query->descending("min_rate");
             $e = $query->first();
             $max = $e->get('min_rate'); 
-
             $date1 = new DateTime();
             $checkin = $date1->format('Y-m-d');
-
             $date2 = new DateTime();
             $date2->modify('+5 day');
             $checkout = $date2->format('Y-m-d');
-
             echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
                 'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
         }
@@ -146,7 +124,6 @@
             $query->descending("name");
             $query->limit(2);
             $hotels = $query->find();
-
             $query = new ParseQuery("hotel");
             $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
@@ -162,7 +139,6 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $results = $query->find();
-
             //render a template
             echo $template->render(array('title' => 'Буудал нэмэх', 'results'=>$results, 'user' => $user, 'nav' => 1));
         }
@@ -191,7 +167,6 @@
             $query->includeKey("hotel");
             $query->limit(1000);
             $orders = $query->find();
-
             echo $template->render(array('title' => 'Захиалагууд', 'orders'=>$orders, 'user' => $user, 'nav' => 3));
         }
         else if(isset($_GET['faq_admin'])){
@@ -199,7 +174,6 @@
             $query = new ParseQuery("faq");
             $query->equalTo("user",$user);
             $faqs = $query->find();
-
             $query2 = new ParseQuery('faq_en');
             $faqs_en = $query2->find();
             //render a template
@@ -216,7 +190,6 @@
             foreach ($rooms as $key => $room) {
                 $count = $count + $room->get('num_rooms');
             }
-
             echo $template->render(array('title' => 'Буудал нэмэх', 'hotel'=>$hotel, 'user' => $user, 'nav' => 1, 'section' => $section, 'rooms' => $rooms, 'count' =>$count));
         }
         else if(isset($_GET['settings'])){
@@ -231,30 +204,23 @@
             $query->equalTo("asem",0);
             $query->descending("stars");
             $location = $_GET['location'];
-
             $start = $_GET['start'];
             $end = $_GET['end'];
-
             $date = new DateTime($start);
             $checkin = $date->format('Y-m-d');
-
             $date = new DateTime($end);
             $checkout = $date->format('Y-m-d');
-
             $pieces = explode(",", $location);
             $query->equalTo("city",$pieces[0]);
             $results = $query->find();
             $count = $query->count();
             $template = $twig->loadTemplate('list.html');
-
             $query->ascending("min_rate");
             $e = $query->first();
             $min = $e->get('min_rate'); 
-
             $query->descending("min_rate");
             $e = $query->first();
             $max = $e->get('min_rate'); 
-
             //render a template
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $pieces[0], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1],'user' => $user, 'max' => $max, 'min' => $min));
         }
@@ -264,40 +230,30 @@
             $query->equalTo("type", "Hotel");
             $query->equalTo("asem",1);
             $query->descending("stars");
-
             if($user->get('meeting_type')==10){
                 $query->equalTo("is_journalist",1);
             }
-
             if($user->get('meeting_type')==9){
                 $query->notEqualTo("is_journalist",1);
             }
-
-
             $start = $_GET['start_1'];
             $end = $_GET['end_1'];
             $guests = $_GET['guests'];
             $rooms = $_GET['rooms'];
-
             $date = new DateTime($start);
             $date1 = new DateTime($start);
             $checkin = $date->format('Y-m-d');
-
             $date = new DateTime($end);
             $date2 = new DateTime($end);
             $checkout = $date->format('Y-m-d');
-
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
-
             $query->ascending("min_rate");
             $e = $query->first();
             $min = $e->get('min_rate'); 
-
             $query->descending("min_rate");
             $e = $query->first();
             $max = $e->get('min_rate'); 
-
             $template = $twig->loadTemplate('asem_list.html');
             //render a template
             echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms, 'user' => $user, 'max' => $max, 'min' => $min));
@@ -311,7 +267,6 @@
             $query->descending("name");
             $query->limit(2);
             $hotels = $query->find();
-
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
@@ -325,25 +280,20 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['detail']);
             $hotel = $query->first();
-
             $query = new ParseQuery("rooms");
             $query->equalTo("hotel",$hotel);
             $query->ascending("night_price");
             $rooms = $query->find();
-
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",1);
             $main = $query->first();
-
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",0);
             $images = $query->find();
-
             $start = $_GET['depart'];
             $end = $_GET['end'];
-
             $template = $twig->loadTemplate('detail.html');
             //render a template
             echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
@@ -354,7 +304,6 @@
             $query->includeKey('hotel');
             $order = $query->first();
             $hotel = $order->get("hotel");
-
             $template = $twig->loadTemplate('order.html');
             //render a template
             echo $template->render(array('title' => 'Захиалга', 'order' => $order, 'hotel' =>$hotel,'user' => $user ));
@@ -388,14 +337,11 @@
                     array_push($rooms,$e);
                 }
                 $total= $total * $days;
-
                 if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 200; }
-
                 $_SESSION['total'] = $total;
                 $template = $twig->loadTemplate('payment.html');
                 echo $template->render(array('title' => 'Payment Page', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user));
             }else{
-
             }
         }
         else if(isset($_GET['asem_payment'])){
@@ -426,11 +372,8 @@
                     $total = $total + (int)$order->get('total');
                     array_push($rooms,$e);
                 }
-
                 //$total= $total * $days;
-
                 if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 75; }
-
                 if($sim=="sim1"){
                     $total += 20;
                 }
@@ -440,14 +383,16 @@
                 if($sim=="sim3"){
                     $total += 50;
                 }
-
                 $_SESSION['total'] = $total;
                 $template = $twig->loadTemplate('asem_payment.html');
                 //render a template
                 echo $template->render(array('title' => 'Payment Page', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'user' => $user, 'sim' =>$sim));
             }else{
-
             }
+        }
+         else if(isset($_GET['asem-contact'])){
+            $template = $twig->loadTemplate('contactuseng.html');
+            echo $template->render(array('title' => ''));
         }
         else if(isset($_GET['city'])){
             $query = new ParseQuery("hotel");
@@ -463,15 +408,12 @@
             $checkout = $date->format('Y-m-d');
             $count = $query->count();
             $template = $twig->loadTemplate('list.html');
-
             $query->ascending("min_rate");
             $e = $query->first();
             $min = $e->get('min_rate'); 
-
             $query->descending("min_rate");
             $e = $query->first();
             $max = $e->get('min_rate'); 
-
             //render a template
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'user' =>$user, 'min'=>$min, 'max'=>$max));
         }
@@ -480,7 +422,6 @@
             $query->equalTo("status",1);
             $query->equalTo("user",$user);
             $cards = $query->find();
-
             $template = $twig->loadTemplate('user_cards.html');
             //render a template
             echo $template->render(array('title' => 'Картууд', 'user' => $user, 'cards' => $cards, 'nav' =>3));
@@ -518,49 +459,39 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['asemdetail']);
             $hotel = $query->first();
-
             $query = new ParseQuery("rooms");
             $query->equalTo("hotel",$hotel);
             $rooms = $query->find();
-
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",1);
             $main = $query->first();
-
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",0);
             $images = $query->find();
-
             $start = $_GET['depart'];
             $end = $_GET['end'];
             $guests = $_GET['guests'];
             $rooms_1 = $_GET['rooms'];
-
             $date1 = new DateTime($start);
             $date2 = new DateTime($end);
-
             $query = new ParseQuery("room_closing");
             $query->lessThanOrEqualTo("start", $date2); //2 -16 
             $query->greaterThanOrEqualTo("end", $date1); // 24 - 1
             $query->includeKey('room');
             $closed_rooms = $query->find();
             $closed_rooms_count = $query->count();
-
             $template = $twig->loadTemplate('asem_detail.html');
-
             $not_closed_room = [];
             $closed_room = [];
             $closed_room_ids = [];
-
             foreach ($closed_rooms as $closed) {
                 $temp = $closed->get("room");
                 $a = $temp->getObjectId();
                 array_push($closed_room_ids,$a);
             }
                   
-
             foreach ($rooms as $room) {
                 $b = $room->getObjectId();
                 if (in_array($b, $closed_room_ids)) {
@@ -569,7 +500,6 @@
                     array_push($not_closed_room,$room);
                 }
             }
-
             echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $not_closed_room, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_room, 'count' => $closed_rooms_count));
         }
         else if(isset($_POST['contact_us'])){
@@ -602,11 +532,9 @@
                 $contact_us->save();
                 $result=true; 
             }
-
             if($result){ echo 1; }else{ echo 0; }
         }
         else if(isset($_GET['dashboard'])){
-
             $template = $twig->loadTemplate('user_dashboard.html');
             $query = new ParseQuery("orders");
             $query->descending("createdAt");
@@ -614,7 +542,6 @@
             $query->notEqualTo("status",0);
             $query->includeKey('hotel');
             $old_orders = $query->find();
-
             if(isset($_SESSION['orders'])){
                 $start = $_SESSION['start'];
                 $end = $_SESSION['end'];
@@ -653,34 +580,25 @@
                 $query->equalTo("type","Hotel");
                 $query->equalTo("status",1);
                 $query->equalTo("asem",1);
-
                 if($user->get('meeting_type')==10){
                     $query->equalTo("is_journalist",1);
                 }
-
                 $query->descending("stars");
-
                 $query->equalTo("city",'Ulaanbaatar');
                 $results = $query->find();
                 $count = $query->count();
-
                 $template = $twig->loadTemplate('asem_list.html');
-
                 $query->ascending("min_rate");
                 $e = $query->first();
                 $min = $e->get('min_rate'); 
-
                 $query->descending("min_rate");
                 $e = $query->first();
                 $max = $e->get('min_rate'); 
-
                 $date1 = new DateTime();
                 $checkin = $date1->format('Y-m-d');
-
                 $date2 = new DateTime();
                 $date2->modify('+5 day');
                 $checkout = $date2->format('Y-m-d');
-
                 echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
                     'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
             }
@@ -689,30 +607,22 @@
                 $query->equalTo("type","Hotel");
                 $query->equalTo("status",1);
                 $query->equalTo("asem",0);
-
                 $query->descending("stars");
-
                 $query->equalTo("city",'Ulaanbaatar');
                 $results = $query->find();
                 $count = $query->count();
-
                 $template = $twig->loadTemplate('list.html');
-
                 $query->ascending("min_rate");
                 $e = $query->first();
                 $min = $e->get('min_rate'); 
-
                 $query->descending("min_rate");
                 $e = $query->first();
                 $max = $e->get('min_rate'); 
-
                 $date1 = new DateTime();
                 $checkin = $date1->format('Y-m-d');
-
                 $date2 = new DateTime();
                 $date2->modify('+5 day');
                 $checkout = $date2->format('Y-m-d');
-
                 echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
                     'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
             }
@@ -753,58 +663,65 @@
                 $contact_us->save();
                 $result=true; 
             }
-
             if($result){ echo 1; }else{ echo 0; }
         }
         else if(isset($_GET['asem_login'])){
             $template = $twig->loadTemplate('asem_register.html');
             //render a template
-            echo $template->render(array('title' => 'Asem Login'));
+            echo $template->render(array('title' => 'Login'));
         }
         else if(isset($_GET['asem'])){
-            $template = $twig->loadTemplate('asem_register.html');
-            //render a template
-            echo $template->render(array('title' => 'Asem Login'));
+            $query = new ParseQuery("hotel");
+            $query->equalTo("type","Hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("asem",1);
+            $query->descending("stars");
+            $query->equalTo("city",'Ulaanbaatar');
+            $results = $query->find();
+            $count = $query->count();
+            $template = $twig->loadTemplate('asem_list.html');
+            $query->ascending("min_rate");
+            $e = $query->first();
+            $min = $e->get('min_rate'); 
+            $query->descending("min_rate");
+            $e = $query->first();
+            $max = $e->get('min_rate'); 
+            $date1 = new DateTime();
+            $checkin = $date1->format('Y-m-d');
+            $date2 = new DateTime();
+            $date2->modify('+5 day');
+            $checkout = $date2->format('Y-m-d');
+            echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
+               'results' =>$results, 'max' => $max, 'min' => $min));
         }
         else if(isset($_GET['start'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("asem",0);
             $query->equalTo("type", "Hotel");
-
-
             $query->descending("stars");
             $location = $_GET['location'];
-
             $start = $_GET['start'];
             $end = $_GET['end'];
             $persons = $_GET['persons'];
             $guests = $_GET['guests'];
-
-
             $date = new DateTime($start);
             $checkin = $date->format('Y-m-d');
-
             $date = new DateTime($end);
             $checkout = $date->format('Y-m-d');
-
             $pieces = explode(",", $location);
             $query->equalTo("city",$pieces[0]);
             $query->limit(25);
             $results = $query->find();
             $count = $query->count();
             $pages = (int)($count / 25);
-
             $template = $twig->loadTemplate('list.html');
-
             $query->ascending("min_rate");
             $e = $query->first();
             $min = $e->get('min_rate'); 
-
             $query->descending("min_rate");
             $e = $query->first();
             $max = $e->get('min_rate'); 
-
             //render a template
             echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $location, 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => $pieces[1], 'pages' => $pages, 'guests'=>$guests, 'persons'=>$persons, 'max'=>$max, 'min'=>$min));
         }
@@ -814,31 +731,23 @@
             $query->equalTo("type", "Hotel");
             $query->equalTo("asem",1);
             $query->descending("stars");
-
             $start = $_GET['start_1'];
             $end = $_GET['end_1'];
             $guests = $_GET['guests'];
             $rooms = $_GET['rooms'];
-
             $date = new DateTime($start);
             $checkin = $date->format('Y-m-d');
-
             $date = new DateTime($end);
             $checkout = $date->format('Y-m-d');
-
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
-
             $template = $twig->loadTemplate('asem_list.html');
-
             $query->ascending("min_rate");
             $e = $query->first();
             $min = $e->get('min_rate'); 
-
             $query->descending("min_rate");
             $e = $query->first();
             $max = $e->get('min_rate'); 
-
             //render a template
             echo $template->render(array('title' => 'Search results', 'nav' => 1, 'results' =>$results,'start' => $checkin, 'end' => $checkout,  'guests'=>$guests, 'rooms'=>$rooms, 'max'=>$max, 'min'=>$min));
         }
@@ -868,27 +777,22 @@
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['detail']);
             $hotel = $query->first();
-
             $query = new ParseQuery("rooms");
             $query->equalTo("hotel",$hotel);
             $query->ascending("night_price");
             $rooms = $query->find();
-
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",1);
             $main = $query->first();
-
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",0);
             $images = $query->find();
-
             $start = $_GET['depart'];
             $end = $_GET['end'];
             //$location = $_GET['location'];
             //$country = $_GET['country'];
-
             $template = $twig->loadTemplate('detail.html');
             //render a template
             echo $template->render(array('title' => 'Дэлгэрэнгүй', 'nav' => 1,  'hotel' =>$hotel, 'start' => $start, 'end' => $end, 'rooms' => $rooms, 'main' => $main, 'images' =>$images));
@@ -930,7 +834,6 @@
             $query->includeKey("user");
             $query->equalTo("objectId",$_GET['newsdetail']);
             $news = $query->first();
-
             $query->equalTo('category', 'Travel Advices');
             $travel_advice = $query->find();
             $data['travel_advice']=count($travel_advice);
@@ -965,7 +868,6 @@
             $query->includeKey("user");
             $query->containedIn("subject",[$_GET['news_search']]);
             $news = $query->find();
-
             $query->equalTo('category', 'Travel Advices');
             $travel_advice = $query->find();
             $data['travel_advice']=count($travel_advice);
@@ -1016,6 +918,10 @@
             $template = $twig->loadTemplate('asem_news.html');
             echo $template->render(array('title' => ''));
         }
+        else if(isset($_GET['asem-contact'])){
+            $template = $twig->loadTemplate('contactuseng.html');
+            echo $template->render(array('title' => ''));
+        }
         else if(isset($_GET['asem-tours'])){
             $template = $twig->loadTemplate('asem-tours.html');
             echo $template->render(array('title' => ''));
@@ -1027,11 +933,8 @@
             echo $template->render(array('title' => 'FAQ', 'nav' => 3, 'faqs'=>$faqs));
         }
         else if(isset($_GET['asem_acc'])){
-
             if(isset($_GET['email']) && isset($_GET['key']) && isset($_GET['name'])){
-
                 $email = $_GET['email'];
-
                 if($email == ""){
                     echo "Error 05: Email is required";
                     return;
@@ -1041,53 +944,38 @@
                     echo "Error 06: Email is not recognized";
                     return;
                 }
-
                 $query = new ParseQuery("general");
                 $query->equalTo("objectId","hLnoaR9C1J");
                 $general = $query->first();
-
                 $iv = "ihotelmnasem2016";
                 $pass = (string)$general->get('openssl_pass');
                 $method = 'aes-128-cbc';
-
                 $key = $_GET['key'];
                 $name = $_GET['name'];
-
                 $decrypted = openssl_decrypt (hexToStr($key), $method , $pass, true , $iv);
-
                 if($decrypted == $name){
-
                     $ipaddress = '';
-
                     if (isset($_SERVER['HTTP_CLIENT_IP'])){
                         $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-
                     }
                     if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
                         $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-
                     }
                     if(isset($_SERVER['HTTP_X_FORWARDED'])){
                         $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-
                     }
                     if(isset($_SERVER['HTTP_FORWARDED_FOR'])){
                         $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-
                     }
                     if(isset($_SERVER['HTTP_FORWARDED'])){
                         $ipaddress = $_SERVER['HTTP_FORWARDED'];
-
                     }
                     if(isset($_SERVER['REMOTE_ADDR'])){
                         $ipaddress = $_SERVER['REMOTE_ADDR'];
-
                     }
-
                     $query = new ParseQuery("_User");
                     $query->equalTo("username",$_GET['email']);
                     $exists = $query->count();
-
                     if($exists>0){
                         $user = ParseUser::logIn($_GET['email'], "ihotel123$");
                         $_SESSION['user'] = $user;
@@ -1100,23 +988,17 @@
                         if($_GET['meeting_type']==10){
                             $query->equalTo("is_journalist",1);
                         }
-
                         $query->descending("stars");
-
                         $query->equalTo("city",'Ulaanbaatar');
                         $results = $query->find();
                         $count = $query->count();
-
                         $template = $twig->loadTemplate('asem_list.html');
-
                         $query->ascending("min_rate");
                         $e = $query->first();
                         $min = $e->get('min_rate'); 
-
                         $query->descending("min_rate");
                         $e = $query->first();
                         $max = $e->get('min_rate'); 
-
                         //render a template
                         echo $template->render(array('title' => 'Search', 'nav' => 1, 'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
                     }else{
@@ -1124,7 +1006,6 @@
                         $email =  $_GET['email'];
                         $pass = "ihotel123$";
                         $country = $_GET['country'];
-
                         $user = new ParseUser();
                         $user->set("username", $email);
                         $user->set("name", $name);
@@ -1132,17 +1013,14 @@
                         $user->set("password", $pass);
                         $user->set("country", $country);
                         //$user->set("emailVerified", true);
-
                         $user->set("status", 1);
                         $user->set("asem", 1);
                         $user->set("role", 1);
-
                         if(isset($_GET['meeting_type'])){
                             $user->set("meeting_type", intval($_GET['meeting_type']));
                         }else{
                             $user->set("meeting_type", 11);
                         }
-
                         try {
                             $user->signUp();
                             $_SESSION['user'] = $user;
@@ -1154,7 +1032,6 @@
                             $query->notEqualTo("status",0);
                             $query->includeKey('hotel');
                             $old_orders = $query->find();
-
                             $query = new ParseQuery("hotel");
                             $query->equalTo("type","Hotel");
                             $query->equalTo("status",1);
@@ -1163,21 +1040,16 @@
                                 $query->equalTo("is_journalist",1);
                             }
                             $query->descending("stars");
-
                             $query->equalTo("city",'Ulaanbaatar');
                             $results = $query->find();
                             $count = $query->count();
-
                             $template = $twig->loadTemplate('asem_list.html');
-
                             $query->ascending("min_rate");
                             $e = $query->first();
                             $min = $e->get('min_rate'); 
-
                             $query->descending("min_rate");
                             $e = $query->first();
                             $max = $e->get('min_rate'); 
-
                             //render a template
                             echo $template->render(array('title' => 'Search', 'nav' => 1, 'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
                         } catch (ParseException $ex) {
@@ -1185,13 +1057,11 @@
                             return;
                         }
                     }
-
                 }else{
                     echo "Error 03: Mismatch"; 
                 }
             }else{
                 echo "Error: 02, Insufficient data";
-
             }
         }
         else if(isset($_GET['payment'])){
@@ -1223,9 +1093,7 @@
                         array_push($rooms,$e);
                     }
                     $total= $total * $days;
-
                     if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 75; }
-
                     if($sim=="sim1"){
                         $total += 20;
                     }
@@ -1235,24 +1103,25 @@
                     if($sim=="sim3"){
                         $total += 50;
                     }
-
                     $_SESSION['total'] = $total;
                     $template = $twig->loadTemplate('payment.html');
                     //render a template
                     echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'pickup' => $pickup, 'day_end' => $day_end, 'sim' => $sim));
                 }else{
-
                 }
         }
         else if(isset($_GET['asem_payment'])){
-
                 if(isset($_SESSION['orders'])){
                     $start = $_SESSION['start'];
                     $end = $_SESSION['end'];
                     $days = $_SESSION['days'];
                     $hotel = $_SESSION['hotel'];
                     $pickup = $_SESSION['pickup'];
-                    $sim = $_SESSION['sim'];
+                    if (isset($_SESSION['sim'])){
+                        $sim = $_SESSION['sim'];
+                    }else{
+                        $sim = "sim1";
+                    }
                     $day_start = date('l', strtotime( $start));
                     $day_end = date('l', strtotime( $end));
                     $orders = $_SESSION['orders'];
@@ -1274,7 +1143,6 @@
                         array_push($rooms,$e);
                     }
                     $total= $total * $days;
-
                     if ($pickup == "budget") { $total += 25; } else if($pickup == "vip"){ $total += 75; }
                     if($sim=="sim1"){
                         $total += 20;
@@ -1285,12 +1153,10 @@
                     if($sim=="sim3"){
                         $total += 50;
                     }
-
                     $template = $twig->loadTemplate('asem_payment.html');
                     //render a template
                     echo $template->render(array('title' => '', 'hotel' =>$hotel,  'start' => $start, 'end' => $end, 'rooms' => $rooms, 'days' => $days, 'total' =>$total ,'day_start' => $day_start, 'day_end' => $day_end, 'pickup' => $pickup, 'sim' =>$sim));
                 }else{
-
                 }
         }
         else if(isset($_GET['order'])){
@@ -1312,7 +1178,6 @@
             $query->descending("name");
             $query->limit(2);
             $hotels = $query->find();
-
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
@@ -1335,64 +1200,52 @@
                 $checkout = $date->format('Y-m-d');
                 $count = $query->count();
                 $template = $twig->loadTemplate('list.html');
-
                 $query->ascending("min_rate");
                 $e = $query->first();
                 $min = $e->get('min_rate'); 
-
                 $query->descending("min_rate");
                 $e = $query->first();
                 $max = $e->get('min_rate'); 
                 //render a template
                 echo $template->render(array('title' => 'Хайлт', 'nav' => 1, 'location' => $_GET['city'], 'results' =>$results,'start' => $checkin, 'end' => $checkout, 'count' => $count, 'country' => 'iHotel', 'max' => $max, 'min' => $min));   
         }
-        /*else if(isset($_GET['asemdetail'])){
+        else if(isset($_GET['asemdetail'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("objectId",$_GET['asemdetail']);
             $hotel = $query->first();
-
             $query = new ParseQuery("rooms");
             $query->equalTo("hotel",$hotel);
             $rooms = $query->find();
-
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",1);
             $main = $query->first();
-
             $query = new ParseQuery("hotel_images");
             $query->equalTo("hotel",$hotel);
             $query->equalTo("main",0);
             $images = $query->find();
-
             $start = $_GET['depart'];
             $end = $_GET['end'];
             $guests = $_GET['guests'];
             $rooms_1 = $_GET['rooms'];
-
             $date1 = new DateTime($start);
             $date2 = new DateTime($end);
-
             $query = new ParseQuery("room_closing");
             $query->lessThanOrEqualTo("start", $date2); //2 -16 
             $query->greaterThanOrEqualTo("end", $date1); // 24 - 1
             $query->includeKey('room');
             $closed_rooms = $query->find();
             $closed_rooms_count = $query->count();
-
             $template = $twig->loadTemplate('asem_detail.html');
-
             $not_closed_room = [];
             $closed_room = [];
             $closed_room_ids = [];
-
             foreach ($closed_rooms as $closed) {
                 $temp = $closed->get("room");
                 $a = $temp->getObjectId();
                 array_push($closed_room_ids,$a);
             }
                   
-
             foreach ($rooms as $room) {
                 $b = $room->getObjectId();
                 if (in_array($b, $closed_room_ids)) {
@@ -1403,7 +1256,7 @@
             }
             $user="Hello";
             echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $not_closed_room, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_room, 'count' => $closed_rooms_count));
-        }*/
+        }
         /*else if(isset($_GET['orders'])){
             $template = $twig->loadTemplate('user_orders.html');
             $query = new ParseQuery("orders");
@@ -1415,9 +1268,8 @@
             $orders = $query->find();
             $user = "Hello";
             echo $template->render(array('title' => 'Захиалагууд', 'orders'=>$orders, 'user' => $user, 'nav' => 3));
-        }
+        }*/
         else{
-
             $template = $twig->loadTemplate('home.html');
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
@@ -1426,7 +1278,6 @@
             $query->descending("name");
             $query->limit(2);
             $hotels = $query->find();
-
             $query = new ParseQuery("hotel");
             $query->equalTo("status",1);
             $query->equalTo("homepage",1);
@@ -1445,7 +1296,6 @@
                         $query->descending("name");
                         $query->limit(2);
                         $hotels = $query->find();
-
                         $query = new ParseQuery("hotel");
                         $query->equalTo("status",1);
                         $query->equalTo("homepage",1);
@@ -1457,7 +1307,7 @@
                     /*}else{
                         $template = $twig->loadTemplate('asem_register.html');
                         echo $template->render(array('title' => 'Asem Login', 'list' => 1));
-                   }
+                   }*/
         } 
-    }*/
+    }
 ?>

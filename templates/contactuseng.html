@@ -1,0 +1,114 @@
+{% extends "asem.html" %}
+{% block content %}
+        <div class="container">
+            <h1 class="page-title">Contact us</h1>
+        </div>
+        <div class="container">
+        </div>
+        <div id="map-canvas" style="height:400px;"></div>
+        <div class="container">
+            <div class="gap"></div>
+            <div class="row">
+                <div class="col-md-7">
+                    <p>Give us something to talk about</p>
+                    <form class="mt30" id="contact_us">
+                        <input type="hidden" name="contact_us" id="" value="name" />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input name="name" id="name" class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input name="email" id="email" class="form-control" type="email" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Say hi!</label>
+                            <textarea name="content" id="content" class="form-control"></textarea>
+                        </div>
+                        <input class="btn btn-primary" type="submit" value="Send" style="margin-bottom: 20px"/>
+                        <br />
+                        <div class="alert alert-danger" id='contact-alert'>
+                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                            </button>
+                            <p class="text-small"></p>
+                        </div>
+
+                        <div class="alert alert-success" id="contact-success">
+                            <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span>
+                            </button>
+                            <p class="text-small"></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <aside class="sidebar-right">
+                        <ul class="address-list list">
+                            <li>
+                                <h5>Email</h5><a href="#">info@ihotel.mn</a>
+                            </li>
+                            <li>
+                                <h5>Phone</h5><a href="#">+976-88021087</a>
+                            </li>
+                            <li>
+                                <h5>Skype</h5><a href="#">khangai_khurelbaatar</a>
+                            </li>
+                            <li>
+                                <h5>Address</h5><address>iHotel<br />National Information Technology Park<br> Room 206, Sukhbaatar district,<br />Baga Toiruu-49, Ulaanbaatar-210646<br />Mongolia<br /></address>
+                            </li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+
+        {% endblock %}
+{% block scripting %}
+{{parent()}}
+<script type="text/javascript" charset="utf-8">
+   $('#contact_us').submit(function( event ){
+           event.preventDefault();
+    $('.alert').hide(0);
+    var $this = $(this);
+    $this.after('<div id="loading"></div>');
+    $this.addClass('disabled');
+    if($('#email').val() !='' && $('#name').val()!='' && $('#content').val()!=''){ 
+       $.post("index.php", {
+            contact_us: 'test',
+            email: $('#email').val(),
+            name: $('#name').val(),
+            content: $('#content').val()
+            },
+            function (result) {
+                if(result==1){
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#email').val('');
+                    $('#name').val('');
+                    $('#content').val('');
+                    $('#contact-success').fadeIn(500);
+                    $('#contact-success p').text('Амжилттай.');
+                }
+                else{
+                contact-alert
+                    $('#loading').remove();
+                    $this.removeClass('disabled');
+                    $('#contact-alert').fadeIn(500);
+                    $('#contact-alert p').text('Алдаатай мэдээлэл оруулсан байна.');
+                }
+        });
+    }else{
+        $('#loading').remove();
+        $this.removeClass('disabled');
+        $('#contact-alert').fadeIn(500);
+        $('#contact-alert p').text('Дээрх талбаруудыг бөглөнө үү!');
+    }
+    });
+</script>
+{% endblock %}
