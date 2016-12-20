@@ -1257,6 +1257,24 @@
             $user="Hello";
             echo $template->render(array('title' => 'Choose room', 'nav' => 1, 'user' => $user, 'hotel' =>$hotel,'guests' => $guests, 'rooms_1' =>$rooms_1, 'start' => $start, 'end' => $end, 'rooms' => $not_closed_room, 'main' => $main, 'images' =>$images, 'closed_rooms' => $closed_room, 'count' => $closed_rooms_count));
         }
+        else if(isset($_GET['new'])){
+            $template = $twig->loadTemplate('new_base.html');
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("homepage",1);
+            $query->equalTo("city","Ulaanbaatar");
+            $query->descending("name");
+            $query->limit(2);
+            $hotels = $query->find();
+            $query = new ParseQuery("hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("homepage",1);
+            $query->equalTo("city","Ulaanbaatar");
+            $query->ascending("name");
+            $query->limit(2);
+            $hotels2 = $query->find();
+            echo $template->render(array('title' => 'iHotel', 'nav' => 1, 'hotels'=>$hotels, 'hotels2'=>$hotels2));
+        }
         /*else if(isset($_GET['orders'])){
             $template = $twig->loadTemplate('user_orders.html');
             $query = new ParseQuery("orders");
