@@ -1,0 +1,441 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="main-breadcrumb">
+		<div class="header-search">
+			<div class="ui container">
+				<div class="ui stackable column grid">
+					<div class="four wide column">
+						<div class="local example">
+							<div class="ui search">
+								<div class="ui fluid left icon input">
+									<input class="prompt" type="text" value="Ulaanbaatar">
+									<i class="marker icon"></i>
+								</div>
+								<div class="results"></div>
+							</div>
+						</div>
+					</div>
+					<div class="four wide column">
+						<form class="ui form">
+							<div class="ui fluid left icon input">
+								<input type="text" name="reservation"
+								id="reservation" placeholder="mm/dd/yyyy - mm/dd/yyyy"
+								value=""/>
+								<i class="calendar icon"></i>
+							</div>
+						</form>
+					</div>
+					<div class="three wide column">
+						<select class="ui fluid search dropdown">
+							<option value="1">1 өрөө</option>
+							<option value="2">2 өрөө</option>
+							<option value="3">3 өрөө</option>
+							<option value="4">4 өрөө</option>
+							<option value="5">5 өрөө</option>
+							<option value="6">6 өрөө</option>
+							<option value="7">7 өрөө</option>
+							<option value="8">8 өрөө</option>
+							<option value="9">9 өрөө</option>
+							<option value="10">10 өрөө</option>
+							<option value="11">11 өрөө</option>
+							<option value="12">12 өрөө</option>
+							<option value="13">13 өрөө</option>
+							<option value="14">14 өрөө</option>
+						</select>
+					</div>
+					<div class="three wide column">
+						<select class="ui fluid search dropdown">
+							<option value="1">1 хүн</option>
+							<option value="2">2 хүн</option>
+							<option value="3">3 хүн</option>
+							<option value="4">4 хүн</option>
+							<option value="5">5 хүн</option>
+							<option value="6">6 хүн</option>
+							<option value="7">7 хүн</option>
+							<option value="8">8 хүн</option>
+							<option value="9">9 хүн</option>
+							<option value="10">10 хүн</option>
+							<option value="11">11 хүн</option>
+							<option value="12">12 хүн</option>
+							<option value="13">13 хүн</option>
+							<option value="14">14 хүн</option>
+						</select>
+						
+					</div>
+					<div class="two wide column">
+						<div class="fluid ui red button">
+							хайх
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ui container">
+			<div class="ui stackable column grid">
+				<div class="eight wide column">
+					<h4 class="ui header">
+					<div>
+						{{hotel.name}}
+						{% for i in range(1, hotel.stars) %}
+                            <i class="icon yellow star"></i>
+                        {% endfor %}
+
+					</div>
+					<div class="sub header">{{hotel.address}}</div>
+					</h4>
+				</div>
+				<div class="right aligned eight wide column">
+					<div class="ui breadcrumb">
+						<a class="section">Эхлэл</a>
+						<span class="divider">/</span>
+						<div class="active section">Түгээмэл асуултууд</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main-page">
+		<div class="ui fluid stackable container">
+			
+			<div class="ui column grid">
+				
+				<div class="sixteen wide column">
+					<div class="ui stackable container content-search">
+						<div class="ui stackable segment">
+							<div class="ui stackable grid">
+								<div class="five wide column">
+									
+									<div id="main" role="main">
+										<section class="slider">
+											<div id="slider" class="flexslider">
+												<ul class="slides">
+													{% for image in hotel.images %}
+														<li>
+															 <img src="{{image}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />  
+														</li>   
+					                                {% endfor %}
+												</ul>
+											</div>
+											<div id="carousel" class="flexslider">
+												<ul class="slides">
+													{% for image in hotel.images %}
+														<li>
+															 <img src="{{image}}" alt="Image Alternative text" title="hotel PORTO BAY SERRA GOLF living room" />  
+														</li>   
+					                                {% endfor %}
+												</ul>
+											</div>
+										</section>
+										
+									</div>
+									<div class="pay-total">
+										<div class="ui  yellow inverted segment">
+											<h4 class="ui header">Таны захиалга</h4>
+											<p>Байрлах хоног: 5</p>
+											<p>2016-11-29 <i class="angle right icon"></i>2016-12-04</p>
+											<h4 class="ui header">Онгоцны буудлаас тосох</h4>
+											<div class="ui form">
+												<div class="grouped fields">
+													
+													<div class="field">
+														<div class="ui checkbox">
+															<input type="checkbox">
+															<label>SIXT - 50,000₮</label>
+														</div>
+														
+													</div>
+													<div class="field">
+														<div class="ui checkbox">
+															<input type="checkbox">
+															<label>Энгийн - 50,000₮</label>
+														</div>
+														
+													</div>
+													
+													
+												</div>
+											</div>
+											
+											<h4 class="ui header">Өрөөнүүд</h4>
+											<div class="ui middle aligned divided list">
+												<div class="item">
+													<div class="right floated content">
+														<button class="small ui button">
+														хасах
+														</button>
+													</div>
+													
+													<div class="content">
+														<h2 class="ui sub header">
+														TWIN
+														</h2>
+														<span>155,000₮ - 2 өрөө</span>
+													</div>
+												</div>
+												<div class="item">
+													<div class="right floated content">
+														<button class="small ui button">
+														хасах
+														</button>
+													</div>
+													<div class="content">
+														<h2 class="ui sub header">
+														TWIN/DOUBLE
+														</h2>
+														<span>155,000₮ - 2 өрөө</span>
+													</div>
+												</div>
+												<div class="item">
+													<div class="right floated content">
+														<button class="small ui button">
+														хасах
+														</button>
+													</div>
+													<div class="content">
+														<h2 class="ui sub header">
+														DELUXE Double
+														</h2>
+														<span>155,000₮ - 2 өрөө</span>
+													</div>
+												</div>
+												<div class="item">
+													
+													<div class="content">
+														<h2 class="ui sub header">
+														НӨАТ
+														</h2>
+														<span>15,000₮ </span>
+													</div>
+												</div>
+												<div class="item">
+													<div class="right floated content">
+														<div class="ui ihotel button">захиалах</div>
+													</div>
+													<div class="content">
+														<h2 class="ui sub header">
+														Нийт дүн:
+														</h2>
+														<h2 class="ui sub header">
+														645,000₮
+														</h2>
+														
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<h4 class="ui header">Зочид буудлын онцлог</h4>
+									<div class="ui segment">
+										
+										<div class="ui list">
+											<div class="item">
+												<i class="circular wifi icon"></i>
+												<div class="content">
+													Утасгүй интернет
+												</div>
+											</div>
+											<div class="item">
+												<i class="circular bus icon"></i>
+												<div class="content">
+													Автомашины зогсоол
+												</div>
+											</div>
+											<div class="item">
+												<i class="circular taxi icon"></i>
+												<div class="content">
+													Тусгай үйлчилгээ
+												</div>
+											</div>
+											<div class="item">
+												<i class="circular child icon"></i>
+												<div class="content">
+													Хүүхдүүдийн өрөө
+												</div>
+											</div>
+											<div class="item">
+												<i class="circular sign language icon"></i>
+												<div class="content">
+													Уулзалтын өрөө
+												</div>
+											</div>
+											<div class="item">
+												<i class="circular coffee icon"></i>
+												<div class="content">
+													Саун
+												</div>
+											</div>
+											<div class="item">
+												<i class="circular umbrella icon"></i>
+												<div class="content">
+													Бассейн
+												</div>
+											</div>
+											<div class="item">
+												<i class="circular umbrella icon"></i>
+												<div class="content">
+													Бялдаржуулах төв
+												</div>
+											</div>
+											<div class="item">
+												<i class="circular umbrella icon"></i>
+												<div class="content">
+													Тусгай үйлчилгээ
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="eleven wide column">
+									<div class="ui sizer vertical segment">
+										
+										<div class="ui large header">ТАНИЛЦУУЛГА</div>
+										<p class="ui justify">{{hotel.long_desc}}.</p>
+									</div>
+									<div class="ui sizer vertical segment">
+										
+										<div class="ui large header">ХОЛБОО БАРИХ</div>
+										<p class="ui justify">
+											<i class="circular mail icon"></i>info@ihotel.mn   <i class="circular phone icon"></i>+976 70111407
+										</p>
+										
+									</div>
+									<div class="ui sizer vertical segment">
+										
+										<div class="ui large header">ХАЯГ</div>
+										<p class="ui justify">
+											<i class="circular marker icon"></i>{{hotel.address}}
+										</p>
+										
+									</div>
+									<div class="ui large header">ӨРӨӨНҮҮД</div>
+									{% for room in rooms %}
+										<div class="ui segment">
+											<div class="ui stackable column grid">
+												
+												<div class="four wide column">
+													
+													<img class="ui image" src="{{room.images[0]}}"/>
+												</div>
+												<div class="eight wide column">
+													<div class="ui large header">{{room.room_type}}</div>
+													<p class="ui justify">
+														{{room.short_desc}}
+													</p>
+													<div class="ui horizontal list">
+														<div class="item">
+															<i class="circular user icon"></i>
+															<div class="middle aligned content">
+																x2
+															</div>
+														</div>
+														<div class="item">
+															<i class="circular hotel icon"></i>
+															<div class="middle aligned content">
+																X2
+															</div>
+														</div>
+														<div class="item">
+															<i class="circular child icon"></i>
+															<div class="middle aligned content">
+																X2
+															</div>
+														</div>
+														<div class="item">
+															<i class="circular expand icon"></i>
+															<div class="middle aligned content">
+																22 m2
+															</div>
+														</div>
+													</div>
+													<div class="ui horizontal list">
+														<div class="item">
+															<i class="circular television icon"></i>
+														</div>
+														<div class="item">
+															<i class="circular bar icon"></i>
+															
+														</div>
+														<div class="item">
+															<i class="circular wifi icon"></i>
+														</div>
+													</div>
+												</div>
+												<div class="four wide column">
+													
+													
+													<div class="ui large header">${{room.night_price|number_format}}/өдөр</div>
+													<p class="ui justify">
+														<select class="ui fluid search dropdown">
+															<option selected="selected">0</option>
+				                                            {% for i in range(1, room.num_rooms) %}
+				                                                <option value="{{i}}">{{i}} - {%if hotel.asem == 1%}${%endif%} {{i*room.night_price|number_format}}{%if hotel.asem == 0%}₮{%endif%}</option>
+				                                            {% endfor %}
+														</select>
+													</p>
+												</div>
+											</div>
+										</div>
+									{%endfor%}
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="partner">
+		<div class="ui fluid stackable container">
+			<div class="ui stackable column grid">
+				<div class="sixteen wide column">
+					<div class="ui stackable container">
+						<div class="ui stackable grid">
+							<div class="ui two column row">
+								<div class="column">
+									<img src="img/partner1.png">
+								</div>
+								<div class="column">
+									<img src="img/partner.png">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripting %}
+{{parent()}}
+<script defer src="js/jquery.flexslider.js"></script>
+		<script type="text/javascript">
+		$(function(){
+		SyntaxHighlighter.all();
+		});
+		$(window).load(function(){
+		$('#carousel').flexslider({
+		animation: "slide",
+		controlNav: false,
+		animationLoop: false,
+		slideshow: false,
+		itemWidth: 100,
+		itemMargin: 5,
+		asNavFor: '#slider'
+		});
+		$('#slider').flexslider({
+		animation: "slide",
+		controlNav: false,
+		animationLoop: false,
+		slideshow: false,
+		sync: "#carousel",
+		start: function(slider){
+		$('body').removeClass('loading');
+		}
+		});
+		});
+		</script>
+{% endblock %}

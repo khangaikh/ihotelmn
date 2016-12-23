@@ -1,0 +1,367 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="home-banner">
+			<ul class="rslides">
+				<li><img src="img/banner1.jpg" alt=""></li>
+				<li><img src="img/banner2.jpg" alt=""></li>
+				<li><img src="img/banner3.jpg" alt=""></li>
+			</ul>
+		</div>
+		<div id="main-search">
+			<div class="ui stackable container">
+				
+				<div id="context2">
+					<div class="ui stackable secondary menu">
+						
+						<a class="item active" data-tab="hotel"><i class="hotel icon"></i>Зочид буудал</a>
+						
+						<!-- <a class="item" data-tab="tour" class="hotel-tab"><i class="globe icon"></i>Aялал</a> -->
+						<a href="https://www.sixt.com/php/reservation" target="_blance" class="item"><i class="car icon"></i>Машин түрээс</a>
+						<a href="blog.html" class="item tab-travel"><i class="plane icon"></i>Аялах сэдэл</a>
+						<!-- <a class="item" data-tab="travel" class="hotel-tab"><i class="map icon"></i>Аялах сэдэл</a>  -->
+					</div>
+					<div class="ui active tab segment" data-tab="hotel">
+						<div class="ui grid stackable search-form">
+							<div class="four wide column">
+								<div class="local example">
+									<div class="ui search">
+										<div class="ui fluid left icon input">
+											<input class="prompt" type="text" placeholder="Ulaanbaatar">
+											<i class="marker icon"></i>
+										</div>
+										<div class="results"></div>
+									</div>
+								</div>
+							</div>
+							<div class="four wide column">
+								<div class="ui page stackable">
+									<form class="ui form">
+										<div class="ui fluid left icon input">
+											<input type="text" name="start" id="reservation" placeholder="mm/dd/yyyy - mm/dd/yyyy"value=""/>
+											<i class="calendar icon"></i>
+										</div>
+									</form>	
+								</div>
+							</div>
+							<div class="three wide column select-room">
+								<select class="ui fluid search dropdown">
+									<option value="1">1 өрөө</option>
+									<option value="2">2 өрөө</option>
+									<option value="3">3 өрөө</option>
+									<option value="4">4 өрөө</option>
+									<option value="5">5 өрөө</option>
+									<option value="6">6 өрөө</option>
+									<option value="7">7 өрөө</option>
+									<option value="8">8 өрөө</option>
+									<option value="9">9 өрөө</option>
+									<option value="10">10 өрөө</option>
+									<option value="11">11 өрөө</option>
+									<option value="12">12 өрөө</option>
+									<option value="13">13 өрөө</option>
+									<option value="14">14 өрөө</option>
+								</select>
+							</div>
+							<div class="three wide column select-room">
+								<select class="ui fluid search dropdown">
+									<option value="1">1 хүн</option>
+									<option value="2">2 хүн</option>
+									<option value="3">3 хүн</option>
+									<option value="4">4 хүн</option>
+									<option value="5">5 хүн</option>
+									<option value="6">6 хүн</option>
+									<option value="7">7 хүн</option>
+									<option value="8">8 хүн</option>
+									<option value="9">9 хүн</option>
+									<option value="10">10 хүн</option>
+									<option value="11">11 хүн</option>
+									<option value="12">12 хүн</option>
+									<option value="13">13 хүн</option>
+									<option value="14">14 хүн</option>
+								</select>
+							</div>
+							<div class="two wide search-btn column">
+								<div class="fluid ui red button" id="search">
+									хайх
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ui tab segment" data-tab="fly">
+						FLY
+					</div>
+					<div class="ui tab segment" data-tab="travel">
+						aylah sedel
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="cd-hero">
+			<ul class="cd-hero-slider autoplay">
+				<li class="selected">
+					<div class="cd-full-width">
+						<h2>Илүү хялбар бас найдвартай</h2>
+						<p>Бид үйлчлүүлэгчдийн <strong>туршлага</strong> дээр үндэслэн таны хэрэгцээнд төгс зохицох зочид буудлыг дэлхийн <strong>сая</strong> гаруй зочид буудлаас шүүж танд санал болгоно. Та эх хэл дээрээ сонголтоо хийж, аяллын зөвөлгөөг авсанаар учирч болох олон <strong>эрсдлээс</strong> сэргийлэх боломжтой.</p>
+						
+					</div>
+				</li>
+				<li>
+					<div class="cd-full-width">
+						<h2>Мэргэжлийн баг таны өмнөөс сонгож өгнө</h2>
+						<p><strong>3 жилийн</strong> туршлагатай зөвлөх баг тантай буудлаа захиалахаас эхлээд буудалаасаа гарах хүртэл хамт байх болно. Таны <strong>цаг</strong> болон энергийг хэмнэнэ. Бид тухайн зочид буудлаас гэрээний дагуу хувь авах замаар орлого олдог учраас танаас ямар нэгэн <strong>нэмэлт төлбөр шимтгэл авахгүй,</strong> үнэ төлбөргүй үйлчилгээ юм. </p>
+					</div>
+					
+				</li>
+				<li>
+					
+					<div class="cd-full-width">
+						<h2>Нэмэлт  төлбөр, хураамжгүй</h2>
+						<p>Бид тухайн зочид буудлаас гэрээний дагуу хувь авах замаар орлого олдог учраас танаас ямар нэгэн <strong>нэмэлт төлбөр шимтгэл авахгүй,</strong> үнэ төлбөргүй үйлчилгээ юм. </p>
+					</div>
+					
+				</li>
+				<li class="cd-bg-video">
+					<div class="cd-full-width">
+						<h2>Очихдоо төлбөрөө төл</h2>
+						<p>Буудал захиалах үед танаас ямар нэгэн <strong>төлбөр хураамж, урьдчилгаа авахгүй,</strong> та буудлын төлбөрөө очихдоо ресепшн дээр төлөх боломжтой. </p>
+						
+					</div>
+				</li>
+				<li>
+					<div class="cd-full-width">
+						<h2>Хямдралтай буудлууд Өргөн сонголт</h2>
+						<p><strong>Айхотел ХХК</strong> нь олон улсын зочид буудал захиалгын номер нэг вэб сайт болох <strong>booking.com</strong> сайтын албан ёсны түнш бөгөөд тус сайтын <strong>1 сая гаруй зочид буудлыг</strong> танд санал болгож байна.
+						Таны хүссэн байрлалд, чанартай үйлчилгээтэй, тав тухтай буудлуудаас <strong>хямдрал зарласан буудлуудыг</strong> тухай бүр олж санал болгох боломжтой. </p>
+					</div>
+				</li>
+			</ul>
+			<div class="cd-slider-nav">
+				<nav>
+					<span class="cd-marker item-1"></span>
+					
+					<ul>
+						<li class="selected"><a href="#0"><img src="img/13.png"><label>Хялбар найдвартай </label></a></li>
+						<li><a href="#0"><img src="img/5.png"><label>Мэргэжлийн <br>баг</label></a></li>
+						<li><a href="#0"><img src="img/3.png"><label>Нэмэлт төлбөргүй</label></a></li>
+						<li><a href="#0"><img src="img/8.png"><label>Очоод <br>төл</label></a></li>
+						<li><a href="#0"><img src="img/9.png"><label>Өргөн <br>сонголт</label></a></li>
+					</ul>
+				</nav>
+			</div>
+		</section>
+		<div class="admin-login">
+			<div class="ui container">
+				<div class="page-title">
+					<div id="ihotel" class="ui stackable container ">
+						<div class="sixteen wide center aligned column">
+							<h4 id="contact">Удирдлагын системд нэвтрэх</h4>
+						</div>
+					</div>
+				</div>
+				<div class="ui stackable grid">
+					<div class="three column row">
+						
+						<div class="center aligned column">
+							<div class="ui segment ">
+								<div class="content">
+									<img class="ui tiny centered image" src="img/14.png">
+								</div>
+								<div class="content">
+									<h4 class="ui sub header">Буудал нэмэх</h4>
+								</div>
+								<div class="extra content">
+									<button class="ui button">Нэвтрэх</button>
+								</div>
+							</div>
+						</div>
+						<div class="center aligned column">
+							<div class="ui segment ">
+								<div class="content">
+									<img class="ui tiny centered image" src="img/room.png">
+								</div>
+								<div class="content">
+									<h4 class="ui sub header">Өрөөний удирдлагын систем</h4>
+								</div>
+								<div class="extra content">
+									<button class="ui button">Нэвтрэх</button>
+								</div>
+							</div>
+						</div>
+						<div class="center aligned column">
+							<div class="ui segment ">
+								<div class="content">
+									<img class="ui tiny centered image" src="img/hotel.png">
+								</div>
+								<div class="content">
+									<h4 class="ui sub header">Зочид буудалын систем</h4>
+								</div>
+								<div class="extra content">
+									<button class="ui button">Нэвтрэх</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="special-content">
+			<div class="ui container">
+				<div class="ui stackable grid">
+					<div class="three column row">
+						<div class="column">
+							<h4 class="ui centered header"><i class="ui map icon"></i>Аялах сэдэл</h4>
+							<div class="ui raised link cards">
+								<div class="card">
+									<div class="blurring dimmable image">
+										<div class="ui inverted dimmer">
+											<div class="content">
+												<div class="center">
+													<div class="ui primary button">Дэлгэрэнгүй</div>
+												</div>
+											</div>
+										</div>
+										<img src="img/news.jpg">
+									</div>
+									<div class="content footer-news">
+										<a class="header">Зочид буудлуудыг захиалгын нэгдсэн системд хамруулна</a>
+										<div class="meta">
+											<span class="date"><i class="ui calendar icon"></i>2016-11-11</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<h4 class="ui centered header"><i class="ui globe icon"></i>Улс орнууд</h4>
+							<div class="ui raised link cards">
+								<div class="card">
+									<div class="blurring dimmable image">
+										<div class="ui inverted dimmer">
+											<div class="content">
+												<div class="center">
+													<div class="ui primary button">Дэлгэрэнгүй</div>
+												</div>
+											</div>
+										</div>
+										<img src="img/country.jpg">
+									</div>
+									<div class="content footer-news">
+										<a class="header">Монгол улс</a>
+										<div class="meta">
+											<span class="date"><i class="ui calendar icon"></i>2016-11-11</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<h4 class="ui centered header"><i class="ui tags icon"></i>Хямдрал</h4>
+							<div class="ui raised link cards">
+								<div class="card">
+									<div class="blurring dimmable image">
+										<div class="ui inverted dimmer">
+											<div class="content">
+												<div class="center">
+													<div class="ui primary button">Дэлгэрэнгүй</div>
+												</div>
+											</div>
+										</div>
+										<div class="ui fluid image">
+											<div class="ui red right ribbon label">
+												164,000₮
+											</div>
+											<img src="img/hotel.jpg">
+										</div>
+										
+									</div>
+									<div class="content footer-news">
+										<a class="header">Хүннү зочид буудал <i class="ui star icon"></i><i class="ui star icon"></i><i class="ui star icon"></i></a>
+										Сүхбаатар дүүрэг, 11-р хороо, Их тойруу-13, 100 айл
+										<div class="meta">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="people-say">
+			<div class="ui container">
+				<div class="ui two column centered stackable grid">
+					<div class="column">
+						<section class="slider">
+							<div class="flexslider">
+								<ul class="slides">
+									<li>
+										
+										<article>
+											<div id="owl">
+												<div class="column row">
+													<div class="large-12 columns testimonial">
+														<div class="quote">
+															<p>
+															Би хурдан шуурхай, найрсаг үйлчигээтэй Айхотел компаниар үйлчлүүлэх бүртээ сэтгэл хангалуун байдаг. Мэргэжлийн баг нэмэлт төлбөргүйгээр зочид буудлыг минь захиалж өгч, очих гэж буй орны талаар зөвлөмж өгдөг нь аюулгүй аялах итгэл төрүүлдэг</p>
+														</div>
+														<div class="student">
+															<div class="photo round-image"><img class="ui medium circular image" src="img/people1.jpg"> </div>
+															<p>Т. Батцэцэг</p>
+															<p>Мисс</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</article>
+									</li>
+									<li>
+										<article>
+											<div id="owl">
+												<div class="column row">
+													<div class="large-12 columns testimonial">
+														<div class="quote">
+															<p>Айхотел компани бол хөрөнгө оруулалт босгоод үйл ажиллагаагаа бодитой эрхлээд явж байгаа Монголын шилдэг технологийн гарааны бизнес компаниудын нэг яахын аргагүй мөн билээ.</p>
+														</div>
+														<div class="student">
+															<div class="photo round-image"><img class="ui medium circular image" src="img/people3.jpg">  </div>
+															<p>Д. Бат-октябрь</p>
+															<p>Techstars компанийн Зүүн Өмнөд Ази хариуцсан захирал </p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</article>
+									</li>
+									<li>
+										<article>
+											<div id="owl">
+												<div class="column row">
+													<div class="large-12 columns testimonial">
+														<div class="quote">
+															<p>Гадаад хэргийн яам нь Айхотел компанитай хамтран Ази-Европын дээд хэмжээний 11-дэх уулзалтын зочид төлөөлөгчдийн зочид буудлын захиалгыг ажлыг амжилттай зохион байгуулсан . Хийж буй ажилдаа хариуцлагатай мэргэжлийн баг хамт олонтой ажиллах таатай байлаа.</p>
+														</div>
+														<div class="student">
+															<div class="photo round-image"><img class="ui medium circular image" src="img/people2.jpg"> </div>
+															<p>Don Know</p>
+															<p>TECHSTARS КОМПАНИЙН ЗҮҮН ӨМНӨД АЗИ ХАРИУЦСАН ЗАХИРАЛ</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</article>
+									</li>
+									
+									
+								</ul>
+							</div>
+							
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}
+{% block scripting %}
+{{parent()}}
+{% endblock %}

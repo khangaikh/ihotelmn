@@ -266,7 +266,6 @@
         $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
             todayHighlight: true
         });
-
         $("a[name=featured]").on("click", function(event) {
             event.preventDefault();
             var curId = $(this).attr("hotelid");
@@ -279,15 +278,12 @@
             var url = "index.php?city=" + curId;
             window.location.replace(url);
         });
-
         $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
         $('.input-daterange input[name="end"]').datepicker('setDate', '+5d');
-
         $('input.time-pick').timepicker({
             minuteStep: 15,
             showInpunts: false
         })
-
         $('input.date-pick-years').datepicker({
             startView: 2
         });

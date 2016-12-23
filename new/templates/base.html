@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="img/favicon.ico">
+		<link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,300,300italic,100,100italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/semantic.css">
+		<link rel="stylesheet" href="css/semantic.min.css">
+		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker.css" />
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/responsive.css">
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/semantic.min.js"></script>
+		<script type="text/javascript" src="js/moment.js"></script>
+		<script type="text/javascript" src="js/daterangepicker.js"></script>
+		<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+		<title>{{title}}</title>
+	</head>
+	<body>
+		
+		<header>
+			<div class="ui container">
+				<div class="cd-logo"><a href="index.php"><img src="img/logo-white.png" alt="Logo"></a></div>
+				<div class="important-word"><i class="spinner loading icon"></i>Эд хөрөнгийг бус дурсамжийг цуглуул</div>
+				
+				<div class="dollar-exchange">
+					<div class="ui dropdown dollar-exch">
+						MNT
+						<div class="menu">
+							
+							<div class="item exchange">USA $</div>
+							<div class="item exchange">GBP £</div>
+							<div class="item exchange">JPN ¥</div>
+							<div class="item exchange">AUD $</div>
+							<div class="item exchange">CHN </div>
+							
+						</div>
+					</div>
+				</div>
+				<nav class="main-nav cd-main-nav-wrapper">
+					<ul class="cd-main-nav">
+						<li><a class="cd-signin" href="#0"><i class="user icon"></i>Нэвтрэх</a></li>
+						<!--<li><a class="cd-signup" href="#0">Бүртгүүлэх</a></li>-->
+						<li>
+							<a href="#0" class="cd-subnav-trigger"><span>Булан</span></a>
+							<ul>
+								<li class="go-back"><a href="#0">Буцах</a></li>
+								<li><a href="#0">Улс орнууд</a></li>
+								<li><a href="#0">Аялах сэдэл</a></li>
+								<li><a href="#0">Түгээмэл асуултууд</a></li>
+								<li><a href="#0">Үйлчилгээний нөхцөл</a></li>
+								<li><a href="#0" class="placeholder">Placeholder</a></li>
+							</ul>
+						</li>
+						<li class="lang-switcher"><a href="#"><img src="img/eng.png"></a></li>
+					</ul>
+				</nav>
+				<a href="#0" class="cd-nav-trigger"><span></span></a>
+			</div>
+		</header>
+
+		{% block content %}
+
+		{% endblock %}
+		
+		
+		<div class="ui inverted vertical footer segment">
+			<div class="ui center aligned container">
+				<div class="ui stackable divided grid">
+					<div class="five wide column">
+						<h4 class="ui inverted header">Үндсэн цэс</h4>
+						<div class="ui inverted link list">
+							<a href="#" class="item">Улс орнууд</a>
+							<a href="#" class="item">Аялах сэдэл</a>
+							<a href="#" class="item">Түгээмэл асуултууд</a>
+							<a href="#" class="item">Үйлчилгээний нөхцөл</a>
+						</div>
+					</div>
+					<div class="six wide column footer-menu">
+						<h4 class="ui inverted header">Бидэнтэй хамтрах</h4>
+						<div class="ui inverted link list">
+							<a href="#" class="item">Буудал нэмэх</a>
+							<a href="#" class="item">Өрөөний удирдлагын систем</a>
+							<a href="#" class="item">Гэрээт борлуулагч</a>
+							<a href="#" class="item">Групп захиалга</a>
+						</div>
+					</div>
+					<div class="five wide column footer-menu">
+						<h4 class="ui inverted header">Бидний тухай</h4>
+						<div class="ui inverted link list">
+							<a href="#" class="item">iHotel гэж юу вэ?</a>
+							<a href="#" class="item">Бидний давуу тал</a>
+							<a href="#" class="item">Бид хэн бэ?</a>
+							<a href="#" class="item">Холбоо барих</a>
+						</div>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+			</div>
+			<div class="copyright">
+				<div class="ui center aligned stackable container">
+					<div class="ui stackable grid">
+						<div class="three column row">
+							<div class="column"></div>
+							<div class="column"><h5>© copyright 2016 www.iHotel.mn - <a href="#">Айхотел ххк</a></h5></div>
+							<div class="column">
+								
+								<ul class="social-link">
+									<li><a><i class="icon facebook"></i></a></li>
+									<li><a><i class="icon twitter"></i></a></li>
+									<li><a><i class="icon google plus"></i></a></li>
+									<li><a><i class="icon linkedin"></i></a></li>
+									<li><a><i class="icon instagram"></i></a></li>
+								</ul>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- login heseg -->
+		
+		<div class="cd-user-modal">
+			<div class="cd-user-modal-container">
+				<ul class="cd-switcher">
+					<li><a href="#0">Нэтврэх</a></li>
+					<li><a href="#0">Бүртгүүлэх</a></li>
+				</ul>
+				<div id="cd-login">
+					<form class="ui form">
+						<div class="field">
+							<input type="text" name="first-name" placeholder="Имэйл">
+						</div>
+						<div class="field">
+							
+							<input type="password" name="last-name" placeholder="Нууц үг">
+						</div>
+						<div class="field">
+							<div class="ui checkbox">
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label>Намайг сануулах</label>
+							</div>
+						</div>
+						<div class="field">
+							<button class="ui default fluid button" type="submit">НЭВТРЭХ</button>
+						</div>
+						<div class="field">
+							<button class="ui fluid facebook button"><i class="facebook icon"></i>Facebook</button>
+						</div>
+						
+						<button class="ui fluid google plus button"><i class="google plus icon"></i>Google Plus</button>
+						
+						<p class="cd-form-bottom-message"><a href="#0">Нууц үгээ мартсан уу?</a></p>
+					</form>
+				</div>
+				<div id="cd-signup">
+					<form class="ui form">
+						<div class="field">
+							<input type="text" name="first-name" placeholder="Имэйл">
+						</div>
+						<div class="field">
+							<input type="text" name="first-name" placeholder="Имэйл">
+						</div>
+						<div class="field">
+							<input type="password" name="last-name" placeholder="Нууц үг">
+						</div>
+						<div class="field">
+							<div class="ui checkbox">
+								<input type="checkbox" tabindex="0" class="hidden">
+								<label> Би зөвшөөрч байна!</label>
+							</div>
+						</div>
+						<button class="ui fluid button" type="submit">БҮРТГҮҮЛЭХ</button>
+						<p><a href="#">Манай сайтны дүрэмтэй танилцан уу!!!</a></p>
+					</form>
+				</div>
+				<div id="cd-reset-password">
+					<p class="ui center aligned container">Та нууц үгээ мартсан уу? Та манай сайтанд бүртгүүлсэн бүртгэлтэй имэйл хаягаа оруулна уу!</p>
+					<form class="ui form">
+						<div class="field">
+							
+							<input type="text" name="first-name" placeholder="Имэйл">
+						</div>
+						<button class="ui fluid button" type="submit">Нууц үг илгээх</button>
+						<p class="cd-form-bottom-message"><a href="#0">Буцах</a></p>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- end login -->
+		{% block scripting %}
+			<script src="js/modernizr.js"></script>
+			<script type="text/javascript" src="js/components/popup.js"></script>
+			<script type="text/javascript" src="js/components/dropdown.js"></script>
+			<script type="text/javascript" src="js/components/transition.js"></script>
+			<script src="js/iframe-content.js"></script>
+			<script src="js/main.js"></script>
+			<script src="js/responsiveslides.min.js"></script>
+			<script src="js/jquery.flexslider.js"></script>
+			<script>
+				var content = [
+					{ title: 'Andorra' },
+					{ title: 'United Arab Emirates' },
+					{ title: 'Afghanistan' },
+					{ title: 'Antigua' },
+					{ title: 'Anguilla' },
+					{ title: 'Albania' },
+					{ title: 'Armenia' },
+					{ title: 'Netherlands Antilles' },
+					{ title: 'Angola' },
+					{ title: 'Argentina' },
+					{ title: 'American Samoa' },
+					{ title: 'Austria' },
+					{ title: 'Australia' },
+					{ title: 'Aruba' },
+					{ title: 'Aland Islands' },
+					{ title: 'Azerbaijan' },
+					{ title: 'Bosnia' },
+					{ title: 'Barbados' },
+					{ title: 'Bangladesh' },
+					{ title: 'Belgium' },
+					{ title: 'Burkina Faso' },
+					{ title: 'Bulgaria' },
+					{ title: 'Bahrain' },
+					{ title: 'Burundi' }
+					];
+			</script>
+			<script>
+				$(document).ready(function() {
+					$(".rslides").responsiveSlides();
+					$('#context1 .menu .item').tab({
+						context: $('#context1')
+					});
+
+					$('#context2 .menu .item').tab({
+						context: 'parent'
+					});
+					$('.special.cards .image').dimmer({on: 'hover'});
+					$('.ui.checkbox').checkbox();
+					$('.ui.accordion').accordion();
+					$('.clear.example .button').on('click', function() {
+						$('.clear.example .ui.dropdown').dropdown('clear');
+					});
+
+					$('#search').on('click', function(event) {
+						
+						event.preventDefault();
+			            var curId = $(this).attr("hotelid");
+			            var url = "index.php?start=2017-01-23&end=2017-06-01&location=Ulaanbaatar&persons=1&guests=1";
+			            window.location.replace(url);
+					});
+
+					$('.ui.dropdown').dropdown({on: 'click'});
+					$('.clear.example .button').on('click', function() {
+						$('.clear.example .ui.dropdown')
+						.dropdown('clear');
+					});
+					$('.ui.search').search({source: content});
+					$('#reservation').daterangepicker({
+						"autoApply": true,
+						"showCustomRangeLabel": true,
+						"alwaysShowCalendars": true,
+						"startDate": "11/12/2016",
+						"endDate": "11/18/2016",
+						"opens": "center"
+					}, function(start, end, label) {
+						console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+					});
+				});
+			</script>
+		{% endblock %}
+		
+	</body>
+</html>
