@@ -264,11 +264,9 @@
     {{parent()}}
     <script type="text/javascript" src="js/infobubble.js" charset="utf-8"></script>
     <script type="text/javascript">
-
     var checkedValues1; var checkedValues2; var checkedValues3; var checkedValues4; var checkedValues5; var checkedValues6; var checkedValues7;
     var values1; var values2; var values3; var values4; var values5; var values6; var values7;
     var keyup = false; var loadSkip = 0; var checkSkip = true; var results = []; var max = {{max}}; var min = {{ min }};
-
     {% for res in results %}
         {% if res.geolocation %}
             results.push({lat: {{res.geolocation.latitude}}, lng: {{res.geolocation.longitude}}, id: '{{res.objectId}}', avg: '{{res.min_rate}}'});
