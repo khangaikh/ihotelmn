@@ -1178,9 +1178,11 @@ $(document).ready(function(){
         $("#cover_photo_upload_form").parsley().validate();
         validateFront();
         if($("#create_photo_upload_form").parsley().isValid() && $("#cover_photo_upload_form").parsley().isValid() ){
+            
             var hotel_images = $('img[name="hotel-images"]').map(function() {return $(this).attr('src');}).get();
             var cover_images = $('img[name="cover-images"]').map(function() {return $(this).attr('src');}).get();
             var $this = $(this);
+            
             console.log(cover_images);
             console.log(hotel_images);
 
