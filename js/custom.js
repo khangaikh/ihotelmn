@@ -1182,6 +1182,7 @@ $(document).ready(function(){
             var cover_images = $('img[name="cover-images"]').map(function() {return $(this).attr('src');}).get();
             var $this = $(this);
             console.log(cover_images);
+            console.log(hotel_images);
 
             $this.append('<div id="loading" style="position:absolute; top:5px; left:20px" ></div>');
             $this.addClass('disabled');
