@@ -6,6 +6,7 @@
     use Parse\ParseQuery;
     use Parse\ParseUser;
     session_start();
+    date_default_timezone_set('America/New_York');
     Twig_Autoloader::register();
     $loader = new Twig_Loader_Filesystem('templates');
     $twig = new Twig_Environment($loader, array(
@@ -87,30 +88,52 @@
             $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
             $query->equalTo("asem",1);
+            $query->equalTo("hq",0);
+            $query->descending("stars");
+            $query->equalTo("city",'Ulaanbaatar');
             if($user->get('meeting_type')==10){
                 $query->equalTo("is_journalist",1);
             }
             if($user->get('meeting_type')==9){
                 $query->notEqualTo("is_journalist",1);
             }
-            $query->descending("stars");
-            $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
-            $count = $query->count();
-            $template = $twig->loadTemplate('asem_list.html');
+
+            $hq_query = new ParseQuery("hotel");
+            $hq_query->equalTo("type","Hotel");
+            $hq_query->equalTo("status",1);
+            $hq_query->equalTo("hq",1);
+            $hq_query->equalTo("asem",1);
+            $hq_query->descending("hq_star");
+            $hq_query->equalTo("city",'Ulaanbaatar');
+            if($user->get('meeting_type')==10){
+                $hq_query->equalTo("is_journalist",1);
+            }
+            if($user->get('meeting_type')==9){
+                $hq_query->notEqualTo("is_journalist",1);
+            }
+            $hq_results = $hq_query->find();
+
+            $query = new ParseQuery("hotel");
+            $query->equalTo("type","Hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("asem",1);
+
             $query->ascending("min_rate");
             $e = $query->first();
             $min = $e->get('min_rate'); 
             $query->descending("min_rate");
             $e = $query->first();
             $max = $e->get('min_rate'); 
+          
+            $template = $twig->loadTemplate('asem_list.html');
             $date1 = new DateTime();
             $checkin = $date1->format('Y-m-d');
             $date2 = new DateTime();
             $date2->modify('+5 day');
             $checkout = $date2->format('Y-m-d');
             echo $template->render(array('title' => 'JCI ASPAC 2017 ACCOMODATION', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
-                'user' => $user, 'results' =>$results, 'max' => $max, 'min' => $min));
+                'user' => $user, 'results' =>$results, 'hq' => $hq_results, 'max' => $max, 'min' => $min));
         }
         else if(isset($_GET['logout'])){
             session_unset();
@@ -675,24 +698,46 @@
             $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
             $query->equalTo("asem",1);
+            $query->equalTo("hq",0);
             $query->descending("stars");
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
+
+            $hq_query = new ParseQuery("hotel");
+            $hq_query->equalTo("type","Hotel");
+            $hq_query->equalTo("status",1);
+            $hq_query->equalTo("hq",1);
+            $hq_query->equalTo("asem",1);
+            $hq_query->descending("hq_star");
+            $hq_query->equalTo("city",'Ulaanbaatar');
+            $hq_results = $hq_query->find();
+
+            $query->descending("stars");
+            $query->equalTo("city",'Ulaanbaatar');
+            $results = $query->find();
+
             $count = $query->count();
-            $template = $twig->loadTemplate('asem_list.html');
+
+            $query = new ParseQuery("hotel");
+            $query->equalTo("type","Hotel");
+            $query->equalTo("status",1);
+            $query->equalTo("asem",1);
+
             $query->ascending("min_rate");
             $e = $query->first();
             $min = $e->get('min_rate'); 
             $query->descending("min_rate");
             $e = $query->first();
             $max = $e->get('min_rate'); 
+            
+            $template = $twig->loadTemplate('asem_list.html');
             $date1 = new DateTime();
             $checkin = $date1->format('Y-m-d');
             $date2 = new DateTime();
             $date2->modify('+5 day');
             $checkout = $date2->format('Y-m-d');
             echo $template->render(array('title' => 'Search', 'nav' => 1, 'start' => $checkin, 'end' => $checkout, 
-               'results' =>$results, 'max' => $max, 'min' => $min));
+               'results' =>$results, 'hq' => $hq_results, 'max' => $max, 'min' => $min));
         }
         else if(isset($_GET['start'])){
             $query = new ParseQuery("hotel");
