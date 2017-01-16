@@ -14,7 +14,7 @@
 
 
      $pickup = $_POST["pickup"];
-     $sim = "";
+     $sim = "empty";
 
      if (isset($_POST["sim"]) ) {
          $sim = $_POST["sim"];
