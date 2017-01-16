@@ -693,7 +693,7 @@
             //render a template
             echo $template->render(array('title' => 'Login'));
         }
-        else if(isset($_GET['asem'])){
+        else if(isset($_GET['aspac'])){
             $query = new ParseQuery("hotel");
             $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
