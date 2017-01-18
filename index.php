@@ -698,7 +698,6 @@
             $query->equalTo("type","Hotel");
             $query->equalTo("status",1);
             $query->equalTo("asem",1);
-            $query->equalTo("hq",0);
             $query->descending("stars");
             $query->equalTo("city",'Ulaanbaatar');
             $results = $query->find();
