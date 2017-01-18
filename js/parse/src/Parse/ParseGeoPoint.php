@@ -2,12 +2,14 @@
 
 namespace Parse;
 
+use Parse\Internal\Encodable;
+
 /**
  * ParseGeoPoint - Representation of a Parse GeoPoint object.
  *
  * @author Fosco Marotto <fjm@fb.com>
  */
-class ParseGeoPoint implements \Parse\Internal\Encodable
+class ParseGeoPoint implements Encodable
 {
     /**
      * The latitude.
@@ -54,8 +56,11 @@ class ParseGeoPoint implements \Parse\Internal\Encodable
      */
     public function setLatitude($lat)
     {
+        if (is_numeric($lat) && !is_float($lat)) {
+            $lat = (float)$lat;    
+        }      
         if ($lat > 90.0 || $lat < -90.0) {
-            throw new ParseException("Latitude must be within range [-90.0, 90.0]");
+            throw new ParseException('Latitude must be within range [-90.0, 90.0]');
         }
         $this->latitude = $lat;
     }
@@ -79,9 +84,12 @@ class ParseGeoPoint implements \Parse\Internal\Encodable
      */
     public function setLongitude($lon)
     {
+        if (is_numeric($lon) && !is_float($lon)) {
+            $lon = (float)$lon;    
+        }      
         if ($lon > 180.0 || $lon < -180.0) {
             throw new ParseException(
-                "Longitude must be within range [-180.0, 180.0]"
+                'Longitude must be within range [-180.0, 180.0]'
             );
         }
         $this->longitude = $lon;
