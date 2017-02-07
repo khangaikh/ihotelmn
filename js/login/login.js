@@ -12,6 +12,7 @@ $('#login').click(function(){
         g_recaptcha_response: $('#recaptcha1').val()
     },
     function (result) {
+        console.log(result);
         if(result==1){
             window.location.replace("index.php");
         }
