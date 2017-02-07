@@ -9,10 +9,13 @@
 
     session_start();
 
-    $app_id = 'j13CpiqJOwsLbvpyAidYXqW4JcTn0cGZqeCGcd56';
-    $rest_key = '8oxWBZ7LHEY9Zarmv4AtPYhIgJr6UQiUFHX31C8z';
-    $master_key = '0SRUYzAOtx5nf98Ubupi0BaGpavysHdIC4PdLrCJ';
-    ParseClient::initialize( $app_id, $rest_key, $master_key );
+     ParseClient::initialize(
+        'j13CpiqJOwsLbvpyAidYXqW4JcTn0cGZqeCGcd56',
+        '8oxWBZ7LHEY9Zarmv4AtPYhIgJr6UQiUFHX31C8z',
+        '0SRUYzAOtx5nf98Ubupi0BaGpavysHdIC4PdLrCJ'
+    );
+    ParseClient::setServerURL('https://pg-app-1ex789tzvc1jldehvv05hbsqx7q9dh.scalabl.cloud', '1');
+    
     $storage = new ParseSessionStorage();
     ParseClient::setStorage($storage);
     
