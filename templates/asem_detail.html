@@ -1,3 +1,4 @@
+
 {% extends "asem.html" %}
 {% block content %}
     <input type="hidden" value="{{start}}" id="start_3" />
@@ -76,6 +77,11 @@
                             </div>
                             <p style="text-align: justify;">{{hotel.long_desc}}
                             </p>
+                            {% if hotel.cancelation == 1 %}
+                                <a href="https://ihotel.mn/Policy_1.pdf"> Download policy</a>
+                            {%else%}
+                                <a href="https://ihotel.mn/Policy_2.pdf"> Download policy</a>
+                            {%%endif}
                         </div>
                         <div class="gap gap-small"></div>
                         <div id="map-canvas1" style="height:200px; margin-left:10px"></div>
