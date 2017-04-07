@@ -35,7 +35,7 @@
                 <td>{{order.start}}<i class="fa fa-long-arrow-right"></i>{{order.end}}</td>
                 <td>{{order.total}}</td>
 
-                <td class="text-center">{%if order.status==-1%} Банкны хяналтанд <a name="{{order.objectId}}" class="btn btn-default btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Цуцлах</a> {%else%} Батлагдсан{%endif%}
+                <td class="text-center">{%if order.status==-1%} Банкны хяналтанд <a name="{{order.objectId}}" class="btn btn-default btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Цуцлах</a> {%elseif order.status==-3%} Цуцлагдсан {%else%} Батлагдсан{%endif%}
                 </td>
             </tr>
             {% endfor %}
