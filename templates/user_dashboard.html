@@ -75,7 +75,7 @@
                 <td>{{order.days}}</td>
                 <td>${{order.total}}</td>
 
-                <td class="text-center">{%if order.status==-1%}<strong>Under bank control</strong> <a name="{{order.objectId}}" class="btn btn-primary btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Cancel this booking </a>{%else%} <strong>Confirmed</strong> {%endif%}
+                <td class="text-center">{%if order.status==-1%}<strong>Under bank control</strong> <a name="{{order.objectId}}" class="btn btn-primary btn-sm" href="#" onclick="cancel('{{order.objectId}}')">Cancel this booking </a>{%elseif order.status==-3%} Cancelled {%else%} <strong>Confirmed</strong> {%endif%}
                 </td>
             </tr>
             {% endfor %}
@@ -124,7 +124,7 @@
         <h4>Сайн байна уу</h4>
         <p>Одоогоор та захиалга хийгээгүй байна. <a href="index.php?search">Энд</a> дарж анхны захиалгаа хийнэ үү. Анхны захиалгаа 10% хөнгөлөлттэй үнээр хийгээрэй.</p>
     {%else%} 
-        <h4>Greeting ASEM 2016 guest</h4>
+        <h4>Greeting ASPAC 2017 guest</h4>
         {% if start %}
         <h5>Payment due reservations</h5>
         <table class="table table-bordered table-striped table-booking-history">
@@ -151,7 +151,7 @@
                     {%endif%}
                 </td>
                 <td class="booking-history-title">{{hotel.name}}</td>
-                <td>Ulaanbaatar, Mongolia (ASEM 11)</td>
+                <td>Ulaanbaatar, Mongolia (ASPAC)</td>
                 <td>Just now</td>
                 <td>{{start}}<i class="fa fa-long-arrow-right"></i>{{end}}</td>
                 <td>{{total}}</td>
