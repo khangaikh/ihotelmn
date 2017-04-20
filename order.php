@@ -62,6 +62,7 @@
         $user = $orders->get('user');
         $room = $orders->get('room');
         $e['meeting'] = $user->get('meeting_type');
+        $e['phone'] = $user->get('phone');
         $e['email'] = $user->get('email');
         $e['sim'] = $orders->get('sim');
         $e['pickup'] = $orders->get('pickup');

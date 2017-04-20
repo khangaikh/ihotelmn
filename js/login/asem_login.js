@@ -57,6 +57,8 @@ $('#asem_reg').submit(function(e){
     $.post("user.php", {
         email: $('#reg_email').val(),
         username: $('#firstName').val(),    
+        lastname: $('#lastName').val(),
+        phone: $('#telephone').val(),
         password: $('#reg_password').val(),
         location: $('#location :selected').text(),
         asem: 1,

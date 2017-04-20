@@ -21,10 +21,13 @@
     }
     if ($response != null && $response->success || isset($_POST['facebook'])) {
         if (isset($_POST['email'])) {
+
             $email =  $_POST['email'];
             $pass = $_POST['password'];
             $username = $_POST['username'];
             $country = "Mongolia";
+            $lastname = "-";
+            $phone = "-";
 
             if (isset($_POST['location'])) {
                 $country = $_POST['location'];
@@ -33,6 +36,8 @@
             $user = new ParseUser();
             $user->set("username", $email);
             $user->set("name", $username);
+            $user->set("surname", $lastname);
+            $user->set("phone", $phone);
             $user->set("email", $email);
             $user->set("password", $pass);
             $user->set("country", $country);
