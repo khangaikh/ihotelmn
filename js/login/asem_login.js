@@ -54,6 +54,9 @@ $('#asem_reg').submit(function(e){
     var $this = $('#register');
     $this.after('<div id="loading"></div>');
     $this.addClass('disabled');
+    $phone = $('#telephone').val();
+    console.log($phone);
+    
     $.post("user.php", {
         email: $('#reg_email').val(),
         username: $('#firstName').val(),    
