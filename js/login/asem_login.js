@@ -67,7 +67,7 @@ $('#asem_reg').submit(function(e){
     }, function (result) {
         console.log(result);
         if(result==1){
-            $.post("meeting.php", {
+            /*$.post("meeting.php", {
                 section: 8,
                 lastName: $('#lastName').val(),
                 firstName: $('#firstName').val(),
@@ -79,14 +79,11 @@ $('#asem_reg').submit(function(e){
                 arrival_flight: $('#arrival_flight').val(),
                 type: $('#meeting_type').val(),
             }, function (result) {
-                if(result==1){
-                    $('#register-success').fadeIn(500);
-                    $('#asem_reg').hide();
-                    $('#register-success').html('<p>Please check your email for activation. Click on activation link .Then <a href="index.php?asem_login">click here</a> to login. If you having any trouble please call us: +976-88021087</p>');
-                }else{
-                    return false;
-                }
-            });
+                if(result==1){*/
+            $('#register-success').fadeIn(500);
+            $('#asem_reg').hide();
+            $('#register-success').html('<p>Please check your email for activation. Click on activation link .Then <a href="index.php?asem_login">click here</a> to login. If you having any trouble please call us: +976-88021087</p>');
+               
         }
         else if(result==2){
             $('#login-alert2').fadeIn(500);
