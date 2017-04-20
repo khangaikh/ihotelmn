@@ -97,6 +97,11 @@ $('#asem_reg').submit(function(e){
             $('#login-alert2 p').text('Already register an email!');
             grecaptcha.reset(widgetId1);
         }
+        else if(result == 202){
+            $('#login-alert2').fadeIn(500);
+            $('#login-alert2 p').text('Already register an email!');
+            grecaptcha.reset(widgetId1);
+        }
         else{
             $('#login-alert2').fadeIn(500);
             $('#login-alert2 p').text('Please clear your browser history and try again');
