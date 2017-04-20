@@ -31,6 +31,8 @@
 
             if (isset($_POST['location'])) {
                 $country = $_POST['location'];
+                $lastname = $_POST['lastname'];
+                $phone = $_POST['phone'];
             }
 
             $user = new ParseUser();
