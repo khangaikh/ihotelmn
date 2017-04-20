@@ -33,13 +33,14 @@
                 $country = $_POST['location'];
                 $lastname = $_POST['lastname'];
                 $phone = $_POST['phone'];
+                $user->set("surname", $lastname);
+                $user->set("phone", $phone);
             }
 
             $user = new ParseUser();
             $user->set("username", $email);
             $user->set("name", $username);
-            $user->set("surname", $lastname);
-            $user->set("phone", $phone);
+            
             $user->set("email", $email);
             $user->set("password", $pass);
             $user->set("country", $country);
